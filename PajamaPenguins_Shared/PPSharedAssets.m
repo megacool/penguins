@@ -37,7 +37,7 @@
         
         //Penguins
         sPenguinBlackTextures = [SKTextureAtlas atlasNamed:@"penguin_black"];
-
+        
         //Misc.
         sFingerSprite = [SKTexture loadPixelTexture:[atlas textureNamed:@"finger_sprite"]];
         sFingerSpriteEffect = [SKTexture loadPixelTexture:[atlas textureNamed:@"finger_sprite_effect"]];

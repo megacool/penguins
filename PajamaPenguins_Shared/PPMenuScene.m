@@ -11,6 +11,7 @@
 #import "PPSharedAssets.h"
 #import "PPPlayer.h"
 #import "PPSkySprite.h"
+#import "PPWaterSprite.h"
 
 #import "SSKUtils.h"
 
@@ -21,7 +22,6 @@
 #import "SSKParallaxNode.h"
 #import "SSKButtonNode.h"
 #import "SSKGraphicsUtils.h"
-#import "SSKWaterSurfaceNode.h"
 #import "SSKDynamicColorNode.h"
 
 typedef NS_ENUM(NSUInteger, SceneLayer) {
@@ -39,7 +39,8 @@ CGFloat const kPlatformPadding = 50.0;
 @property (nonatomic) SKNode *foregroundNode;
 @property (nonatomic) SKNode *menuNode;
 
-@property (nonatomic) SSKWaterSurfaceNode *waterSurface;
+@property (nonatomic) PPSkySprite *skySprite;
+@property (nonatomic) PPWaterSprite *waterSurface;
 
 @property (nonatomic) SSKParallaxNode *cloudFast;
 @property (nonatomic) SSKParallaxNode *cloudSlow;
@@ -55,17 +56,32 @@ CGFloat const kPlatformPadding = 50.0;
     [self createSceneBackground];
     [self createSceneForeground];
     [self createMenu];
+ 
     [self startAnimations];
     
     [self testStuff];
 }
 
 - (void)testStuff {
+    SKAction *wait = [SKAction waitForDuration:5];
+    SKAction *morning = [self changeToSkyWithType:SkyTypeMorning];
+    SKAction *day = [self changeToSkyWithType:SkyTypeDay];
+    SKAction *afternoon = [self changeToSkyWithType:SkyTypeAfternoon];
+    SKAction *sunset = [self changeToSkyWithType:SkyTypeSunset];
+    SKAction *night = [self changeToSkyWithType:SkyTypeNight];
+    
+    [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[wait,day,wait,afternoon,wait,sunset,wait,night,wait,morning]]]];
+}
+
+- (SKAction*)changeToSkyWithType:(SkyType)skyType {
+    return [SKAction runBlock:^{
+        [self.skySprite setSkyType:skyType];
+    }];
 }
 
 #pragma mark - Scene Construction
 - (void)createSceneBackground {
-    self.backgroundColor = [SKColor backgroundColor];
+    self.backgroundColor = [SKColor whiteColor];
     
     self.backgroundNode = [SKNode node];
     [self.backgroundNode setZPosition:SceneLayerBackground];
@@ -73,8 +89,9 @@ CGFloat const kPlatformPadding = 50.0;
     [self addChild:self.backgroundNode];
 
     //Sky
-    PPSkySprite *sky = [PPSkySprite spriteWithSize:CGSizeMake(self.size.width, self.size.height/2) skyType:SkyTypeDay];
-    [self.backgroundNode addChild:sky];
+    self.skySprite = [PPSkySprite spriteWithSize:CGSizeMake(self.size.width, self.size.height/4 * 3) skyType:SkyTypeMorning];
+    [self.skySprite setPosition:CGPointMake(0, -self.size.height/4)];
+    [self.backgroundNode addChild:self.skySprite];
 
     //Clouds
     self.cloudFast = [self cloudParallaxLayerFast];
@@ -143,21 +160,14 @@ CGFloat const kPlatformPadding = 50.0;
 }
 
 #pragma mark - Nodes
-- (SSKWaterSurfaceNode*)waterNode {
+- (PPWaterSprite*)waterNode {
     CGFloat surfacePadding = 5;
     CGPoint surfaceStart = CGPointMake(-self.size.width/2 - surfacePadding, 0);
     CGPoint surfaceEnd = CGPointMake(self.size.width/2 + surfacePadding, 0);
-    CGSize waterSize = CGSizeMake(self.size.width, self.size.height/2);
-    SKColor *startColor = [SKColor colorWithR:7 g:26 b:95];
-    SKColor *endColor = [SKColor colorWithR:76 g:186 b:255];
-    SKTexture *gradient = [SKTexture textureWithGradientOfSize:waterSize startColor:startColor endColor:endColor direction:GradientDirectionVertical];
-
-    SSKWaterSurfaceNode *waterSurface = [SSKWaterSurfaceNode surfaceWithStartPoint:surfaceStart endPoint:surfaceEnd depth:waterSize.height texture:gradient];
-    [waterSurface setAlpha:0.9];
-    [waterSurface setName:@"waterSurface"];
-    [waterSurface setSplashDamping:.003];
-    [waterSurface setSplashTension:.0025];
-    return waterSurface;
+    
+    PPWaterSprite *waterNode = [PPWaterSprite surfaceWithStartPoint:surfaceStart endPoint:surfaceEnd depth:self.size.height/2];
+    [waterNode setName:@"waterSurface"];
+    return waterNode;
 }
 
 - (SKSpriteNode*)newPlatformIceberg {
@@ -198,7 +208,7 @@ CGFloat const kPlatformPadding = 50.0;
 - (SSKParallaxNode*)cloudParallaxLayerSlow {
     SKTexture *cloudTexture = [[PPSharedAssets sharedCloudAtlas] textureNamed:@"cloud_01"];
     
-    SKSpriteNode *cloudWideHigh = [self cloudNodeWithTexture:cloudTexture alpha:0.1];
+    SKSpriteNode *cloudWideHigh = [self cloudNodeWithTexture:cloudTexture alpha:0.25];
     [cloudWideHigh setPosition:CGPointMake(-self.size.width/5, self.size.height/6)];
     
     SKSpriteNode *cloudWideLow = cloudWideHigh.copy;
@@ -212,7 +222,7 @@ CGFloat const kPlatformPadding = 50.0;
 - (SSKParallaxNode*)cloudParallaxLayerFast {
     SKTexture *cloudTexture = [[PPSharedAssets sharedCloudAtlas] textureNamed:@"cloud_00"];
     
-    SKSpriteNode *cloudTallHigh = [self cloudNodeWithTexture:cloudTexture alpha:0.3];
+    SKSpriteNode *cloudTallHigh = [self cloudNodeWithTexture:cloudTexture alpha:0.4];
     [cloudTallHigh setPosition:CGPointMake(-self.size.width/3, self.size.height/2)];
     
     SKSpriteNode *cloudTallLow = cloudTallHigh.copy;

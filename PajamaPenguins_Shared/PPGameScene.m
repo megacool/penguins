@@ -10,13 +10,13 @@
 #import "PPPlayer.h"
 #import "PPIcebergObstacle.h"
 #import "PPSkySprite.h"
+#import "PPWaterSprite.h"
 
 #import "SKColor+SFAdditions.h"
 #import "UIDevice+SFAdditions.h"
 #import "SSKUtils.h"
 
 #import "SSKProgressBarNode.h"
-#import "SSKWaterSurfaceNode.h"
 #import "SSKDynamicColorNode.h"
 #import "SSKColorNode.h"
 #import "SSKParallaxNode.h"
@@ -37,6 +37,7 @@ typedef enum {
     obstacleLayer,
     foregroundLayer,
     waterSurfaceLayer,
+    bubbleLayer,
     playerLayer,
     hudLayer,
     menuLayer,
@@ -80,7 +81,10 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 @interface PPGameScene()
 @property (nonatomic) GameState gameState;
-@property (nonatomic) SSKWaterSurfaceNode *waterSurface;
+
+@property (nonatomic) PPSkySprite *skySprite;
+@property (nonatomic) PPWaterSprite *waterSurface;
+
 @property (nonatomic) NSMutableArray *obstacleTexturePool;
 @property (nonatomic) SKEmitterNode *snowEmitter;
 
@@ -122,12 +126,14 @@ CGFloat const kParallaxMinSpeed = -20.0;
     self.worldNode = [SSKCameraNode node];
     [self.worldNode setName:@"world"];
     [self addChild:self.worldNode];
-    
+
     //Background color
-    [self.scene setBackgroundColor:[SKColor backgroundColor]];
+    [self setBackgroundColor:[SKColor whiteColor]];
     
     //Sky
-    [self.worldNode addChild:[PPSkySprite spriteWithSize:CGSizeMake(self.size.width * 3, self.size.height * 1.5) skyType:SkyTypeDay]];
+    self.skySprite = [PPSkySprite spriteWithSize:CGSizeMake(self.size.width * 3, self.size.height * 2) skyType:SkyTypeDay];
+    [self.skySprite setPosition:CGPointMake(0, -self.size.height/2)];
+    [self.worldNode addChild:self.skySprite];
 
     //Parallaxing Nodes
 
@@ -142,14 +148,9 @@ CGFloat const kParallaxMinSpeed = -20.0;
     CGPoint surfaceStart = CGPointMake(-self.size.width/2, 0);
     CGPoint surfaceEnd = CGPointMake(self.size.width/kWorldScaleCap, 0);
     
-    self.waterSurface = [SSKWaterSurfaceNode surfaceWithStartPoint:surfaceStart endPoint:surfaceEnd jointWidth:5];
+    self.waterSurface = [PPWaterSprite surfaceWithStartPoint:surfaceStart endPoint:surfaceEnd depth:self.size.height/2];
     [self.waterSurface setName:@"water"];
-    [self.waterSurface setAlpha:.9];
     [self.waterSurface setZPosition:waterSurfaceLayer];
-    [self.waterSurface setBodyWithDepth:self.size.height/2];
-    [self.waterSurface setTexture:[PPSharedAssets sharedWaterGradient]];
-    [self.waterSurface setSplashDamping:.05];
-    [self.waterSurface setSplashTension:.005];
     [self.worldNode addChild:self.waterSurface];
 
     //Player
@@ -160,9 +161,14 @@ CGFloat const kParallaxMinSpeed = -20.0;
     _lastPlayerHeight = player.position.y;
     
     //Player's bubble emitter
+    SKNode *bubbleTarget = [SKNode new];
+    [bubbleTarget setZPosition:bubbleLayer];
+    [self addChild:bubbleTarget];
+    
     SKEmitterNode *playerBubbleEmitter = [PPSharedAssets sharedBubbleEmitter].copy;
     [playerBubbleEmitter setName:@"bubbleEmitter"];
-    [playerBubbleEmitter setZPosition:waterSurfaceLayer];
+    [playerBubbleEmitter setZPosition:self.waterSurface.zPosition + 1];
+    [playerBubbleEmitter setTargetNode:bubbleTarget];
     [self.worldNode addChild:playerBubbleEmitter];
     
     _playerBubbleBirthrate = playerBubbleEmitter.particleBirthRate; //To reset the simulation

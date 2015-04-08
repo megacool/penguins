@@ -9,10 +9,15 @@
 #import <SpriteKit/SpriteKit.h>
 
 typedef NS_ENUM(NSUInteger, SkyType) {
-    SkyTypeDay = 0,
+    SkyTypeMorning = 0,
+    SkyTypeDay,
+    SkyTypeAfternoon,
+    SkyTypeSunset,
+    SkyTypeNight,
 };
 
 @interface PPSkySprite : SKSpriteNode
+
 @property (nonatomic) SkyType skyType;
 
 + (instancetype)spriteWithSize:(CGSize)size skyType:(SkyType)skyType;

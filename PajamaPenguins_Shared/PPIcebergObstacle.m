@@ -33,8 +33,4 @@
     return self;
 }
 
-- (instancetype)initWithImageNamed:(NSString *)name {
-    return [PPIcebergObstacle spriteNodeWithTexture:[SKTexture textureWithImageNamed:name]];
-}
-
 @end
