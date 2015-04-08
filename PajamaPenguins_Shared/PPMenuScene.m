@@ -31,7 +31,7 @@ typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerMenu,
 };
 
-CGFloat const kSplashStrength = -2.5;
+CGFloat const kSplashStrength  = -2.5;
 CGFloat const kPlatformPadding = 50.0;
 
 @interface PPMenuScene()
@@ -63,14 +63,14 @@ CGFloat const kPlatformPadding = 50.0;
 }
 
 - (void)testStuff {
-    SKAction *wait      = [SKAction waitForDuration:5];
-    SKAction *morning   = [self changeToSkyWithType:SkyTypeMorning];
-    SKAction *day       = [self changeToSkyWithType:SkyTypeDay];
-    SKAction *afternoon = [self changeToSkyWithType:SkyTypeAfternoon];
-    SKAction *sunset    = [self changeToSkyWithType:SkyTypeSunset];
-    SKAction *night     = [self changeToSkyWithType:SkyTypeNight];
-
-    [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[wait,day,wait,afternoon,wait,sunset,wait,night,wait,morning]]]];
+//    SKAction *wait      = [SKAction waitForDuration:5];
+//    SKAction *morning   = [self changeToSkyWithType:SkyTypeMorning];
+//    SKAction *day       = [self changeToSkyWithType:SkyTypeDay];
+//    SKAction *afternoon = [self changeToSkyWithType:SkyTypeAfternoon];
+//    SKAction *sunset    = [self changeToSkyWithType:SkyTypeSunset];
+//    SKAction *night     = [self changeToSkyWithType:SkyTypeNight];
+//
+//    [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[wait,day,wait,afternoon,wait,sunset,wait,night,wait,morning]]]];
 }
 
 - (SKAction*)changeToSkyWithType:(SkyType)skyType {
@@ -305,7 +305,7 @@ CGFloat const kPlatformPadding = 50.0;
 - (void)update:(NSTimeInterval)currentTime {
     [super update:currentTime];
     
-    [self.waterSurface update:self.deltaTime];
+//    [self.waterSurface update:self.deltaTime];
     [self.cloudFast update:self.deltaTime];
     [self.cloudSlow update:self.deltaTime];
     [self updateAllPenguins:self.deltaTime];

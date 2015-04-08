@@ -64,8 +64,8 @@
     [gradientFilter setValue:CIEndColor forKey:@"inputColor1"];
     
     CGImageRef cgImageRef = [coreImageContext createCGImage:[gradientFilter outputImage] fromRect:CGRectMake(0, 0, size.width, size.height)];
-    
-    return [SKTexture textureWithCGImage:cgImageRef];
+    UIImage *uiImage = [UIImage imageWithCGImage:cgImageRef];
+    return [SKTexture textureWithImage:uiImage];
 }
 
 #pragma mark - Pixel textures

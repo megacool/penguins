@@ -167,7 +167,7 @@ CGFloat const kDefaultJointWidth = 10.0;
     for (SSKWaterJoint *joint in joints) {
         CGPathAddLineToPoint(path, nil, [joint currentPosition].x, [joint currentPosition].y);
     }
-    
+
     //Only if surface has a body
     if (self.hasDepth) {
         SSKWaterJoint *firstJoint = (SSKWaterJoint*)[joints firstObject];;
@@ -293,5 +293,9 @@ CGFloat const kDefaultJointWidth = 10.0;
         [array addObject:[NSNumber numberWithFloat:0]];
     }
     return array;
+}
+
+- (void)dealloc {
+    self.waterSurface.path = nil;
 }
 @end

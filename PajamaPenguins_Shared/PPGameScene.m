@@ -724,7 +724,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     
     //Water surface
     [self trackPlayerForSplash];
-    [self.waterSurface update:self.deltaTime];
+//    [self.waterSurface update:self.deltaTime];
     
     //Bubbles
     [self trackPlayerForBubbles];
