@@ -63,13 +63,13 @@ CGFloat const kPlatformPadding = 50.0;
 }
 
 - (void)testStuff {
-    SKAction *wait = [SKAction waitForDuration:5];
-    SKAction *morning = [self changeToSkyWithType:SkyTypeMorning];
-    SKAction *day = [self changeToSkyWithType:SkyTypeDay];
+    SKAction *wait      = [SKAction waitForDuration:5];
+    SKAction *morning   = [self changeToSkyWithType:SkyTypeMorning];
+    SKAction *day       = [self changeToSkyWithType:SkyTypeDay];
     SKAction *afternoon = [self changeToSkyWithType:SkyTypeAfternoon];
-    SKAction *sunset = [self changeToSkyWithType:SkyTypeSunset];
-    SKAction *night = [self changeToSkyWithType:SkyTypeNight];
-    
+    SKAction *sunset    = [self changeToSkyWithType:SkyTypeSunset];
+    SKAction *night     = [self changeToSkyWithType:SkyTypeNight];
+
     [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[wait,day,wait,afternoon,wait,sunset,wait,night,wait,morning]]]];
 }
 

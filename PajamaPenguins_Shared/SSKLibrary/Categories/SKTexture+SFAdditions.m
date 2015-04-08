@@ -15,7 +15,7 @@
                               direction:(GradientDirection)direction
 {
     //Define CI context and create CIFilter
-    CIContext *coreImageContext = [CIContext contextWithOptions:nil];
+    CIContext *coreImageContext = [CIContext contextWithOptions:@{kCIContextUseSoftwareRenderer: @(YES)}];
     CIFilter *gradientFilter = [CIFilter filterWithName:@"CILinearGradient"];
     [gradientFilter setDefaults];
 

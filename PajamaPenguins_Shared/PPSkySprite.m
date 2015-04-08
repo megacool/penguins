@@ -43,7 +43,7 @@
     SKTexture *skyTexture;
     SKColor *white = [SKColor whiteColor];
     GradientDirection direction = GradientDirectionVertical;
-    
+
     switch (skyType) {
         case SkyTypeMorning:
             skyTexture = [SKTexture textureWithGradientOfSize:size startColor:white endColor:kColorMorning direction:direction];

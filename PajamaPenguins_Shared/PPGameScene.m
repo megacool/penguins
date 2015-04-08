@@ -45,8 +45,8 @@ typedef enum {
 }Layers;
 
 //Texture Constants
-CGFloat const kLargeTileWidth = 30.0;
-CGFloat const kSmallTileWidth = 15.0;
+CGFloat const kLargeTileWidth  = 30.0;
+CGFloat const kSmallTileWidth  = 15.0;
 CGFloat const kBackgroundAlpha = 0.55;
 
 //Physics Constants
@@ -54,26 +54,26 @@ static const uint32_t playerCategory   = 0x1 << 0;
 static const uint32_t obstacleCategory = 0x1 << 1;
 static const uint32_t edgeCategory     = 0x1 << 2;
 
-CGFloat const kAirGravityStrength = -2.75;
-CGFloat const kWaterGravityStrength = 6;
+CGFloat const kAirGravityStrength      = -2.75;
+CGFloat const kWaterGravityStrength    = 6;
 CGFloat const kGameOverGravityStrength = -9.8;
 
 CGFloat const kObstacleSplashStrength = 10;
-CGFloat const kMaxSplashStrength = 20;
+CGFloat const kMaxSplashStrength      = 20;
 
 //Clamped Constants
 CGFloat const kMaxBreathTimer = 6.0;
-CGFloat const kWorldScaleCap = 0.55;
+CGFloat const kWorldScaleCap  = 0.55;
 
-CGFloat const kPlayerUpperVelocityLimit = 700.0;
-CGFloat const kPlayerLowerAirVelocityLimit = -700.0;
+CGFloat const kPlayerUpperVelocityLimit      = 700.0;
+CGFloat const kPlayerLowerAirVelocityLimit   = -700.0;
 CGFloat const kPlayerLowerWaterVelocityLimit = -550.0;
 
 //Name Constants
 NSString * const kPixelFontName = @"Fipps-Regular";
 
 //Action Constants
-CGFloat const kMoveAndFadeTime = 0.2;
+CGFloat const kMoveAndFadeTime     = 0.2;
 CGFloat const kMoveAndFadeDistance = 20;
 
 //Parallax Constants
@@ -123,6 +123,8 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 - (void)createWorldLayer {
+    
+    
     self.worldNode = [SSKCameraNode node];
     [self.worldNode setName:@"world"];
     [self addChild:self.worldNode];
@@ -143,7 +145,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self.snowEmitter setPosition:CGPointMake(self.size.width/2, self.size.height/2)];
     [self.snowEmitter setName:@"snowEmitter"];
     [self addChild:self.snowEmitter];
-    
+
     //Water Surface
     CGPoint surfaceStart = CGPointMake(-self.size.width/2, 0);
     CGPoint surfaceEnd = CGPointMake(self.size.width/kWorldScaleCap, 0);
