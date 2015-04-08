@@ -305,7 +305,7 @@ CGFloat const kPlatformPadding = 50.0;
 - (void)update:(NSTimeInterval)currentTime {
     [super update:currentTime];
     
-//    [self.waterSurface update:self.deltaTime];
+    [self.waterSurface update:self.deltaTime];
     [self.cloudFast update:self.deltaTime];
     [self.cloudSlow update:self.deltaTime];
     [self updateAllPenguins:self.deltaTime];

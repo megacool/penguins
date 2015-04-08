@@ -10,7 +10,7 @@
 #import "SKTexture+SFAdditions.h"
 #import "SKColor+SFAdditions.h"
 
-#define kStartColor [SKColor colorWithR:0 g:57 b:161]
+#define kStartColor [SKColor colorWithR:0 g:57 b:80]
 #define kEndColor [SKColor colorWithR:0 g:167 b:255]
 
 @implementation PPWaterSprite
