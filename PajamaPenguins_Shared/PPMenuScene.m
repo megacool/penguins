@@ -26,14 +26,17 @@
 
 typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerBackground = 0,
+    SceneLayerClouds,
     SceneLayerForeground,
     SceneLayerMenu,
 };
 
+CGFloat const kSplashStrength = -2.5;
 CGFloat const kPlatformPadding = 50.0;
 
 @interface PPMenuScene()
-@property (nonatomic) SKNode *menuBackgroundNode;
+@property (nonatomic) SKNode *backgroundNode;
+@property (nonatomic) SKNode *foregroundNode;
 @property (nonatomic) SKNode *menuNode;
 
 @property (nonatomic) SSKWaterSurfaceNode *waterSurface;
@@ -50,6 +53,7 @@ CGFloat const kPlatformPadding = 50.0;
 
 - (void)didMoveToView:(SKView *)view {
     [self createSceneBackground];
+    [self createSceneForeground];
     [self createMenu];
     [self startAnimations];
     
@@ -63,37 +67,43 @@ CGFloat const kPlatformPadding = 50.0;
 - (void)createSceneBackground {
     self.backgroundColor = [SKColor backgroundColor];
     
-    self.menuBackgroundNode = [SKNode node];
-    [self.menuBackgroundNode setZPosition:SceneLayerBackground];
-    [self.menuBackgroundNode setName:@"menuBackground"];
-    [self addChild:self.menuBackgroundNode];
+    self.backgroundNode = [SKNode node];
+    [self.backgroundNode setZPosition:SceneLayerBackground];
+    [self.backgroundNode setName:@"menuBackground"];
+    [self addChild:self.backgroundNode];
 
     //Sky
     PPSkySprite *sky = [PPSkySprite spriteWithSize:CGSizeMake(self.size.width, self.size.height/2) skyType:SkyTypeDay];
-    [sky setZPosition:-1];
-    [self.menuBackgroundNode addChild:sky];
-    
+    [self.backgroundNode addChild:sky];
+
     //Clouds
     self.cloudFast = [self cloudParallaxLayerFast];
-    [self.menuBackgroundNode addChild:self.cloudFast];
+    [self.backgroundNode addChild:self.cloudFast];
     
     self.cloudSlow = [self cloudParallaxLayerSlow];
-    [self.menuBackgroundNode addChild:self.cloudSlow];
+    [self.backgroundNode addChild:self.cloudSlow];
     
     //Snow
-    [self.menuBackgroundNode addChild:[self newSnowEmitter]];
+    [self.backgroundNode addChild:[self newSnowEmitter]];
+}
+
+- (void)createSceneForeground {
+    self.foregroundNode = [SKNode new];
+    [self.foregroundNode setZPosition:SceneLayerForeground];
+    [self.foregroundNode setName:@"menuForeground"];
+    [self addChild:self.foregroundNode];
     
     //Iceberg group
     SKNode *platformNode = [SKNode new];
     [platformNode setName:@"platform"];
-    [self.menuBackgroundNode addChild:platformNode];
+    [self.foregroundNode addChild:platformNode];
     
     [platformNode addChild:[self newPlatformIceberg]];
     [platformNode addChild:[self blackPenguin]];
     
     //Water Surface
-    self.waterSurface = [self waterBodyNode];
-    [self.menuBackgroundNode addChild:self.waterSurface];
+    self.waterSurface = [self waterNode];
+    [self.foregroundNode addChild:self.waterSurface];
 }
 
 - (void)createMenu {
@@ -113,13 +123,16 @@ CGFloat const kPlatformPadding = 50.0;
 
 - (void)startAnimations {
     //Water waves
-//    [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[[self waterSurfaceSplash],[SKAction waitForDuration:.5]]]]];
+    SKAction *splashLeft = [self waterSplashAtPosition:CGPointMake(-self.size.width/2, 0)];
+    SKAction *splashRight = [self waterSplashAtPosition:CGPointMake(self.size.width/2, 0)];
+    SKAction *wait = [SKAction waitForDuration:.5];
+    [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[splashLeft,wait,splashRight,wait]]]];
     
     //Pause to prevent frame skip
     [self runAction:[SKAction waitForDuration:.5] completion:^{
 
         //Iceberg float
-        [[self.menuBackgroundNode childNodeWithName:@"platform"] runAction:[SKAction repeatActionForever:[self floatAction]]];
+        [[self.backgroundNode childNodeWithName:@"platform"] runAction:[SKAction repeatActionForever:[self floatAction]]];
         
         //Button move in
         [[self.menuNode childNodeWithName:@"playButton"] runAction:[SKAction moveTo:CGPointMake(0, -self.size.height/4) duration:.75 timingMode:SKActionTimingEaseOut]];
@@ -130,18 +143,17 @@ CGFloat const kPlatformPadding = 50.0;
 }
 
 #pragma mark - Nodes
-- (SSKWaterSurfaceNode*)waterBodyNode {
+- (SSKWaterSurfaceNode*)waterNode {
     CGFloat surfacePadding = 5;
     CGPoint surfaceStart = CGPointMake(-self.size.width/2 - surfacePadding, 0);
     CGPoint surfaceEnd = CGPointMake(self.size.width/2 + surfacePadding, 0);
     CGSize waterSize = CGSizeMake(self.size.width, self.size.height/2);
-    SKColor *startColor = SKColorWithRGB(7, 26, 95);
-    SKColor *endColor = SKColorWithRGB(76, 186, 255);
+    SKColor *startColor = [SKColor colorWithR:7 g:26 b:95];
+    SKColor *endColor = [SKColor colorWithR:76 g:186 b:255];
     SKTexture *gradient = [SKTexture textureWithGradientOfSize:waterSize startColor:startColor endColor:endColor direction:GradientDirectionVertical];
 
     SSKWaterSurfaceNode *waterSurface = [SSKWaterSurfaceNode surfaceWithStartPoint:surfaceStart endPoint:surfaceEnd depth:waterSize.height texture:gradient];
     [waterSurface setAlpha:0.9];
-    [waterSurface setZPosition:SceneLayerForeground];
     [waterSurface setName:@"waterSurface"];
     [waterSurface setSplashDamping:.003];
     [waterSurface setSplashTension:.0025];
@@ -192,7 +204,9 @@ CGFloat const kPlatformPadding = 50.0;
     SKSpriteNode *cloudWideLow = cloudWideHigh.copy;
     [cloudWideLow setPosition:CGPointMake(self.size.width/3, self.size.height/8)];
     
-    return [SSKParallaxNode nodeWithSize:self.size attachedNodes:@[cloudWideHigh, cloudWideLow] moveSpeed:CGPointMake(-7.5, 0)];
+    SSKParallaxNode *layer = [SSKParallaxNode nodeWithSize:self.size attachedNodes:@[cloudWideHigh, cloudWideLow] moveSpeed:CGPointMake(-7.5, 0)];
+    [layer setZPosition:SceneLayerClouds];
+    return layer;
 }
 
 - (SSKParallaxNode*)cloudParallaxLayerFast {
@@ -204,7 +218,9 @@ CGFloat const kPlatformPadding = 50.0;
     SKSpriteNode *cloudTallLow = cloudTallHigh.copy;
     [cloudTallLow setPosition:CGPointMake(self.size.width/4, self.size.height/4)];
     
-    return [SSKParallaxNode nodeWithSize:self.size attachedNodes:@[cloudTallHigh,cloudTallLow] moveSpeed:CGPointMake(-15, 0)];
+    SSKParallaxNode *layer = [SSKParallaxNode nodeWithSize:self.size attachedNodes:@[cloudTallHigh,cloudTallLow] moveSpeed:CGPointMake(-15, 0)];
+    [layer setZPosition:SceneLayerClouds];
+    return layer;
 }
 
 - (SKSpriteNode*)cloudNodeWithTexture:(SKTexture*)texture alpha:(CGFloat)alpha {
@@ -244,10 +260,9 @@ CGFloat const kPlatformPadding = 50.0;
     return [SKAction sequence:@[up,down]];
 }
 
-- (SKAction*)waterSurfaceSplash {
+- (SKAction*)waterSplashAtPosition:(CGPoint)position {
     return [SKAction runBlock:^{
-        [self.waterSurface splash:CGPointMake(self.size.width/2, 0) speed:-5];
-        [self.waterSurface splash:CGPointMake(-self.size.width/2, 0) speed:-5];
+        [self.waterSurface splash:position speed:kSplashStrength];
     }];
 }
 

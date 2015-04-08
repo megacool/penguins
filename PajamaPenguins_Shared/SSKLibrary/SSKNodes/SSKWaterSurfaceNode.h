@@ -10,7 +10,7 @@
 
 @interface SSKWaterSurfaceNode : SKNode
 
-/* 
+/*
  Creates a water surface with a given start point, end point, custom joint width, a body depth, and a body texture.
  */
 + (instancetype)surfaceWithStartPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint jointWidth:(CGFloat)jointWidth depth:(CGFloat)depth texture:(SKTexture*)texture;

@@ -14,7 +14,7 @@
 }
 
 + (SKColor*)backgroundColor {
-    return SKColorWithRGB(172, 213, 206);
+    return [SKColor colorWithR:172 g:213 b:206];
 }
 
 @end

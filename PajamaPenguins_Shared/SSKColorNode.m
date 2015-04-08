@@ -98,8 +98,6 @@ CGFloat const kMaxColorValue = 255.0f;
     
     NSArray *colorRanges = @[[NSNumber numberWithInt:redRange],[NSNumber numberWithInt:greenRange],[NSNumber numberWithInt:blueRange]];
     
-    
-    
     CGFloat minInterval = CGFLOAT_MAX;
     NSNumber *maxRange = 0;
     

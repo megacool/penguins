@@ -226,7 +226,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self addChild:self.gameOverNode];
     
     SKLabelNode *gameOverLabel = [self createNewLabelWithText:@"Game Over" withFontSize:30];
-    [gameOverLabel setFontColor:SKColorWithRGB(150, 5, 5)];
+    [gameOverLabel setFontColor:[SKColor colorWithR:150 g:5 b:5]];
     [gameOverLabel setPosition:CGPointMake(0, self.size.height/4)];
     [self.gameOverNode addChild:gameOverLabel];
     
