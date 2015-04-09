@@ -15,7 +15,14 @@
                               direction:(GradientDirection)direction
 {
     //Define CI context and create CIFilter
-    CIContext *coreImageContext = [CIContext contextWithOptions:@{kCIContextUseSoftwareRenderer: @(YES)}];
+    CIContext *coreImageContext;
+
+#if TARGET_IPHONE_SIMULATOR
+    coreImageContext = [CIContext contextWithOptions:nil];
+#else
+    coreImageContext = [CIContext contextWithOptions:@{kCIContextUseSoftwareRenderer: @(YES)}];
+#endif
+    
     CIFilter *gradientFilter = [CIFilter filterWithName:@"CILinearGradient"];
     [gradientFilter setDefaults];
 

@@ -124,7 +124,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 - (void)createWorldLayer {
     
-    
     self.worldNode = [SSKCameraNode node];
     [self.worldNode setName:@"world"];
     [self addChild:self.worldNode];
