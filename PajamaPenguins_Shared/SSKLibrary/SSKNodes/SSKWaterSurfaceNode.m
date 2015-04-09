@@ -49,7 +49,9 @@ CGFloat const kDefaultJointWidth = 10.0;
 @property (nonatomic) CGFloat bodyDepth;
 @end
 
-@implementation SSKWaterSurfaceNode
+@implementation SSKWaterSurfaceNode {
+    CGPathRef _waterPath;
+}
 
 #pragma mark - Initialize with body texture
 - (instancetype)initWithStartPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint jointWidth:(CGFloat)jointWidth depth:(CGFloat)depth texture:(SKTexture*)texture {
@@ -62,8 +64,9 @@ CGFloat const kDefaultJointWidth = 10.0;
         }
         
         self.waterJoints = [self createSurfacePointsWithStart:startPoint end:endPoint];
+        _waterPath = [self pathFromJoints:self.waterJoints];
         
-        self.waterSurface = [SKShapeNode shapeNodeWithPath:[self pathFromJoints:self.waterJoints]];
+        self.waterSurface = [SKShapeNode shapeNodeWithPath:_waterPath];
         [self.waterSurface setStrokeColor:[UIColor clearColor]];
         [self addChild:self.waterSurface];
         
@@ -241,8 +244,10 @@ CGFloat const kDefaultJointWidth = 10.0;
 }
 
 - (void)updateSurfaceNodes:(NSTimeInterval)dt {
-    [self.waterSurface setPath:nil];
-    [self.waterSurface setPath:[self pathFromJoints:self.waterJoints]];
+    CGPathRelease(_waterPath);
+    _waterPath = [self pathFromJoints:self.waterJoints];
+    
+    [self.waterSurface setPath:_waterPath];
 }
 
 #pragma mark - Setting a texture to the body
