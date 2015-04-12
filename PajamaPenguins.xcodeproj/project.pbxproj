@@ -58,6 +58,10 @@
 		EE8CF0A11ACB885500BFC4A8 /* SKTexture+SFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8CF0A01ACB885500BFC4A8 /* SKTexture+SFAdditions.m */; };
 		EE8ED2261ACB2288007A3F3F /* penguin_black.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EE8ED2251ACB2288007A3F3F /* penguin_black.atlas */; };
 		EE8ED2291ACB2815007A3F3F /* UIDevice+SFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8ED2281ACB2815007A3F3F /* UIDevice+SFAdditions.m */; };
+		EE8F0AAD1AD7325D00CB1CE1 /* PPCloudParallaxSlow.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8F0AAC1AD7325D00CB1CE1 /* PPCloudParallaxSlow.m */; };
+		EE8F0AB11AD7335700CB1CE1 /* PPCloudParallax.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8F0AB01AD7335700CB1CE1 /* PPCloudParallax.m */; };
+		EE8F0AB41AD735BD00CB1CE1 /* PPSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8F0AB31AD735BD00CB1CE1 /* PPSprite.m */; };
+		EE8F0AB71AD73A7600CB1CE1 /* PPCloudParallaxFast.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8F0AB61AD73A7600CB1CE1 /* PPCloudParallaxFast.m */; };
 		EEAE6F971AA665E200215C7E /* WaterGradientBlue-iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = EEAE6F961AA665E200215C7E /* WaterGradientBlue-iphone.png */; };
 		EEAE6F9C1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEAE6F9A1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks */; };
 		EEAE6F9D1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEAE6F9A1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks */; };
@@ -160,6 +164,14 @@
 		EE8ED2251ACB2288007A3F3F /* penguin_black.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = penguin_black.atlas; sourceTree = "<group>"; };
 		EE8ED2271ACB2815007A3F3F /* UIDevice+SFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+SFAdditions.h"; sourceTree = "<group>"; };
 		EE8ED2281ACB2815007A3F3F /* UIDevice+SFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+SFAdditions.m"; sourceTree = "<group>"; };
+		EE8F0AAB1AD7325D00CB1CE1 /* PPCloudParallaxSlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCloudParallaxSlow.h; sourceTree = "<group>"; };
+		EE8F0AAC1AD7325D00CB1CE1 /* PPCloudParallaxSlow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCloudParallaxSlow.m; sourceTree = "<group>"; };
+		EE8F0AAF1AD7335700CB1CE1 /* PPCloudParallax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCloudParallax.h; sourceTree = "<group>"; };
+		EE8F0AB01AD7335700CB1CE1 /* PPCloudParallax.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCloudParallax.m; sourceTree = "<group>"; };
+		EE8F0AB21AD735BD00CB1CE1 /* PPSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSprite.h; sourceTree = "<group>"; };
+		EE8F0AB31AD735BD00CB1CE1 /* PPSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSprite.m; sourceTree = "<group>"; };
+		EE8F0AB51AD73A7600CB1CE1 /* PPCloudParallaxFast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCloudParallaxFast.h; sourceTree = "<group>"; };
+		EE8F0AB61AD73A7600CB1CE1 /* PPCloudParallaxFast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCloudParallaxFast.m; sourceTree = "<group>"; };
 		EEAE6F961AA665E200215C7E /* WaterGradientBlue-iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WaterGradientBlue-iphone.png"; sourceTree = "<group>"; };
 		EEAE6F9A1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = PlayerSplashUpEmitter.sks; path = ../PajamaPenguins_Shared/PlayerSplashUpEmitter.sks; sourceTree = "<group>"; };
 		EEAE6FA31AA68B8B00215C7E /* ObstacleSplashEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = ObstacleSplashEmitter.sks; path = ../PajamaPenguins_Shared/ObstacleSplashEmitter.sks; sourceTree = "<group>"; };
@@ -371,6 +383,8 @@
 		EE5575EE1A5A10CD00B87145 /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				EE8F0AB21AD735BD00CB1CE1 /* PPSprite.h */,
+				EE8F0AB31AD735BD00CB1CE1 /* PPSprite.m */,
 				EED8E5A21A881D79001C8F59 /* PPPlayer.h */,
 				EED8E5A31A881D79001C8F59 /* PPPlayer.m */,
 				EE168CDC1A994DFE005403E6 /* PPIcebergObstacle.h */,
@@ -381,6 +395,7 @@
 				EEB870701AD0C421000D21E6 /* PPSkySprite.m */,
 				EE4BD1881AD4C379003371FF /* PPWaterSprite.h */,
 				EE4BD1891AD4C379003371FF /* PPWaterSprite.m */,
+				EE8F0AAE1AD7334300CB1CE1 /* Clouds */,
 			);
 			name = Sprites;
 			sourceTree = "<group>";
@@ -452,6 +467,19 @@
 				EE6F92F41A82F39400286DC7 /* SSKMathUtils.h */,
 			);
 			path = SSKUtils;
+			sourceTree = "<group>";
+		};
+		EE8F0AAE1AD7334300CB1CE1 /* Clouds */ = {
+			isa = PBXGroup;
+			children = (
+				EE8F0AAF1AD7335700CB1CE1 /* PPCloudParallax.h */,
+				EE8F0AB01AD7335700CB1CE1 /* PPCloudParallax.m */,
+				EE8F0AAB1AD7325D00CB1CE1 /* PPCloudParallaxSlow.h */,
+				EE8F0AAC1AD7325D00CB1CE1 /* PPCloudParallaxSlow.m */,
+				EE8F0AB51AD73A7600CB1CE1 /* PPCloudParallaxFast.h */,
+				EE8F0AB61AD73A7600CB1CE1 /* PPCloudParallaxFast.m */,
+			);
+			name = Clouds;
 			sourceTree = "<group>";
 		};
 		EEAE6FA61AA68EC300215C7E /* Emitters */ = {
@@ -629,9 +657,11 @@
 				EED8E5A41A881D79001C8F59 /* PPPlayer.m in Sources */,
 				EE5575EB1A5A108100B87145 /* PPGameScene.m in Sources */,
 				EEC9DB8D1AA7BF5E0022CDF1 /* SSKProgressBarNode.m in Sources */,
+				EE8F0AB71AD73A7600CB1CE1 /* PPCloudParallaxFast.m in Sources */,
 				EEBA93CF1A8C1FED00CBD711 /* SSKCameraNode.m in Sources */,
 				EE6F92FC1A82F39400286DC7 /* SSKButtonNode.m in Sources */,
 				EE4BD18A1AD4C379003371FF /* PPWaterSprite.m in Sources */,
+				EE8F0AB11AD7335700CB1CE1 /* PPCloudParallax.m in Sources */,
 				EEB870711AD0C421000D21E6 /* PPSkySprite.m in Sources */,
 				EE16B1881AC7911800B15134 /* SKColor+SFAdditions.m in Sources */,
 				41E430A918B09E5200E1427D /* ViewController.m in Sources */,
@@ -648,8 +678,10 @@
 				EEF798241A9D4E9B0000DD14 /* PPSimpleAnimatedSprite.m in Sources */,
 				41E430A018B09E5200E1427D /* AppDelegate.m in Sources */,
 				EE8CF09E1ACB87B800BFC4A8 /* SSKWaterSurfaceNode.m in Sources */,
+				EE8F0AB41AD735BD00CB1CE1 /* PPSprite.m in Sources */,
 				EE6F92F81A82F39400286DC7 /* SSKGameCenter.m in Sources */,
 				41E4309C18B09E5200E1427D /* main.m in Sources */,
+				EE8F0AAD1AD7325D00CB1CE1 /* PPCloudParallaxSlow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

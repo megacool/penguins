@@ -11,9 +11,10 @@
 #import "PPIcebergObstacle.h"
 #import "PPSkySprite.h"
 #import "PPWaterSprite.h"
+#import "PPCloudParallaxSlow.h"
+#import "PPCloudParallaxFast.h"
 
 #import "SKColor+SFAdditions.h"
-#import "UIDevice+SFAdditions.h"
 #import "SSKUtils.h"
 
 #import "SSKProgressBarNode.h"
@@ -82,6 +83,9 @@ CGFloat const kParallaxMinSpeed = -20.0;
 @interface PPGameScene()
 @property (nonatomic) GameState gameState;
 
+@property (nonatomic) PPCloudParallaxSlow *cloudSlow;
+@property (nonatomic) PPCloudParallaxFast *cloudFast;
+
 @property (nonatomic) PPSkySprite *skySprite;
 @property (nonatomic) PPWaterSprite *waterSurface;
 
@@ -107,7 +111,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 - (void)didMoveToView:(SKView *)view {
-    NSLog(@"Screen Size: %fl,%fl",self.size.width, self.size.height);
     [self createNewGame];
     [self testStuff];
 }
@@ -137,7 +140,16 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self.worldNode addChild:self.skySprite];
 
     //Parallaxing Nodes
-
+    self.cloudSlow = [[PPCloudParallaxSlow alloc] initWithSize:CGSizeMake(self.size.width * 3, self.size.height * 2)];
+    self.cloudSlow.position = CGPointMake(0, self.size.height/4);
+    self.cloudSlow.zPosition = 10;
+    [self.worldNode addChild:self.cloudSlow];
+    
+    self.cloudFast = [[PPCloudParallaxFast alloc] initWithSize:CGSizeMake(self.size.width * 3, self.size.height * 2)];
+    self.cloudFast.position = CGPointMake(0, self.size.height/4);
+    self.cloudFast.zPosition = 10;
+    [self.worldNode addChild:self.cloudFast];
+    
     //Snow Emitter
     self.snowEmitter = [PPSharedAssets sharedSnowEmitter].copy;
     [self.snowEmitter setZPosition:foregroundLayer];
@@ -384,7 +396,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
 - (PPPlayer*)penguinWithType:(PlayerType)type atlas:(SKTextureAtlas*)atlas {
     PPPlayer *penguin = [PPPlayer playerWithType:type atlas:atlas];
     [penguin setPosition:CGPointMake(-self.size.width/4, 50)];
-    [penguin setSize:[self playerSize]];
     [penguin setName:@"player"];
     [penguin setZRotation:SSKDegreesToRadians(90)];
     [penguin setZPosition:playerLayer];
@@ -658,18 +669,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
     return (waterWidth/kLargeTileWidth);
 }
 
-- (CGSize)playerSize {
-    if ([UIDevice isUserInterfaceIdiomPhone]) {
-        return CGSizeMake(25, 25);
-    }
-    
-    else if ([UIDevice isUserInterfaceIdiomPad]) {
-        return CGSizeMake(60, 60);
-    }
-    
-    return CGSizeMake(0, 0);
-}
-
 #pragma mark - Collisions
 - (void)resolveCollisionFromFirstBody:(SKPhysicsBody *)firstBody secondBody:(SKPhysicsBody *)secondBody {
     if (self.gameState == Playing) {
@@ -719,7 +718,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     }
 
     //Background
-    [self updateParallaxNodesWithDelta:self.deltaTime];
+    [self updateParallaxNodesWithTime:self.deltaTime];
     
     //Water surface
     [self trackPlayerForSplash];
@@ -755,10 +754,9 @@ CGFloat const kParallaxMinSpeed = -20.0;
     return parallaxLayer;
 }
 
-- (void)updateParallaxNodesWithDelta:(NSTimeInterval)dt {
-    [self.worldNode enumerateChildNodesWithName:@"parallaxNode" usingBlock:^(SKNode *node, BOOL *stop) {
-        [(SSKParallaxNode*)node update:dt];
-    }];
+- (void)updateParallaxNodesWithTime:(NSTimeInterval)dt {
+    [self.cloudSlow update:dt];
+    [self.cloudFast update:dt];
 }
 
 #pragma mark - World Zoom

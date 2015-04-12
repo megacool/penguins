@@ -7,6 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "PPSprite.h"
 
 typedef NS_ENUM(NSUInteger, PlayerType) {
     PlayerTypeGrey = 0,
@@ -20,7 +21,7 @@ typedef NS_ENUM(NSUInteger, PlayerState) {
     PlayerStateFly,
 };
 
-@interface PPPlayer : SKSpriteNode
+@interface PPPlayer : PPSprite
 + (instancetype)playerWithType:(PlayerType)playerType atlas:(SKTextureAtlas*)atlas;
 - (instancetype)initWithType:(PlayerType)playerType atlas:(SKTextureAtlas*)atlas;
 

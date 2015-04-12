@@ -12,6 +12,8 @@
 #import "PPPlayer.h"
 #import "PPSkySprite.h"
 #import "PPWaterSprite.h"
+#import "PPCloudParallaxFast.h"
+#import "PPCloudParallaxSlow.h"
 
 #import "SSKUtils.h"
 
@@ -42,8 +44,9 @@ CGFloat const kPlatformPadding = 50.0;
 @property (nonatomic) PPSkySprite *skySprite;
 @property (nonatomic) PPWaterSprite *waterSurface;
 
-@property (nonatomic) SSKParallaxNode *cloudFast;
-@property (nonatomic) SSKParallaxNode *cloudSlow;
+@property (nonatomic) PPCloudParallaxSlow *cloudSlow;
+@property (nonatomic) PPCloudParallaxFast *cloudFast;
+
 @end
 
 @implementation PPMenuScene
@@ -63,14 +66,6 @@ CGFloat const kPlatformPadding = 50.0;
 }
 
 - (void)testStuff {
-//    SKAction *wait      = [SKAction waitForDuration:5];
-//    SKAction *morning   = [self changeToSkyWithType:SkyTypeMorning];
-//    SKAction *day       = [self changeToSkyWithType:SkyTypeDay];
-//    SKAction *afternoon = [self changeToSkyWithType:SkyTypeAfternoon];
-//    SKAction *sunset    = [self changeToSkyWithType:SkyTypeSunset];
-//    SKAction *night     = [self changeToSkyWithType:SkyTypeNight];
-//
-//    [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[wait,day,wait,afternoon,wait,sunset,wait,night,wait,morning]]]];
 }
 
 - (SKAction*)changeToSkyWithType:(SkyType)skyType {
@@ -94,11 +89,11 @@ CGFloat const kPlatformPadding = 50.0;
     [self.backgroundNode addChild:self.skySprite];
 
     //Clouds
-    self.cloudFast = [self cloudParallaxLayerFast];
-    [self.backgroundNode addChild:self.cloudFast];
-    
-    self.cloudSlow = [self cloudParallaxLayerSlow];
+    self.cloudSlow = [[PPCloudParallaxSlow alloc] initWithSize:self.size];
     [self.backgroundNode addChild:self.cloudSlow];
+    
+    self.cloudFast = [[PPCloudParallaxFast alloc] initWithSize:self.size];
+    [self.backgroundNode addChild:self.cloudFast];
     
     //Snow
     [self.backgroundNode addChild:[self newSnowEmitter]];
@@ -204,46 +199,9 @@ CGFloat const kPlatformPadding = 50.0;
     return playButton;
 }
 
-#pragma mark - Clouds
-- (SSKParallaxNode*)cloudParallaxLayerSlow {
-    SKTexture *cloudTexture = [[PPSharedAssets sharedCloudAtlas] textureNamed:@"cloud_01"];
-    
-    SKSpriteNode *cloudWideHigh = [self cloudNodeWithTexture:cloudTexture alpha:0.25];
-    [cloudWideHigh setPosition:CGPointMake(-self.size.width/5, self.size.height/6)];
-    
-    SKSpriteNode *cloudWideLow = cloudWideHigh.copy;
-    [cloudWideLow setPosition:CGPointMake(self.size.width/3, self.size.height/8)];
-    
-    SSKParallaxNode *layer = [SSKParallaxNode nodeWithSize:self.size attachedNodes:@[cloudWideHigh, cloudWideLow] moveSpeed:CGPointMake(-7.5, 0)];
-    [layer setZPosition:SceneLayerClouds];
-    return layer;
-}
-
-- (SSKParallaxNode*)cloudParallaxLayerFast {
-    SKTexture *cloudTexture = [[PPSharedAssets sharedCloudAtlas] textureNamed:@"cloud_00"];
-    
-    SKSpriteNode *cloudTallHigh = [self cloudNodeWithTexture:cloudTexture alpha:0.4];
-    [cloudTallHigh setPosition:CGPointMake(-self.size.width/3, self.size.height/2)];
-    
-    SKSpriteNode *cloudTallLow = cloudTallHigh.copy;
-    [cloudTallLow setPosition:CGPointMake(self.size.width/4, self.size.height/4)];
-    
-    SSKParallaxNode *layer = [SSKParallaxNode nodeWithSize:self.size attachedNodes:@[cloudTallHigh,cloudTallLow] moveSpeed:CGPointMake(-15, 0)];
-    [layer setZPosition:SceneLayerClouds];
-    return layer;
-}
-
-- (SKSpriteNode*)cloudNodeWithTexture:(SKTexture*)texture alpha:(CGFloat)alpha {
-    SKSpriteNode *cloud = [SKSpriteNode spriteNodeWithTexture:texture];
-    [cloud setSize:[self getSizeForNode:cloud]];
-    [cloud setAlpha:alpha];
-    return cloud;
-}
-
 #pragma mark - Penguins Types
 - (PPPlayer*)penguinWithType:(PlayerType)type atlas:(SKTextureAtlas*)atlas {
     PPPlayer *penguin = [PPPlayer playerWithType:type atlas:atlas];
-    [penguin setSize:[self getSizeForNode:penguin]];
     [penguin setAnchorPoint:CGPointMake(0.5, 0)];
     [penguin setPosition:CGPointMake(0, kPlatformPadding/2)];
     [penguin setPlayerState:PlayerStateIdle];
@@ -276,22 +234,6 @@ CGFloat const kPlatformPadding = 50.0;
     }];
 }
 
-#pragma mark - Convenience
-- (CGSize)getSizeForNode:(SKSpriteNode*)node {
-    CGSize oldNodeSize = node.size;
-    CGSize newNodeSize;
-    
-    if ([UIDevice isUserInterfaceIdiomPhone]) {
-        newNodeSize = CGSizeMake(oldNodeSize.width/3, oldNodeSize.height/3);
-    }
-    
-    else if ([UIDevice isUserInterfaceIdiomPad]) {
-        newNodeSize = CGSizeMake(oldNodeSize.width * 0.8, oldNodeSize.height * 0.8);
-    }
-    
-    return newNodeSize;
-};
-
 #pragma mark - Transfer To Game Scene
 - (void)loadGameScene {
     [PPGameScene loadSceneAssetsWithCompletionHandler:^{
@@ -306,9 +248,10 @@ CGFloat const kPlatformPadding = 50.0;
     [super update:currentTime];
     
     [self.waterSurface update:self.deltaTime];
-    [self.cloudFast update:self.deltaTime];
-    [self.cloudSlow update:self.deltaTime];
     [self updateAllPenguins:self.deltaTime];
+
+    [self.cloudSlow update:self.deltaTime];
+    [self.cloudFast update:self.deltaTime];
 }
 
 @end

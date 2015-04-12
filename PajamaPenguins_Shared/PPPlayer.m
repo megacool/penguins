@@ -69,7 +69,6 @@ CGFloat const kIdleAnimationSpeed = 0.25;
             [tempFlyFrames addObject:[atlas textureNamed:flyFrame]];
         }
         self.flyTextures = tempFlyFrames;
-        
     }
     return self;
 }
