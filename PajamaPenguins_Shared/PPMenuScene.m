@@ -33,6 +33,7 @@ typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerMenu,
 };
 
+CGFloat const kButtonRadius = 40.0;
 CGFloat const kSplashStrength  = -2.5;
 CGFloat const kPlatformPadding = 50.0;
 
@@ -66,12 +67,6 @@ CGFloat const kPlatformPadding = 50.0;
 }
 
 - (void)testStuff {
-}
-
-- (SKAction*)changeToSkyWithType:(SkyType)skyType {
-    return [SKAction runBlock:^{
-        [self.skySprite setSkyType:skyType];
-    }];
 }
 
 #pragma mark - Scene Construction
@@ -124,13 +119,10 @@ CGFloat const kPlatformPadding = 50.0;
     [self.menuNode setName:@"menu"];
     [self addChild:self.menuNode];
     
-    SKLabelNode *titleLabel = [self newTitleLabel];
-    [titleLabel setPosition:CGPointMake(0, self.size.height/2 + titleLabel.frame.size.height)]; //For animation
-    [self.menuNode addChild:titleLabel];
+    [self.menuNode addChild:[self newTitleLabel]];
     
-    SSKButtonNode *playButton = [self playButton];
-    [playButton setPosition:CGPointMake(0, -self.size.height/2 - playButton.size.height)];      //For animation
-    [self.menuNode addChild:playButton];
+    [self.menuNode addChild:[self playButton]];
+    [self.menuNode addChild:[self settingsButton]];
 }
 
 - (void)startAnimations {
@@ -147,10 +139,10 @@ CGFloat const kPlatformPadding = 50.0;
         [[self.backgroundNode childNodeWithName:@"platform"] runAction:[SKAction repeatActionForever:[self floatAction]]];
         
         //Button move in
-        [[self.menuNode childNodeWithName:@"playButton"] runAction:[SKAction moveTo:CGPointMake(0, -self.size.height/4) duration:.75 timingMode:SKActionTimingEaseOut]];
+//        [[self.menuNode childNodeWithName:@"playButton"] runAction:[SKAction moveTo:CGPointMake(0, -self.size.height/4) duration:.75 timingMode:SKActionTimingEaseOut]];
         
         //Title move in
-        [[self.menuNode childNodeWithName:@"titleLabel"] runAction:[SKAction moveTo:CGPointMake(0, self.size.height/8 * 3) duration:.75 timingMode:SKActionTimingEaseOut]];
+//        [[self.menuNode childNodeWithName:@"titleLabel"] runAction:[SKAction moveTo:CGPointMake(0, self.size.height/8 * 3) duration:.75 timingMode:SKActionTimingEaseOut]];
     }];
 }
 
@@ -178,7 +170,7 @@ CGFloat const kPlatformPadding = 50.0;
     [label setText:@"Pajama Penguins"];
     [label setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeCenter];
     [label setVerticalAlignmentMode:SKLabelVerticalAlignmentModeCenter];
-    [label setFontSize:30];
+    [label setFontSize:35];
     [label setFontColor:[SKColor whiteColor]];
     [label setPosition:CGPointMake(0, self.size.height/8 * 3)];
     [label setName:@"titleLabel"];
@@ -192,11 +184,30 @@ CGFloat const kPlatformPadding = 50.0;
     return snowEmitter;
 }
 
+#pragma mark - Buttons
+- (SSKButtonNode*)menuButtonWithText:(NSString*)text {
+    SSKButtonNode *button = [SSKButtonNode buttonWithCircleOfRadius:kButtonRadius idleFillColor:[SKColor clearColor] selectedFillColor:[SKColor whiteColor] labelWithText:text];
+    [button.idleShape setStrokeColor:[SKColor whiteColor]];
+    [button.selectedShape setStrokeColor:[SKColor whiteColor]];
+    [button setIdleLabelColor:[SKColor whiteColor]];
+    [button setSelectedLabelColor:[SKColor blueColor]];
+    return button;
+}
+
 - (SSKButtonNode*)playButton {
-    SSKButtonNode *playButton = [SSKButtonNode buttonWithIdleTexture:[PPSharedAssets sharedPlayButtonUpTexture] selectedTexture:[PPSharedAssets sharedPlayButtonDownTexture]];
-    [playButton setTouchUpInsideTarget:self selector:@selector(loadGameScene)];
+    SSKButtonNode *playButton = [self menuButtonWithText:@"Play"];
+    [playButton setTouchUpInsideTarget:self selector:@selector(transitionGameScene)];
+    [playButton setPosition:CGPointMake(self.size.width/4, - self.size.height/8)];
     [playButton setName:@"playButton"];
     return playButton;
+}
+
+- (SSKButtonNode*)settingsButton {
+    SSKButtonNode *settingsButton = [self menuButtonWithText:@"Settings"];
+    [settingsButton.label setFontSize:20];
+    [settingsButton setTouchUpInsideTarget:self selector:@selector(transitionSettings)];
+    [settingsButton setPosition:CGPointMake(self.size.width/4, -self.size.height/8 * 2.5)];
+    return settingsButton;
 }
 
 #pragma mark - Penguins Types
@@ -234,13 +245,17 @@ CGFloat const kPlatformPadding = 50.0;
     }];
 }
 
-#pragma mark - Transfer To Game Scene
-- (void)loadGameScene {
+#pragma mark - Transitioning scenes
+- (void)transitionGameScene {
     [PPGameScene loadSceneAssetsWithCompletionHandler:^{
         SKScene *gameScene = [PPGameScene sceneWithSize:self.size];
         SKTransition *fade = [SKTransition fadeWithColor:[SKColor whiteColor] duration:1];
         [self.view presentScene:gameScene transition:fade];
     }];
+}
+
+- (void)transitionSettings {
+    NSLog(@"settings");
 }
 
 #pragma mark - Update

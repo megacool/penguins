@@ -271,12 +271,22 @@
     }
 }
 
+- (void)toggleLabelColor:(BOOL)isSelected {
+    if (!self.label) return;
+    if (_isSelected) {
+        if (self.selectedLabelColor) [self.label setFontColor:self.selectedLabelColor];
+    } else {
+        if (self.idleLabelColor) [self.label setFontColor:self.idleLabelColor];
+    }
+}
+
 #pragma mark - Setter Overrides
 - (void)setIsSelected:(BOOL)isSelected {
     _isSelected = isSelected;
     [self toggleTexture:_isSelected];
     [self toggleColor:_isSelected];
     [self toggleShape:_isSelected];
+    [self toggleLabelColor:_isSelected];
 }
 
 #pragma mark - Setting Target-Action Pairs

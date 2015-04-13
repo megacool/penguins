@@ -139,7 +139,7 @@ CGFloat const kMaxColorValue = 255.0f;
 }
 
 - (int)getRangeFrom:(int)firstNum to:(int)secondNum {
-    return fabs(firstNum - secondNum);
+    return abs(firstNum - secondNum);
 }
 
 @end

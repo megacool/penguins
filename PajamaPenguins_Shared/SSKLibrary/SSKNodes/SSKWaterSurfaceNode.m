@@ -190,7 +190,7 @@ CGFloat const kDefaultJointWidth = 10.0;
     CGFloat shortestDistance = CGFLOAT_MAX;
     for (int i = 0; i < self.waterJoints.count; i++) {
         SSKWaterJoint *joint = (SSKWaterJoint*)[self.waterJoints objectAtIndex:i];
-        CGFloat distance = fabsf(joint.currentPosition.x - location.x);
+        CGFloat distance = fabs(joint.currentPosition.x - location.x);
         
         if (distance < shortestDistance) {
             shortestDistance = distance;

@@ -244,6 +244,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self.gameOverNode setAlpha:0];
     [self addChild:self.gameOverNode];
     
+    
     SKLabelNode *gameOverLabel = [self createNewLabelWithText:@"Game Over" withFontSize:30];
     [gameOverLabel setFontColor:[SKColor colorWithR:150 g:5 b:5]];
     [gameOverLabel setPosition:CGPointMake(0, self.size.height/4)];
@@ -256,11 +257,17 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [scoreLabel setPosition:CGPointMake(gameOverLabel.position.x, gameOverLabel.position.y - 50)];
     [self.gameOverNode addChild:scoreLabel];
     
-    SSKButtonNode *menuButton = [[SSKButtonNode alloc] initWithIdleTexture:[PPSharedAssets sharedHomeButtonUpTexture] selectedTexture:[PPSharedAssets sharedHomeButtonDownTexture]];
-    [menuButton setPosition:CGPointMake(0, -self.size.height/4)];
+    SSKButtonNode *menuButton = [SSKButtonNode buttonWithCircleOfRadius:40 idleFillColor:[SKColor clearColor] selectedFillColor:[SKColor whiteColor] labelWithText:@"Menu"];
+    [menuButton.idleShape setStrokeColor:[SKColor whiteColor]];
+    [menuButton.selectedShape setStrokeColor:[SKColor whiteColor]];
+    [menuButton setIdleLabelColor:[SKColor whiteColor]];
+    [menuButton setSelectedLabelColor:[SKColor blueColor]];
     [menuButton setTouchUpInsideTarget:self selector:@selector(loadMenuScene)];
+    [menuButton setPosition:CGPointMake(0, -self.size.height/4)];
+    [menuButton setZPosition: 20];
     [self.gameOverNode addChild:menuButton];
     
+    // For animation
     [self.gameOverNode setPosition:CGPointMake(-kMoveAndFadeDistance, 0)];
     [self.gameOverNode runAction:[SKAction moveDistance:CGVectorMake(kMoveAndFadeDistance, 0) fadeInWithDuration:kMoveAndFadeTime]];
 }
@@ -768,7 +775,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
     }
     
     else if ([self playerIsBelowBottomBoundary]) {
-//        
 //        [self setNewWorldScaleWithRatio:[self bottomZoomRatio]];
 //        [self setNewWorldPositionWithOffset:[self amountToOffsetBottom]];
     }
@@ -803,7 +809,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 - (CGFloat)topZoomRatio {
-    CGFloat ratioDistanceFromTop = fabsf(([self currentPlayerDistanceFromTopBoundary]/[self distanceFromBoundaryToMaxZoomBoundary]));
+    CGFloat ratioDistanceFromTop = fabs(([self currentPlayerDistanceFromTopBoundary]/[self distanceFromBoundaryToMaxZoomBoundary]));
     if (ratioDistanceFromTop > 1) {
         ratioDistanceFromTop = 1;
     }
@@ -811,7 +817,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 - (CGFloat)bottomZoomRatio {
-    CGFloat ratioDistanceFromBottom = fabsf(([self currentPlayerDistanceFromBottomBoundary]/[self distanceFromBoundaryToMaxZoomBoundary]));
+    CGFloat ratioDistanceFromBottom = fabs(([self currentPlayerDistanceFromBottomBoundary]/[self distanceFromBoundaryToMaxZoomBoundary]));
     if (ratioDistanceFromBottom > 1) {
         ratioDistanceFromBottom = 1;
     }
