@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerBackground = 0,
     SceneLayerClouds,
     SceneLayerForeground,
-    SceneLayerMenu,
+    SceneLayerMenu = 10,
 };
 
 CGFloat const kButtonRadius = 40.0;
@@ -85,9 +85,11 @@ CGFloat const kPlatformPadding = 50.0;
 
     //Clouds
     self.cloudSlow = [[PPCloudParallaxSlow alloc] initWithSize:self.size];
+    [self.cloudSlow setZPosition:2];
     [self.backgroundNode addChild:self.cloudSlow];
     
     self.cloudFast = [[PPCloudParallaxFast alloc] initWithSize:self.size];
+    [self.cloudFast setZPosition:2];
     [self.backgroundNode addChild:self.cloudFast];
     
     //Snow

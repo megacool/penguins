@@ -140,13 +140,11 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self.worldNode addChild:self.skySprite];
 
     //Parallaxing Nodes
-    self.cloudSlow = [[PPCloudParallaxSlow alloc] initWithSize:CGSizeMake(self.size.width * 3, self.size.height * 2)];
-    self.cloudSlow.position = CGPointMake(0, self.size.height/4);
+    self.cloudSlow = [[PPCloudParallaxSlow alloc] initWithSize:self.size];
     self.cloudSlow.zPosition = 10;
     [self.worldNode addChild:self.cloudSlow];
     
-    self.cloudFast = [[PPCloudParallaxFast alloc] initWithSize:CGSizeMake(self.size.width * 3, self.size.height * 2)];
-    self.cloudFast.position = CGPointMake(0, self.size.height/4);
+    self.cloudFast = [[PPCloudParallaxFast alloc] initWithSize:self.size];
     self.cloudFast.zPosition = 10;
     [self.worldNode addChild:self.cloudFast];
     
