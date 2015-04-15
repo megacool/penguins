@@ -441,8 +441,8 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [player.physicsBody setVelocity:CGVectorMake(0, 0)];
     [player.physicsBody setCollisionBitMask:0x0];
     [player.physicsBody setContactTestBitMask:0x0];
-    [player.physicsBody applyImpulse:CGVectorMake(1, 15)];
-    [player.physicsBody applyAngularImpulse:-.00025];
+    [player.physicsBody applyImpulse:CGVectorMake(1, 75)];
+    [player.physicsBody applyAngularImpulse:-.00325];
 }
 
 - (void)updatePlayer:(NSTimeInterval)dt {
