@@ -576,6 +576,11 @@
 				CLASSPREFIX = SSK;
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Skye Freeman";
+				TargetAttributes = {
+					41E4308918B09E5200E1427D = {
+						DevelopmentTeam = DNM8FCEPB5;
+					};
+				};
 			};
 			buildConfigurationList = 41E4308518B09E5200E1427D /* Build configuration list for PBXProject "PajamaPenguins" */;
 			compatibilityVersion = "Xcode 3.2";

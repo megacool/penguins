@@ -37,6 +37,9 @@ CGFloat const kButtonRadius = 40.0;
 CGFloat const kSplashStrength  = -2.5;
 CGFloat const kPlatformPadding = 50.0;
 
+CGFloat const kAnimationFadeTime = 0.5;
+CGFloat const kAnimationMoveDistance = 10;
+
 @interface PPMenuScene()
 @property (nonatomic) SKNode *backgroundNode;
 @property (nonatomic) SKNode *foregroundNode;
@@ -79,7 +82,7 @@ CGFloat const kPlatformPadding = 50.0;
     [self addChild:self.backgroundNode];
 
     //Sky
-    self.skySprite = [PPSkySprite spriteWithSize:CGSizeMake(self.size.width, self.size.height/4 * 3) skyType:SkyTypeMorning];
+    self.skySprite = [PPSkySprite spriteWithSize:CGSizeMake(self.size.width, self.size.height/4 * 3) skyType:SkyTypeDay];
     [self.skySprite setPosition:CGPointMake(0, -self.size.height/4)];
     [self.backgroundNode addChild:self.skySprite];
 
@@ -124,7 +127,7 @@ CGFloat const kPlatformPadding = 50.0;
     [self.menuNode addChild:[self newTitleLabel]];
     
     [self.menuNode addChild:[self playButton]];
-    [self.menuNode addChild:[self settingsButton]];
+//    [self.menuNode addChild:[self settingsButton]];
 }
 
 - (void)startAnimations {
@@ -135,16 +138,22 @@ CGFloat const kPlatformPadding = 50.0;
     [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[splashLeft,wait,splashRight,wait]]]];
     
     //Pause to prevent frame skip
-    [self runAction:[SKAction waitForDuration:.5] completion:^{
+    [self runAction:[SKAction waitForDuration:0.8] completion:^{
 
         //Iceberg float
-        [[self.backgroundNode childNodeWithName:@"platform"] runAction:[SKAction repeatActionForever:[self floatAction]]];
+        SKNode *platform = [self.foregroundNode childNodeWithName:@"platform"];
+        [platform runAction:[SKAction repeatActionForever:[self floatAction]]];
         
-        //Button move in
-//        [[self.menuNode childNodeWithName:@"playButton"] runAction:[SKAction moveTo:CGPointMake(0, -self.size.height/4) duration:.75 timingMode:SKActionTimingEaseOut]];
+        //Buttons move in
+        SKNode *playButton = [self.menuNode childNodeWithName:@"playButton"];
+        [playButton runAction:[SKAction moveDistance:CGVectorMake(0, -kAnimationMoveDistance) fadeInWithDuration:kAnimationFadeTime]];
+        
+        SKNode *settingsButton = [self.menuNode childNodeWithName:@"settingsButton"];
+        [settingsButton runAction:[SKAction moveDistance:CGVectorMake(0, -kAnimationMoveDistance) fadeInWithDuration:kAnimationFadeTime]];
         
         //Title move in
-//        [[self.menuNode childNodeWithName:@"titleLabel"] runAction:[SKAction moveTo:CGPointMake(0, self.size.height/8 * 3) duration:.75 timingMode:SKActionTimingEaseOut]];
+        SKNode *title = [self.menuNode childNodeWithName:@"titleLabel"];
+        [title runAction:[SKAction moveDistance:CGVectorMake(0, -kAnimationMoveDistance) fadeInWithDuration:kAnimationFadeTime]];
     }];
 }
 
@@ -174,8 +183,9 @@ CGFloat const kPlatformPadding = 50.0;
     [label setVerticalAlignmentMode:SKLabelVerticalAlignmentModeCenter];
     [label setFontSize:35];
     [label setFontColor:[SKColor whiteColor]];
-    [label setPosition:CGPointMake(0, self.size.height/8 * 3)];
+    [label setPosition:CGPointMake(0, (self.size.height/8 * 3) + kAnimationMoveDistance)];
     [label setName:@"titleLabel"];
+    [label setAlpha:0];
     return label;
 }
 
@@ -193,13 +203,14 @@ CGFloat const kPlatformPadding = 50.0;
     [button.selectedShape setStrokeColor:[SKColor whiteColor]];
     [button setIdleLabelColor:[SKColor whiteColor]];
     [button setSelectedLabelColor:[SKColor blueColor]];
+    [button setAlpha:0];
     return button;
 }
 
 - (SSKButtonNode*)playButton {
     SSKButtonNode *playButton = [self menuButtonWithText:@"Play"];
     [playButton setTouchUpInsideTarget:self selector:@selector(transitionGameScene)];
-    [playButton setPosition:CGPointMake(self.size.width/4, - self.size.height/8)];
+    [playButton setPosition:CGPointMake(0, -self.size.height/8 + kAnimationMoveDistance)];
     [playButton setName:@"playButton"];
     return playButton;
 }
@@ -208,7 +219,8 @@ CGFloat const kPlatformPadding = 50.0;
     SSKButtonNode *settingsButton = [self menuButtonWithText:@"Settings"];
     [settingsButton.label setFontSize:20];
     [settingsButton setTouchUpInsideTarget:self selector:@selector(transitionSettings)];
-    [settingsButton setPosition:CGPointMake(self.size.width/4, -self.size.height/8 * 2.5)];
+    [settingsButton setPosition:CGPointMake(0, -self.size.height/8 * 2.5 + kAnimationMoveDistance)];
+    [settingsButton setName:@"settingsButton"];
     return settingsButton;
 }
 

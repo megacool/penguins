@@ -300,7 +300,4 @@ CGFloat const kDefaultJointWidth = 10.0;
     return array;
 }
 
-- (void)dealloc {
-    self.waterSurface.path = nil;
-}
 @end
