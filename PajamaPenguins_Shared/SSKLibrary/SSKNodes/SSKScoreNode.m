@@ -21,7 +21,8 @@
         self.fontSize = fontSize;
         self.fontColor = fontColor;
         
-        [self updateTextWithCount:0];
+        [self resetScore];
+        [self updateText];
     }
     
     return self;
@@ -35,17 +36,24 @@
     return [self initWithFontNamed:fontName fontSize:20 fontColor:[SKColor blackColor]];
 }
 
-#pragma mark - Counter
+#pragma mark - Counter controls
 - (void)increment {
-    [self updateTextWithCount:self.score++];
+    self.score ++;
+    [self updateText];
 }
 
 - (void)decrement {
-    [self updateTextWithCount:self.score--];
+    self.score --;
+    [self updateText];
 }
 
-- (void)updateTextWithCount:(NSInteger)count {
-    self.text = [NSString stringWithFormat:@"%lu",(long)count];
+- (void)resetScore {
+    self.score = 0;
+}
+#pragma mark - Node's text
+- (void)updateText {
+    self.text = [NSString stringWithFormat:@"%lu",self.score];
+    NSLog(@"%@",self.text);
 }
 
 @end

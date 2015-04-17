@@ -23,7 +23,7 @@ NSString * const kUserHighScoreKey = @"UserHighScore";
 #pragma mark - Scores
 - (void)saveHighScore:(NSNumber*)score {
     if (!(score > [self getHighScore])) return;
-
+    
     [[NSUserDefaults standardUserDefaults] setObject:score forKey:kUserHighScoreKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

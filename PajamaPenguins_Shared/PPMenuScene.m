@@ -273,7 +273,7 @@ CGFloat const kAnimationMoveDistance = 10;
 }
 
 - (void)transitionSettings {
-    NSLog(@"settings");
+    NSLog(@"settings pushed");
 }
 
 #pragma mark - Update

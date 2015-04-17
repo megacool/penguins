@@ -250,7 +250,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [scoreLabel setPosition:CGPointMake(gameOverLabel.position.x, gameOverLabel.position.y - 50)];
     [self.gameOverNode addChild:scoreLabel];
     
-    // Button to go back to menu
+    // Buttons
     [self.gameOverNode addChild:[self menuButton]];
     [self.gameOverNode addChild:[self retryButton]];
 }
@@ -613,11 +613,24 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 - (void)checkIfHighScore {
-    SSKScoreNode *scoreNode = (SSKScoreNode*)[self.hudNode childNodeWithName:@"scoreCounter"];
-    NSLog(@"Score:%lu High Score: %@",scoreNode.score,[[PPUserManager sharedManager] getHighScore]);
-    if (scoreNode.score > [[PPUserManager sharedManager] getHighScore].integerValue) {
-        [[PPUserManager sharedManager] saveHighScore:[NSNumber numberWithInteger:scoreNode.score]];
+    NSInteger currentScore = [(SSKScoreNode*)[self.hudNode childNodeWithName:@"scoreCounter"] score];
+    NSInteger highScore = [[PPUserManager sharedManager] getHighScore].integerValue;
+    
+    if (currentScore > highScore) {
+        [[PPUserManager sharedManager] saveHighScore:[NSNumber numberWithInteger:currentScore]];
+        [self isNewHighScore];
     }
+}
+
+- (void)isNewHighScore {
+    SKLabelNode *highScoreLabel = [self createNewLabelWithText:@"Highscore!" withFontSize:20];
+    [highScoreLabel setZRotation:SSKDegreesToRadians(35.0)];
+    [highScoreLabel setFontColor:[SKColor redColor]];
+    [highScoreLabel setZPosition:gameOverLayer];
+    [highScoreLabel setPosition:CGPointMake(self.size.width/3, self.size.height/3 + 25)];
+    [self addChild:highScoreLabel];
+    
+    [self runColorChangeOnLabel:highScoreLabel interval:.35];
 }
 
 #pragma mark - World Gravity
@@ -639,6 +652,24 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [down setTimingMode:SKActionTimingEaseInEaseOut];
     SKAction *up = [down reversedAction];
     return [SKAction sequence:@[down,up]];
+}
+
+- (void)runColorChangeOnLabel:(SKLabelNode*)label interval:(CGFloat)interval {
+    SKAction *changeToRed = [SKAction runBlock:^{
+        [label setFontColor:[SKColor redColor]];
+    }];
+    
+    SKAction *changeToBlue = [SKAction runBlock:^{
+        [label setFontColor:[SKColor blueColor]];
+    }];
+    SKAction *wait = [SKAction waitForDuration:interval];
+    
+    SKAction *sequence = [SKAction repeatActionForever:[SKAction sequence:@[changeToRed, wait, changeToBlue, wait]]];
+    
+    NSString *actionKey = @"colorChangeKey";
+    if (![label actionForKey:actionKey]) {
+        [label runAction:sequence withKey:actionKey];
+    }
 }
 
 #pragma mark - Convenience

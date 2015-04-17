@@ -17,5 +17,6 @@
 
 - (void)increment;
 - (void)decrement;
+- (void)resetScore;
 
 @end
