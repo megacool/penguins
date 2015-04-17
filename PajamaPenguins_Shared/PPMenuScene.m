@@ -29,15 +29,17 @@
 typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerBackground = 0,
     SceneLayerClouds,
+    SceneLayerSnow,
+    SceneLayerWater,
     SceneLayerForeground,
     SceneLayerMenu = 10,
 };
 
-CGFloat const kButtonRadius = 40.0;
+CGFloat const kButtonRadius    = 40.0;
 CGFloat const kSplashStrength  = -2.5;
 CGFloat const kPlatformPadding = 50.0;
 
-CGFloat const kAnimationFadeTime = 0.5;
+CGFloat const kAnimationFadeTime     = 0.5;
 CGFloat const kAnimationMoveDistance = 10;
 
 @interface PPMenuScene()
@@ -165,6 +167,7 @@ CGFloat const kAnimationMoveDistance = 10;
     
     PPWaterSprite *waterNode = [PPWaterSprite surfaceWithStartPoint:surfaceStart endPoint:surfaceEnd depth:self.size.height/2];
     [waterNode setName:@"waterSurface"];
+    [waterNode setZPosition:SceneLayerWater];
     return waterNode;
 }
 
@@ -192,6 +195,7 @@ CGFloat const kAnimationMoveDistance = 10;
 - (SKEmitterNode*)newSnowEmitter {
     SKEmitterNode *snowEmitter = [PPSharedAssets sharedSnowEmitter].copy;
     [snowEmitter setPosition:CGPointMake(self.size.width/2, self.size.height/2)];
+    [snowEmitter setZPosition:SceneLayerSnow];
     [snowEmitter setName:@"snowEmitter"];
     return snowEmitter;
 }
@@ -210,7 +214,7 @@ CGFloat const kAnimationMoveDistance = 10;
 - (SSKButtonNode*)playButton {
     SSKButtonNode *playButton = [self menuButtonWithText:@"Play"];
     [playButton setTouchUpInsideTarget:self selector:@selector(transitionGameScene)];
-    [playButton setPosition:CGPointMake(0, -self.size.height/8 + kAnimationMoveDistance)];
+    [playButton setPosition:CGPointMake(0, -self.size.height/4 + kAnimationMoveDistance)];
     [playButton setName:@"playButton"];
     return playButton;
 }

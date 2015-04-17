@@ -141,11 +141,11 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
     //Parallaxing Nodes
     self.cloudSlow = [[PPCloudParallaxSlow alloc] initWithSize:self.size];
-    self.cloudSlow.zPosition = 10;
+    self.cloudSlow.zPosition = parallaxLayer;
     [self.worldNode addChild:self.cloudSlow];
     
     self.cloudFast = [[PPCloudParallaxFast alloc] initWithSize:self.size];
-    self.cloudFast.zPosition = 10;
+    self.cloudFast.zPosition = parallaxLayer;
     [self.worldNode addChild:self.cloudFast];
     
     //Snow Emitter
@@ -745,20 +745,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 #pragma mark - Parallaxing
-- (SSKParallaxNode*)backgroundLayerWithSpeed:(CGFloat)speed position:(CGPoint)position texture:(SKTexture*)texture {
-    NSMutableArray *parallaxNodes = [NSMutableArray new];
-
-    SKSpriteNode *layer = [SKSpriteNode spriteNodeWithTexture:texture];
-    [layer setPosition:position];
-    [layer setAnchorPoint:CGPointMake(0.5, 0)];
-    [parallaxNodes addObject:layer];
-    
-    SSKParallaxNode *parallaxLayer = [SSKParallaxNode nodeWithSize:self.scene.size attachedNodes:parallaxNodes moveSpeed:CGPointMake(speed, 0)];
-    [parallaxLayer setName:@"parallaxNode"];
-    [parallaxLayer setZPosition:backgroundLayer];
-    return parallaxLayer;
-}
-
 - (void)updateParallaxNodesWithTime:(NSTimeInterval)dt {
     [self.cloudSlow update:dt];
     [self.cloudFast update:dt];
