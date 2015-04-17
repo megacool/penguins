@@ -35,7 +35,7 @@ typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerMenu = 10,
 };
 
-CGFloat const kButtonRadius    = 40.0;
+CGFloat const kButtonRadius    = 45.0;
 CGFloat const kSplashStrength  = -2.5;
 CGFloat const kPlatformPadding = 50.0;
 

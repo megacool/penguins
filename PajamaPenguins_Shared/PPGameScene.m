@@ -13,6 +13,7 @@
 #import "PPWaterSprite.h"
 #import "PPCloudParallaxSlow.h"
 #import "PPCloudParallaxFast.h"
+#import "PPUserManager.h"
 
 #import "SKColor+SFAdditions.h"
 #import "SSKUtils.h"
@@ -41,7 +42,7 @@ typedef enum {
     bubbleLayer,
     playerLayer,
     hudLayer,
-    menuLayer,
+    gameOverLayer,
     fadeOutLayer,
 }Layers;
 
@@ -93,7 +94,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
 @property (nonatomic) SKEmitterNode *snowEmitter;
 
 @property (nonatomic) SKNode *worldNode;
-@property (nonatomic) SKNode *menuNode;
 @property (nonatomic) SKNode *hudNode;
 @property (nonatomic) SKNode *gameOverNode;
 @end
@@ -118,13 +118,12 @@ CGFloat const kParallaxMinSpeed = -20.0;
 - (void)testStuff {
 }
 
-#pragma mark - Creating scene layers
 - (void)createNewGame {
     [self createWorldLayer];
     [self startGameAnimations];
-    [self gameMenu];
 }
 
+#pragma mark - World Layer
 - (void)createWorldLayer {
     
     self.worldNode = [SSKCameraNode node];
@@ -193,33 +192,16 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self addChild:boundary];
 }
 
-- (void)createMenuLayer {
-    self.menuNode = [SKNode node];
-    [self.menuNode setZPosition:menuLayer];
-    [self.menuNode setName:@"menu"];
-    [self addChild:self.menuNode];
-
-    SKSpriteNode *startFinger = [SKSpriteNode spriteNodeWithTexture:[PPSharedAssets sharedFingerSprite]];
-    [startFinger setPosition:CGPointMake(0, -self.size.height/3)];
-    [startFinger setName:@"finger"];
-    [self.menuNode addChild:startFinger];
-    
-    SKSpriteNode *startFingerEffect = [SKSpriteNode spriteNodeWithTexture:[PPSharedAssets sharedFingerSpriteEffect]];
-    [startFingerEffect setPosition:CGPointMake(startFinger.position.x - startFinger.size.width/8,
-                                               startFinger.position.y + startFingerEffect.size.height * 1.5)];
-    [startFingerEffect setAlpha:0];
-    [startFingerEffect setName:@"fingerEffect"];
-    [self.menuNode addChild:startFingerEffect];
-}
-
+#pragma mark - HUD layer
 - (void)createHudLayer {
     self.hudNode = [SKNode new];
     [self.hudNode setZPosition:hudLayer];
     [self.hudNode setName:@"hud"];
     [self.hudNode setAlpha:0];
+    [self.hudNode setPosition:CGPointMake(-kMoveAndFadeDistance, 0)];
     [self addChild:self.hudNode];
     
-    SSKScoreNode *scoreCounter = [SSKScoreNode scoreNodeWithFontNamed:kPixelFontName fontSize:12 fontColor:[SKColor blackColor]];
+    SSKScoreNode *scoreCounter = [SSKScoreNode scoreNodeWithFontNamed:@"AmericanTypewriter" fontSize:12 fontColor:[SKColor blackColor]];
     [scoreCounter setName:@"scoreCounter"];
     [scoreCounter setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeLeft];
     [scoreCounter setVerticalAlignmentMode:SKLabelVerticalAlignmentModeTop];
@@ -230,32 +212,37 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [breathMeter setName:@"progressBar"];
     [breathMeter setPosition:CGPointMake(0, self.size.height/2 - 20)];
     [self.hudNode addChild:breathMeter];
-    
-    [self.hudNode setPosition:CGPointMake(-kMoveAndFadeDistance, 0)];
+}
+
+- (void)hudLayerFadeInAnimation {
     [self.hudNode runAction:[SKAction moveDistance:CGVectorMake(kMoveAndFadeDistance, 0) fadeInWithDuration:kMoveAndFadeTime]];
 }
 
+#pragma mark - Game Over layer
 - (void)createGameOverLayer {
     self.gameOverNode = [SKNode node];
-    [self.gameOverNode setZPosition:menuLayer];
+    [self.gameOverNode setZPosition:gameOverLayer];
     [self.gameOverNode setName:@"gameOver"];
     [self.gameOverNode setAlpha:0];
+    [self.gameOverNode setPosition:CGPointMake(-kMoveAndFadeDistance, 0)];
     [self addChild:self.gameOverNode];
     
-    
-    SKLabelNode *gameOverLabel = [self createNewLabelWithText:@"Game Over" withFontSize:30];
+    // Game over text label
+    SKLabelNode *gameOverLabel = [self createNewLabelWithText:@"Game Over" withFontSize:40];
     [gameOverLabel setFontColor:[SKColor colorWithR:150 g:5 b:5]];
-    [gameOverLabel setPosition:CGPointMake(0, self.size.height/4)];
+    [gameOverLabel setPosition:CGPointMake(0, self.size.height/3)];
     [self.gameOverNode addChild:gameOverLabel];
     
-    NSString *currentScore = [(SSKScoreNode*)[self.hudNode childNodeWithName:@"scoreCounter"] text];
-    NSString *currentScoreWithMeters = [NSString stringWithFormat:@"%@ meters.",currentScore];
-
-    SKLabelNode *scoreLabel = [self createNewLabelWithText:currentScoreWithMeters withFontSize:20];
+    // Score string
+    NSString *currentScoreString = [(SSKScoreNode*)[self.hudNode childNodeWithName:@"scoreCounter"] text];
+    
+    // Score label
+    SKLabelNode *scoreLabel = [self createNewLabelWithText:[NSString stringWithFormat:@"%@ meters.",currentScoreString] withFontSize:30];
     [scoreLabel setPosition:CGPointMake(gameOverLabel.position.x, gameOverLabel.position.y - 50)];
     [self.gameOverNode addChild:scoreLabel];
     
-    SSKButtonNode *menuButton = [SSKButtonNode buttonWithCircleOfRadius:40 idleFillColor:[SKColor clearColor] selectedFillColor:[SKColor whiteColor] labelWithText:@"Menu"];
+    // Button to go back to menu
+    SSKButtonNode *menuButton = [SSKButtonNode buttonWithCircleOfRadius:45 idleFillColor:[SKColor clearColor] selectedFillColor:[SKColor whiteColor] labelWithText:@"Menu"];
     [menuButton.idleShape setStrokeColor:[SKColor whiteColor]];
     [menuButton.selectedShape setStrokeColor:[SKColor whiteColor]];
     [menuButton setIdleLabelColor:[SKColor whiteColor]];
@@ -264,43 +251,10 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [menuButton setPosition:CGPointMake(0, -self.size.height/4)];
     [menuButton setZPosition: 20];
     [self.gameOverNode addChild:menuButton];
-    
-    // For animation
-    [self.gameOverNode setPosition:CGPointMake(-kMoveAndFadeDistance, 0)];
+}
+
+- (void)gameOverFadeInAnimation {
     [self.gameOverNode runAction:[SKAction moveDistance:CGVectorMake(kMoveAndFadeDistance, 0) fadeInWithDuration:kMoveAndFadeTime]];
-}
-
-#pragma mark - GameState MainMenu
-- (void)gameMenu {
-    self.gameState = MainMenu;
-
-    [self createMenuLayer];
-    [self startMenuAnimations];
-}
-
-- (void)startMenuAnimations {
-    [self runAction:[SKAction waitForDuration:.5] completion:^{
-        [self runMenuFingerAction];
-    }];
-}
-
-- (void)runMenuFingerAction {
-    SKNode *finger = [self.menuNode childNodeWithName:@"finger"];
-    SKNode *fingerEffect = [self.menuNode childNodeWithName:@"fingerEffect"];
-    
-    SKAction *fingerFloatUp = [SKAction moveByX:0 y:10 duration:.5];
-    fingerFloatUp.timingMode = SKActionTimingEaseInEaseOut;
-    SKAction *fingerFloatDown = fingerFloatUp.reversedAction;
-    SKAction *effectOn = [SKAction runBlock:^{
-        [fingerEffect setAlpha:1];
-    }];
-    SKAction *effectOff = [SKAction runBlock:^{
-        [fingerEffect setAlpha:0];
-    }];
-    SKAction *effectWait = [SKAction waitForDuration:.25];
-    SKAction *sequence = [SKAction sequence:@[fingerFloatUp,effectOn,effectWait,effectOff,fingerFloatDown]];
-    
-    [finger runAction:[SKAction repeatActionForever:sequence]];
 }
 
 #pragma mark - GameState Playing
@@ -311,7 +265,8 @@ CGFloat const kParallaxMinSpeed = -20.0;
     
     [self resetBreathTimer];
     [self createHudLayer];
-
+    [self hudLayerFadeInAnimation];
+    
     [self populateObstacleTexturePool];
     [self startObstacleSpawnSequence];
     
@@ -332,6 +287,8 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self stopObstacleMovement];
     [self stopObstacleSplash];
     
+    [self checkIfHighScore];
+    
     [self runGameOverSequence];
 }
 
@@ -340,6 +297,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self fadeoutHUD];
     [self playerGameOverCatapult];
     [self createGameOverLayer];
+    [self gameOverFadeInAnimation];
 }
 
 - (void)resetGame {
@@ -350,7 +308,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
     
     [fadeNode runAction:[SKAction fadeInWithDuration:.5] completion:^{
         [self.worldNode removeFromParent];
-        [self.menuNode removeFromParent];
         [self.hudNode removeFromParent];
         [self.gameOverNode removeFromParent];
         [self createNewGame];
@@ -358,6 +315,14 @@ CGFloat const kParallaxMinSpeed = -20.0;
             [fadeNode removeFromParent];
         }];
     }];
+}
+
+#pragma mark - High Score
+- (void)checkIfHighScore {
+    SSKScoreNode *scoreNode = (SSKScoreNode*)[self.hudNode childNodeWithName:@"scoreCounter"];
+    if (scoreNode.score > [[PPUserManager sharedManager] getHighScore].integerValue) {
+        [[PPUserManager sharedManager] saveHighScore:[NSNumber numberWithInteger:scoreNode.score]];
+    }
 }
 
 #pragma mark - Hud
@@ -652,10 +617,10 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 #pragma mark - Convenience
 - (SKLabelNode *)createNewLabelWithText:(NSString*)text withFontSize:(CGFloat)fontSize {
-    SKLabelNode *label = [SKLabelNode labelNodeWithFontNamed:kPixelFontName];
+    SKLabelNode *label = [SKLabelNode labelNodeWithFontNamed:@"AmericanTypewriter"];
     [label setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeCenter];
     [label setVerticalAlignmentMode:SKLabelVerticalAlignmentModeCenter];
-    [label setFontColor:[SKColor blackColor]];
+    [label setFontColor:[SKColor whiteColor]];
     [label setText:text];
     [label setFontSize:fontSize];
     return label;
