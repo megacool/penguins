@@ -28,7 +28,7 @@
 #import "SSKGraphicsUtils.h"
 
 typedef enum {
-    MainMenu,
+    PreGame,
     Playing,
     GameOver,
 }GameState;
@@ -43,6 +43,7 @@ typedef enum {
     playerLayer,
     hudLayer,
     gameOverLayer,
+    buttonLayer,
     fadeOutLayer,
 }Layers;
 
@@ -119,6 +120,8 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 - (void)createNewGame {
+    self.gameState = PreGame;
+    
     [self createWorldLayer];
     [self startGameAnimations];
 }
@@ -218,6 +221,12 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self.hudNode runAction:[SKAction moveDistance:CGVectorMake(kMoveAndFadeDistance, 0) fadeInWithDuration:kMoveAndFadeTime]];
 }
 
+- (void)hudLayerFadeOutAnimation {
+    if (self.hudNode) {
+        [self.hudNode runAction:[SKAction moveDistance:CGVectorMake(kMoveAndFadeDistance, 0) fadeOutWithDuration:kMoveAndFadeTime]];
+    }
+}
+
 #pragma mark - Game Over layer
 - (void)createGameOverLayer {
     self.gameOverNode = [SKNode node];
@@ -242,15 +251,8 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self.gameOverNode addChild:scoreLabel];
     
     // Button to go back to menu
-    SSKButtonNode *menuButton = [SSKButtonNode buttonWithCircleOfRadius:45 idleFillColor:[SKColor clearColor] selectedFillColor:[SKColor whiteColor] labelWithText:@"Menu"];
-    [menuButton.idleShape setStrokeColor:[SKColor whiteColor]];
-    [menuButton.selectedShape setStrokeColor:[SKColor whiteColor]];
-    [menuButton setIdleLabelColor:[SKColor whiteColor]];
-    [menuButton setSelectedLabelColor:[SKColor blueColor]];
-    [menuButton setTouchUpInsideTarget:self selector:@selector(loadMenuScene)];
-    [menuButton setPosition:CGPointMake(0, -self.size.height/4)];
-    [menuButton setZPosition: 20];
-    [self.gameOverNode addChild:menuButton];
+    [self.gameOverNode addChild:[self menuButton]];
+    [self.gameOverNode addChild:[self retryButton]];
 }
 
 - (void)gameOverFadeInAnimation {
@@ -283,53 +285,69 @@ CGFloat const kParallaxMinSpeed = -20.0;
     self.gameState = GameOver;
     
     [self stopScoreCounter];
+    [self checkIfHighScore];
+    
     [self stopObstacleSpawnSequence];
     [self stopObstacleMovement];
     [self stopObstacleSplash];
-    
-    [self checkIfHighScore];
     
     [self runGameOverSequence];
 }
 
 - (void)runGameOverSequence {
     [self setGravity:kGameOverGravityStrength];
-    [self fadeoutHUD];
+    
+    [self hudLayerFadeOutAnimation];
+    
     [self playerGameOverCatapult];
+
     [self createGameOverLayer];
     [self gameOverFadeInAnimation];
 }
 
 - (void)resetGame {
-    SKSpriteNode *fadeNode = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:self.size];
+    SKSpriteNode *fadeNode = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:self.size];
     [fadeNode setZPosition:fadeOutLayer];
     [fadeNode setAlpha:0];
     [self addChild:fadeNode];
     
-    [fadeNode runAction:[SKAction fadeInWithDuration:.5] completion:^{
-        [self.worldNode removeFromParent];
-        [self.hudNode removeFromParent];
-        [self.gameOverNode removeFromParent];
+    [fadeNode runAction:[SKAction fadeInWithDuration:.8] completion:^{
+//        [self.worldNode removeFromParent];
+//        [self.hudNode removeFromParent];
+//        [self.gameOverNode removeFromParent];
+        [self removeAllChildrenOfScene];
         [self createNewGame];
         [fadeNode runAction:[SKAction fadeOutWithDuration:.5] completion:^{
             [fadeNode removeFromParent];
         }];
     }];
+    
+    NSLog(@"%@",[[PPUserManager sharedManager] getHighScore]);
 }
 
-#pragma mark - High Score
-- (void)checkIfHighScore {
-    SSKScoreNode *scoreNode = (SSKScoreNode*)[self.hudNode childNodeWithName:@"scoreCounter"];
-    if (scoreNode.score > [[PPUserManager sharedManager] getHighScore].integerValue) {
-        [[PPUserManager sharedManager] saveHighScore:[NSNumber numberWithInteger:scoreNode.score]];
-    }
+#pragma mark - Buttons
+- (SSKButtonNode*)gameButtonNodeWithText:(NSString*)text {
+    SSKButtonNode *button = [SSKButtonNode buttonWithCircleOfRadius:45 idleFillColor:[SKColor clearColor] selectedFillColor:[SKColor whiteColor] labelWithText:text];
+    [button.idleShape setStrokeColor:[SKColor whiteColor]];
+    [button.selectedShape setStrokeColor:[SKColor whiteColor]];
+    [button setIdleLabelColor:[SKColor whiteColor]];
+    [button setSelectedLabelColor:[SKColor blueColor]];
+    [button setZPosition:buttonLayer];
+    return button;
 }
 
-#pragma mark - Hud
-- (void)fadeoutHUD {
-    if (self.hudNode) {
-        [self.hudNode runAction:[SKAction moveDistance:CGVectorMake(kMoveAndFadeDistance, 0) fadeOutWithDuration:kMoveAndFadeTime]];
-    }
+- (SSKButtonNode*)menuButton {
+    SSKButtonNode *menuButton = [self gameButtonNodeWithText:@"Menu"];
+    [menuButton setTouchUpInsideTarget:self selector:@selector(loadMenuScene)];
+    [menuButton setPosition:CGPointMake(self.size.width/5, -self.size.height/4)];
+    return menuButton;
+}
+
+- (SSKButtonNode*)retryButton {
+    SSKButtonNode *retryButton = [self gameButtonNodeWithText:@"Retry"];
+    [retryButton setTouchUpInsideTarget:self selector:@selector(resetGame)];
+    [retryButton setPosition:CGPointMake(-self.size.width/5, -self.size.height/4)];
+    return retryButton;
 }
 
 #pragma mark - Breath Meter
@@ -594,6 +612,14 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self removeActionForKey:@"scoreKey"];
 }
 
+- (void)checkIfHighScore {
+    SSKScoreNode *scoreNode = (SSKScoreNode*)[self.hudNode childNodeWithName:@"scoreCounter"];
+    NSLog(@"Score:%lu High Score: %@",scoreNode.score,[[PPUserManager sharedManager] getHighScore]);
+    if (scoreNode.score > [[PPUserManager sharedManager] getHighScore].integerValue) {
+        [[PPUserManager sharedManager] saveHighScore:[NSNumber numberWithInteger:scoreNode.score]];
+    }
+}
+
 #pragma mark - World Gravity
 - (void)setGravity:(CGFloat)gravity {
     [self.physicsWorld setGravity:CGVectorMake(0, gravity)];
@@ -639,6 +665,16 @@ CGFloat const kParallaxMinSpeed = -20.0;
     return (waterWidth/kLargeTileWidth);
 }
 
+#pragma mark - Remove all nodes 
+- (void)removeAllChildrenOfScene {
+    for (SKNode* node in self.children) {
+        for (SKNode *child in node.children) {
+            [child removeFromParent];
+        }
+        [node removeFromParent];
+    }
+}
+
 #pragma mark - Collisions
 - (void)resolveCollisionFromFirstBody:(SKPhysicsBody *)firstBody secondBody:(SKPhysicsBody *)secondBody {
     if (self.gameState == Playing) {
@@ -648,7 +684,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 #pragma mark - Input
 - (void)interactionBeganAtPosition:(CGPoint)position {
-    if (self.gameState == MainMenu) {
+    if (self.gameState == PreGame) {
         [self gameStart];
     }
     
@@ -676,7 +712,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 - (void)update:(NSTimeInterval)currentTime {
     [super update:currentTime];
     
-    if (self.gameState == MainMenu || self.gameState == Playing) {
+    if (self.gameState == PreGame || self.gameState == Playing) {
         [self updatePlayer:self.deltaTime];
         [self updateGravity];
     }
