@@ -53,7 +53,6 @@
 #pragma mark - Node's text
 - (void)updateText {
     self.text = [NSString stringWithFormat:@"%lu",self.score];
-    NSLog(@"%@",self.text);
 }
 
 @end

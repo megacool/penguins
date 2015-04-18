@@ -16,32 +16,15 @@ typedef void (^AssetCompletionHandler)(void);
 + (void)loadSharedAssetsWithCompletion:(AssetCompletionHandler)completion;
 
 // Background Textures
-+ (SKTexture*)sharedWaterGradient;
-+ (SKTexture*)sharedSkyGradient;
 + (SKTexture*)sharedIcebergTexture;
-
-+ (SKTexture*)sharedCloudBackgroundLowerTexture;
-+ (SKTexture*)sharedCloudBackgroundMiddleTexture;
-+ (SKTexture*)sharedCloudBackgroundUpperTexture;
-+ (SKTexture*)sharedCloudForegroundTexture;
 
 // Clouds
 + (SKTextureAtlas*)sharedCloudAtlas;
 
-// Obstacle Textures
-+ (SKTexture*)sharedObstacleLargeTexture;
-+ (SKTexture*)sharedObstacleMediumTexture;
-
-// Misc. Textures
-+ (SKTexture*)sharedFingerSprite;
-+ (SKTexture*)sharedFingerSpriteEffect;
+// Iceberg Textures
++ (SKTextureAtlas*)sharedIcebergAtlas;
 
 // Button Textures
-+ (SKTexture*)sharedPlayButtonUpTexture;
-+ (SKTexture*)sharedPlayButtonDownTexture;
-
-+ (SKTexture*)sharedHomeButtonUpTexture;
-+ (SKTexture*)sharedHomeButtonDownTexture;
 
 // Penguins Textures
 + (SKTextureAtlas*)sharedPenguinBlackTextures;

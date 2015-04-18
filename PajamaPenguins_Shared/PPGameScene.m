@@ -38,9 +38,9 @@ typedef enum {
     parallaxLayer,
     obstacleLayer,
     foregroundLayer,
+    playerLayer,
     waterSurfaceLayer,
     bubbleLayer,
-    playerLayer,
     hudLayer,
     gameOverLayer,
     buttonLayer,
@@ -529,11 +529,9 @@ CGFloat const kParallaxMinSpeed = -20.0;
     return (SKEmitterNode*)[self.worldNode childNodeWithName:@"bubbleEmitter"];
 }
 
-#pragma mark - Obstacles
-
-//TEMP ***
-- (PPIcebergObstacle*)newIcebergWithSize:(CGSize)size {
-    PPIcebergObstacle *obstacle = [[PPIcebergObstacle alloc] initWithSize:size];
+#pragma mark - Icebergs
+- (PPIcebergObstacle*)newIceBergWithTexture:(SKTexture*)texture {
+    PPIcebergObstacle *obstacle = [PPIcebergObstacle spriteNodeWithTexture:texture];
     [obstacle setName:@"obstacle"];
     [obstacle setZPosition:obstacleLayer];
     [obstacle.physicsBody setCategoryBitMask:obstacleCategory];
@@ -541,18 +539,9 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 - (SKNode*)newObstacle {
-    PPIcebergObstacle *newObstacle = [self newIcebergWithSize:CGSizeMake(50, 50)];
-    [newObstacle setPosition:CGPointMake((self.size.width/kWorldScaleCap) + newObstacle.size.width/2, 0)];
+    PPIcebergObstacle *newObstacle = [self newIceBergWithTexture:[[PPSharedAssets sharedIcebergAtlas] textureNamed:@"iceberg_morning"]];
+    [newObstacle setPosition:CGPointMake((self.size.width/kWorldScaleCap) + newObstacle.size.width/2, newObstacle.size.height / 10)];
     return newObstacle;
-}
-//TEMP ***
-
-- (PPIcebergObstacle*)newIceBergWithTexture:(SKTexture*)texture {
-    PPIcebergObstacle *obstacle = [PPIcebergObstacle spriteNodeWithTexture:texture];
-    [obstacle setName:@"obstacle"];
-    [obstacle setZPosition:obstacleLayer];
-    [obstacle.physicsBody setCategoryBitMask:obstacleCategory];
-    return obstacle;
 }
 
 - (SKNode*)generateNewRandomObstacle {
@@ -568,8 +557,8 @@ CGFloat const kParallaxMinSpeed = -20.0;
     self.obstacleTexturePool = nil;
     self.obstacleTexturePool = [NSMutableArray new];
     
-    [self.obstacleTexturePool addObject:[PPSharedAssets sharedObstacleMediumTexture]];
-    [self.obstacleTexturePool addObject:[PPSharedAssets sharedObstacleLargeTexture]];
+//    [self.obstacleTexturePool addObject:[PPSharedAssets sharedObstacleMediumTexture]];
+//    [self.obstacleTexturePool addObject:[PPSharedAssets sharedObstacleLargeTexture]];
 }
 
 #pragma mark - Obstacle Spawn Sequence
@@ -648,7 +637,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 #pragma mark - Actions
 - (SKAction*)floatAction {
-    SKAction *down = [SKAction moveByX:0 y:-25 duration:2];
+    SKAction *down = [SKAction moveByX:0 y:-10 duration:2];
     [down setTimingMode:SKActionTimingEaseInEaseOut];
     SKAction *up = [down reversedAction];
     return [SKAction sequence:@[down,up]];

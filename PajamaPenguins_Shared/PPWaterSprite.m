@@ -10,8 +10,8 @@
 #import "SKTexture+SFAdditions.h"
 #import "SKColor+SFAdditions.h"
 
-#define kStartColor [SKColor colorWithR:0 g:57 b:80]
-#define kEndColor [SKColor colorWithR:0 g:167 b:255]
+#define kStartColor [SKColor colorWithR:0 g:0 b:255]
+#define kEndColor [SKColor colorWithR:0 g:200 b:255]
 
 @implementation PPWaterSprite
 + (instancetype)surfaceWithStartPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint depth:(CGFloat)depth {
@@ -26,7 +26,7 @@
         [self setSplashDamping:.05];
         [self setSplashTension:.005];
         
-        [self setAlpha:.75];
+        [self setAlpha:.5];
     }
     return self;
 }

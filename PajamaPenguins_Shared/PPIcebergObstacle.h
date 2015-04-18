@@ -7,7 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "PPSprite.h"
 
-@interface PPIcebergObstacle : SKSpriteNode
-- (instancetype)initWithSize:(CGSize)size;
+@interface PPIcebergObstacle : PPSprite
 @end
