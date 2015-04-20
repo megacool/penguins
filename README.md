@@ -1,7 +1,7 @@
 Pajama Penguins
 ================
-February, 2015 submission for One Game A Month.
-A one touch game made for iOS, made with Spritekit.  Currently under active development.
+
+A one touch game made with Spritekit.  Currently under active development.
 
 License
 ================
