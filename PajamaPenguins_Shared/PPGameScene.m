@@ -33,19 +33,19 @@ typedef enum {
     GameOver,
 }GameState;
 
-typedef enum {
-    backgroundLayer,
-    parallaxLayer,
-    obstacleLayer,
-    foregroundLayer,
-    playerLayer,
-    waterSurfaceLayer,
-    bubbleLayer,
-    hudLayer,
-    gameOverLayer,
-    buttonLayer,
-    fadeOutLayer,
-}Layers;
+typedef NS_ENUM(NSUInteger, SceneLayer) {
+    SceneLayerBackground = 0,
+    SceneLayerClouds,
+    SceneLayerIcebergs,
+    SceneLayerSnow,
+    SceneLayerPlayer,
+    SceneLayerWater,
+    SceneLayerBubbles,
+    SceneLayerHUD,
+    SceneLayerGameOver,
+    SceneLayerButtons,
+    SceneLayerFadeOut
+};
 
 //Texture Constants
 CGFloat const kLargeTileWidth  = 30.0;
@@ -143,16 +143,16 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
     //Parallaxing Nodes
     self.cloudSlow = [[PPCloudParallaxSlow alloc] initWithSize:self.size];
-    self.cloudSlow.zPosition = parallaxLayer;
+    self.cloudSlow.zPosition = SceneLayerClouds;
     [self.worldNode addChild:self.cloudSlow];
     
     self.cloudFast = [[PPCloudParallaxFast alloc] initWithSize:self.size];
-    self.cloudFast.zPosition = parallaxLayer;
+    self.cloudFast.zPosition = SceneLayerClouds;
     [self.worldNode addChild:self.cloudFast];
     
     //Snow Emitter
     self.snowEmitter = [PPSharedAssets sharedSnowEmitter].copy;
-    [self.snowEmitter setZPosition:foregroundLayer];
+    [self.snowEmitter setZPosition:SceneLayerSnow];
     [self.snowEmitter setPosition:CGPointMake(self.size.width/2, self.size.height/2)];
     [self.snowEmitter setName:@"snowEmitter"];
     [self addChild:self.snowEmitter];
@@ -163,7 +163,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     
     self.waterSurface = [PPWaterSprite surfaceWithStartPoint:surfaceStart endPoint:surfaceEnd depth:self.size.height/2];
     [self.waterSurface setName:@"water"];
-    [self.waterSurface setZPosition:waterSurfaceLayer];
+    [self.waterSurface setZPosition:SceneLayerWater];
     [self.worldNode addChild:self.waterSurface];
 
     //Player
@@ -175,7 +175,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     
     //Player's bubble emitter
     SKNode *bubbleTarget = [SKNode new];
-    [bubbleTarget setZPosition:bubbleLayer];
+    [bubbleTarget setZPosition:SceneLayerBubbles];
     [self addChild:bubbleTarget];
     
     SKEmitterNode *playerBubbleEmitter = [PPSharedAssets sharedBubbleEmitter].copy;
@@ -198,7 +198,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 #pragma mark - HUD layer
 - (void)createHudLayer {
     self.hudNode = [SKNode new];
-    [self.hudNode setZPosition:hudLayer];
+    [self.hudNode setZPosition:SceneLayerHUD];
     [self.hudNode setName:@"hud"];
     [self.hudNode setAlpha:0];
     [self.hudNode setPosition:CGPointMake(-kMoveAndFadeDistance, 0)];
@@ -230,7 +230,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 #pragma mark - Game Over layer
 - (void)createGameOverLayer {
     self.gameOverNode = [SKNode node];
-    [self.gameOverNode setZPosition:gameOverLayer];
+    [self.gameOverNode setZPosition:SceneLayerGameOver];
     [self.gameOverNode setName:@"gameOver"];
     [self.gameOverNode setAlpha:0];
     [self.gameOverNode setPosition:CGPointMake(-kMoveAndFadeDistance, 0)];
@@ -307,7 +307,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 - (void)resetGame {
     SKSpriteNode *fadeNode = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:self.size];
-    [fadeNode setZPosition:fadeOutLayer];
+    [fadeNode setZPosition:SceneLayerFadeOut];
     [fadeNode setAlpha:0];
     [self addChild:fadeNode];
     
@@ -321,8 +321,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
             [fadeNode removeFromParent];
         }];
     }];
-    
-    NSLog(@"%@",[[PPUserManager sharedManager] getHighScore]);
 }
 
 #pragma mark - Buttons
@@ -332,7 +330,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [button.selectedShape setStrokeColor:[SKColor whiteColor]];
     [button setIdleLabelColor:[SKColor whiteColor]];
     [button setSelectedLabelColor:[SKColor blueColor]];
-    [button setZPosition:buttonLayer];
+    [button setZPosition:SceneLayerButtons];
     return button;
 }
 
@@ -386,7 +384,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [penguin setPosition:CGPointMake(-self.size.width/4, 50)];
     [penguin setName:@"player"];
     [penguin setZRotation:SSKDegreesToRadians(90)];
-    [penguin setZPosition:playerLayer];
+    [penguin setZPosition:SceneLayerPlayer];
     [penguin setPlayerShouldRotate:YES];
     [penguin setPlayerState:PlayerStateFly];
     [penguin createPhysicsBody];
@@ -520,7 +518,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 - (void)runOneShotEmitter:(SKEmitterNode*)emitter location:(CGPoint)location {
     SKEmitterNode *splashEmitter = emitter.copy;
     [splashEmitter setPosition:location];
-    [splashEmitter setZPosition:waterSurfaceLayer];
+    [splashEmitter setZPosition:SceneLayerWater];
     [self.worldNode addChild:splashEmitter];
     [SSKGraphicsUtils runOneShotActionWithEmitter:splashEmitter duration:0.15];
 }
@@ -533,7 +531,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 - (PPIcebergObstacle*)newIceBergWithTexture:(SKTexture*)texture {
     PPIcebergObstacle *obstacle = [PPIcebergObstacle spriteNodeWithTexture:texture];
     [obstacle setName:@"obstacle"];
-    [obstacle setZPosition:obstacleLayer];
+    [obstacle setZPosition:SceneLayerIcebergs];
     [obstacle.physicsBody setCategoryBitMask:obstacleCategory];
     return obstacle;
 }
@@ -615,7 +613,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     SKLabelNode *highScoreLabel = [self createNewLabelWithText:@"Highscore!" withFontSize:20];
     [highScoreLabel setZRotation:SSKDegreesToRadians(35.0)];
     [highScoreLabel setFontColor:[SKColor redColor]];
-    [highScoreLabel setZPosition:gameOverLayer];
+    [highScoreLabel setZPosition:SceneLayerGameOver];
     [highScoreLabel setPosition:CGPointMake(self.size.width/3, self.size.height/3 + 25)];
     [self addChild:highScoreLabel];
     
