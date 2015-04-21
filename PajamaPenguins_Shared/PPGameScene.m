@@ -513,7 +513,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
     }
 }
 
-
 #pragma mark - Emitters
 - (void)runOneShotEmitter:(SKEmitterNode*)emitter location:(CGPoint)location {
     SKEmitterNode *splashEmitter = emitter.copy;
@@ -529,8 +528,14 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 #pragma mark - Icebergs
 - (PPIcebergObstacle*)newIceBerg {
+
+    // Get a random scale between 0.5 - 1.0
+    CGFloat rand = SSKRandomFloatInRange(50, 100);
+    CGFloat newScale = (rand/100);
+    
     PPIcebergObstacle *obstacle = [PPIcebergObstacle icebergWithType:IceBergTypeNormal];
     [obstacle setName:@"obstacle"];
+    [obstacle setScale:newScale];
     [obstacle setPosition:CGPointMake((self.size.width/kWorldScaleCap) + obstacle.size.width/2, obstacle.size.height / 10)];
     [obstacle setZPosition:SceneLayerIcebergs];
     [obstacle.physicsBody setCategoryBitMask:obstacleCategory];
