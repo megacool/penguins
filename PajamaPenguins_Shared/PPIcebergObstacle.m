@@ -7,18 +7,37 @@
 //
 
 #import "PPIcebergObstacle.h"
+#import "PPSharedAssets.h"
 
 @implementation PPIcebergObstacle
-- (instancetype)initWithTexture:(SKTexture *)texture {
+- (instancetype)initWithIcebergType:(IceBergType)icebergType {
+    SKTexture *texture = [self textureForIcebergType:icebergType];
     self = [super initWithTexture:texture];
     if (self) {
-        [self setTexture:texture];
-
         self.physicsBody = [SKPhysicsBody bodyWithTexture:texture size:self.size];
         self.physicsBody.affectedByGravity = NO;
         self.physicsBody.dynamic = NO;
     }
     return self;
+}
+
++ (instancetype)icebergWithType:(IceBergType)icebergType {
+    return [[self alloc] initWithIcebergType:icebergType];
+}
+
+#pragma mark - Iceberg Type
+- (SKTexture*)textureForIcebergType:(IceBergType)icebergType {
+    SKTexture *texture = nil;
+    
+    switch (self.icebergType) {
+        case IceBergTypeNormal:
+            texture = [[PPSharedAssets sharedIcebergAtlas] textureNamed:@"iceberg_normal"];
+            break;
+            
+        default:
+            break;
+    }
+    return texture;
 }
 
 @end

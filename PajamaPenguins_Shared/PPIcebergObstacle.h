@@ -9,5 +9,12 @@
 #import <SpriteKit/SpriteKit.h>
 #import "PPSprite.h"
 
+typedef NS_ENUM(NSUInteger, IceBergType) {
+    IceBergTypeNormal = 0,
+};
+
 @interface PPIcebergObstacle : PPSprite
+@property (nonatomic) IceBergType icebergType;
+
++ (instancetype)icebergWithType:(IceBergType)icebergType;
 @end

@@ -528,25 +528,20 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 #pragma mark - Icebergs
-- (PPIcebergObstacle*)newIceBergWithTexture:(SKTexture*)texture {
-    PPIcebergObstacle *obstacle = [PPIcebergObstacle spriteNodeWithTexture:texture];
+- (PPIcebergObstacle*)newIceBerg {
+    PPIcebergObstacle *obstacle = [PPIcebergObstacle icebergWithType:IceBergTypeNormal];
     [obstacle setName:@"obstacle"];
+    [obstacle setPosition:CGPointMake((self.size.width/kWorldScaleCap) + obstacle.size.width/2, obstacle.size.height / 10)];
     [obstacle setZPosition:SceneLayerIcebergs];
     [obstacle.physicsBody setCategoryBitMask:obstacleCategory];
     return obstacle;
 }
 
-- (SKNode*)newObstacle {
-    PPIcebergObstacle *newObstacle = [self newIceBergWithTexture:[[PPSharedAssets sharedIcebergAtlas] textureNamed:@"iceberg_morning"]];
-    [newObstacle setPosition:CGPointMake((self.size.width/kWorldScaleCap) + newObstacle.size.width/2, newObstacle.size.height / 10)];
-    return newObstacle;
-}
-
 - (SKNode*)generateNewRandomObstacle {
-    CGFloat randomNum = SSKRandomFloatInRange(0, self.obstacleTexturePool.count);
-    SKTexture *randomTexture = [self.obstacleTexturePool objectAtIndex:randomNum];
+//    CGFloat randomNum = SSKRandomFloatInRange(0, self.obstacleTexturePool.count);
+//    SKTexture *randomTexture = [self.obstacleTexturePool objectAtIndex:randomNum];
     
-    PPIcebergObstacle *newIceberg = [self newIceBergWithTexture:randomTexture];
+    PPIcebergObstacle *newIceberg = [self newIceBerg];
     [newIceberg setPosition:CGPointMake((self.size.width/kWorldScaleCap) + newIceberg.size.width/2, 0)];
     return newIceberg;
 }
@@ -564,9 +559,9 @@ CGFloat const kParallaxMinSpeed = -20.0;
     SKAction *wait = [SKAction waitForDuration:1.5];
     SKAction *spawnFloatMove = [SKAction runBlock:^{
 //        SKNode *obstacle = [self generateNewRandomObstacle];
-        SKNode *obstacle = [self newObstacle];
+        SKNode *obstacle = [self newIceBerg];
         [self.worldNode addChild:obstacle];
-        [obstacle runAction:[SKAction repeatActionForever:[self floatAction]]];
+//        [obstacle runAction:[SKAction repeatActionForever:[self floatAction]]];
         [obstacle runAction:[SKAction moveToX:-self.size.width duration:4] withKey:@"moveObstacle" completion:^{
             [obstacle removeFromParent];
         }];
