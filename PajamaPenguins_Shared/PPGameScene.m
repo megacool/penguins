@@ -528,7 +528,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 #pragma mark - Icebergs
 - (PPIcebergObstacle*)newIceBerg {
-
+    
     // Get a random scale between 0.5 - 1.0
     CGFloat rand = SSKRandomFloatInRange(50, 100);
     CGFloat newScale = (rand/100);
