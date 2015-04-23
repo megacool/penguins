@@ -11,6 +11,7 @@
 
 typedef NS_ENUM(NSUInteger, IceBergType) {
     IceBergTypeNormal = 0,
+    IceBergTypeWide,
 };
 
 @interface PPIcebergObstacle : PPSprite

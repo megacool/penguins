@@ -528,12 +528,16 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 #pragma mark - Icebergs
 - (PPIcebergObstacle*)newIceBerg {
+    // Get a random iceberg type
+    CGFloat randType = SSKRandomFloatInRange(0, 2);
+    
+    NSLog(@"%fl",randType);
     
     // Get a random scale between 0.5 - 1.0
     CGFloat rand = SSKRandomFloatInRange(50, 100);
     CGFloat newScale = (rand/100);
     
-    PPIcebergObstacle *obstacle = [PPIcebergObstacle icebergWithType:IceBergTypeNormal];
+    PPIcebergObstacle *obstacle = [PPIcebergObstacle icebergWithType:randType];
     [obstacle setName:@"obstacle"];
     [obstacle setScale:newScale];
     [obstacle setPosition:CGPointMake((self.size.width/kWorldScaleCap) + obstacle.size.width/2, obstacle.size.height / 10)];

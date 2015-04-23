@@ -19,6 +19,7 @@
         sIcebergTexture = [SKTexture textureWithImageNamed:@"platform_iceberg"];
         
         // Buttons
+        sButtonAtlas = [SKTextureAtlas atlasNamed:@"buttons"];
         
         // Clouds
         sCloudAtlas = [SKTextureAtlas atlasNamed:@"clouds"];
@@ -63,6 +64,10 @@ static SKTextureAtlas *sCloudAtlas = nil;
 }
 
 // Buttons
+static SKTextureAtlas *sButtonAtlas = nil;
++ (SKTextureAtlas*)sharedButtonAtlas {
+    return sButtonAtlas;
+}
 
 // Penguins
 static SKTextureAtlas *sPenguinBlackTextures = nil;

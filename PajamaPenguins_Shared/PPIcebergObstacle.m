@@ -14,9 +14,9 @@
     SKTexture *texture = [self textureForIcebergType:icebergType];
     self = [super initWithTexture:texture];
     if (self) {
-        self.physicsBody = [SKPhysicsBody bodyWithTexture:texture size:self.size];
-        self.physicsBody.affectedByGravity = NO;
-        self.physicsBody.dynamic = NO;
+//        self.physicsBody = [SKPhysicsBody bodyWithTexture:texture size:self.size];
+//        self.physicsBody.affectedByGravity = NO;
+//        self.physicsBody.dynamic = NO;
     }
     return self;
 }
@@ -29,9 +29,13 @@
 - (SKTexture*)textureForIcebergType:(IceBergType)icebergType {
     SKTexture *texture = nil;
     
-    switch (self.icebergType) {
+    switch (icebergType) {
         case IceBergTypeNormal:
             texture = [[PPSharedAssets sharedIcebergAtlas] textureNamed:@"iceberg_normal"];
+            break;
+            
+        case IceBergTypeWide:
+            texture = [[PPSharedAssets sharedIcebergAtlas] textureNamed:@"iceberg_wide"];
             break;
             
         default:

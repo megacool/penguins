@@ -25,6 +25,7 @@ typedef void (^AssetCompletionHandler)(void);
 + (SKTextureAtlas*)sharedIcebergAtlas;
 
 // Button Textures
++ (SKTextureAtlas*)sharedButtonAtlas;
 
 // Penguins Textures
 + (SKTextureAtlas*)sharedPenguinBlackTextures;
