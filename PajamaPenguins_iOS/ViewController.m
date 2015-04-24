@@ -9,7 +9,6 @@
 #import "PPGameScene.h"
 
 #import "PPSharedAssets.h"
-#import "PPSkyManager.h"
 
 #define DEBUG_MODE 1 // Comment/uncomment to toggle debug information.
 
@@ -25,7 +24,6 @@
     if (!skView.scene) {
         [PPSharedAssets loadSharedAssetsWithCompletion:^{
             NSLog(@"Loading Complete.");
-            [PPSkyManager sharedManager];
             
             SKScene *scene = [PPMenuScene sceneWithSize:skView.bounds.size];
             scene.scaleMode = SKSceneScaleModeAspectFill;

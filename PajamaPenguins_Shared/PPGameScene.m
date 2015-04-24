@@ -14,8 +14,8 @@
 #import "PPCloudParallaxSlow.h"
 #import "PPCloudParallaxFast.h"
 #import "PPButtonNode.h"
+#import "PPFadingSky.h"
 #import "PPUserManager.h"
-#import "PPSkyManager.h"
 
 #import "SKColor+SFAdditions.h"
 #import "SSKUtils.h"
@@ -89,7 +89,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 @property (nonatomic) PPCloudParallaxSlow *cloudSlow;
 @property (nonatomic) PPCloudParallaxFast *cloudFast;
 
-@property (nonatomic) PPSkySprite *skySprite;
+@property (nonatomic) PPFadingSky *sky;
 @property (nonatomic) PPWaterSprite *waterSurface;
 
 @property (nonatomic) NSMutableArray *obstacleTexturePool;
@@ -138,10 +138,13 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self setBackgroundColor:[SKColor whiteColor]];
     
     //Sky
-    self.skySprite = [PPSkySprite skyWithType:SkyTypeSunset];
-    [self.skySprite setPosition:CGPointMake(-self.size.width/2, -self.size.height/2)];
-    [self.worldNode addChild:self.skySprite];
-
+    self.sky = [PPFadingSky skyWithDayDuration:10];
+    [self.sky setPosition:CGPointMake(-self.size.width/2, -self.size.height/2)];
+    [self.sky setZPosition:-10];
+    [self.worldNode addChild:self.sky];
+    
+    [self.sky startFade];
+    
     //Parallaxing Nodes
     self.cloudSlow = [[PPCloudParallaxSlow alloc] initWithSize:self.size];
     self.cloudSlow.zPosition = SceneLayerClouds;
@@ -682,6 +685,9 @@ CGFloat const kParallaxMinSpeed = -20.0;
     
     // Remove Snow
     [self.snowEmitter removeFromParent];
+    
+    // Remove Sky
+    [self.sky removeFromParent];
 }
 
 #pragma mark - Collisions

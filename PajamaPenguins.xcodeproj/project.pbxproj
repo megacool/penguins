@@ -38,7 +38,7 @@
 		EE34347B1AABF4180010BE71 /* PPSharedAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = EE34347A1AABF4180010BE71 /* PPSharedAssets.m */; };
 		EE34347C1AABF4180010BE71 /* PPSharedAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = EE34347A1AABF4180010BE71 /* PPSharedAssets.m */; };
 		EE4BD18A1AD4C379003371FF /* PPWaterSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4BD1891AD4C379003371FF /* PPWaterSprite.m */; };
-		EE514BEA1AEAD8CD000AAF86 /* PPSkyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE514BE91AEAD8CD000AAF86 /* PPSkyManager.m */; };
+		EE514BED1AEAE643000AAF86 /* PPFadingSky.m in Sources */ = {isa = PBXBuildFile; fileRef = EE514BEC1AEAE643000AAF86 /* PPFadingSky.m */; };
 		EE5575EB1A5A108100B87145 /* PPGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5575E91A5A108100B87145 /* PPGameScene.m */; };
 		EE5575F01A5A16A700B87145 /* PPGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5575E91A5A108100B87145 /* PPGameScene.m */; };
 		EE5E21D41AC35F0400C9A310 /* EmitterParticle.png in Resources */ = {isa = PBXBuildFile; fileRef = EE5E21D21AC35F0400C9A310 /* EmitterParticle.png */; };
@@ -138,8 +138,8 @@
 		EE34347A1AABF4180010BE71 /* PPSharedAssets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPSharedAssets.m; path = ../PajamaPenguins_Shared/PPSharedAssets.m; sourceTree = "<group>"; };
 		EE4BD1881AD4C379003371FF /* PPWaterSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPWaterSprite.h; sourceTree = "<group>"; };
 		EE4BD1891AD4C379003371FF /* PPWaterSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPWaterSprite.m; sourceTree = "<group>"; };
-		EE514BE81AEAD8CD000AAF86 /* PPSkyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSkyManager.h; sourceTree = "<group>"; };
-		EE514BE91AEAD8CD000AAF86 /* PPSkyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSkyManager.m; sourceTree = "<group>"; };
+		EE514BEB1AEAE643000AAF86 /* PPFadingSky.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPFadingSky.h; sourceTree = "<group>"; };
+		EE514BEC1AEAE643000AAF86 /* PPFadingSky.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPFadingSky.m; sourceTree = "<group>"; };
 		EE5575E81A5A108100B87145 /* PPGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPGameScene.h; sourceTree = "<group>"; };
 		EE5575E91A5A108100B87145 /* PPGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPGameScene.m; sourceTree = "<group>"; };
 		EE5E21D21AC35F0400C9A310 /* EmitterParticle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EmitterParticle.png; sourceTree = "<group>"; };
@@ -371,6 +371,8 @@
 			children = (
 				EEB8706F1AD0C421000D21E6 /* PPSkySprite.h */,
 				EEB870701AD0C421000D21E6 /* PPSkySprite.m */,
+				EE514BEB1AEAE643000AAF86 /* PPFadingSky.h */,
+				EE514BEC1AEAE643000AAF86 /* PPFadingSky.m */,
 			);
 			name = Sky;
 			sourceTree = "<group>";
@@ -527,8 +529,6 @@
 		EEC6AE9F1AE0ACB900FCB267 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				EE514BE81AEAD8CD000AAF86 /* PPSkyManager.h */,
-				EE514BE91AEAD8CD000AAF86 /* PPSkyManager.m */,
 				EEC6AEA01AE0ACD300FCB267 /* PPUserManager.h */,
 				EEC6AEA11AE0ACD300FCB267 /* PPUserManager.m */,
 			);
@@ -682,7 +682,6 @@
 				EEC9DB8D1AA7BF5E0022CDF1 /* SSKProgressBarNode.m in Sources */,
 				EEC9BA491AE9D0B4006A7118 /* PPButtonNode.m in Sources */,
 				EE8F0AB71AD73A7600CB1CE1 /* PPCloudParallaxFast.m in Sources */,
-				EE514BEA1AEAD8CD000AAF86 /* PPSkyManager.m in Sources */,
 				EEBA93CF1A8C1FED00CBD711 /* SSKCameraNode.m in Sources */,
 				EE6F92FC1A82F39400286DC7 /* SSKButtonNode.m in Sources */,
 				EE4BD18A1AD4C379003371FF /* PPWaterSprite.m in Sources */,
@@ -703,6 +702,7 @@
 				EEF798241A9D4E9B0000DD14 /* PPSimpleAnimatedSprite.m in Sources */,
 				41E430A018B09E5200E1427D /* AppDelegate.m in Sources */,
 				EE8CF09E1ACB87B800BFC4A8 /* SSKWaterSurfaceNode.m in Sources */,
+				EE514BED1AEAE643000AAF86 /* PPFadingSky.m in Sources */,
 				EE8F0AB41AD735BD00CB1CE1 /* PPSprite.m in Sources */,
 				EE6F92F81A82F39400286DC7 /* SSKGameCenter.m in Sources */,
 				41E4309C18B09E5200E1427D /* main.m in Sources */,

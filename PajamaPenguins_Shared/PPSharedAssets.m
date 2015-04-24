@@ -23,27 +23,27 @@
         CGSize skySize = CGSizeMake(screenRect.width * 2, screenRect.height * 2);
         
         sSkyMorning = [SKTexture textureWithGradientOfSize:skySize
-                                                startColor:[SKColor colorWithR:255 g:190 b:120]
-                                                  endColor:[SKColor colorWithR:69 g:149 b:255]
+                                                startColor:[SKColor colorWithR:255 g:130 b:100]
+                                                  endColor:[SKColor colorWithR:0 g:15 b:155]
                                                  direction:GradientDirectionVertical];
         sSkyDay = [SKTexture textureWithGradientOfSize:skySize
-                                            startColor:[SKColor colorWithR:150 g:255 b:250]
-                                              endColor:[SKColor colorWithR:0 g:142 b:242]
+                                            startColor:[SKColor colorWithR:0 g:255 b:250]
+                                              endColor:[SKColor colorWithR:0 g:15 b:155]
                                              direction:GradientDirectionVertical];
         
         sSkyAfternoon = [SKTexture textureWithGradientOfSize:skySize
-                                                  startColor:[SKColor colorWithR:172 g:163 b:255]
-                                                    endColor:[SKColor colorWithR:0 g:100 b:225]
+                                                  startColor:[SKColor colorWithR:0 g:255 b:80]
+                                                    endColor:[SKColor colorWithR:0 g:15 b:155]
                                                    direction:GradientDirectionVertical];
         
         sSkySunset = [SKTexture textureWithGradientOfSize:skySize
-                                               startColor:[SKColor colorWithR:255 g:111 b:108]
-                                                 endColor:[SKColor colorWithR:31 g:25 b:152]
+                                               startColor:[SKColor colorWithR:255 g:60 b:60]
+                                                 endColor:[SKColor colorWithR:0 g:15 b:155]
                                                 direction:GradientDirectionVertical];
         
         sSkyNight = [SKTexture textureWithGradientOfSize:skySize
-                                              startColor:[SKColor colorWithR:0 g:43 b:137]
-                                                endColor:[SKColor colorWithR:0 g:10 b:32]
+                                              startColor:[SKColor colorWithR:0 g:29 b:91]
+                                                endColor:[SKColor colorWithR:0 g:10 b:45]
                                                direction:GradientDirectionVertical];
         // Water gradient
         CGSize waterSize = CGSizeMake(screenRect.width * 2, screenRect.height/2);
