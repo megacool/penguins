@@ -8,63 +8,59 @@
 
 #import "PPFadingSky.h"
 
+NSUInteger const kMorningR = 255;
+NSUInteger const kMorningG = 130;
+NSUInteger const kMorningB = 10;
+
+NSUInteger const kDayR = 75;
+NSUInteger const kDayG = 255;
+NSUInteger const kDayB = 255;
+
+NSUInteger const kAfternoonR = 35;
+NSUInteger const kAfternoonG = 122;
+NSUInteger const kAfternoonB = 255;
+
+NSUInteger const kSunsetR = 255;
+NSUInteger const kSunsetG = 62;
+NSUInteger const kSunsetB = 59;
+
+NSUInteger const kNightR = 0;
+NSUInteger const kNightG = 30;
+NSUInteger const kNightB = 90;
+
 @interface PPFadingSky()
-@property (nonatomic) SKNode *topLayer;
+
 @end
 
 @implementation PPFadingSky
 
-+ (instancetype)skyWithDayDuration:(NSUInteger)duration {
-    return [[self alloc] initWithDayDuration:duration];
++ (instancetype)skyWithSize:(CGSize)size dayDuration:(NSUInteger)duration {
+    return [[self alloc] initWithSize:size dayDuration:duration];
 }
 
-- (instancetype)initWithDayDuration:(NSUInteger)duration {
-    self = [super init];
+- (instancetype)initWithSize:(CGSize)size dayDuration:(NSUInteger)duration {
+    self = [super initWithRed:kMorningR green:kMorningG blue:kMorningB size:size];
     if (self) {
         self.dayDuration = duration;
-        [self populateSkyLayers];
-        [self setNewTopLayer];
     }
     return self;
 }
 
-- (void)populateSkyLayers {
-    NSUInteger zPosition = 0;
-    for (int i = 4; i >= 0; i--) {
-        PPSkySprite *skyLayer = [PPSkySprite skyWithType:i];
-        [skyLayer setZPosition:zPosition];
-        [self addChild:skyLayer];
-        
-        zPosition++;
-    }
-}
-
 #pragma mark - Fading
+
+//There has to be a better way...
 - (void)startFade {
-    [self.topLayer runAction:[SKAction fadeOutWithDuration:self.dayDuration] completion:^{
-        [self adjustAllSkyLayerPositions];
-        [self.topLayer setZPosition:0];
-        [self.topLayer setAlpha:1];
-        [self setNewTopLayer];
-        [self startFade];
+    [self crossFadeToRed:kDayR green:kDayG blue:kDayB duration:self.dayDuration completion:^{
+        [self crossFadeToRed:kAfternoonR green:kAfternoonG blue:kAfternoonB duration:self.dayDuration completion:^{
+            [self crossFadeToRed:kSunsetR green:kSunsetG blue:kSunsetB duration:self.dayDuration completion:^{
+                [self crossFadeToRed:kNightR green:kNightG blue:kNightB duration:self.dayDuration completion:^{
+                    [self crossFadeToRed:kMorningR green:kMorningG blue:kMorningB duration:self.dayDuration completion:^{
+                        [self startFade];
+                    }];
+                }];
+            }];
+        }];
     }];
-}
-
-- (void)adjustAllSkyLayerPositions {
-    for (SKNode *layer in self.children) {
-        layer.zPosition++;
-    }
-}
-
-- (void)setNewTopLayer {
-    SKNode *newTopLayer;
-    
-    for (SKNode *layer in self.children) {
-        if (newTopLayer.zPosition < layer.zPosition) {
-            newTopLayer = layer;
-        }
-    }
-    self.topLayer = newTopLayer;
 }
 
 @end

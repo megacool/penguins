@@ -138,10 +138,8 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self setBackgroundColor:[SKColor whiteColor]];
     
     //Sky
-    self.sky = [PPFadingSky skyWithDayDuration:10];
-    [self.sky setPosition:CGPointMake(-self.size.width/2, -self.size.height/2)];
-    [self.sky setZPosition:-10];
-    [self.worldNode addChild:self.sky];
+    self.sky = [PPFadingSky skyWithSize:self.size dayDuration:10];
+    [self addChild:self.sky];
     
     [self.sky startFade];
     

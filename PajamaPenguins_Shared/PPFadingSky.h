@@ -6,14 +6,15 @@
 //  Copyright (c) 2015 Skye Freeman. All rights reserved.
 //
 
-#import <SpriteKit/SpriteKit.h>
-#import "PPSkySprite.h"
+#import "SSKColorNode.h"
 
-@interface PPFadingSky : SKNode
+@interface PPFadingSky : SSKColorNode
 
 @property (nonatomic) NSUInteger dayDuration;
 
-+ (instancetype)skyWithDayDuration:(NSUInteger)duration;
++ (instancetype)skyWithSize:(CGSize)size dayDuration:(NSUInteger)duration;
+- (instancetype)initWithSize:(CGSize)size dayDuration:(NSUInteger)duration;
+
 - (void)startFade;
 
 
