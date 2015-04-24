@@ -73,6 +73,7 @@ CGFloat const kPlayerLowerWaterVelocityLimit = -550.0;
 
 //Name Constants
 NSString * const kPixelFontName = @"Fipps-Regular";
+NSString * const kRemoveName = @"removeable";
 
 //Action Constants
 CGFloat const kMoveAndFadeTime     = 0.2;
@@ -175,6 +176,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     //Player's bubble emitter
     SKNode *bubbleTarget = [SKNode new];
     [bubbleTarget setZPosition:SceneLayerBubbles];
+    [bubbleTarget setName:kRemoveName];
     [self addChild:bubbleTarget];
     
     SKEmitterNode *playerBubbleEmitter = [PPSharedAssets sharedBubbleEmitter].copy;
@@ -191,6 +193,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [boundary.physicsBody setFriction:0];
     [boundary.physicsBody setRestitution:0];
     [boundary.physicsBody setCategoryBitMask:edgeCategory];
+    [boundary setName:kRemoveName];
     [self addChild:boundary];
 }
 
@@ -309,14 +312,18 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [fadeNode setAlpha:0];
     [self addChild:fadeNode];
     
-    [fadeNode runAction:[SKAction fadeInWithDuration:.8] completion:^{
-//        [self.worldNode removeFromParent];
-//        [self.hudNode removeFromParent];
-//        [self.gameOverNode removeFromParent];
-        [self removeAllChildrenOfScene];
+    [fadeNode runAction:[SKAction fadeInWithDuration:1] completion:^{
+        [self.worldNode removeFromParent];
+        [self.hudNode removeFromParent];
+        [self.gameOverNode removeFromParent];
+        [self removeUnparentedNodes];
+        
         [self createNewGame];
-        [fadeNode runAction:[SKAction fadeOutWithDuration:.5] completion:^{
-            [fadeNode removeFromParent];
+        
+        [self runAction:[SKAction waitForDuration:.5] completion:^{
+            [fadeNode runAction:[SKAction fadeOutWithDuration:1] completion:^{
+                [fadeNode removeFromParent];
+            }];
         }];
     }];
 }
@@ -590,6 +597,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [highScoreLabel setFontColor:[SKColor redColor]];
     [highScoreLabel setZPosition:SceneLayerGameOver];
     [highScoreLabel setPosition:CGPointMake(self.size.width/3, self.size.height/3 + 25)];
+    [highScoreLabel setName:kRemoveName];
     [self addChild:highScoreLabel];
     
     [self runColorChangeOnLabel:highScoreLabel interval:.35];
@@ -661,6 +669,17 @@ CGFloat const kParallaxMinSpeed = -20.0;
         }
         [node removeFromParent];
     }
+}
+
+- (void)removeUnparentedNodes {
+    // Remove all "Removeable" nodes without a scene parent
+    [self enumerateChildNodesWithName:kRemoveName usingBlock:^(SKNode *node, BOOL *stop) {
+        [node removeFromParent];
+        
+    }];
+    
+    // Remove Snow
+    [self.snowEmitter removeFromParent];
 }
 
 #pragma mark - Collisions
