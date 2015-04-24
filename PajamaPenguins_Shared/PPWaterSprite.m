@@ -7,11 +7,7 @@
 //
 
 #import "PPWaterSprite.h"
-#import "SKTexture+SFAdditions.h"
-#import "SKColor+SFAdditions.h"
-
-#define kStartColor [SKColor colorWithR:0 g:0 b:255]
-#define kEndColor [SKColor colorWithR:0 g:200 b:255]
+#import "PPSharedAssets.h"
 
 @implementation PPWaterSprite
 + (instancetype)surfaceWithStartPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint depth:(CGFloat)depth {
@@ -19,9 +15,7 @@
 }
 
 - (instancetype)initWithStartPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint depth:(CGFloat)depth {
-    CGSize bodySize = CGSizeMake(endPoint.x - startPoint.x, depth);
-    SKTexture *gradient = [SKTexture textureWithGradientOfSize:bodySize startColor:kStartColor endColor:kEndColor direction:GradientDirectionVertical];
-    self = [super initWithStartPoint:startPoint endPoint:endPoint depth:depth texture:gradient];
+    self = [super initWithStartPoint:startPoint endPoint:endPoint depth:depth texture:[PPSharedAssets sharedWaterTexture]];
     if (self) {
         [self setSplashDamping:.05];
         [self setSplashTension:.005];

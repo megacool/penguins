@@ -15,14 +15,22 @@
 typedef void (^AssetCompletionHandler)(void);
 + (void)loadSharedAssetsWithCompletion:(AssetCompletionHandler)completion;
 
-// Background Textures
-+ (SKTexture*)sharedIcebergTexture;
+// Sky Textures
++ (SKTexture*)sharedSkyMorning;
++ (SKTexture*)sharedSkyDay;
++ (SKTexture*)sharedSkyAfternoon;
++ (SKTexture*)sharedSkySunset;
++ (SKTexture*)sharedSkyNight;
 
+// Water Texture
++ (SKTexture*)sharedWaterTexture;
+    
 // Clouds
 + (SKTextureAtlas*)sharedCloudAtlas;
 
 // Iceberg Textures
 + (SKTextureAtlas*)sharedIcebergAtlas;
++ (SKTexture*)sharedIcebergTexture; // Menu Iceberg
 
 // Button Textures
 + (SKTextureAtlas*)sharedButtonAtlas;

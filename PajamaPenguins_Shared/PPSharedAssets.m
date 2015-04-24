@@ -8,14 +8,51 @@
 
 #import "PPSharedAssets.h"
 #import "SSKGraphicsUtils.h"
+#import "SKColor+SFAdditions.h"
 #import "SKTexture+SFAdditions.h"
 
 @implementation PPSharedAssets
 + (void)loadSharedAssetsWithCompletion:(AssetCompletionHandler)completion {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSDate *startTime = [NSDate date];
-
-        // Backgrounds
+        
+        // Device Size
+        CGSize screenRect = [[UIScreen mainScreen] bounds].size;
+        
+        // Sky gradients
+        CGSize skySize = CGSizeMake(screenRect.width * 2, screenRect.height * 2);
+        
+        sSkyMorning = [SKTexture textureWithGradientOfSize:skySize
+                                                startColor:[SKColor colorWithR:255 g:190 b:120]
+                                                  endColor:[SKColor colorWithR:69 g:149 b:255]
+                                                 direction:GradientDirectionVertical];
+        sSkyDay = [SKTexture textureWithGradientOfSize:skySize
+                                            startColor:[SKColor colorWithR:150 g:255 b:250]
+                                              endColor:[SKColor colorWithR:0 g:142 b:242]
+                                             direction:GradientDirectionVertical];
+        
+        sSkyAfternoon = [SKTexture textureWithGradientOfSize:skySize
+                                                  startColor:[SKColor colorWithR:172 g:163 b:255]
+                                                    endColor:[SKColor colorWithR:0 g:100 b:225]
+                                                   direction:GradientDirectionVertical];
+        
+        sSkySunset = [SKTexture textureWithGradientOfSize:skySize
+                                               startColor:[SKColor colorWithR:255 g:111 b:108]
+                                                 endColor:[SKColor colorWithR:31 g:25 b:152]
+                                                direction:GradientDirectionVertical];
+        
+        sSkyNight = [SKTexture textureWithGradientOfSize:skySize
+                                              startColor:[SKColor colorWithR:0 g:43 b:137]
+                                                endColor:[SKColor colorWithR:0 g:10 b:32]
+                                               direction:GradientDirectionVertical];
+        // Water gradient
+        CGSize waterSize = CGSizeMake(screenRect.width * 2, screenRect.height/2);
+        sWaterTexture = [SKTexture textureWithGradientOfSize:waterSize
+                                                  startColor:[SKColor colorWithR:0 g:0 b:255]
+                                                    endColor:[SKColor colorWithR:0 g:200 b:255]
+                                                   direction:GradientDirectionVertical];
+        
+        // Menu Iceberg
         sIcebergTexture = [SKTexture textureWithImageNamed:@"platform_iceberg"];
         
         // Buttons
@@ -29,6 +66,7 @@
         
         // Icebergs
         sIcebergAtlas = [SKTextureAtlas atlasNamed:@"icebergs"];
+        
         
         // Emitters
         sSnowEmitter = [SKEmitterNode emitterNodeWithFileNamed:@"SnowEmitter"];
@@ -79,6 +117,38 @@ static SKTextureAtlas *sPenguinBlackTextures = nil;
 static SKTextureAtlas *sIcebergAtlas = nil;
 + (SKTextureAtlas*)sharedIcebergAtlas {
     return sIcebergAtlas;
+}
+
+// Water
+static SKTexture *sWaterTexture = nil;
++ (SKTexture*)sharedWaterTexture {
+    return sWaterTexture;
+}
+
+// Skies
+static SKTexture *sSkyMorning = nil;
++ (SKTexture*)sharedSkyMorning {
+    return sSkyMorning;
+}
+
+static SKTexture *sSkyDay = nil;
++ (SKTexture*)sharedSkyDay {
+    return sSkyDay;
+}
+
+static SKTexture *sSkyAfternoon = nil;
++ (SKTexture*)sharedSkyAfternoon {
+    return sSkyAfternoon;
+}
+
+static SKTexture *sSkySunset = nil;
++ (SKTexture*)sharedSkySunset {
+    return sSkySunset;
+}
+
+static SKTexture *sSkyNight = nil;
++ (SKTexture*)sharedSkyNight {
+    return sSkyNight;
 }
 
 #pragma mark - Shared Emitters

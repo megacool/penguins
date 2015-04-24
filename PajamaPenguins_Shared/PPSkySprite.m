@@ -7,28 +7,20 @@
 //
 
 #import "PPSkySprite.h"
-#import "SKTexture+SFAdditions.h"
-#import "SKColor+SFAdditions.h"
-
-#define kColorMorning [SKColor colorWithR:255 g:220 b:0]
-#define kColorDay [SKColor colorWithR:0 g:218 b:255]
-#define kColorAfternoon [SKColor colorWithR:0 g:118 b:255]
-#define kColorSunset [SKColor colorWithR:255 g:12 b:2]
-#define kColorNight [SKColor colorWithR:0 g:0 b:110]
+#import "PPSharedAssets.h"
 
 @interface PPSkySprite()
 @end
 
 @implementation PPSkySprite
-+ (instancetype)spriteWithSize:(CGSize)size skyType:(SkyType)skyType {
-    return [[self alloc] initWithSize:size skyType:skyType];
++ (instancetype)skyWithType:(SkyType)skyType {
+    return [[self alloc]  initWithSkyType:skyType];
 }
 
-- (instancetype)initWithSize:(CGSize)size skyType:(SkyType)skyType {
-    self = [super initWithTexture:[self textureForSkyType:skyType size:size]];
-    
+- (instancetype)initWithSkyType:(SkyType)skyType {
+    self = [super initWithTexture:[self textureForSkyType:skyType]];
     if (self) {
-        self.anchorPoint = CGPointMake(0.5, 0);
+        self.anchorPoint = CGPointMake(0, 0);
     }
     
     return self;
@@ -36,33 +28,31 @@
 
 #pragma mark - Sky Type
 - (void)setSkyType:(SkyType)skyType {
-    [self setTexture:[self textureForSkyType:skyType size:self.size]];
+    [self setTexture:[self textureForSkyType:skyType]];
 }
 
-- (SKTexture*)textureForSkyType:(SkyType)skyType size:(CGSize)size {
+- (SKTexture*)textureForSkyType:(SkyType)skyType {
     SKTexture *skyTexture;
-    SKColor *white = [SKColor whiteColor];
-    GradientDirection direction = GradientDirectionVertical;
 
     switch (skyType) {
         case SkyTypeMorning:
-            skyTexture = [SKTexture textureWithGradientOfSize:size startColor:white endColor:kColorMorning direction:direction];
+            skyTexture = [PPSharedAssets sharedSkyMorning];
             break;
             
         case SkyTypeDay:
-            skyTexture = [SKTexture textureWithGradientOfSize:size startColor:white endColor:kColorDay direction:direction];
+            skyTexture = [PPSharedAssets sharedSkyDay];
             break;
             
         case SkyTypeAfternoon:
-            skyTexture = [SKTexture textureWithGradientOfSize:size startColor:white endColor:kColorAfternoon direction:direction];
+            skyTexture = [PPSharedAssets sharedSkyAfternoon];
             break;
             
         case SkyTypeSunset:
-            skyTexture = [SKTexture textureWithGradientOfSize:size startColor:white endColor:kColorSunset direction:direction];
+            skyTexture = [PPSharedAssets sharedSkySunset];
             break;
             
         case SkyTypeNight:
-            skyTexture = [SKTexture textureWithGradientOfSize:size startColor:white endColor:kColorNight direction:direction];
+            skyTexture = [PPSharedAssets sharedSkyNight];
             break;
             
         default:

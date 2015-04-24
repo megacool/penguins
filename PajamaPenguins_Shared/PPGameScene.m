@@ -137,8 +137,8 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self setBackgroundColor:[SKColor whiteColor]];
     
     //Sky
-    self.skySprite = [PPSkySprite spriteWithSize:CGSizeMake(self.size.width * 3, self.size.height * 2) skyType:SkyTypeDay];
-    [self.skySprite setPosition:CGPointMake(0, -self.size.height/2)];
+    self.skySprite = [PPSkySprite skyWithType:SkyTypeSunset];
+    [self.skySprite setPosition:CGPointMake(-self.size.width/2, -self.size.height/2)];
     [self.worldNode addChild:self.skySprite];
 
     //Parallaxing Nodes
@@ -381,6 +381,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     PPPlayer *penguin = [PPPlayer playerWithType:type atlas:atlas];
     [penguin setPosition:CGPointMake(-self.size.width/4, 50)];
     [penguin setName:@"player"];
+    [penguin setSize:CGSizeMake(30, 30)];
     [penguin setZRotation:SSKDegreesToRadians(90)];
     [penguin setZPosition:SceneLayerPlayer];
     [penguin setPlayerShouldRotate:YES];

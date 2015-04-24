@@ -20,6 +20,6 @@ typedef NS_ENUM(NSUInteger, SkyType) {
 
 @property (nonatomic) SkyType skyType;
 
-+ (instancetype)spriteWithSize:(CGSize)size skyType:(SkyType)skyType;
++ (instancetype)skyWithType:(SkyType)skyType;
 
 @end

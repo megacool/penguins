@@ -84,8 +84,8 @@ CGFloat const kAnimationMoveDistance = 10;
     [self addChild:self.backgroundNode];
 
     //Sky
-    self.skySprite = [PPSkySprite spriteWithSize:CGSizeMake(self.size.width, self.size.height/4 * 3) skyType:SkyTypeDay];
-    [self.skySprite setPosition:CGPointMake(0, -self.size.height/4)];
+    self.skySprite = [PPSkySprite skyWithType:SkyTypeSunset];
+    [self.skySprite setPosition:CGPointMake(-self.size.width/2, -self.size.height/2)];
     [self.backgroundNode addChild:self.skySprite];
 
     //Clouds
