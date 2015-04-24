@@ -15,6 +15,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import <SpriteKit/SpriteKit.h>
 #import "SSKMathUtils.h"
 
 #endif

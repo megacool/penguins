@@ -15,6 +15,7 @@
 #import "PPCloudParallaxFast.h"
 #import "PPCloudParallaxSlow.h"
 #import "PPButtonNode.h"
+#import "PPSkyManager.h"
 
 #import "SKColor+SFAdditions.h"
 #import "SKTexture+SFAdditions.h"
@@ -47,6 +48,7 @@ CGFloat const kAnimationMoveDistance = 10;
 @property (nonatomic) SKNode *foregroundNode;
 @property (nonatomic) SKNode *menuNode;
 
+@property (nonatomic) SKNode *sky;
 @property (nonatomic) PPSkySprite *skySprite;
 @property (nonatomic) PPWaterSprite *waterSurface;
 
@@ -84,9 +86,13 @@ CGFloat const kAnimationMoveDistance = 10;
     [self addChild:self.backgroundNode];
 
     //Sky
-    self.skySprite = [PPSkySprite skyWithType:SkyTypeSunset];
-    [self.skySprite setPosition:CGPointMake(-self.size.width/2, -self.size.height/2)];
-    [self.backgroundNode addChild:self.skySprite];
+    self.sky = [[PPSkyManager sharedManager] allSkies];
+    [self.sky setPosition:CGPointMake(-self.size.width/2, -self.size.height/2)];
+    [self.backgroundNode addChild:self.sky];
+    
+//    self.skySprite = [PPSkySprite skyWithType:SkyTypeSunset];
+//    [self.skySprite setPosition:CGPointMake(-self.size.width/2, -self.size.height/2)];
+//    [self.backgroundNode addChild:self.skySprite];
 
     //Clouds
     self.cloudSlow = [[PPCloudParallaxSlow alloc] initWithSize:self.size];

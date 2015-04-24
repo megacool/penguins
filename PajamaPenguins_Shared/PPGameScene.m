@@ -15,6 +15,7 @@
 #import "PPCloudParallaxFast.h"
 #import "PPButtonNode.h"
 #import "PPUserManager.h"
+#import "PPSkyManager.h"
 
 #import "SKColor+SFAdditions.h"
 #import "SSKUtils.h"
