@@ -13,6 +13,7 @@
 #import "PPWaterSprite.h"
 #import "PPCloudParallaxSlow.h"
 #import "PPCloudParallaxFast.h"
+#import "PPButtonNode.h"
 #import "PPUserManager.h"
 
 #import "SKColor+SFAdditions.h"
@@ -47,10 +48,8 @@ typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerFadeOut
 };
 
-//Texture Constants
-CGFloat const kLargeTileWidth  = 30.0;
-CGFloat const kSmallTileWidth  = 15.0;
-CGFloat const kBackgroundAlpha = 0.55;
+//Spacing Constants
+CGFloat kButtonPadding = 10.0;
 
 //Physics Constants
 static const uint32_t playerCategory   = 0x1 << 0;
@@ -269,7 +268,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self createHudLayer];
     [self hudLayerFadeInAnimation];
     
-    [self populateObstacleTexturePool];
     [self startObstacleSpawnSequence];
     
     [self startScoreCounter];
@@ -324,27 +322,20 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 #pragma mark - Buttons
-- (SSKButtonNode*)gameButtonNodeWithText:(NSString*)text {
-    SSKButtonNode *button = [SSKButtonNode buttonWithCircleOfRadius:45 idleFillColor:[SKColor clearColor] selectedFillColor:[SKColor whiteColor] labelWithText:text];
-    [button.idleShape setStrokeColor:[SKColor whiteColor]];
-    [button.selectedShape setStrokeColor:[SKColor whiteColor]];
-    [button setIdleLabelColor:[SKColor whiteColor]];
-    [button setSelectedLabelColor:[SKColor blueColor]];
-    [button setZPosition:SceneLayerButtons];
-    return button;
-}
-
-- (SSKButtonNode*)menuButton {
-    SSKButtonNode *menuButton = [self gameButtonNodeWithText:@"Menu"];
+- (PPButtonNode*)menuButton {
+    PPButtonNode *menuButton = [PPButtonNode buttonWithIdleTextureNamed:@"button_home_up" selectedTextureNamed:@"button_home_down"];
     [menuButton setTouchUpInsideTarget:self selector:@selector(loadMenuScene)];
-    [menuButton setPosition:CGPointMake(self.size.width/5, -self.size.height/4)];
+    [menuButton setPosition:CGPointMake(0, -self.size.height/8)];
+    [menuButton setZPosition:SceneLayerButtons];
     return menuButton;
 }
 
-- (SSKButtonNode*)retryButton {
-    SSKButtonNode *retryButton = [self gameButtonNodeWithText:@"Retry"];
+- (PPButtonNode*)retryButton {
+    PPButtonNode *retryButton = [PPButtonNode buttonWithIdleTextureNamed:@"button_retry_up"
+                                                    selectedTextureNamed:@"button_retry_down"];
     [retryButton setTouchUpInsideTarget:self selector:@selector(resetGame)];
-    [retryButton setPosition:CGPointMake(-self.size.width/5, -self.size.height/4)];
+    [retryButton setPosition:CGPointMake(0, -self.size.height/8 - retryButton.size.height - kButtonPadding)];
+    [retryButton setZPosition:SceneLayerButtons];
     return retryButton;
 }
 
@@ -529,15 +520,13 @@ CGFloat const kParallaxMinSpeed = -20.0;
 #pragma mark - Icebergs
 - (PPIcebergObstacle*)newIceBerg {
     // Get a random iceberg type
-    CGFloat randType = SSKRandomFloatInRange(0, 2);
-    
-    NSLog(@"%fl",randType);
+//    CGFloat randType = SSKRandomFloatInRange(0, 2);
     
     // Get a random scale between 0.5 - 1.0
-    CGFloat rand = SSKRandomFloatInRange(50, 100);
+    CGFloat rand = SSKRandomFloatInRange(25, 100);
     CGFloat newScale = (rand/100);
     
-    PPIcebergObstacle *obstacle = [PPIcebergObstacle icebergWithType:randType];
+    PPIcebergObstacle *obstacle = [PPIcebergObstacle icebergWithType:IceBergTypeNormal];
     [obstacle setName:@"obstacle"];
     [obstacle setScale:newScale];
     [obstacle setPosition:CGPointMake((self.size.width/kWorldScaleCap) + obstacle.size.width/2, obstacle.size.height / 10)];
@@ -546,31 +535,13 @@ CGFloat const kParallaxMinSpeed = -20.0;
     return obstacle;
 }
 
-- (SKNode*)generateNewRandomObstacle {
-//    CGFloat randomNum = SSKRandomFloatInRange(0, self.obstacleTexturePool.count);
-//    SKTexture *randomTexture = [self.obstacleTexturePool objectAtIndex:randomNum];
-    
-    PPIcebergObstacle *newIceberg = [self newIceBerg];
-    [newIceberg setPosition:CGPointMake((self.size.width/kWorldScaleCap) + newIceberg.size.width/2, 0)];
-    return newIceberg;
-}
-
-- (void)populateObstacleTexturePool {
-    self.obstacleTexturePool = nil;
-    self.obstacleTexturePool = [NSMutableArray new];
-    
-//    [self.obstacleTexturePool addObject:[PPSharedAssets sharedObstacleMediumTexture]];
-//    [self.obstacleTexturePool addObject:[PPSharedAssets sharedObstacleLargeTexture]];
-}
-
 #pragma mark - Obstacle Spawn Sequence
 - (void)startObstacleSpawnSequence {
     SKAction *wait = [SKAction waitForDuration:1.5];
     SKAction *spawnFloatMove = [SKAction runBlock:^{
-//        SKNode *obstacle = [self generateNewRandomObstacle];
         SKNode *obstacle = [self newIceBerg];
         [self.worldNode addChild:obstacle];
-//        [obstacle runAction:[SKAction repeatActionForever:[self floatAction]]];
+        [obstacle runAction:[SKAction repeatActionForever:[self floatAction]]];
         [obstacle runAction:[SKAction moveToX:-self.size.width duration:4] withKey:@"moveObstacle" completion:^{
             [obstacle removeFromParent];
         }];
@@ -680,11 +651,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 - (PPPlayer*)currentPlayer {
     return (PPPlayer*)[self.worldNode childNodeWithName:@"player"];
-}
-
-- (CGFloat)getWaterSurfaceScale {
-    CGFloat waterWidth = self.size.width/5;
-    return (waterWidth/kLargeTileWidth);
 }
 
 #pragma mark - Remove all nodes 

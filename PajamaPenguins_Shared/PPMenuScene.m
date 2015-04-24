@@ -14,6 +14,7 @@
 #import "PPWaterSprite.h"
 #import "PPCloudParallaxFast.h"
 #import "PPCloudParallaxSlow.h"
+#import "PPButtonNode.h"
 
 #import "SKColor+SFAdditions.h"
 #import "SKTexture+SFAdditions.h"
@@ -128,7 +129,6 @@ CGFloat const kAnimationMoveDistance = 10;
     [self.menuNode addChild:[self newTitleLabel]];
     
     [self.menuNode addChild:[self playButton]];
-//    [self.menuNode addChild:[self settingsButton]];
 }
 
 - (void)startAnimations {
@@ -200,33 +200,15 @@ CGFloat const kAnimationMoveDistance = 10;
 }
 
 #pragma mark - Buttons
-- (SSKButtonNode*)menuButtonWithText:(NSString*)text {
-    SSKButtonNode *button = [SSKButtonNode buttonWithCircleOfRadius:kButtonRadius idleFillColor:[SKColor clearColor] selectedFillColor:[SKColor whiteColor] labelWithText:text];
-    [button.idleShape setStrokeColor:[SKColor whiteColor]];
-    [button.selectedShape setStrokeColor:[SKColor whiteColor]];
-    [button setIdleLabelColor:[SKColor whiteColor]];
-    [button setSelectedLabelColor:[SKColor blueColor]];
-    [button setAlpha:0];
-    return button;
-}
-
 - (SSKButtonNode*)playButton {
     SSKButtonNode *playButton = [SSKButtonNode buttonWithIdleTexture:[[PPSharedAssets sharedButtonAtlas] textureNamed:@"button_play_up"]
                                                      selectedTexture:[[PPSharedAssets sharedButtonAtlas] textureNamed:@"button_play_down"]];
     [playButton setTouchUpInsideTarget:self selector:@selector(transitionGameScene)];
-    [playButton setPosition:CGPointMake(0, -self.size.height/4 + kAnimationMoveDistance)];
+    [playButton setSize:CGSizeMake(150, 50)];
+    [playButton setPosition:CGPointMake(0, -self.size.height/8 + kAnimationMoveDistance)];
     [playButton setName:@"playButton"];
     [playButton setAlpha:0];
     return playButton;
-}
-
-- (SSKButtonNode*)settingsButton {
-    SSKButtonNode *settingsButton = [self menuButtonWithText:@"Settings"];
-    [settingsButton.label setFontSize:20];
-    [settingsButton setTouchUpInsideTarget:self selector:@selector(transitionSettings)];
-    [settingsButton setPosition:CGPointMake(0, -self.size.height/8 * 2.5 + kAnimationMoveDistance)];
-    [settingsButton setName:@"settingsButton"];
-    return settingsButton;
 }
 
 #pragma mark - Penguins Types

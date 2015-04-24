@@ -73,6 +73,7 @@
 		EEBA93F31A93FD4F00CBD711 /* TwoDimensionalArray.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBA93F11A93FD4F00CBD711 /* TwoDimensionalArray.m */; };
 		EEC6AEA21AE0ACD300FCB267 /* PPUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC6AEA11AE0ACD300FCB267 /* PPUserManager.m */; };
 		EEC9BA261AE89417006A7118 /* buttons.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EEC9BA251AE89417006A7118 /* buttons.atlas */; };
+		EEC9BA491AE9D0B4006A7118 /* PPButtonNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC9BA481AE9D0B4006A7118 /* PPButtonNode.m */; };
 		EEC9DB7C1AA7B2040022CDF1 /* EmitterParticleOld.png in Resources */ = {isa = PBXBuildFile; fileRef = EEC9DB7B1AA7B2040022CDF1 /* EmitterParticleOld.png */; };
 		EEC9DB7D1AA7B2040022CDF1 /* EmitterParticleOld.png in Resources */ = {isa = PBXBuildFile; fileRef = EEC9DB7B1AA7B2040022CDF1 /* EmitterParticleOld.png */; };
 		EEC9DB821AA7B3480022CDF1 /* PlayerSplashDownEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEC9DB811AA7B3480022CDF1 /* PlayerSplashDownEmitter.sks */; };
@@ -180,6 +181,8 @@
 		EEC6AEA01AE0ACD300FCB267 /* PPUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPUserManager.h; sourceTree = "<group>"; };
 		EEC6AEA11AE0ACD300FCB267 /* PPUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPUserManager.m; sourceTree = "<group>"; };
 		EEC9BA251AE89417006A7118 /* buttons.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = buttons.atlas; sourceTree = "<group>"; };
+		EEC9BA471AE9D0B4006A7118 /* PPButtonNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPButtonNode.h; sourceTree = "<group>"; };
+		EEC9BA481AE9D0B4006A7118 /* PPButtonNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPButtonNode.m; sourceTree = "<group>"; };
 		EEC9DB7B1AA7B2040022CDF1 /* EmitterParticleOld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EmitterParticleOld.png; sourceTree = "<group>"; };
 		EEC9DB811AA7B3480022CDF1 /* PlayerSplashDownEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = PlayerSplashDownEmitter.sks; path = PajamaPenguins_Shared/PlayerSplashDownEmitter.sks; sourceTree = SOURCE_ROOT; };
 		EEC9DB841AA7B5510022CDF1 /* SnowEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SnowEmitter.sks; sourceTree = "<group>"; };
@@ -392,6 +395,8 @@
 				EEB870701AD0C421000D21E6 /* PPSkySprite.m */,
 				EE4BD1881AD4C379003371FF /* PPWaterSprite.h */,
 				EE4BD1891AD4C379003371FF /* PPWaterSprite.m */,
+				EEC9BA471AE9D0B4006A7118 /* PPButtonNode.h */,
+				EEC9BA481AE9D0B4006A7118 /* PPButtonNode.m */,
 				EE8F0AAE1AD7334300CB1CE1 /* Clouds */,
 			);
 			name = Sprites;
@@ -662,6 +667,7 @@
 				EED8E5A41A881D79001C8F59 /* PPPlayer.m in Sources */,
 				EE5575EB1A5A108100B87145 /* PPGameScene.m in Sources */,
 				EEC9DB8D1AA7BF5E0022CDF1 /* SSKProgressBarNode.m in Sources */,
+				EEC9BA491AE9D0B4006A7118 /* PPButtonNode.m in Sources */,
 				EE8F0AB71AD73A7600CB1CE1 /* PPCloudParallaxFast.m in Sources */,
 				EEBA93CF1A8C1FED00CBD711 /* SSKCameraNode.m in Sources */,
 				EE6F92FC1A82F39400286DC7 /* SSKButtonNode.m in Sources */,

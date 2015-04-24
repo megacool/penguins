@@ -14,9 +14,10 @@
     SKTexture *texture = [self textureForIcebergType:icebergType];
     self = [super initWithTexture:texture];
     if (self) {
-//        self.physicsBody = [SKPhysicsBody bodyWithTexture:texture size:self.size];
-//        self.physicsBody.affectedByGravity = NO;
-//        self.physicsBody.dynamic = NO;
+        self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.size.width/2];
+        //        self.physicsBody = [SKPhysicsBody bodyWithTexture:texture size:self.size]; //Doesnt fucking work anymore
+        self.physicsBody.affectedByGravity = NO;
+        self.physicsBody.dynamic = NO;
     }
     return self;
 }
