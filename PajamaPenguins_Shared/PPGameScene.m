@@ -89,7 +89,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 @property (nonatomic) PPCloudParallaxSlow *cloudSlow;
 @property (nonatomic) PPCloudParallaxFast *cloudFast;
 
-@property (nonatomic) PPFadingSky *sky;
+@property (nonatomic) PPSkySprite *sky;
 @property (nonatomic) PPWaterSprite *waterSurface;
 
 @property (nonatomic) NSMutableArray *obstacleTexturePool;
@@ -138,10 +138,9 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self setBackgroundColor:[SKColor whiteColor]];
     
     //Sky
-    self.sky = [PPFadingSky skyWithSize:self.size dayDuration:10];
-    [self addChild:self.sky];
-    
-    [self.sky startFade];
+    self.sky = [PPSkySprite skyWithType:SkyTypeMorning];
+    [self.sky setPosition:CGPointMake(-self.size.width/2, -self.size.height/2)];
+    [self.worldNode addChild:self.sky];
     
     //Parallaxing Nodes
     self.cloudSlow = [[PPCloudParallaxSlow alloc] initWithSize:self.size];
