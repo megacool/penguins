@@ -211,7 +211,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [scoreCounter setName:@"scoreCounter"];
     [scoreCounter setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeLeft];
     [scoreCounter setVerticalAlignmentMode:SKLabelVerticalAlignmentModeBottom];
-    [scoreCounter setPosition:CGPointMake(-self.size.width/2 + 5, -self.size.height/2 + 5)];
+    [scoreCounter setPosition:CGPointMake(-self.size.width/2 + 4, -self.size.height/2 + 5)];
     [self.hudNode addChild:scoreCounter];
     
     SSKProgressBarNode *breathMeter = [[SSKProgressBarNode alloc] initWithFrameColor:[SKColor blackColor] barColor:[SKColor redColor] size:CGSizeMake(20, 150) barType:BarTypeVertical];
