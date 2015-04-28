@@ -8,10 +8,18 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+typedef NS_ENUM(NSUInteger, BarType) {
+    BarTypeHorizontal = 0,
+    BarTypeVertical,
+};
+
 @interface SSKProgressBarNode : SKNode
+
+- (instancetype)initWithFrameColor:(SKColor*)frameColor barColor:(SKColor*)barColor size:(CGSize)size barType:(BarType)barType;
 - (instancetype)initWithFrameColor:(SKColor*)frameColor barColor:(SKColor*)barColor size:(CGSize)size;
 - (void)setProgress:(CGFloat)progress;
 
+@property (nonatomic) BarType barType;
 @property (nonatomic, readonly) CGFloat currentProgress;
 
 @end

@@ -18,29 +18,50 @@
 
 @implementation SSKProgressBarNode
 
-- (instancetype)initWithFrameColor:(SKColor*)frameColor barColor:(SKColor*)barColor size:(CGSize)size {
+- (instancetype)initWithFrameColor:(SKColor*)frameColor barColor:(SKColor*)barColor size:(CGSize)size barType:(BarType)barType {
     self = [super init];
+    
     if (self) {
+        self.barType = barType;
+        
         self.barBackground = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:size];
         [self addChild:self.barBackground];
         
         self.bar = [SKSpriteNode spriteNodeWithColor:barColor size:size];
-        [self.bar setAnchorPoint:CGPointMake(0, 0.5)];
-        [self.bar setPosition:CGPointMake(-size.width/2, 0)];
         [self addChild:self.bar];
         
+        if (self.barType == BarTypeHorizontal) {
+            [self.bar setAnchorPoint:CGPointMake(0, 0.5)];
+            [self.bar setPosition:CGPointMake(-size.width/2, 0)];
+        } else {
+            [self.bar setAnchorPoint:CGPointMake(0, 0)];
+            [self.bar setPosition:CGPointMake(-size.width/2, -size.height/2)];
+        }
+            
         self.barFrame = [SKShapeNode shapeNodeWithRect:CGRectMake(-size.width/2, -size.height/2, size.width, size.height)];
         [self.barFrame setStrokeColor:frameColor];
         [self.barFrame setLineWidth:2];
         [self addChild:self.barFrame];
     }
+    
     return self;
+}
+
+- (instancetype)initWithFrameColor:(SKColor*)frameColor barColor:(SKColor*)barColor size:(CGSize)size {
+    return [self initWithFrameColor:frameColor barColor:barColor size:size barType:BarTypeHorizontal];
 }
 
 #pragma mark - Set Progress
 - (void)setProgress:(CGFloat)progress {
     if (progress >= 0.0 && progress <= 1.0 ) {
-        [self.bar setXScale:progress];
+        if (BarTypeHorizontal) {
+            [self.bar setXScale:progress];
+        }
+        
+        else if (BarTypeVertical) {
+            [self.bar setYScale:progress];
+        }
+        
         self.currentProgress = progress;
     } else {
         NSLog(@"Can't set progress outside of 0 - 1.0");
