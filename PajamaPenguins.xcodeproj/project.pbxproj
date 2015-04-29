@@ -89,6 +89,8 @@
 		EECC66911AA14B28004CB609 /* SSKDynamicColorNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC668F1AA14B28004CB609 /* SSKDynamicColorNode.m */; };
 		EED8E5A41A881D79001C8F59 /* PPPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8E5A31A881D79001C8F59 /* PPPlayer.m */; };
 		EED8E5A51A881D79001C8F59 /* PPPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8E5A31A881D79001C8F59 /* PPPlayer.m */; };
+		EED930571AF035C600C5C972 /* PPFishNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EED930561AF035C600C5C972 /* PPFishNode.m */; };
+		EED9305A1AF038DD00C5C972 /* fish.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EED930591AF038DD00C5C972 /* fish.atlas */; };
 		EEF798241A9D4E9B0000DD14 /* PPSimpleAnimatedSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF798231A9D4E9B0000DD14 /* PPSimpleAnimatedSprite.m */; };
 		EEF798251A9D4E9B0000DD14 /* PPSimpleAnimatedSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF798231A9D4E9B0000DD14 /* PPSimpleAnimatedSprite.m */; };
 		EEF7983C1A9FCAE80000DD14 /* SSKColorNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF7983B1A9FCAE80000DD14 /* SSKColorNode.m */; };
@@ -197,6 +199,9 @@
 		EECC668F1AA14B28004CB609 /* SSKDynamicColorNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKDynamicColorNode.m; sourceTree = "<group>"; };
 		EED8E5A21A881D79001C8F59 /* PPPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPPlayer.h; sourceTree = "<group>"; };
 		EED8E5A31A881D79001C8F59 /* PPPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPPlayer.m; sourceTree = "<group>"; };
+		EED930551AF035C600C5C972 /* PPFishNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPFishNode.h; sourceTree = "<group>"; };
+		EED930561AF035C600C5C972 /* PPFishNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPFishNode.m; sourceTree = "<group>"; };
+		EED930591AF038DD00C5C972 /* fish.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = fish.atlas; sourceTree = "<group>"; };
 		EEF798221A9D4E9B0000DD14 /* PPSimpleAnimatedSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSimpleAnimatedSprite.h; sourceTree = "<group>"; };
 		EEF798231A9D4E9B0000DD14 /* PPSimpleAnimatedSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSimpleAnimatedSprite.m; sourceTree = "<group>"; };
 		EEF7983A1A9FCAE80000DD14 /* SSKColorNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSKColorNode.h; path = ../../SSKColorNode.h; sourceTree = "<group>"; };
@@ -382,6 +387,7 @@
 			children = (
 				EE3434791AABF4180010BE71 /* PPSharedAssets.h */,
 				EE34347A1AABF4180010BE71 /* PPSharedAssets.m */,
+				EED930591AF038DD00C5C972 /* fish.atlas */,
 				EEC9BA251AE89417006A7118 /* buttons.atlas */,
 				EE1FCA0F1AE311F4006DDC3B /* icebergs.atlas */,
 				EEAF97691ACDFD1B007D0DC2 /* Background Elements */,
@@ -397,10 +403,6 @@
 		EE5575EE1A5A10CD00B87145 /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
-				EE8F0AB21AD735BD00CB1CE1 /* PPSprite.h */,
-				EE8F0AB31AD735BD00CB1CE1 /* PPSprite.m */,
-				EED8E5A21A881D79001C8F59 /* PPPlayer.h */,
-				EED8E5A31A881D79001C8F59 /* PPPlayer.m */,
 				EE168CDC1A994DFE005403E6 /* PPIcebergObstacle.h */,
 				EE168CDD1A994DFE005403E6 /* PPIcebergObstacle.m */,
 				EEF798221A9D4E9B0000DD14 /* PPSimpleAnimatedSprite.h */,
@@ -409,6 +411,7 @@
 				EE4BD1891AD4C379003371FF /* PPWaterSprite.m */,
 				EEC9BA471AE9D0B4006A7118 /* PPButtonNode.h */,
 				EEC9BA481AE9D0B4006A7118 /* PPButtonNode.m */,
+				EED930581AF035CB00C5C972 /* SpriteNodes */,
 				EE514BE71AEAD815000AAF86 /* Sky */,
 				EE8F0AAE1AD7334300CB1CE1 /* Clouds */,
 			);
@@ -543,6 +546,19 @@
 			name = Backgrounds;
 			sourceTree = "<group>";
 		};
+		EED930581AF035CB00C5C972 /* SpriteNodes */ = {
+			isa = PBXGroup;
+			children = (
+				EE8F0AB21AD735BD00CB1CE1 /* PPSprite.h */,
+				EE8F0AB31AD735BD00CB1CE1 /* PPSprite.m */,
+				EED8E5A21A881D79001C8F59 /* PPPlayer.h */,
+				EED8E5A31A881D79001C8F59 /* PPPlayer.m */,
+				EED930551AF035C600C5C972 /* PPFishNode.h */,
+				EED930561AF035C600C5C972 /* PPFishNode.m */,
+			);
+			name = SpriteNodes;
+			sourceTree = "<group>";
+		};
 		EEEB9CA31A82D9DE005E94B3 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -638,6 +654,7 @@
 				EEC9DB821AA7B3480022CDF1 /* PlayerSplashDownEmitter.sks in Resources */,
 				EE8ED2261ACB2288007A3F3F /* penguin_black.atlas in Resources */,
 				EE34346F1AAA52ED0010BE71 /* platform_iceberg.png in Resources */,
+				EED9305A1AF038DD00C5C972 /* fish.atlas in Resources */,
 				41E430B018B09E5200E1427D /* Images.xcassets in Resources */,
 				EEAF97671ACDFCCD007D0DC2 /* clouds.atlas in Resources */,
 				EEC9DB861AA7B5510022CDF1 /* SnowEmitter.sks in Resources */,
@@ -701,6 +718,7 @@
 				EEC9DB971AA93F900022CDF1 /* PPMenuScene.m in Sources */,
 				EEF798241A9D4E9B0000DD14 /* PPSimpleAnimatedSprite.m in Sources */,
 				41E430A018B09E5200E1427D /* AppDelegate.m in Sources */,
+				EED930571AF035C600C5C972 /* PPFishNode.m in Sources */,
 				EE8CF09E1ACB87B800BFC4A8 /* SSKWaterSurfaceNode.m in Sources */,
 				EE514BED1AEAE643000AAF86 /* PPFadingSky.m in Sources */,
 				EE8F0AB41AD735BD00CB1CE1 /* PPSprite.m in Sources */,

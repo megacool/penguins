@@ -11,6 +11,7 @@
 #import "PPSharedAssets.h"
 #import "PPPlayer.h"
 #import "PPSkySprite.h"
+#import "PPFishNode.h"
 #import "PPWaterSprite.h"
 #import "PPCloudParallaxFast.h"
 #import "PPCloudParallaxSlow.h"
@@ -33,6 +34,7 @@ typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerSnow,
     SceneLayerWater,
     SceneLayerForeground,
+    SceneLayerFish,
     SceneLayerMenu = 10,
 };
 
@@ -139,9 +141,12 @@ CGFloat const kAnimationMoveDistance = 10;
     SKAction *wait = [SKAction waitForDuration:.5];
     [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[splashLeft,wait,splashRight,wait]]]];
     
+    // Fish Spawn
+    [self spawnFishForever];
+    
     //Pause to prevent frame skip
     [self runAction:[SKAction waitForDuration:0.8] completion:^{
-
+        
         //Iceberg float
         SKNode *platform = [self.foregroundNode childNodeWithName:@"platform"];
         [platform runAction:[SKAction repeatActionForever:[self floatAction]]];
@@ -198,6 +203,37 @@ CGFloat const kAnimationMoveDistance = 10;
     [snowEmitter setZPosition:SceneLayerSnow];
     [snowEmitter setName:@"snowEmitter"];
     return snowEmitter;
+}
+
+#pragma mark - Fish
+- (void)spawnFishForever {
+    if ([self actionForKey:@"fishSpawn"]) return;
+    
+    SKAction *wait = [SKAction waitForDuration:1.5];
+    SKAction *move = [SKAction moveToX:-self.size.width/4 * 3 duration:3];
+    
+    SKAction *spawnAndMove = [SKAction runBlock:^{
+        // Get random y position
+        CGFloat randY = SSKRandomFloatInRange(self.size.height/8, self.size.height/8 * 3);
+        
+        // Spawn a new fish
+        PPFishNode *fish = [PPFishNode node];
+        [fish setPosition:CGPointMake(self.size.width/2 + fish.size.width, -randY)];
+        [fish setZPosition:SceneLayerFish];
+        [self.backgroundNode addChild:fish];
+        
+        // Start Fish swim animation
+        [fish swimForever];
+        
+        // Move fish across scene then remove
+        [fish runAction:move completion:^{
+            [fish removeFromParent];
+        }];
+    }];
+    
+    SKAction *spawnSequence = [SKAction sequence:@[wait,spawnAndMove]];
+    
+    [self runAction:[SKAction repeatActionForever:spawnSequence] withKey:@"fishSpawn"];
 }
 
 #pragma mark - Buttons

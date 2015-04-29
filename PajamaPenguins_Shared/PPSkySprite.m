@@ -14,7 +14,7 @@
 
 @implementation PPSkySprite
 + (instancetype)skyWithType:(SkyType)skyType {
-    return [[self alloc]  initWithSkyType:skyType];
+    return [[self alloc] initWithSkyType:skyType];
 }
 
 - (instancetype)initWithSkyType:(SkyType)skyType {

@@ -64,9 +64,11 @@
         // Penguins
         sPenguinBlackTextures = [SKTextureAtlas atlasNamed:@"penguin_black"];
         
+        // Fish
+        sFishAtlas = [SKTextureAtlas atlasNamed:@"fish"];
+        
         // Icebergs
         sIcebergAtlas = [SKTextureAtlas atlasNamed:@"icebergs"];
-        
         
         // Emitters
         sSnowEmitter = [SKEmitterNode emitterNodeWithFileNamed:@"SnowEmitter"];
@@ -105,6 +107,12 @@ static SKTextureAtlas *sCloudAtlas = nil;
 static SKTextureAtlas *sButtonAtlas = nil;
 + (SKTextureAtlas*)sharedButtonAtlas {
     return sButtonAtlas;
+}
+
+// Fish
+static SKTextureAtlas *sFishAtlas = nil;
++ (SKTextureAtlas*)sharedFishAtlas {
+    return sFishAtlas;
 }
 
 // Penguins
