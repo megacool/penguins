@@ -20,6 +20,7 @@ typedef NS_ENUM(NSUInteger, BarType) {
 - (void)setProgress:(CGFloat)progress;
 
 @property (nonatomic) BarType barType;
+@property (nonatomic) CGSize size;
 @property (nonatomic, readonly) CGFloat currentProgress;
 
 @end

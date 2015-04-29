@@ -209,16 +209,18 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self.hudNode setPosition:CGPointMake(-kMoveAndFadeDistance, 0)];
     [self addChild:self.hudNode];
     
+    CGFloat padding = 5.0;
+    
     SSKScoreNode *scoreCounter = [SSKScoreNode scoreNodeWithFontNamed:@"AmericanTypewriter" fontSize:12 fontColor:[SKColor whiteColor]];
     [scoreCounter setName:@"scoreCounter"];
     [scoreCounter setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeLeft];
     [scoreCounter setVerticalAlignmentMode:SKLabelVerticalAlignmentModeBottom];
-    [scoreCounter setPosition:CGPointMake(-self.size.width/2 + 4, -self.size.height/2 + 5)];
+    [scoreCounter setPosition:CGPointMake(-self.size.width/2 + padding, -self.size.height/2 + 5)];
     [self.hudNode addChild:scoreCounter];
     
-    SSKProgressBarNode *breathMeter = [[SSKProgressBarNode alloc] initWithFrameColor:[SKColor blackColor] barColor:[SKColor redColor] size:CGSizeMake(20, 150) barType:BarTypeVertical];
+    SSKProgressBarNode *breathMeter = [[SSKProgressBarNode alloc] initWithFrameColor:[SKColor blackColor] barColor:[SKColor redColor] size:CGSizeMake(10, 80) barType:BarTypeVertical];
     [breathMeter setName:@"progressBar"];
-    [breathMeter setPosition:CGPointMake(- self.size.width/2 + 15, -self.size.height/3)];
+    [breathMeter setPosition:CGPointMake(-self.size.width/2 + padding + breathMeter.size.width/2, scoreCounter.position.y + breathMeter.size.height/2 + 15)];
     [self.hudNode addChild:breathMeter];
 }
 

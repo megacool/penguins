@@ -23,6 +23,7 @@
     
     if (self) {
         self.barType = barType;
+        self.size = size;
         
         self.barBackground = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:size];
         [self addChild:self.barBackground];
