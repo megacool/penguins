@@ -17,7 +17,6 @@ NSString * const kFishActionKey = @"fishActionKey";
     self = [super initWithTexture:[[PPSharedAssets sharedFishAtlas] textureNamed:@"fish_background"]];
 
     if (self) {
-        [self setAlpha:0.4];
     }
     
     return self;
@@ -27,10 +26,10 @@ NSString * const kFishActionKey = @"fishActionKey";
 - (void)swimForever {
     if ([self actionForKey:kFishActionKey]) return;
     
-    CGFloat rotateTime = .35;
+    CGFloat rotateTime = .5;
     CGFloat moveTime = .6;
     CGFloat rotateDegrees = 35.0;
-    CGFloat moveDistance = 30.0;
+    CGFloat moveDistance = 40.0;
     
     SKAction *rotateLeft = [SKAction rotateByAngle:SSKDegreesToRadians(-rotateDegrees) duration:rotateTime];
     SKAction *rotateRight = [rotateLeft reversedAction];

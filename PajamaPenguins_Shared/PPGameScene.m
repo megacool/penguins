@@ -8,6 +8,7 @@
 #import "PPMenuScene.h"
 #import "PPSharedAssets.h"
 #import "PPPlayer.h"
+#import "PPFishNode.h"
 #import "PPIcebergObstacle.h"
 #import "PPSkySprite.h"
 #import "PPWaterSprite.h"
@@ -38,6 +39,7 @@ typedef enum {
 typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerBackground = 0,
     SceneLayerClouds,
+    SceneLayerFish,
     SceneLayerIcebergs,
     SceneLayerSnow,
     SceneLayerPlayer,
@@ -279,6 +281,9 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 - (void)startGameAnimations {
     [self runAction:[SKAction waitForDuration:.5] completion:^{
+        
+        // Start fish spawn forever
+        [self spawnFishForever];
     }];
 }
 
@@ -345,6 +350,39 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [retryButton setPosition:CGPointMake(0, -self.size.height/8 - retryButton.size.height - kButtonPadding)];
     [retryButton setZPosition:SceneLayerButtons];
     return retryButton;
+}
+
+#pragma mark - Fish
+- (void)spawnFishForever {
+    if ([self actionForKey:@"fishSpawn"]) return;
+    
+    SKAction *wait = [SKAction waitForDuration:2];
+    SKAction *move = [SKAction moveToX:-self.size.width/4 * 3 duration:1.75];
+    
+    SKAction *spawnAndMove = [SKAction runBlock:^{
+        
+        // Get random y position
+        CGFloat randY = SSKRandomFloatInRange(self.size.height/10, self.size.height/10 * 4);
+        
+        // Spawn a new fish
+        PPFishNode *fish = [PPFishNode node];
+        [fish setPosition:CGPointMake(self.size.width, -randY)];
+        [fish setSize:CGSizeMake(fish.size.width/3, fish.size.height/3)];
+        [fish setZPosition:SceneLayerFish];
+        [self.worldNode addChild:fish];
+        
+        // Start Fish swim animation
+        [fish swimForever];
+        
+        // Move fish across scene then remove
+        [fish runAction:move completion:^{
+            [fish removeFromParent];
+        }];
+    }];
+    
+    SKAction *spawnSequence = [SKAction sequence:@[wait,spawnAndMove]];
+    
+    [self runAction:[SKAction repeatActionForever:spawnSequence] withKey:@"fishSpawn"];
 }
 
 #pragma mark - Breath Meter
@@ -667,9 +705,11 @@ CGFloat const kParallaxMinSpeed = -20.0;
 - (void)removeAllChildrenOfScene {
     for (SKNode* node in self.children) {
         for (SKNode *child in node.children) {
+            [child removeAllActions];
             [child removeFromParent];
         }
         [node removeFromParent];
+        [node removeAllActions];
     }
 }
 

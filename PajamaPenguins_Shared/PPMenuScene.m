@@ -209,10 +209,11 @@ CGFloat const kAnimationMoveDistance = 10;
 - (void)spawnFishForever {
     if ([self actionForKey:@"fishSpawn"]) return;
     
-    SKAction *wait = [SKAction waitForDuration:1.5];
+    SKAction *wait = [SKAction waitForDuration:3];
     SKAction *move = [SKAction moveToX:-self.size.width/4 * 3 duration:3];
     
     SKAction *spawnAndMove = [SKAction runBlock:^{
+
         // Get random y position
         CGFloat randY = SSKRandomFloatInRange(self.size.height/8, self.size.height/8 * 3);
         
