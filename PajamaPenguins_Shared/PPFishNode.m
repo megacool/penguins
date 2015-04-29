@@ -26,8 +26,8 @@ NSString * const kFishActionKey = @"fishActionKey";
 - (void)swimForever {
     if ([self actionForKey:kFishActionKey]) return;
     
-    CGFloat rotateTime = .5;
-    CGFloat moveTime = .6;
+    CGFloat rotateTime = .2;
+    CGFloat moveTime = .4;
     CGFloat rotateDegrees = 35.0;
     CGFloat moveDistance = 40.0;
     
