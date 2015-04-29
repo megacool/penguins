@@ -209,7 +209,7 @@ CGFloat const kAnimationMoveDistance = 10;
 - (void)spawnFishForever {
     if ([self actionForKey:@"fishSpawn"]) return;
     
-    SKAction *wait = [SKAction waitForDuration:3];
+    SKAction *wait = [SKAction waitForDuration:2];
     SKAction *move = [SKAction moveToX:-self.size.width/4 * 3 duration:3];
     
     SKAction *spawnAndMove = [SKAction runBlock:^{
@@ -220,6 +220,7 @@ CGFloat const kAnimationMoveDistance = 10;
         // Spawn a new fish
         PPFishNode *fish = [PPFishNode node];
         [fish setPosition:CGPointMake(self.size.width/2 + fish.size.width, -randY)];
+        [fish setSize:CGSizeMake(fish.size.width/2, fish.size.height/2)];
         [fish setZPosition:SceneLayerFish];
         [self.backgroundNode addChild:fish];
         

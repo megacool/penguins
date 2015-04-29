@@ -358,8 +358,8 @@ CGFloat const kParallaxMinSpeed = -20.0;
 - (void)spawnFishForever {
     if ([self actionForKey:@"fishSpawn"]) return;
     
-    SKAction *wait = [SKAction waitForDuration:2];
-    SKAction *move = [SKAction moveToX:-self.size.width/4 * 3 duration:1.75];
+    SKAction *wait = [SKAction waitForDuration:0.4];
+    SKAction *move = [SKAction moveToX:-self.size.width/4 * 3 duration:3];
     
     SKAction *spawnAndMove = [SKAction runBlock:^{
         
@@ -368,7 +368,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
         
         // Spawn a new fish
         PPFishNode *fish = [PPFishNode node];
-        [fish setPosition:CGPointMake(self.size.width, -randY)];
+        [fish setPosition:CGPointMake(self.size.width*2, -randY)];
         [fish setSize:CGSizeMake(fish.size.width/3, fish.size.height/3)];
         [fish setZPosition:SceneLayerFish];
         [self.worldNode addChild:fish];
