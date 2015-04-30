@@ -28,8 +28,8 @@ NSString * const kFishActionKey = @"fishActionKey";
     
     CGFloat rotateTime = .2;
     CGFloat moveTime = .4;
-    CGFloat rotateDegrees = 35.0;
-    CGFloat moveDistance = 40.0;
+    CGFloat rotateDegrees = 20.0;
+    CGFloat moveDistance = 30.0;
     
     SKAction *rotateLeft = [SKAction rotateByAngle:SSKDegreesToRadians(-rotateDegrees) duration:rotateTime];
     SKAction *rotateRight = [rotateLeft reversedAction];
