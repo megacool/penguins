@@ -35,4 +35,12 @@
     return newNodeSize;
 };
 
+#pragma mark - Animation
+- (void)runAnimationWithTextures:(NSArray*)textures speed:(CGFloat)speed key:(NSString*)key {
+    SKAction *animation = [self actionForKey:key];
+    if (animation || [textures count] < 1) return;
+    
+    [self runAction:[SKAction animateWithTextures:textures timePerFrame:speed] withKey:key];
+}
+
 @end

@@ -8,6 +8,7 @@
 #import "PPMenuScene.h"
 #import "PPSharedAssets.h"
 #import "PPPlayer.h"
+#import "PPCoinNode.h"
 #import "PPFishNode.h"
 #import "PPIcebergObstacle.h"
 #import "PPSkySprite.h"
@@ -120,6 +121,11 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 - (void)testStuff {
+    PPCoinNode *coin = [PPCoinNode new];
+    [coin setZPosition:20];
+    [self addChild:coin];
+    
+    [coin spinAnimation];
 }
 
 - (void)createNewGame {

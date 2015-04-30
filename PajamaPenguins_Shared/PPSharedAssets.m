@@ -58,6 +58,9 @@
         // Buttons
         sButtonAtlas = [SKTextureAtlas atlasNamed:@"buttons"];
         
+        // Coins
+        sCoinsAtlas = [SKTextureAtlas atlasNamed:@"coins"];
+        
         // Clouds
         sCloudAtlas = [SKTextureAtlas atlasNamed:@"clouds"];
         
@@ -119,6 +122,12 @@ static SKTextureAtlas *sFishAtlas = nil;
 static SKTextureAtlas *sPenguinBlackTextures = nil;
 + (SKTextureAtlas*)sharedPenguinBlackTextures {
     return sPenguinBlackTextures;
+}
+
+// Coins
+static SKTextureAtlas *sCoinsAtlas = nil;
++ (SKTextureAtlas*)sharedCoinAtlas {
+    return sCoinsAtlas;
 }
 
 // Icebergs

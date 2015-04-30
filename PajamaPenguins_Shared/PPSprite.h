@@ -9,4 +9,5 @@
 #import <SpriteKit/SpriteKit.h>
 
 @interface PPSprite : SKSpriteNode
+- (void)runAnimationWithTextures:(NSArray*)textures speed:(CGFloat)speed key:(NSString*)key;
 @end

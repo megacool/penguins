@@ -16,14 +16,19 @@
                            fromBaseFile:(NSString*)baseFileName
                          withFrameCount:(NSUInteger)count;
 
-//Load tiles from a single sprite sheet
+// Load animation frames
++ (NSArray*)loadFramesFromAtlas:(SKTextureAtlas*)atlas
+                   baseFileName:(NSString*)baseName
+                     frameCount:(NSUInteger)frameCount;
+
+// Load tiles from a single sprite sheet
 + (NSArray*)loadFramesFromSpriteSheetNamed:(NSString*)name
                                  frameSize:(CGSize)frameSize
                                     origin:(CGPoint)origin
                                  gridWidth:(NSUInteger)width
                                 gridHeight:(NSUInteger)height;
 
-//One shot particle action
+// One shot particle action
 + (void)runOneShotActionWithEmitter:(SKEmitterNode*)emitter duration:(CGFloat)duration;
 
 @end

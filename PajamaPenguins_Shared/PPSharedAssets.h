@@ -32,6 +32,9 @@ typedef void (^AssetCompletionHandler)(void);
 + (SKTextureAtlas*)sharedIcebergAtlas;
 + (SKTexture*)sharedIcebergTexture; // Menu Iceberg
 
+// Coin Textures
++ (SKTextureAtlas*)sharedCoinAtlas;
+
 // Button Textures
 + (SKTextureAtlas*)sharedButtonAtlas;
 

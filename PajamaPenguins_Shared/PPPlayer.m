@@ -7,6 +7,7 @@
 //
 
 #import "PPPlayer.h"
+#import "SSKGraphicsUtils.h"
 
 #define kAcceleration 45.0
 
@@ -39,37 +40,22 @@ CGFloat const kIdleAnimationSpeed = 0.25;
     self = [super initWithTexture:[atlas textureNamed:initialTexture]];
     if (self) {
         //Idle
-        NSMutableArray *tempIdleTextures = [NSMutableArray new];
-        for (int i = 0; i < kIdleFrames; i++) {
-            NSString *idleFrame = [NSString stringWithFormat:@"penguin_%@_idle_0%d",[self playerTypeStringVal:self.playerType],i];
-            [tempIdleTextures addObject:[atlas textureNamed:idleFrame]];
-        }
-        self.idleTextures = tempIdleTextures;
+        NSString *baseIdleString = [NSString stringWithFormat:@"penguin_%@_idle_",[self playerTypeStringVal:self.playerType]];
+        self.idleTextures = [SSKGraphicsUtils loadFramesFromAtlas:atlas baseFileName:baseIdleString frameCount:kIdleFrames];
         
         //Dive
-        NSMutableArray *tempDiveTextures = [NSMutableArray new];
-        for (int i = 0; i < kDiveFrames; i ++) {
-            NSString *diveFrame = [NSString stringWithFormat:@"penguin_%@_dive_0%d",[self playerTypeStringVal:self.playerType],i];
-            [tempDiveTextures addObject:[atlas textureNamed:diveFrame]];
-        }
-        self.diveTextures = tempDiveTextures;
+        NSString *baseDiveString = [NSString stringWithFormat:@"penguin_%@_dive_",[self playerTypeStringVal:self.playerType]];
+        self.diveTextures = [SSKGraphicsUtils loadFramesFromAtlas:atlas baseFileName:baseDiveString frameCount:kDiveFrames];
 
         //Swim
-        NSMutableArray *tempSwimTextures = [NSMutableArray new];
-        for (int i = 0; i < kSwimFrames; i++) {
-            NSString *swimFrame = [NSString stringWithFormat:@"penguin_%@_swim_0%d",[self playerTypeStringVal:self.playerType],i];
-            [tempSwimTextures addObject:[atlas textureNamed:swimFrame]];
-        }
-        self.swimTextures = tempSwimTextures;
+        NSString *baseSwimString = [NSString stringWithFormat:@"penguin_%@_swim_",[self playerTypeStringVal:self.playerType]];
+        self.swimTextures = [SSKGraphicsUtils loadFramesFromAtlas:atlas baseFileName:baseSwimString frameCount:kSwimFrames];
         
         //Fly
-        NSMutableArray *tempFlyFrames = [NSMutableArray new];
-        for (int i = 0; i < kFlyFrames; i ++) {
-            NSString *flyFrame = [NSString stringWithFormat:@"penguin_%@_fly_0%d",[self playerTypeStringVal:self.playerType],i];
-            [tempFlyFrames addObject:[atlas textureNamed:flyFrame]];
-        }
-        self.flyTextures = tempFlyFrames;
+        NSString *baseFlyString = [NSString stringWithFormat:@"penguin_%@_fly_",[self playerTypeStringVal:self.playerType]];
+        self.flyTextures = [SSKGraphicsUtils loadFramesFromAtlas:atlas baseFileName:baseFlyString frameCount:kFlyFrames];
     }
+    
     return self;
 }
 
@@ -96,14 +82,6 @@ CGFloat const kIdleAnimationSpeed = 0.25;
     if (self.zRotation <= SSKDegreesToRadians(150)) {
         [self setZRotation:SSKDegreesToRadians(150)];
     }
-}
-
-#pragma mark - Animation
-- (void)runAnimationWithTextures:(NSArray*)textures speed:(CGFloat)speed key:(NSString*)key {
-    SKAction *animation = [self actionForKey:key];
-    if (animation || [textures count] < 1) return;
-    
-    [self runAction:[SKAction animateWithTextures:textures timePerFrame:speed] withKey:key];
 }
 
 #pragma mark - Update
@@ -140,7 +118,6 @@ CGFloat const kIdleAnimationSpeed = 0.25;
         default:
             break;
     }
-    
 }
 
 #pragma mark - Player Type String Parsing

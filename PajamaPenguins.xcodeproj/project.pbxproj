@@ -87,6 +87,8 @@
 		EEC9DB981AA93F900022CDF1 /* PPMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC9DB961AA93F900022CDF1 /* PPMenuScene.m */; };
 		EECC66901AA14B28004CB609 /* SSKDynamicColorNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC668F1AA14B28004CB609 /* SSKDynamicColorNode.m */; };
 		EECC66911AA14B28004CB609 /* SSKDynamicColorNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC668F1AA14B28004CB609 /* SSKDynamicColorNode.m */; };
+		EED56A5A1AF1A698001C56EF /* PPCoinNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EED56A591AF1A698001C56EF /* PPCoinNode.m */; };
+		EED56A5C1AF1AB9D001C56EF /* coins.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EED56A5B1AF1AB9D001C56EF /* coins.atlas */; };
 		EED8E5A41A881D79001C8F59 /* PPPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8E5A31A881D79001C8F59 /* PPPlayer.m */; };
 		EED8E5A51A881D79001C8F59 /* PPPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8E5A31A881D79001C8F59 /* PPPlayer.m */; };
 		EED930571AF035C600C5C972 /* PPFishNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EED930561AF035C600C5C972 /* PPFishNode.m */; };
@@ -197,6 +199,9 @@
 		EEC9DB961AA93F900022CDF1 /* PPMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPMenuScene.m; sourceTree = "<group>"; };
 		EECC668E1AA14B28004CB609 /* SSKDynamicColorNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKDynamicColorNode.h; sourceTree = "<group>"; };
 		EECC668F1AA14B28004CB609 /* SSKDynamicColorNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKDynamicColorNode.m; sourceTree = "<group>"; };
+		EED56A581AF1A697001C56EF /* PPCoinNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCoinNode.h; sourceTree = "<group>"; };
+		EED56A591AF1A698001C56EF /* PPCoinNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCoinNode.m; sourceTree = "<group>"; };
+		EED56A5B1AF1AB9D001C56EF /* coins.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = coins.atlas; sourceTree = "<group>"; };
 		EED8E5A21A881D79001C8F59 /* PPPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPPlayer.h; sourceTree = "<group>"; };
 		EED8E5A31A881D79001C8F59 /* PPPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPPlayer.m; sourceTree = "<group>"; };
 		EED930551AF035C600C5C972 /* PPFishNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPFishNode.h; sourceTree = "<group>"; };
@@ -387,6 +392,7 @@
 			children = (
 				EE3434791AABF4180010BE71 /* PPSharedAssets.h */,
 				EE34347A1AABF4180010BE71 /* PPSharedAssets.m */,
+				EED56A5B1AF1AB9D001C56EF /* coins.atlas */,
 				EED930591AF038DD00C5C972 /* fish.atlas */,
 				EEC9BA251AE89417006A7118 /* buttons.atlas */,
 				EE1FCA0F1AE311F4006DDC3B /* icebergs.atlas */,
@@ -555,6 +561,8 @@
 				EED8E5A31A881D79001C8F59 /* PPPlayer.m */,
 				EED930551AF035C600C5C972 /* PPFishNode.h */,
 				EED930561AF035C600C5C972 /* PPFishNode.m */,
+				EED56A581AF1A697001C56EF /* PPCoinNode.h */,
+				EED56A591AF1A698001C56EF /* PPCoinNode.m */,
 			);
 			name = SpriteNodes;
 			sourceTree = "<group>";
@@ -655,6 +663,7 @@
 				EE8ED2261ACB2288007A3F3F /* penguin_black.atlas in Resources */,
 				EE34346F1AAA52ED0010BE71 /* platform_iceberg.png in Resources */,
 				EED9305A1AF038DD00C5C972 /* fish.atlas in Resources */,
+				EED56A5C1AF1AB9D001C56EF /* coins.atlas in Resources */,
 				41E430B018B09E5200E1427D /* Images.xcassets in Resources */,
 				EEAF97671ACDFCCD007D0DC2 /* clouds.atlas in Resources */,
 				EEC9DB861AA7B5510022CDF1 /* SnowEmitter.sks in Resources */,
@@ -708,6 +717,7 @@
 				41E430A918B09E5200E1427D /* ViewController.m in Sources */,
 				EE6F92FA1A82F39400286DC7 /* SSKiAD.m in Sources */,
 				EE6F92FE1A82F39400286DC7 /* SSKScene.m in Sources */,
+				EED56A5A1AF1A698001C56EF /* PPCoinNode.m in Sources */,
 				EE34347B1AABF4180010BE71 /* PPSharedAssets.m in Sources */,
 				EECC66901AA14B28004CB609 /* SSKDynamicColorNode.m in Sources */,
 				EEF7983C1A9FCAE80000DD14 /* SSKColorNode.m in Sources */,

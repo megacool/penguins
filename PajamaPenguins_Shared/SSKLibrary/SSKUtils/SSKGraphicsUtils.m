@@ -56,6 +56,16 @@
     return [NSArray arrayWithArray:images];
 }
 
++ (NSArray*)loadFramesFromAtlas:(SKTextureAtlas*)atlas baseFileName:(NSString*)baseName frameCount:(NSUInteger)frameCount {
+    NSMutableArray *tempFrames = [NSMutableArray new];
+    for (int i = 0; i < frameCount; i++) {
+        NSString *frameString = [NSString stringWithFormat:@"%@%02d",baseName,i];
+        [tempFrames addObject:[atlas textureNamed:frameString]];
+    }
+    
+    return [NSArray arrayWithArray:tempFrames];
+}
+
 + (void)runOneShotActionWithEmitter:(SKEmitterNode*)emitter duration:(CGFloat)duration {
     SKAction *wait = [SKAction waitForDuration:duration];
     SKAction *waitParticleLifetime = [SKAction waitForDuration:emitter.particleLifetime + emitter.particleLifetimeRange];
