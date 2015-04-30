@@ -123,9 +123,24 @@ CGFloat const kParallaxMinSpeed = -20.0;
 - (void)testStuff {
     PPCoinNode *coin = [PPCoinNode new];
     [coin setZPosition:20];
-    [self addChild:coin];
+//    [self addChild:coin];
     
-    [coin spinAnimation];
+    SKAction *interval = [SKAction waitForDuration:0.2];
+    SKAction *move = [SKAction moveToX:-self.size.width/2 - coin.size.width duration:2];
+    
+    SKAction *spawnMove = [SKAction runBlock:^{
+        PPCoinNode *newCoin = coin.copy;
+        [newCoin setPosition:CGPointMake(self.size.width/2, self.size.height/4)];
+        [self addChild:newCoin];
+        
+        [newCoin spinAnimation];
+        
+        [newCoin runAction:move completion:^{
+            [newCoin removeFromParent];
+        }];
+    }];
+    
+    [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[spawnMove,interval]]]];
 }
 
 - (void)createNewGame {
