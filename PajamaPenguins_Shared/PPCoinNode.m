@@ -13,7 +13,7 @@
 NSUInteger const kCoinFrames = 6;
 NSString * const kCoinAnimationKey = @"coinAnimation";
 
-CGFloat const kCoinAnimationSpeed = 0.1;
+CGFloat const kCoinAnimationSpeed = 0.05;
 
 @interface PPCoinNode()
 @property (nonatomic) NSArray *coinTextures;
@@ -24,6 +24,7 @@ CGFloat const kCoinAnimationSpeed = 0.1;
 - (instancetype)init {
     self = [super initWithTexture:[[PPSharedAssets sharedCoinAtlas] textureNamed:@"coin_00"]];
     if (self) {
+        self.size = CGSizeMake(self.size.width/2, self.size.height/2);
         self.coinTextures = [SSKGraphicsUtils loadFramesFromAtlas:[PPSharedAssets sharedCoinAtlas] baseFileName:@"coin_" frameCount:kCoinFrames];
     }
     

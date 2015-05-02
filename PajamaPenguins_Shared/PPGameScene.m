@@ -46,6 +46,7 @@ typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerPlayer,
     SceneLayerWater,
     SceneLayerBubbles,
+    SceneLayerCoins,
     SceneLayerHUD,
     SceneLayerGameOver,
     SceneLayerButtons,
@@ -89,15 +90,20 @@ CGFloat const kParallaxMinSpeed = -20.0;
 @interface PPGameScene()
 @property (nonatomic) GameState gameState;
 
-@property (nonatomic) PPCloudParallaxSlow *cloudSlow;
-@property (nonatomic) PPCloudParallaxFast *cloudFast;
-
 @property (nonatomic) PPSkySprite *sky;
 @property (nonatomic) PPWaterSprite *waterSurface;
 
-@property (nonatomic) NSMutableArray *obstacleTexturePool;
 @property (nonatomic) SKEmitterNode *snowEmitter;
 
+// Parallax Nodes
+@property (nonatomic) PPCloudParallaxSlow *cloudSlow;
+@property (nonatomic) PPCloudParallaxFast *cloudFast;
+
+// Coin spawn points
+@property (nonatomic) SKNode *coinSpawnTop;
+@property (nonatomic) SKNode *coinSpawnBottom;
+
+// Node containers
 @property (nonatomic) SKNode *worldNode;
 @property (nonatomic) SKNode *hudNode;
 @property (nonatomic) SKNode *gameOverNode;
@@ -121,26 +127,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 - (void)testStuff {
-    PPCoinNode *coin = [PPCoinNode new];
-    [coin setZPosition:20];
-//    [self addChild:coin];
-    
-    SKAction *interval = [SKAction waitForDuration:0.2];
-    SKAction *move = [SKAction moveToX:-self.size.width/2 - coin.size.width duration:2];
-    
-    SKAction *spawnMove = [SKAction runBlock:^{
-        PPCoinNode *newCoin = coin.copy;
-        [newCoin setPosition:CGPointMake(self.size.width/2, self.size.height/4)];
-        [self addChild:newCoin];
-        
-        [newCoin spinAnimation];
-        
-        [newCoin runAction:move completion:^{
-            [newCoin removeFromParent];
-        }];
-    }];
-    
-    [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[spawnMove,interval]]]];
 }
 
 - (void)createNewGame {
@@ -210,6 +196,15 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self.worldNode addChild:playerBubbleEmitter];
     
     _playerBubbleBirthrate = playerBubbleEmitter.particleBirthRate; //To reset the simulation
+    
+    //Coin spawn points
+    self.coinSpawnTop = [SKNode new];
+    [self.coinSpawnTop setPosition:CGPointMake(self.size.width * 2, self.size.height/4)];
+    [self.worldNode addChild:self.coinSpawnTop];
+    
+    self.coinSpawnBottom = [SKNode new];
+    [self.coinSpawnBottom setPosition:CGPointMake(self.size.width * 2, -self.size.height/4)];
+    [self.worldNode addChild:self.coinSpawnBottom];
     
     //Screen Physics Boundary
     SKSpriteNode *boundary = [SKSpriteNode spriteNodeWithColor:[SKColor clearColor] size:CGSizeMake(self.size.width,self.size.height)];
@@ -299,6 +294,8 @@ CGFloat const kParallaxMinSpeed = -20.0;
     
     [self startObstacleSpawnSequence];
     
+    [self startCoinSpawnIntervals];
+    
     [self startScoreCounter];
 }
 
@@ -307,6 +304,9 @@ CGFloat const kParallaxMinSpeed = -20.0;
         
         // Start fish spawn forever
         [self spawnFishForever];
+        
+        // Start coin spawn point movement
+        [self startCoinSpawnPointMovement];
     }];
 }
 
@@ -373,6 +373,66 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [retryButton setPosition:CGPointMake(0, -self.size.height/8 - retryButton.size.height - kButtonPadding)];
     [retryButton setZPosition:SceneLayerButtons];
     return retryButton;
+}
+
+#pragma mark - Coins
+- (void)spawnCoinAtPosition:(CGPoint)position {
+    [self runAction:[SKAction runBlock:^{
+        // Spawn a coin
+        PPCoinNode *newCoin = [PPCoinNode new];
+        [newCoin setZPosition:SceneLayerCoins];
+        [newCoin setPosition:position];
+        [self.worldNode addChild:newCoin];
+        
+        // Make coin spin
+        [newCoin spinAnimation];
+        
+        // Move coin off screen
+        [newCoin runAction:[SKAction moveToX:-self.size.width/2 - newCoin.size.width duration:4] completion:^{
+            [newCoin removeFromParent];
+        }];
+    }]];
+}
+
+- (void)startCoinSpawnIntervals {
+//    SKAction *wait = [SKAction waitForDuration:1];
+    SKAction *interval = [SKAction waitForDuration:0.1];
+    SKAction *spawnBlock = [SKAction runBlock:^{
+        [self spawnCoinAtPosition:self.coinSpawnTop.position];
+        [self spawnCoinAtPosition:self.coinSpawnBottom.position];
+    }];
+    SKAction *sequence = [SKAction sequence:@[spawnBlock,interval,spawnBlock,interval,spawnBlock,interval,spawnBlock]];
+    [self runAction:[SKAction repeatActionForever:sequence]];
+}
+
+- (void)startCoinSpawnPointMovement {
+    CGFloat moveSpeed = 3.0;
+    
+    // Top spawn point
+    CGFloat topStartY = self.size.height/4;
+    CGFloat topEndY = self.size.height;
+    
+    SKAction *topMoveUp = [SKAction moveToY:topEndY duration:moveSpeed];
+    [topMoveUp setTimingMode:SKActionTimingEaseInEaseOut];
+    
+    SKAction *topMoveDown = [SKAction moveToY:topStartY duration:moveSpeed];
+    [topMoveDown setTimingMode:SKActionTimingEaseInEaseOut];
+    
+    SKAction *topSeq = [SKAction sequence:@[topMoveUp, topMoveDown]];
+    [self.coinSpawnTop runAction:[SKAction repeatActionForever:topSeq]];
+    
+    // Bottom spawn point
+    CGFloat botStartY = -self.size.height/8;
+    CGFloat botEndY = -self.size.height/16 * 7;
+    
+    SKAction *botMoveDown = [SKAction moveToY:botEndY duration:moveSpeed];
+    [botMoveDown setTimingMode:SKActionTimingEaseInEaseOut];
+    
+    SKAction *botMoveUp = [SKAction moveToY:botStartY duration:moveSpeed];
+    [botMoveUp setTimingMode:SKActionTimingEaseInEaseOut];
+    
+    SKAction *botSeq = [SKAction sequence:@[botMoveDown, botMoveUp]];
+    [self.coinSpawnBottom runAction:[SKAction repeatActionForever:botSeq]];
 }
 
 #pragma mark - Fish
