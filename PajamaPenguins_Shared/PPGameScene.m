@@ -81,6 +81,7 @@ NSString * const kPixelFontName = @"Fipps-Regular";
 NSString * const kRemoveName = @"removeable";
 
 //Action Constants
+CGFloat const kParallaxMoveSpeed   = 4;
 CGFloat const kMoveAndFadeTime     = 0.2;
 CGFloat const kMoveAndFadeDistance = 20;
 
@@ -381,40 +382,9 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 #pragma mark - Coins
-- (void)spawnCoinAtPosition:(CGPoint)position {
-    PPCoinNode *newCoin = [PPCoinNode new];
-    
-    [self runAction:[SKAction runBlock:^{
-        // Spawn a coin
-        PPCoinNode *coin = newCoin.copy;
-        [coin setZPosition:SceneLayerCoins];
-        [coin setPosition:position];
-        [coin setName:kCoinName];
-        [self.worldNode addChild:coin];
-        
-        // Make coin spin
-        [coin spinAnimation];
-        
-        // Move coin off screen
-        [coin runAction:[SKAction moveToX:-self.size.width/2 - coin.size.width duration:4] withKey:kCoinMoveKey completion:^{
-            [coin removeFromParent];
-        }];
-    }]];
-}
-
-- (void)startCoinSpawnIntervals {
-//    SKAction *wait = [SKAction waitForDuration:1];
-    SKAction *interval = [SKAction waitForDuration:0.2];
-    SKAction *spawnBlock = [SKAction runBlock:^{
-        [self spawnCoinAtPosition:self.coinSpawnTop.position];
-        [self spawnCoinAtPosition:self.coinSpawnBottom.position];
-    }];
-    SKAction *sequence = [SKAction sequence:@[spawnBlock,interval,spawnBlock,interval,spawnBlock,interval,spawnBlock]];
-    [self runAction:[SKAction repeatActionForever:sequence] withKey:kCoinSpawnKey];
-}
 
 - (void)startCoinSpawnPointMovement {
-    CGFloat moveSpeed = 4.0;
+    CGFloat moveSpeed = 4;
     
     // Top spawn point
     CGFloat topStartY = self.size.height/4;
@@ -443,11 +413,83 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self.coinSpawnBottom runAction:[SKAction repeatActionForever:botSeq]];
 }
 
+- (void)startCoinSpawnIntervals {
+    SKAction *wait = [SKAction waitForDuration:1];
+    SKAction *spawnInterval = [SKAction waitForDuration:0.2];
+
+    SKAction *spawnTop = [SKAction runBlock:^{
+        [self spawnCoinAtPosition:self.coinSpawnTop.position];
+    }];
+    
+    SKAction *spawnBottom = [SKAction runBlock:^{
+        [self spawnCoinAtPosition:self.coinSpawnBottom.position];
+    }];
+    
+    // Create a sequence with the given count
+    NSMutableArray *spawnActionsTop = [NSMutableArray new];
+    for (int i = 0; i < 5; i++) {
+        [spawnActionsTop addObject:spawnTop];
+        [spawnActionsTop addObject:spawnInterval];
+    }
+
+    NSMutableArray *spawnActionsBot = [NSMutableArray new];
+    for (int i = 0; i < 5; i++) {
+        [spawnActionsBot addObject:spawnBottom];
+        [spawnActionsBot addObject:spawnInterval];
+    }
+    
+    SKAction *topSeq = [SKAction sequence:spawnActionsTop];
+    SKAction *botSeq = [SKAction sequence:spawnActionsBot];
+    SKAction *seq = [SKAction sequence:@[topSeq,wait,botSeq,wait]];
+    
+    [self runAction:[SKAction repeatActionForever:seq] withKey:kCoinSpawnKey];
+}
+
+
 - (void)stopCoinSpawn {
     [self removeActionForKey:kCoinSpawnKey];
     [self.worldNode enumerateChildNodesWithName:kCoinName usingBlock:^(SKNode *node, BOOL *stop) {
         [node removeActionForKey:kCoinMoveKey];
     }];
+}
+
+#pragma mark - Spawn Coins
+- (void)spawnCoinAtPosition:(CGPoint)position {
+    PPCoinNode *newCoin = [PPCoinNode new];
+    
+    [self runAction:[SKAction runBlock:^{
+        
+        // Spawn a coin
+        PPCoinNode *coin = newCoin.copy;
+        [coin setZPosition:SceneLayerCoins];
+        [coin setPosition:position];
+        [coin setName:kCoinName];
+        [self.worldNode addChild:coin];
+        
+        // Make coin spin
+//        [coin spinAnimation];
+        
+        // Move coin off screen
+        [coin runAction:[SKAction moveToX:-self.size.width/2 - coin.size.width duration:kParallaxMoveSpeed] withKey:kCoinMoveKey completion:^{
+            [coin removeFromParent];
+        }];
+    }]];
+}
+
+- (SKAction*)spawnCoinsWithCount:(NSUInteger)count withInterval:(CGFloat)interval atPosition:(CGPoint)position {
+    SKAction *spawnInterval = [SKAction waitForDuration:interval];
+    SKAction *spawnAction = [SKAction runBlock:^{
+        [self spawnCoinAtPosition:position];
+    }];
+    
+    // Create a sequence with the given count
+    NSMutableArray *actions = [NSMutableArray new];
+    for (int i = 0; i < count; i++) {
+        [actions addObject:spawnAction];
+        [actions addObject:spawnInterval];
+    }
+    
+    return [SKAction sequence:actions];
 }
 
 #pragma mark - Fish
@@ -558,7 +600,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [player.physicsBody setVelocity:CGVectorMake(0, 0)];
     [player.physicsBody setCollisionBitMask:0x0];
     [player.physicsBody setContactTestBitMask:0x0];
-    [player.physicsBody applyImpulse:CGVectorMake(1, 70)];
+    [player.physicsBody applyImpulse:CGVectorMake(1, 20)];
     [player.physicsBody applyAngularImpulse:-.00525];
 }
 
@@ -674,7 +716,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     PPIcebergObstacle *obstacle = [PPIcebergObstacle icebergWithType:IceBergTypeNormal];
     [obstacle setName:@"obstacle"];
     [obstacle setScale:newScale];
-    [obstacle setPosition:CGPointMake((self.size.width/kWorldScaleCap) + obstacle.size.width/2, obstacle.size.height / 10)];
+    [obstacle setPosition:CGPointMake(self.size.width * 2, obstacle.size.height / 10)];
     [obstacle setZPosition:SceneLayerIcebergs];
     [obstacle.physicsBody setCategoryBitMask:obstacleCategory];
     return obstacle;
@@ -687,7 +729,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
         SKNode *obstacle = [self newIceBerg];
         [self.worldNode addChild:obstacle];
         [obstacle runAction:[SKAction repeatActionForever:[self floatAction]]];
-        [obstacle runAction:[SKAction moveToX:-self.size.width duration:4] withKey:@"moveObstacle" completion:^{
+        [obstacle runAction:[SKAction moveToX:-self.size.width duration:kParallaxMoveSpeed] withKey:@"moveObstacle" completion:^{
             [obstacle removeFromParent];
         }];
     }];
