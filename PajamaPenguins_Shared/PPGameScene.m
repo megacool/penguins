@@ -84,6 +84,10 @@ NSString * const kRemoveName = @"removeable";
 CGFloat const kMoveAndFadeTime     = 0.2;
 CGFloat const kMoveAndFadeDistance = 20;
 
+NSString * const kCoinSpawnKey = @"coinSpawnKey";
+NSString * const kCoinMoveKey = @"coinMoveKey";
+NSString * const kCoinName = @"coinName";
+
 //Parallax Constants
 CGFloat const kParallaxMinSpeed = -20.0;
 
@@ -201,7 +205,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     self.coinSpawnTop = [SKNode new];
     [self.coinSpawnTop setPosition:CGPointMake(self.size.width * 2, self.size.height/4)];
     [self.worldNode addChild:self.coinSpawnTop];
-    
+
     self.coinSpawnBottom = [SKNode new];
     [self.coinSpawnBottom setPosition:CGPointMake(self.size.width * 2, -self.size.height/4)];
     [self.worldNode addChild:self.coinSpawnBottom];
@@ -314,6 +318,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 - (void)gameEnd {
     self.gameState = GameOver;
     
+    [self stopCoinSpawn];
     [self stopScoreCounter];
     [self checkIfHighScore];
     
@@ -377,36 +382,39 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 #pragma mark - Coins
 - (void)spawnCoinAtPosition:(CGPoint)position {
+    PPCoinNode *newCoin = [PPCoinNode new];
+    
     [self runAction:[SKAction runBlock:^{
         // Spawn a coin
-        PPCoinNode *newCoin = [PPCoinNode new];
-        [newCoin setZPosition:SceneLayerCoins];
-        [newCoin setPosition:position];
-        [self.worldNode addChild:newCoin];
+        PPCoinNode *coin = newCoin.copy;
+        [coin setZPosition:SceneLayerCoins];
+        [coin setPosition:position];
+        [coin setName:kCoinName];
+        [self.worldNode addChild:coin];
         
         // Make coin spin
-        [newCoin spinAnimation];
+        [coin spinAnimation];
         
         // Move coin off screen
-        [newCoin runAction:[SKAction moveToX:-self.size.width/2 - newCoin.size.width duration:4] completion:^{
-            [newCoin removeFromParent];
+        [coin runAction:[SKAction moveToX:-self.size.width/2 - coin.size.width duration:4] withKey:kCoinMoveKey completion:^{
+            [coin removeFromParent];
         }];
     }]];
 }
 
 - (void)startCoinSpawnIntervals {
 //    SKAction *wait = [SKAction waitForDuration:1];
-    SKAction *interval = [SKAction waitForDuration:0.1];
+    SKAction *interval = [SKAction waitForDuration:0.2];
     SKAction *spawnBlock = [SKAction runBlock:^{
         [self spawnCoinAtPosition:self.coinSpawnTop.position];
         [self spawnCoinAtPosition:self.coinSpawnBottom.position];
     }];
     SKAction *sequence = [SKAction sequence:@[spawnBlock,interval,spawnBlock,interval,spawnBlock,interval,spawnBlock]];
-    [self runAction:[SKAction repeatActionForever:sequence]];
+    [self runAction:[SKAction repeatActionForever:sequence] withKey:kCoinSpawnKey];
 }
 
 - (void)startCoinSpawnPointMovement {
-    CGFloat moveSpeed = 3.0;
+    CGFloat moveSpeed = 4.0;
     
     // Top spawn point
     CGFloat topStartY = self.size.height/4;
@@ -433,6 +441,13 @@ CGFloat const kParallaxMinSpeed = -20.0;
     
     SKAction *botSeq = [SKAction sequence:@[botMoveDown, botMoveUp]];
     [self.coinSpawnBottom runAction:[SKAction repeatActionForever:botSeq]];
+}
+
+- (void)stopCoinSpawn {
+    [self removeActionForKey:kCoinSpawnKey];
+    [self.worldNode enumerateChildNodesWithName:kCoinName usingBlock:^(SKNode *node, BOOL *stop) {
+        [node removeActionForKey:kCoinMoveKey];
+    }];
 }
 
 #pragma mark - Fish
@@ -800,7 +815,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
     // Remove all "Removeable" nodes without a scene parent
     [self enumerateChildNodesWithName:kRemoveName usingBlock:^(SKNode *node, BOOL *stop) {
         [node removeFromParent];
-        
     }];
     
     // Remove Snow

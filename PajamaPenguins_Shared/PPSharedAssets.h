@@ -33,6 +33,7 @@ typedef void (^AssetCompletionHandler)(void);
 + (SKTexture*)sharedIcebergTexture; // Menu Iceberg
 
 // Coin Textures
++ (NSArray*)sharedCoinTextures;
 + (SKTextureAtlas*)sharedCoinAtlas;
 
 // Button Textures
@@ -43,6 +44,7 @@ typedef void (^AssetCompletionHandler)(void);
 
 // Fish Textures
 + (SKTextureAtlas*)sharedFishAtlas;
++ (SKTexture*)sharedFishTexture;
 
 // Emitters
 + (SKEmitterNode*)sharedSnowEmitter;

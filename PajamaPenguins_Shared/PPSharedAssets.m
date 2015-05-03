@@ -60,6 +60,7 @@
         
         // Coins
         sCoinsAtlas = [SKTextureAtlas atlasNamed:@"coins"];
+        sCoinTextures = [SSKGraphicsUtils loadFramesFromAtlas:sCoinsAtlas baseFileName:@"coin_" frameCount:6];
         
         // Clouds
         sCloudAtlas = [SKTextureAtlas atlasNamed:@"clouds"];
@@ -69,6 +70,7 @@
         
         // Fish
         sFishAtlas = [SKTextureAtlas atlasNamed:@"fish"];
+        sFishTexture = [sFishAtlas textureNamed:@"fish_background"];
         
         // Icebergs
         sIcebergAtlas = [SKTextureAtlas atlasNamed:@"icebergs"];
@@ -118,6 +120,11 @@ static SKTextureAtlas *sFishAtlas = nil;
     return sFishAtlas;
 }
 
+static SKTexture *sFishTexture = nil;
++ (SKTexture*)sharedFishTexture {
+    return sFishTexture;
+}
+
 // Penguins
 static SKTextureAtlas *sPenguinBlackTextures = nil;
 + (SKTextureAtlas*)sharedPenguinBlackTextures {
@@ -128,6 +135,11 @@ static SKTextureAtlas *sPenguinBlackTextures = nil;
 static SKTextureAtlas *sCoinsAtlas = nil;
 + (SKTextureAtlas*)sharedCoinAtlas {
     return sCoinsAtlas;
+}
+
+static NSArray *sCoinTextures = nil;
++ (NSArray*)sharedCoinTextures {
+    return sCoinTextures;
 }
 
 // Icebergs

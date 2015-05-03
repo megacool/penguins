@@ -14,7 +14,7 @@ NSString * const kFishActionKey = @"fishActionKey";
 @implementation PPFishNode
 
 - (instancetype)init {
-    self = [super initWithTexture:[[PPSharedAssets sharedFishAtlas] textureNamed:@"fish_background"]];
+    self = [super initWithTexture:[PPSharedAssets sharedFishTexture]];
 
     if (self) {
     }
@@ -38,6 +38,7 @@ NSString * const kFishActionKey = @"fishActionKey";
     SKAction *rotateRightFast = [rotateLeftFast reversedAction];
     
     SKAction *moveUp = [SKAction moveByX:0 y:moveDistance duration:moveTime];
+    [moveUp setTimingMode:SKActionTimingEaseInEaseOut];
     SKAction *moveDown = [moveUp reversedAction];
     
     SKAction *swimDownGroup = [SKAction group:@[rotateLeft, moveDown]];
