@@ -453,6 +453,15 @@ CGFloat const kParallaxMinSpeed = -20.0;
     }];
 }
 
+- (void)checksCoinsDidIntersect {
+    [self.worldNode enumerateChildNodesWithName:kCoinName usingBlock:^(SKNode *node, BOOL *stop) {
+        PPCoinNode *coin = (PPCoinNode*)node;
+        if (CGRectIntersectsRect([self currentPlayer].frame, coin.frame)) {
+            [node removeFromParent];
+        }
+    }];
+}
+
 #pragma mark - Spawn Coins
 - (void)spawnCoinAtPosition:(CGPoint)position {
     PPCoinNode *newCoin = [PPCoinNode new];
@@ -729,7 +738,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
         SKNode *obstacle = [self newIceBerg];
         [self.worldNode addChild:obstacle];
         [obstacle runAction:[SKAction repeatActionForever:[self floatAction]]];
-        [obstacle runAction:[SKAction moveToX:-self.size.width duration:kParallaxMoveSpeed] withKey:@"moveObstacle" completion:^{
+        [obstacle runAction:[SKAction moveToX:-self.size.width duration:kParallaxMoveSpeed ] withKey:@"moveObstacle" completion:^{
             [obstacle removeFromParent];
         }];
     }];
@@ -912,6 +921,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
         [self updateBreathTimer:self.deltaTime];
         [self updateBreathMeter];
         [self checkBreathMeterForGameOver];
+        [self checksCoinsDidIntersect];
     }
 
     //Background
