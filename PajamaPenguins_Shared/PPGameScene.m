@@ -232,12 +232,22 @@ CGFloat const kParallaxMinSpeed = -20.0;
     
     CGFloat padding = 5.0;
     
-    SSKScoreNode *scoreCounter = [SSKScoreNode scoreNodeWithFontNamed:@"AmericanTypewriter" fontSize:12 fontColor:[SKColor whiteColor]];
+    NSString *fontName = @"AmericanTypewriter";
+    CGFloat fontSize = 12.0;
+    
+    SSKScoreNode *scoreCounter = [SSKScoreNode scoreNodeWithFontNamed:fontName fontSize:fontSize fontColor:[SKColor whiteColor]];
     [scoreCounter setName:@"scoreCounter"];
     [scoreCounter setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeLeft];
     [scoreCounter setVerticalAlignmentMode:SKLabelVerticalAlignmentModeBottom];
-    [scoreCounter setPosition:CGPointMake(-self.size.width/2 + padding, -self.size.height/2 + 5)];
+    [scoreCounter setPosition:CGPointMake(-self.size.width/2 + padding, -self.size.height/2 + padding)];
     [self.hudNode addChild:scoreCounter];
+    
+    SSKScoreNode *coinCounter = [SSKScoreNode scoreNodeWithFontNamed:fontName fontSize:fontSize fontColor:[SKColor whiteColor]];
+    [coinCounter setName:@"coinCounter"];
+    [coinCounter setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeRight];
+    [coinCounter setVerticalAlignmentMode:SKLabelVerticalAlignmentModeBottom];
+    [coinCounter setPosition:CGPointMake(self.size.width/2 - padding, -self.size.height/2 + padding)];
+    [self.hudNode addChild:coinCounter];
     
     SSKProgressBarNode *breathMeter = [[SSKProgressBarNode alloc] initWithFrameColor:[SKColor blackColor] barColor:[SKColor redColor] size:CGSizeMake(10, 80) barType:BarTypeVertical];
     [breathMeter setName:@"progressBar"];
@@ -458,6 +468,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
         PPCoinNode *coin = (PPCoinNode*)node;
         if (CGRectIntersectsRect([self currentPlayer].frame, coin.frame)) {
             [node removeFromParent];
+            [(SSKScoreNode*)[self.hudNode childNodeWithName:@"coinCounter"] increment];
         }
     }];
 }
@@ -474,9 +485,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
         [coin setPosition:position];
         [coin setName:kCoinName];
         [self.worldNode addChild:coin];
-        
-        // Make coin spin
-//        [coin spinAnimation];
         
         // Move coin off screen
         [coin runAction:[SKAction moveToX:-self.size.width/2 - coin.size.width duration:kParallaxMoveSpeed] withKey:kCoinMoveKey completion:^{
