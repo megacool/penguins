@@ -243,8 +243,10 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self.hudNode addChild:scoreCounter];
     
     PPCoinNode *coinNode = [[PPCoinNode alloc] init];
+    [coinNode setName:@"scoreCoin"];
     [coinNode setPosition:CGPointMake(self.size.width/2 - coinNode.size.width/2 - 2, self.size.height/2 - coinNode.size.height/2 - 2)];
     [self.hudNode addChild:coinNode];
+    [coinNode spinAnimation];
     
     SSKScoreNode *coinCounter = [SSKScoreNode scoreNodeWithFontNamed:fontName fontSize:fontSize fontColor:[SKColor whiteColor]];
     [coinCounter setName:@"coinCounter"];
@@ -459,7 +461,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self runAction:[SKAction repeatActionForever:seq] withKey:kCoinSpawnKey];
 }
 
-
 - (void)stopCoinSpawn {
     [self removeActionForKey:kCoinSpawnKey];
     [self.worldNode enumerateChildNodesWithName:kCoinName usingBlock:^(SKNode *node, BOOL *stop) {
@@ -471,10 +472,28 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self.worldNode enumerateChildNodesWithName:kCoinName usingBlock:^(SKNode *node, BOOL *stop) {
         PPCoinNode *coin = (PPCoinNode*)node;
         if (CGRectIntersectsRect([self currentPlayer].frame, coin.frame)) {
-            [node removeFromParent];
-            [(SSKScoreNode*)[self.hudNode childNodeWithName:@"coinCounter"] increment];
+            [coin removeFromParent];
+            [coin setPosition:[self.worldNode convertPoint:[[self currentPlayer] position] toNode:self]];
+            [self.hudNode addChild:coin];
+            
+            [coin runAction:[SKAction moveTo:[self getScoreCoin].position duration:0.3] completion:^{
+                [self scoreCoinPop];
+                [coin removeFromParent];
+                [(SSKScoreNode*)[self.hudNode childNodeWithName:@"coinCounter"] increment];
+            }];
         }
     }];
+}
+
+#pragma mark - Score Coin
+- (PPCoinNode*)getScoreCoin {
+    return (PPCoinNode*)[self.hudNode childNodeWithName:@"scoreCoin"];
+}
+
+- (void)scoreCoinPop {
+    SKAction *scaleUp = [SKAction scaleTo:1.1 duration:0.05];
+    SKAction *scaleNormal = [SKAction scaleTo:1 duration:0.05];
+    [[self getScoreCoin] runAction:[SKAction sequence:@[scaleUp,scaleNormal]]];
 }
 
 #pragma mark - Spawn Coins
