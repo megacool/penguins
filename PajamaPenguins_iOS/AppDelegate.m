@@ -6,11 +6,13 @@
 
 #import "AppDelegate.h"
 #import "PPUserManager.h"
+#import "PPBackgroundManager.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [PPUserManager sharedManager];
+    [PPBackgroundManager sharedManager];
     return YES;
 }
 							

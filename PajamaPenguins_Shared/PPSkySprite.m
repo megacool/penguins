@@ -8,6 +8,7 @@
 
 #import "PPSkySprite.h"
 #import "PPSharedAssets.h"
+#import "SKColor+SFAdditions.h"
 
 @interface PPSkySprite()
 @end
@@ -60,6 +61,38 @@
     }
 
     return skyTexture;
+}
+
+#pragma mark - Sky Type Color
++ (SKColor*)colorForSkyType:(SkyType)skyType {
+    SKColor *skyColor;
+    
+    switch (skyType) {
+        case SkyTypeMorning:
+            skyColor = [SKColor skyMorning];
+            break;
+            
+        case SkyTypeDay:
+            skyColor = [SKColor skyDay];
+            break;
+            
+        case SkyTypeAfternoon:
+            skyColor = [SKColor skyAfternoon];
+            break;
+            
+        case SkyTypeSunset:
+            skyColor = [SKColor skySunset];
+            break;
+            
+        case SkyTypeNight:
+            skyColor = [SKColor skyNight];
+            break;
+            
+        default:
+            break;
+    }
+    
+    return skyColor;
 }
 
 @end

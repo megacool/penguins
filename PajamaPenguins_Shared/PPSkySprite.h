@@ -22,4 +22,5 @@ typedef NS_ENUM(NSUInteger, SkyType) {
 
 + (instancetype)skyWithType:(SkyType)skyType;
 
++ (SKColor*)colorForSkyType:(SkyType)skyType;
 @end

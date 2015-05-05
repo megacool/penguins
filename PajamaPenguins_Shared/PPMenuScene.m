@@ -8,6 +8,7 @@
 
 #import "PPMenuScene.h"
 #import "PPGameScene.h"
+#import "PPBackgroundManager.h"
 #import "PPSharedAssets.h"
 #import "PPPlayer.h"
 #import "PPSkySprite.h"
@@ -79,7 +80,7 @@ CGFloat const kAnimationMoveDistance = 10;
 
 #pragma mark - Scene Construction
 - (void)createSceneBackground {
-    self.backgroundColor = [SKColor skyNight];
+    self.backgroundColor = [PPSkySprite colorForSkyType:[[PPBackgroundManager sharedManager] timeOfDay]];
     
     self.backgroundNode = [SKNode node];
     [self.backgroundNode setZPosition:SceneLayerBackground];
@@ -170,7 +171,8 @@ CGFloat const kAnimationMoveDistance = 10;
     CGPoint surfaceStart = CGPointMake(-self.size.width/2 - surfacePadding, 0);
     CGPoint surfaceEnd = CGPointMake(self.size.width/2 + surfacePadding, 0);
     
-    PPWaterSprite *waterNode = [PPWaterSprite surfaceWithStartPoint:surfaceStart endPoint:surfaceEnd depth:self.size.height/2 waterType:WaterTypeNight];
+    PPWaterSprite *waterNode = [PPWaterSprite surfaceWithStartPoint:surfaceStart endPoint:surfaceEnd
+                                                              depth:self.size.height/2 waterType:[[PPBackgroundManager sharedManager] timeOfDay]];
     [waterNode setName:@"waterSurface"];
     [waterNode setZPosition:SceneLayerWater];
     return waterNode;

@@ -6,6 +6,7 @@
 
 #import "PPGameScene.h"
 #import "PPMenuScene.h"
+#import "PPBackgroundManager.h"
 #import "PPSharedAssets.h"
 #import "PPPlayer.h"
 #import "PPCoinNode.h"
@@ -67,6 +68,7 @@ CGFloat const kGameOverGravityStrength = -9.8;
 
 CGFloat const kObstacleSplashStrength = 10;
 CGFloat const kMaxSplashStrength      = 20;
+CGFloat const kMinSplashStrength      = 5;
 
 //Clamped Constants
 CGFloat const kMaxBreathTimer = 6.0;
@@ -149,8 +151,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self addChild:self.worldNode];
 
     //Background color
-//    [self setBackgroundColor:[SKColor whiteColor]];
-    [self setBackgroundColor:[SKColor skyNight]];
+    [self setBackgroundColor:[PPSkySprite colorForSkyType:[[PPBackgroundManager sharedManager] timeOfDay]]];
     
     //Sky
 //    self.sky = [PPSkySprite skyWithType:SkyTypeMorning];
@@ -177,7 +178,8 @@ CGFloat const kParallaxMinSpeed = -20.0;
     CGPoint surfaceStart = CGPointMake(-self.size.width/2, 0);
     CGPoint surfaceEnd = CGPointMake(self.size.width/kWorldScaleCap, 0);
     
-    self.waterSurface = [PPWaterSprite surfaceWithStartPoint:surfaceStart endPoint:surfaceEnd depth:self.size.height/2 waterType:WaterTypeNight];
+    self.waterSurface = [PPWaterSprite surfaceWithStartPoint:surfaceStart endPoint:surfaceEnd
+                                                       depth:self.size.height/2 waterType:[[PPBackgroundManager sharedManager] timeOfDay]];
     [self.waterSurface setName:@"water"];
     [self.waterSurface setZPosition:SceneLayerWater];
     [self.worldNode addChild:self.waterSurface];
@@ -324,6 +326,11 @@ CGFloat const kParallaxMinSpeed = -20.0;
 - (void)startGameAnimations {
     [self runAction:[SKAction waitForDuration:.5] completion:^{
         
+        SKAction *splashLeft = [self waterSplashAtPosition:CGPointMake(-self.size.width/2, 0)];
+        SKAction *splashRight = [self waterSplashAtPosition:CGPointMake(self.size.width/2, 0)];
+        SKAction *wait = [SKAction waitForDuration:.5];
+        [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[splashLeft,wait,splashRight,wait]]]];
+        
         // Start fish spawn forever
         [self spawnFishForever];
         
@@ -342,7 +349,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
     
     [self stopObstacleSpawnSequence];
     [self stopObstacleMovement];
-    [self stopObstacleSplash];
     
     [self runGameOverSequence];
 }
@@ -380,22 +386,33 @@ CGFloat const kParallaxMinSpeed = -20.0;
     }];
 }
 
-#pragma mark - Buttons
+#pragma mark - Menu Button
 - (PPButtonNode*)menuButton {
     PPButtonNode *menuButton = [PPButtonNode buttonWithIdleTextureNamed:@"button_home_up" selectedTextureNamed:@"button_home_down"];
-    [menuButton setTouchUpInsideTarget:self selector:@selector(loadMenuScene)];
+    [menuButton setTouchUpInsideTarget:self selector:@selector(menuButtonTouched)];
     [menuButton setPosition:CGPointMake(0, -self.size.height/8)];
     [menuButton setZPosition:SceneLayerButtons];
     return menuButton;
 }
 
+- (void)menuButtonTouched {
+    [self loadMenuScene];
+    [[PPBackgroundManager sharedManager] incrementDay];
+}
+
+#pragma mark - Retry Button
 - (PPButtonNode*)retryButton {
     PPButtonNode *retryButton = [PPButtonNode buttonWithIdleTextureNamed:@"button_retry_up"
                                                     selectedTextureNamed:@"button_retry_down"];
-    [retryButton setTouchUpInsideTarget:self selector:@selector(resetGame)];
+    [retryButton setTouchUpInsideTarget:self selector:@selector(retryButtonTouched)];
     [retryButton setPosition:CGPointMake(0, -self.size.height/8 - retryButton.size.height - kButtonPadding)];
     [retryButton setZPosition:SceneLayerButtons];
     return retryButton;
+}
+
+- (void)retryButtonTouched {
+    [self resetGame];
+    [[PPBackgroundManager sharedManager] incrementDay];
 }
 
 #pragma mark - Coins
@@ -693,32 +710,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
     }
 }
 
-- (void)startSplashAtObstaclesForever {
-    if ([self actionForKey:@"obstacleSplash"]) {
-        NSLog(@"An action with name obstacleSplash is already active");
-        return;
-    }
-    
-    SKAction *splashBlock = [SKAction runBlock:^{
-        [self.worldNode enumerateChildNodesWithName:@"obstacle" usingBlock:^(SKNode *node, BOOL *stop) {
-            PPIcebergObstacle *obstacle = (PPIcebergObstacle*)node;
-            CGPoint splashLocation = CGPointMake(obstacle.position.x - obstacle.frame.size.width/2, obstacle.position.y);
-            
-            [self.waterSurface splash:splashLocation speed:kObstacleSplashStrength];
-            [self runOneShotEmitter:[PPSharedAssets sharedObstacleSplashEmitter] location:CGPointMake(splashLocation.x, splashLocation.y + 30)];
-        }];
-    }];
-    
-    SKAction *wait = [SKAction waitForDuration:.4];
-    SKAction *sequence = [SKAction sequence:@[wait,splashBlock]];
-    [self runAction:[SKAction repeatActionForever:sequence] withKey:@"obstacleSplash"];
-    
-}
-
-- (void)stopObstacleSplash {
-    [self removeActionForKey:@"obstacleSplash"];
-}
-
 - (void)trackPlayerForBubbles {
     if ([self playerIsBelowBottomBoundary]) {
         [[self playerBubbleEmitter] setPosition:[self currentPlayer].position];
@@ -730,6 +721,12 @@ CGFloat const kParallaxMinSpeed = -20.0;
     } else {
         [[self playerBubbleEmitter] setParticleBirthRate:0];
     }
+}
+
+- (SKAction*)waterSplashAtPosition:(CGPoint)position {
+    return [SKAction runBlock:^{
+        [self.waterSurface splash:position speed:-kMinSplashStrength/2];
+    }];
 }
 
 #pragma mark - Emitters

@@ -18,7 +18,7 @@
 };
 
 + (SKColor*)waterDay{
-    return [SKColor colorWithR:40 g:210 b:253];
+    return [SKColor colorWithR:0 g:230 b:253];
 };
 
 + (SKColor*)waterAfternoon{
@@ -26,7 +26,7 @@
 };
 
 + (SKColor*)waterSunset{
-    return [SKColor colorWithR:255 g:80 b:180];
+    return [SKColor colorWithR:237 g:42 b:83];
 };
 
 + (SKColor*)waterNight{
@@ -46,7 +46,7 @@
 };
 
 + (SKColor*)skySunset{
-    return [SKColor colorWithR:255 g:135 b:215];
+    return [SKColor colorWithR:255 g:105 b:140];
 };
 
 + (SKColor*)skyNight{

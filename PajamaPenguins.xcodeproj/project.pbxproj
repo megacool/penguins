@@ -60,6 +60,8 @@
 		EE8F0AB11AD7335700CB1CE1 /* PPCloudParallax.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8F0AB01AD7335700CB1CE1 /* PPCloudParallax.m */; };
 		EE8F0AB41AD735BD00CB1CE1 /* PPSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8F0AB31AD735BD00CB1CE1 /* PPSprite.m */; };
 		EE8F0AB71AD73A7600CB1CE1 /* PPCloudParallaxFast.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8F0AB61AD73A7600CB1CE1 /* PPCloudParallaxFast.m */; };
+		EE9FD22D1AF890F800DD740E /* PPBackgroundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9FD22C1AF890F800DD740E /* PPBackgroundManager.m */; };
+		EE9FD22E1AF890F800DD740E /* PPBackgroundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9FD22C1AF890F800DD740E /* PPBackgroundManager.m */; };
 		EEAE6F9C1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEAE6F9A1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks */; };
 		EEAE6F9D1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEAE6F9A1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks */; };
 		EEAE6FA41AA68B8B00215C7E /* ObstacleSplashEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEAE6FA31AA68B8B00215C7E /* ObstacleSplashEmitter.sks */; };
@@ -175,6 +177,8 @@
 		EE8F0AB31AD735BD00CB1CE1 /* PPSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSprite.m; sourceTree = "<group>"; };
 		EE8F0AB51AD73A7600CB1CE1 /* PPCloudParallaxFast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCloudParallaxFast.h; sourceTree = "<group>"; };
 		EE8F0AB61AD73A7600CB1CE1 /* PPCloudParallaxFast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCloudParallaxFast.m; sourceTree = "<group>"; };
+		EE9FD22B1AF890F800DD740E /* PPBackgroundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPBackgroundManager.h; sourceTree = "<group>"; };
+		EE9FD22C1AF890F800DD740E /* PPBackgroundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPBackgroundManager.m; sourceTree = "<group>"; };
 		EEAE6F9A1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = PlayerSplashUpEmitter.sks; path = ../PajamaPenguins_Shared/PlayerSplashUpEmitter.sks; sourceTree = "<group>"; };
 		EEAE6FA31AA68B8B00215C7E /* ObstacleSplashEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = ObstacleSplashEmitter.sks; path = ../PajamaPenguins_Shared/ObstacleSplashEmitter.sks; sourceTree = "<group>"; };
 		EEAE6FA91AA68F9900215C7E /* BubbleEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = BubbleEmitter.sks; path = PajamaPenguins_Shared/BubbleEmitter.sks; sourceTree = SOURCE_ROOT; };
@@ -540,6 +544,8 @@
 			children = (
 				EEC6AEA01AE0ACD300FCB267 /* PPUserManager.h */,
 				EEC6AEA11AE0ACD300FCB267 /* PPUserManager.m */,
+				EE9FD22B1AF890F800DD740E /* PPBackgroundManager.h */,
+				EE9FD22C1AF890F800DD740E /* PPBackgroundManager.m */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -735,6 +741,7 @@
 				EE6F92F81A82F39400286DC7 /* SSKGameCenter.m in Sources */,
 				41E4309C18B09E5200E1427D /* main.m in Sources */,
 				EE8F0AAD1AD7325D00CB1CE1 /* PPCloudParallaxSlow.m in Sources */,
+				EE9FD22D1AF890F800DD740E /* PPBackgroundManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,6 +769,7 @@
 				EEC9DB8E1AA7BF5E0022CDF1 /* SSKProgressBarNode.m in Sources */,
 				EEBA93F31A93FD4F00CBD711 /* TwoDimensionalArray.m in Sources */,
 				EE6F93051A82F39400286DC7 /* SSKPhysicsUtils.m in Sources */,
+				EE9FD22E1AF890F800DD740E /* PPBackgroundManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
