@@ -17,40 +17,40 @@
         NSDate *startTime = [NSDate date];
         
         // Device Size
-        CGSize screenRect = [[UIScreen mainScreen] bounds].size;
+//        CGSize screenRect = [[UIScreen mainScreen] bounds].size;
         
         // Sky gradients
-        CGSize skySize = CGSizeMake(screenRect.width * 2, screenRect.height * 2);
-        
-        sSkyMorning = [SKTexture textureWithGradientOfSize:skySize
-                                                startColor:[SKColor colorWithR:255 g:130 b:100]
-                                                  endColor:[SKColor colorWithR:0 g:15 b:155]
-                                                 direction:GradientDirectionVertical];
-        sSkyDay = [SKTexture textureWithGradientOfSize:skySize
-                                            startColor:[SKColor colorWithR:0 g:255 b:250]
-                                              endColor:[SKColor colorWithR:0 g:15 b:155]
-                                             direction:GradientDirectionVertical];
-        
-        sSkyAfternoon = [SKTexture textureWithGradientOfSize:skySize
-                                                  startColor:[SKColor colorWithR:0 g:255 b:80]
-                                                    endColor:[SKColor colorWithR:0 g:15 b:155]
-                                                   direction:GradientDirectionVertical];
-        
-        sSkySunset = [SKTexture textureWithGradientOfSize:skySize
-                                               startColor:[SKColor colorWithR:255 g:60 b:60]
-                                                 endColor:[SKColor colorWithR:0 g:15 b:155]
-                                                direction:GradientDirectionVertical];
-        
-        sSkyNight = [SKTexture textureWithGradientOfSize:skySize
-                                              startColor:[SKColor colorWithR:0 g:29 b:91]
-                                                endColor:[SKColor colorWithR:0 g:10 b:45]
-                                               direction:GradientDirectionVertical];
-        // Water gradient
-        CGSize waterSize = CGSizeMake(screenRect.width * 2, screenRect.height/2);
-        sWaterTexture = [SKTexture textureWithGradientOfSize:waterSize
-                                                  startColor:[SKColor colorWithR:0 g:0 b:255]
-                                                    endColor:[SKColor colorWithR:0 g:200 b:255]
-                                                   direction:GradientDirectionVertical];
+//        CGSize skySize = CGSizeMake(screenRect.width * 2, screenRect.height * 2);
+//        
+//        sSkyMorning = [SKTexture textureWithGradientOfSize:skySize
+//                                                startColor:[SKColor colorWithR:255 g:130 b:100]
+//                                                  endColor:[SKColor colorWithR:0 g:15 b:155]
+//                                                 direction:GradientDirectionVertical];
+//        sSkyDay = [SKTexture textureWithGradientOfSize:skySize
+//                                            startColor:[SKColor colorWithR:0 g:255 b:250]
+//                                              endColor:[SKColor colorWithR:0 g:15 b:155]
+//                                             direction:GradientDirectionVertical];
+//        
+//        sSkyAfternoon = [SKTexture textureWithGradientOfSize:skySize
+//                                                  startColor:[SKColor colorWithR:0 g:255 b:80]
+//                                                    endColor:[SKColor colorWithR:0 g:15 b:155]
+//                                                   direction:GradientDirectionVertical];
+//        
+//        sSkySunset = [SKTexture textureWithGradientOfSize:skySize
+//                                               startColor:[SKColor colorWithR:255 g:60 b:60]
+//                                                 endColor:[SKColor colorWithR:0 g:15 b:155]
+//                                                direction:GradientDirectionVertical];
+//        
+//        sSkyNight = [SKTexture textureWithGradientOfSize:skySize
+//                                              startColor:[SKColor colorWithR:0 g:29 b:91]
+//                                                endColor:[SKColor colorWithR:0 g:10 b:45]
+//                                               direction:GradientDirectionVertical];
+//        // Water gradient
+//        CGSize waterSize = CGSizeMake(screenRect.width * 2, screenRect.height/2);
+//        sWaterTexture = [SKTexture textureWithGradientOfSize:waterSize
+//                                                  startColor:[SKColor colorWithR:0 g:0 b:255]
+//                                                    endColor:[SKColor colorWithR:0 g:200 b:255]
+//                                                   direction:GradientDirectionVertical];
         
         // Menu Iceberg
         sIcebergTexture = [SKTexture textureWithImageNamed:@"platform_iceberg"];

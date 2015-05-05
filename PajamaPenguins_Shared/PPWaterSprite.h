@@ -8,6 +8,20 @@
 
 #import "SSKWaterSurfaceNode.h"
 
+typedef NS_ENUM(NSUInteger, WaterType) {
+    WaterTypeMorning = 0,
+    WaterTypeDay,
+    WaterTypeAfternoon,
+    WaterTypeSunset,
+    WaterTypeNight,
+};
+
+
 @interface PPWaterSprite : SSKWaterSurfaceNode
-+ (instancetype)surfaceWithStartPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint depth:(CGFloat)depth;
+@property (nonatomic) WaterType waterType;
+
++ (instancetype)surfaceWithStartPoint:(CGPoint)startPoint
+                             endPoint:(CGPoint)endPoint
+                                depth:(CGFloat)depth
+                            waterType:(WaterType)waterType;
 @end

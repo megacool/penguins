@@ -79,7 +79,7 @@ CGFloat const kAnimationMoveDistance = 10;
 
 #pragma mark - Scene Construction
 - (void)createSceneBackground {
-    self.backgroundColor = [SKColor whiteColor];
+    self.backgroundColor = [SKColor skyNight];
     
     self.backgroundNode = [SKNode node];
     [self.backgroundNode setZPosition:SceneLayerBackground];
@@ -87,9 +87,9 @@ CGFloat const kAnimationMoveDistance = 10;
     [self addChild:self.backgroundNode];
 
     //Sky
-    self.sky = [PPSkySprite skyWithType:SkyTypeMorning];
-    [self.sky setPosition:CGPointMake(-self.size.width/2, -self.size.height/2)];
-    [self.backgroundNode addChild:self.sky];
+//    self.sky = [PPSkySprite skyWithType:SkyTypeMorning];
+//    [self.sky setPosition:CGPointMake(-self.size.width/2, -self.size.height/2)];
+//    [self.backgroundNode addChild:self.sky];
     
     //Clouds
     self.cloudSlow = [[PPCloudParallaxSlow alloc] initWithSize:self.size];
@@ -170,7 +170,7 @@ CGFloat const kAnimationMoveDistance = 10;
     CGPoint surfaceStart = CGPointMake(-self.size.width/2 - surfacePadding, 0);
     CGPoint surfaceEnd = CGPointMake(self.size.width/2 + surfacePadding, 0);
     
-    PPWaterSprite *waterNode = [PPWaterSprite surfaceWithStartPoint:surfaceStart endPoint:surfaceEnd depth:self.size.height/2];
+    PPWaterSprite *waterNode = [PPWaterSprite surfaceWithStartPoint:surfaceStart endPoint:surfaceEnd depth:self.size.height/2 waterType:WaterTypeNight];
     [waterNode setName:@"waterSurface"];
     [waterNode setZPosition:SceneLayerWater];
     return waterNode;

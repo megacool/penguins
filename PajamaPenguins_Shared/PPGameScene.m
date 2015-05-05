@@ -43,9 +43,9 @@ typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerFish,
     SceneLayerIcebergs,
     SceneLayerSnow,
-    SceneLayerPlayer,
     SceneLayerWater,
     SceneLayerBubbles,
+    SceneLayerPlayer,
     SceneLayerCoins,
     SceneLayerHUD,
     SceneLayerGameOver,
@@ -150,7 +150,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
     //Background color
 //    [self setBackgroundColor:[SKColor whiteColor]];
-    [self setBackgroundColor:[SKColor colorWithR:255 g:130 b:100]];
+    [self setBackgroundColor:[SKColor skyNight]];
     
     //Sky
 //    self.sky = [PPSkySprite skyWithType:SkyTypeMorning];
@@ -158,11 +158,11 @@ CGFloat const kParallaxMinSpeed = -20.0;
 //    [self.worldNode addChild:self.sky];
     
     //Parallaxing Nodes
-    self.cloudSlow = [[PPCloudParallaxSlow alloc] initWithSize:self.size];
+    self.cloudSlow = [[PPCloudParallaxSlow alloc] initWithSize:CGSizeMake(self.size.width*2, self.size.height)];
     self.cloudSlow.zPosition = SceneLayerClouds;
     [self.worldNode addChild:self.cloudSlow];
     
-    self.cloudFast = [[PPCloudParallaxFast alloc] initWithSize:self.size];
+    self.cloudFast = [[PPCloudParallaxFast alloc] initWithSize:CGSizeMake(self.size.width*2, self.size.height)];
     self.cloudFast.zPosition = SceneLayerClouds;
     [self.worldNode addChild:self.cloudFast];
     
@@ -177,7 +177,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     CGPoint surfaceStart = CGPointMake(-self.size.width/2, 0);
     CGPoint surfaceEnd = CGPointMake(self.size.width/kWorldScaleCap, 0);
     
-    self.waterSurface = [PPWaterSprite surfaceWithStartPoint:surfaceStart endPoint:surfaceEnd depth:self.size.height/2];
+    self.waterSurface = [PPWaterSprite surfaceWithStartPoint:surfaceStart endPoint:surfaceEnd depth:self.size.height/2 waterType:WaterTypeNight];
     [self.waterSurface setName:@"water"];
     [self.waterSurface setZPosition:SceneLayerWater];
     [self.worldNode addChild:self.waterSurface];
