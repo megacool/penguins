@@ -238,20 +238,24 @@ CGFloat const kParallaxMinSpeed = -20.0;
     SSKScoreNode *scoreCounter = [SSKScoreNode scoreNodeWithFontNamed:fontName fontSize:fontSize fontColor:[SKColor whiteColor]];
     [scoreCounter setName:@"scoreCounter"];
     [scoreCounter setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeLeft];
-    [scoreCounter setVerticalAlignmentMode:SKLabelVerticalAlignmentModeBottom];
-    [scoreCounter setPosition:CGPointMake(-self.size.width/2 + padding, -self.size.height/2 + padding)];
+    [scoreCounter setVerticalAlignmentMode:SKLabelVerticalAlignmentModeTop];
+    [scoreCounter setPosition:CGPointMake(-self.size.width/2 + padding, self.size.height/2 - padding)];
     [self.hudNode addChild:scoreCounter];
+    
+    PPCoinNode *coinNode = [[PPCoinNode alloc] init];
+    [coinNode setPosition:CGPointMake(self.size.width/2 - coinNode.size.width/2 - 2, self.size.height/2 - coinNode.size.height/2 - 2)];
+    [self.hudNode addChild:coinNode];
     
     SSKScoreNode *coinCounter = [SSKScoreNode scoreNodeWithFontNamed:fontName fontSize:fontSize fontColor:[SKColor whiteColor]];
     [coinCounter setName:@"coinCounter"];
     [coinCounter setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeRight];
-    [coinCounter setVerticalAlignmentMode:SKLabelVerticalAlignmentModeBottom];
-    [coinCounter setPosition:CGPointMake(self.size.width/2 - padding, -self.size.height/2 + padding)];
+    [coinCounter setVerticalAlignmentMode:SKLabelVerticalAlignmentModeTop];
+    [coinCounter setPosition:CGPointMake(coinNode.position.x - coinNode.size.width/2 - padding, scoreCounter.position.y)];
     [self.hudNode addChild:coinCounter];
-    
-    SSKProgressBarNode *breathMeter = [[SSKProgressBarNode alloc] initWithFrameColor:[SKColor blackColor] barColor:[SKColor redColor] size:CGSizeMake(10, 80) barType:BarTypeVertical];
+
+    SSKProgressBarNode *breathMeter = [[SSKProgressBarNode alloc] initWithFrameColor:[SKColor blackColor] barColor:[SKColor redColor] size:CGSizeMake(self.size.width/2, 12.5) barType:BarTypeHorizontal];
     [breathMeter setName:@"progressBar"];
-    [breathMeter setPosition:CGPointMake(-self.size.width/2 + padding + breathMeter.size.width/2, scoreCounter.position.y + breathMeter.size.height/2 + 15)];
+    [breathMeter setPosition:CGPointMake(0, self.size.height/2 - breathMeter.size.height/2 - padding)];
     [self.hudNode addChild:breathMeter];
 }
 

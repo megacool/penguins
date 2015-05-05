@@ -29,16 +29,10 @@
         [self addChild:self.barBackground];
         
         self.bar = [SKSpriteNode spriteNodeWithColor:barColor size:size];
+        [self.bar setAnchorPoint:CGPointMake(0, 0)];
+        [self.bar setPosition:CGPointMake(-size.width/2, -size.height/2)];
         [self addChild:self.bar];
         
-        if (self.barType == BarTypeHorizontal) {
-            [self.bar setAnchorPoint:CGPointMake(0, 0.5)];
-            [self.bar setPosition:CGPointMake(-size.width/2, 0)];
-        } else {
-            [self.bar setAnchorPoint:CGPointMake(0, 0)];
-            [self.bar setPosition:CGPointMake(-size.width/2, -size.height/2)];
-        }
-            
         self.barFrame = [SKShapeNode shapeNodeWithRect:CGRectMake(-size.width/2, -size.height/2, size.width, size.height)];
         [self.barFrame setStrokeColor:frameColor];
         [self.barFrame setLineWidth:2];
@@ -55,11 +49,12 @@
 #pragma mark - Set Progress
 - (void)setProgress:(CGFloat)progress {
     if (progress >= 0.0 && progress <= 1.0 ) {
-        if (BarTypeHorizontal) {
+
+        if (self.barType == BarTypeHorizontal) {
             [self.bar setXScale:progress];
         }
         
-        else if (BarTypeVertical) {
+        if (self.barType == BarTypeVertical) {
             [self.bar setYScale:progress];
         }
         
