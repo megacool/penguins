@@ -82,6 +82,7 @@
  The distance between the surface's joints
  */
 @property (nonatomic, readonly) CGFloat jointWidth;
+@property (nonatomic, readonly) SKColor *color;
 
 @end
 

@@ -102,6 +102,10 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 @property (nonatomic) SKEmitterNode *snowEmitter;
 
+// Custom Emitters
+@property (nonatomic) SKEmitterNode *splashDownEmitter;
+@property (nonatomic) SKEmitterNode *splashUpEmitter;
+
 // Parallax Nodes
 @property (nonatomic) PPCloudParallaxSlow *cloudSlow;
 @property (nonatomic) PPCloudParallaxFast *cloudFast;
@@ -204,6 +208,17 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self.worldNode addChild:playerBubbleEmitter];
     
     _playerBubbleBirthrate = playerBubbleEmitter.particleBirthRate; //To reset the simulation
+    
+    //Customize Splash emitters
+    self.splashDownEmitter = [PPSharedAssets sharedPlayerSplashDownEmitter].copy;
+    [self.splashDownEmitter setParticleColorSequence:nil];
+    [self.splashDownEmitter setParticleColorBlendFactor:1.0];
+    [self.splashDownEmitter setParticleColor:self.waterSurface.color];
+    
+    self.splashUpEmitter = [PPSharedAssets sharedPlayerSplashUpEmitter].copy;
+    [self.splashUpEmitter setParticleColorSequence:nil];
+    [self.splashUpEmitter setParticleColorBlendFactor:1.0];
+    [self.splashUpEmitter setParticleColor:self.waterSurface.color];
     
     //Coin spawn points
     self.coinSpawnTop = [SKNode new];
@@ -694,7 +709,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
         CGFloat splashStrength = kMaxSplashStrength * splashRatio;
         
         [self.waterSurface splash:[self currentPlayer].position speed:splashStrength];
-        [self runOneShotEmitter:[PPSharedAssets sharedPlayerSplashUpEmitter] location:[self currentPlayer].position];
+        [self runOneShotEmitter:self.splashUpEmitter location:[self currentPlayer].position];
         
         _lastPlayerHeight = newPlayerHeight;
     }
@@ -704,7 +719,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
         CGFloat splashStrength = kMaxSplashStrength * splashRatio;
         
         [self.waterSurface splash:[self currentPlayer].position speed:-splashStrength];
-        [self runOneShotEmitter:[PPSharedAssets sharedPlayerSplashDownEmitter] location:[self currentPlayer].position];
+        [self runOneShotEmitter:self.splashDownEmitter location:[self currentPlayer].position];
         
         _lastPlayerHeight = newPlayerHeight;
     }

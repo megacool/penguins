@@ -42,6 +42,7 @@ CGFloat const kDefaultJointWidth = 10.0;
 @interface SSKWaterSurfaceNode()
 @property (nonatomic) NSMutableArray *waterJoints;
 @property (nonatomic) SKShapeNode *waterSurface;
+@property (nonatomic, readwrite) SKColor *color;
 @property (nonatomic, readwrite) CGFloat jointWidth;
 @property (nonatomic) CGFloat spread;
 
@@ -92,6 +93,7 @@ CGFloat const kDefaultJointWidth = 10.0;
     if (self) {
         if (color) {
             if (depth > 0) {
+                self.color = color;
                 [self.waterSurface setFillColor:color];
             }
         }
