@@ -24,7 +24,8 @@ CGFloat const kCoinAnimationSpeed = 0.075;
 - (instancetype)init {
     self = [super initWithTexture:[[PPSharedAssets sharedCoinTextures] objectAtIndex:0]];
     if (self) {
-        self.size = CGSizeMake(self.size.width/2, self.size.height/2);
+        self.size = CGSizeMake(self.size.width/3 * 2, self.size.height/3 * 2);
+
     }
     
     return self;

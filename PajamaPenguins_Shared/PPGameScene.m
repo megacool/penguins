@@ -149,12 +149,13 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self addChild:self.worldNode];
 
     //Background color
-    [self setBackgroundColor:[SKColor whiteColor]];
+//    [self setBackgroundColor:[SKColor whiteColor]];
+    [self setBackgroundColor:[SKColor colorWithR:255 g:130 b:100]];
     
     //Sky
-    self.sky = [PPSkySprite skyWithType:SkyTypeMorning];
-    [self.sky setPosition:CGPointMake(-self.size.width/2, -self.size.height/2)];
-    [self.worldNode addChild:self.sky];
+//    self.sky = [PPSkySprite skyWithType:SkyTypeMorning];
+//    [self.sky setPosition:CGPointMake(-self.size.width/2, -self.size.height/2)];
+//    [self.worldNode addChild:self.sky];
     
     //Parallaxing Nodes
     self.cloudSlow = [[PPCloudParallaxSlow alloc] initWithSize:self.size];
@@ -491,8 +492,8 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 - (void)scoreCoinPop {
-    SKAction *scaleUp = [SKAction scaleTo:1.1 duration:0.05];
-    SKAction *scaleNormal = [SKAction scaleTo:1 duration:0.05];
+    SKAction *scaleUp = [SKAction scaleTo:1.2 duration:0.075];
+    SKAction *scaleNormal = [SKAction scaleTo:1 duration:0.075];
     [[self getScoreCoin] runAction:[SKAction sequence:@[scaleUp,scaleNormal]]];
 }
 
