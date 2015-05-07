@@ -474,7 +474,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
         [spawnActions addObject:spawnInterval];
     }
     
-    
     SKAction *spawnSequence = [SKAction sequence:spawnActions];
     SKAction *spawnIntervals = [SKAction sequence:@[getSpawnPosition, spawnSequence, wait]];
     

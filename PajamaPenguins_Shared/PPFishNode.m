@@ -48,10 +48,19 @@ NSString * const kFishActionKey = @"fishActionKey";
     [moveUp setTimingMode:SKActionTimingEaseInEaseOut];
     SKAction *moveDown = [moveUp reversedAction];
     
-    SKAction *swimDownGroup = [SKAction group:@[rotateLeft, moveDown]];
-    SKAction *swimUpGroup = [SKAction group:@[rotateRight, moveUp]];
+    SKAction *swimDownGroup;
+    SKAction *swimUpGroup;
+    SKAction *swimForeverSequence;
     
-    SKAction *swimForeverSequence = [SKAction repeatActionForever:[SKAction sequence:@[swimUpGroup,rotateLeftFast,swimDownGroup,rotateRightFast]]];
+    if (self.xScale > 0) {
+        swimUpGroup = [SKAction group:@[rotateRight, moveUp]];
+        swimDownGroup = [SKAction group:@[rotateLeft, moveDown]];
+        swimForeverSequence = [SKAction repeatActionForever:[SKAction sequence:@[swimUpGroup,rotateLeftFast,swimDownGroup,rotateRightFast]]];
+    } else {
+        swimUpGroup = [SKAction group:@[rotateLeft, moveUp]];
+        swimDownGroup = [SKAction group:@[rotateRight, moveDown]];
+        swimForeverSequence = [SKAction repeatActionForever:[SKAction sequence:@[swimUpGroup,rotateRightFast,swimDownGroup,rotateLeftFast]]];
+    }
     
     [self runAction:swimForeverSequence withKey:kFishActionKey];
 }

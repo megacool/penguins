@@ -212,32 +212,52 @@ CGFloat const kAnimationMoveDistance = 10;
     if ([self actionForKey:@"fishSpawn"]) return;
     
     SKAction *wait = [SKAction waitForDuration:2];
-    SKAction *move = [SKAction moveToX:-self.size.width/4 * 3 duration:3];
+    SKAction *moveLeft = [SKAction moveToX:-self.size.width/4 * 3 duration:3];
+    SKAction *moveRight = [SKAction moveToX:self.size.width/4 * 3 duration:3];
     
     SKAction *spawnAndMove = [SKAction runBlock:^{
 
         // Get random y position
         CGFloat randY = SSKRandomFloatInRange(self.size.height/8, self.size.height/8 * 3);
         
+        // Get random side (left or right)
+        CGFloat randLeftRight = SSKRandomFloatInRange(1, 3);
+        
         // Spawn a new fish
-        PPFishNode *fish = [PPFishNode node];
-        [fish setPosition:CGPointMake(self.size.width/2 + fish.size.width, -randY)];
-        [fish setSize:CGSizeMake(fish.size.width/2, fish.size.height/2)];
-        [fish setZPosition:SceneLayerFish];
+        PPFishNode *fish = [self newFish];
         [self.backgroundNode addChild:fish];
         
-        // Start Fish swim animation
-        [fish swimForever];
+        // Spawn from left, move, remove
+        if (randLeftRight == 1) {
+            [fish setXScale:-1];
+            [fish setPosition:CGPointMake(-self.size.width/2 - fish.size.width/2, -randY)];
+            [fish runAction:moveRight completion:^{
+                [fish removeFromParent];
+            }];
+        }
         
-        // Move fish across scene then remove
-        [fish runAction:move completion:^{
-            [fish removeFromParent];
-        }];
+        // Spawn from right, move, remove
+        else {
+            [fish setPosition:CGPointMake(self.size.width/2 + fish.size.width/2, -randY)];
+            [fish runAction:moveLeft completion:^{
+                [fish removeFromParent];
+            }];
+        }
+        
+        // Wiggle
+        [fish swimForever];
     }];
     
     SKAction *spawnSequence = [SKAction sequence:@[wait,spawnAndMove]];
     
     [self runAction:[SKAction repeatActionForever:spawnSequence] withKey:@"fishSpawn"];
+}
+
+- (PPFishNode*)newFish {
+    PPFishNode *fish = [PPFishNode node];
+    [fish setSize:CGSizeMake(fish.size.width/2, fish.size.height/2)];
+    [fish setZPosition:SceneLayerFish];
+    return fish;
 }
 
 #pragma mark - Buttons
