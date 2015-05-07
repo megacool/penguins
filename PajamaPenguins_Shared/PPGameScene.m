@@ -41,10 +41,10 @@ typedef enum {
 typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerBackground = 0,
     SceneLayerClouds,
-    SceneLayerFish,
-    SceneLayerIcebergs,
     SceneLayerSnow,
     SceneLayerWater,
+    SceneLayerFish,
+    SceneLayerIcebergs,
     SceneLayerBubbles,
     SceneLayerPlayer,
     SceneLayerCoins,
@@ -577,13 +577,13 @@ CGFloat const kParallaxMinSpeed = -20.0;
     if ([self actionForKey:@"fishSpawn"]) return;
     
     SKAction *wait = [SKAction waitForDuration:0.4];
-    SKAction *move = [SKAction moveToX:-self.size.width/4 * 3 duration:3];
+    SKAction *move = [SKAction moveToX:-self.size.width/4 * 3 duration:3.5];
     
     SKAction *spawnAndMove = [SKAction runBlock:^{
         
         // Get random y position
         CGFloat randY = SSKRandomFloatInRange(self.size.height/10, self.size.height/10 * 4);
-        
+
         // Spawn a new fish
         PPFishNode *fish = [PPFishNode node];
         [fish setPosition:CGPointMake(self.size.width*2, -randY)];
