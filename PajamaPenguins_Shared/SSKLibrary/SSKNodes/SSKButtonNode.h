@@ -36,6 +36,7 @@
 // Create button with textures
 + (instancetype)buttonWithIdleTexture:(SKTexture*)idleTexture selectedTexture:(SKTexture*)selectedTexture;
 + (instancetype)buttonWithIdleImageName:(NSString*)idleImageName selectedImageName:(NSString*)selectedImageName;
++ (instancetype)buttonWithTexture:(SKTexture*)texture idleSize:(CGSize)idleSize selectedSize:(CGSize)selectedSize;
 
 // Create rectangle button with colors
 + (instancetype)buttonWithIdleColor:(SKColor*)idleColor selectedColor:(SKColor*)selectedColor size:(CGSize)size label:(SKLabelNode*)label;

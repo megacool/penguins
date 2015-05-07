@@ -8,6 +8,8 @@
 #import "SSKButtonNode.h"
 
 @interface SSKButtonNode()
+@property (nonatomic) CGSize idleSize;
+@property (nonatomic) CGSize selectedSize;
 @end
 
 @implementation SSKButtonNode
@@ -36,6 +38,17 @@
 
 - (instancetype)initWithTexture:(SKTexture *)texture color:(SKColor*)color size:(CGSize)size {
     return [self initWithIdleTexture:texture selectedTexture:nil];
+}
+
+- (instancetype)initWithTexture:(SKTexture *)texture idleSize:(CGSize)idleSize selectedSize:(CGSize)selectedSize {
+    self = [self initWithIdleTexture:texture selectedTexture:texture];
+    if (self) {
+        [self setSize:idleSize];
+        
+        self.idleSize = idleSize;
+        self.selectedSize = selectedSize;
+    }
+    return self;
 }
 
 #pragma mark - Init with images named
@@ -186,6 +199,10 @@
     return [[self alloc] initWithIdleTexture:idleTexture selectedTexture:selectedTexture];
 }
 
++ (instancetype)buttonWithTexture:(SKTexture*)texture idleSize:(CGSize)idleSize selectedSize:(CGSize)selectedSize {
+    return [[self alloc] initWithTexture:texture idleSize:idleSize selectedSize:selectedSize];
+}
+
 //Colored Button
 + (instancetype)buttonWithIdleColor:(UIColor *)idleColor selectedColor:(UIColor *)selectedColor size:(CGSize)size label:(SKLabelNode*)label {
     return [[self alloc] initWithIdleColor:idleColor selectedColor:selectedColor size:size label:label];
@@ -280,6 +297,14 @@
     }
 }
 
+- (void)toggleSize:(BOOL)isSelected {
+    if (_isSelected) {
+        if ([NSValue valueWithCGSize:self.selectedSize]) [self setSize:self.selectedSize];
+    } else {
+        if ([NSValue valueWithCGSize:self.idleSize]) [self setSize:self.idleSize];
+    }
+}
+
 #pragma mark - Setter Overrides
 - (void)setIsSelected:(BOOL)isSelected {
     _isSelected = isSelected;
@@ -287,6 +312,7 @@
     [self toggleColor:_isSelected];
     [self toggleShape:_isSelected];
     [self toggleLabelColor:_isSelected];
+    [self toggleSize:_isSelected];
 }
 
 #pragma mark - Setting Target-Action Pairs

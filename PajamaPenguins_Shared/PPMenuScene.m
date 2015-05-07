@@ -242,11 +242,12 @@ CGFloat const kAnimationMoveDistance = 10;
 
 #pragma mark - Buttons
 - (SSKButtonNode*)playButton {
-    SSKButtonNode *playButton = [SSKButtonNode buttonWithIdleTexture:[[PPSharedAssets sharedButtonAtlas] textureNamed:@"button_play_up"]
-                                                     selectedTexture:[[PPSharedAssets sharedButtonAtlas] textureNamed:@"button_play_down"]];
+    SSKButtonNode *playButton = [SSKButtonNode buttonWithTexture:[[PPSharedAssets sharedButtonAtlas]
+                                                                  textureNamed:@"button_play_v2"]
+                                                        idleSize:CGSizeMake(100, 100) selectedSize:CGSizeMake(90, 90)];
+
     [playButton setTouchUpInsideTarget:self selector:@selector(transitionGameScene)];
-    [playButton setSize:CGSizeMake(150, 50)];
-    [playButton setPosition:CGPointMake(0, -self.size.height/8 + kAnimationMoveDistance)];
+    [playButton setPosition:CGPointMake(0, -self.size.height/7 + kAnimationMoveDistance)];
     [playButton setName:@"playButton"];
     [playButton setAlpha:0];
     return playButton;
