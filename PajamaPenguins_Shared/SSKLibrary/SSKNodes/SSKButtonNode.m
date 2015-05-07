@@ -45,8 +45,13 @@
     if (self) {
         [self setSize:idleSize];
         
-        self.idleSize = idleSize;
-        self.selectedSize = selectedSize;
+        if (CGSizeEqualToSize(CGSizeZero, idleSize)) {
+            self.idleSize = idleSize;
+        }
+        
+        if (CGSizeEqualToSize(CGSizeZero, selectedSize)) {
+            self.selectedSize = selectedSize;
+        }
     }
     return self;
 }
@@ -299,9 +304,9 @@
 
 - (void)toggleSize:(BOOL)isSelected {
     if (_isSelected) {
-        if ([NSValue valueWithCGSize:self.selectedSize]) [self setSize:self.selectedSize];
+        if (!CGSizeEqualToSize(CGSizeZero, self.selectedSize)) [self setSize:self.selectedSize];
     } else {
-        if ([NSValue valueWithCGSize:self.idleSize]) [self setSize:self.idleSize];
+        if (!CGSizeEqualToSize(CGSizeZero, self.idleSize)) [self setSize:self.idleSize];
     }
 }
 
