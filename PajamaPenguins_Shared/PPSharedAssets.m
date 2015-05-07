@@ -57,6 +57,8 @@
         
         // Buttons
         sButtonAtlas = [SKTextureAtlas atlasNamed:@"buttons"];
+        sButtonHome = [sButtonAtlas textureNamed:@"button_home"];
+        sButtonPlay = [sButtonAtlas textureNamed:@"button_play"];
         
         // Coins
         sCoinsAtlas = [SKTextureAtlas atlasNamed:@"coins"];
@@ -112,6 +114,16 @@ static SKTextureAtlas *sCloudAtlas = nil;
 static SKTextureAtlas *sButtonAtlas = nil;
 + (SKTextureAtlas*)sharedButtonAtlas {
     return sButtonAtlas;
+}
+
+static SKTexture *sButtonHome = nil;
++ (SKTexture*)sharedButtonHome {
+    return sButtonHome;
+}
+
+static SKTexture *sButtonPlay = nil;
++ (SKTexture*)sharedButtonPlay {
+    return sButtonPlay;
 }
 
 // Fish

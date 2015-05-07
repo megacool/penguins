@@ -403,7 +403,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 #pragma mark - Menu Button
 - (PPButtonNode*)menuButton {
-    PPButtonNode *menuButton = [PPButtonNode buttonWithIdleTextureNamed:@"button_home_up" selectedTextureNamed:@"button_home_down"];
+    PPButtonNode *menuButton = [PPButtonNode buttonWithTexture:[PPSharedAssets sharedButtonHome]];
     [menuButton setTouchUpInsideTarget:self selector:@selector(menuButtonTouched)];
     [menuButton setPosition:CGPointMake(0, -self.size.height/8)];
     [menuButton setZPosition:SceneLayerButtons];
@@ -417,8 +417,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 #pragma mark - Retry Button
 - (PPButtonNode*)retryButton {
-    PPButtonNode *retryButton = [PPButtonNode buttonWithIdleTextureNamed:@"button_retry_up"
-                                                    selectedTextureNamed:@"button_retry_down"];
+    PPButtonNode *retryButton = [PPButtonNode buttonWithTexture:[PPSharedAssets sharedButtonPlay]];
     [retryButton setTouchUpInsideTarget:self selector:@selector(retryButtonTouched)];
     [retryButton setPosition:CGPointMake(0, -self.size.height/8 - retryButton.size.height - kButtonPadding)];
     [retryButton setZPosition:SceneLayerButtons];

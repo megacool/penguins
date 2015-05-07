@@ -9,6 +9,5 @@
 #import "SSKButtonNode.h"
 
 @interface PPButtonNode : SSKButtonNode
-+ (instancetype)buttonWithIdleTextureNamed:(NSString*)idleTexture selectedTextureNamed:(NSString*)selTexture;
-- (instancetype)initWithIdleTextureNamed:(NSString*)idleTexture selectedTextureNamed:(NSString*)selTexture;
++ (instancetype)buttonWithTexture:(SKTexture *)texture;
 @end

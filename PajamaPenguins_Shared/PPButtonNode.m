@@ -7,22 +7,11 @@
 //
 
 #import "PPButtonNode.h"
-#import "PPSharedAssets.h"
 
 @implementation PPButtonNode
 
-+ (instancetype)buttonWithIdleTextureNamed:(NSString*)idleTexture selectedTextureNamed:(NSString*)selTexture {
-    return [[self alloc] initWithIdleTextureNamed:idleTexture selectedTextureNamed:selTexture];
-}
-
-- (instancetype)initWithIdleTextureNamed:(NSString*)idleTexture selectedTextureNamed:(NSString*)selTexture {
-    self = [PPButtonNode buttonWithIdleTexture:[[PPSharedAssets sharedButtonAtlas] textureNamed:idleTexture] selectedTexture:[[PPSharedAssets sharedButtonAtlas] textureNamed:selTexture]];
-    
-    if (self) {
-        [self setSize:CGSizeMake(150, 50)];
-    }
-    
-    return self;
++ (instancetype)buttonWithTexture:(SKTexture *)texture {
+    return [self buttonWithTexture:texture idleSize:CGSizeMake(100, 100) selectedSize:CGSizeMake(90, 90)];
 }
 
 @end

@@ -45,13 +45,8 @@
     if (self) {
         [self setSize:idleSize];
         
-        if (CGSizeEqualToSize(CGSizeZero, idleSize)) {
-            self.idleSize = idleSize;
-        }
-        
-        if (CGSizeEqualToSize(CGSizeZero, selectedSize)) {
-            self.selectedSize = selectedSize;
-        }
+        self.idleSize = idleSize;
+        self.selectedSize = selectedSize;
     }
     return self;
 }
