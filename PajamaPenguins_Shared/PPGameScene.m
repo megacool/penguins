@@ -51,7 +51,7 @@ typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerHUD,
     SceneLayerGameOver,
     SceneLayerButtons,
-    SceneLayerFadeOut
+    SceneLayerFadeOut = 1000,
 };
 
 //Spacing Constants
@@ -403,9 +403,11 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 #pragma mark - Menu Button
 - (PPButtonNode*)menuButton {
-    PPButtonNode *menuButton = [PPButtonNode buttonWithTexture:[PPSharedAssets sharedButtonHome]];
+    PPButtonNode *menuButton = [PPButtonNode buttonWithTexture:[PPSharedAssets sharedButtonHome]
+                                                      idleSize:CGSizeMake(80, 80)
+                                                  selectedSize:CGSizeMake(70, 70)];
     [menuButton setTouchUpInsideTarget:self selector:@selector(menuButtonTouched)];
-    [menuButton setPosition:CGPointMake(0, -self.size.height/8)];
+    [menuButton setPosition:CGPointMake(-self.size.width/5, -self.size.height/7)];
     [menuButton setZPosition:SceneLayerButtons];
     return menuButton;
 }
@@ -417,9 +419,12 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 #pragma mark - Retry Button
 - (PPButtonNode*)retryButton {
-    PPButtonNode *retryButton = [PPButtonNode buttonWithTexture:[PPSharedAssets sharedButtonPlay]];
+    PPButtonNode *retryButton = [PPButtonNode buttonWithTexture:[PPSharedAssets sharedButtonPlay]
+                                                      idleSize:CGSizeMake(80, 80)
+                                                  selectedSize:CGSizeMake(70, 70)];
+    
     [retryButton setTouchUpInsideTarget:self selector:@selector(retryButtonTouched)];
-    [retryButton setPosition:CGPointMake(0, -self.size.height/8 - retryButton.size.height - kButtonPadding)];
+    [retryButton setPosition:CGPointMake(self.size.width/5, -self.size.height/7)];
     [retryButton setZPosition:SceneLayerButtons];
     return retryButton;
 }
