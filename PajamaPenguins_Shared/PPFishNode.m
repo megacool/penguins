@@ -7,6 +7,8 @@
 //
 
 #import "PPFishNode.h"
+#import "SSKMathUtils.h"
+#import "SKColor+SFAdditions.h"
 #import "PPSharedAssets.h"
 
 NSString * const kFishActionKey = @"fishActionKey";
@@ -17,6 +19,11 @@ NSString * const kFishActionKey = @"fishActionKey";
     self = [super initWithTexture:[PPSharedAssets sharedFishTexture]];
 
     if (self) {
+        self.colorBlendFactor = 1.0;
+        CGFloat randomR = SSKRandomFloatInRange(1, 255);
+        CGFloat randomG = SSKRandomFloatInRange(1, 255);
+        CGFloat randomB = SSKRandomFloatInRange(1, 255);
+        [self setColor:[SKColor colorWithR:randomR g:randomG b:randomB]];
     }
     
     return self;

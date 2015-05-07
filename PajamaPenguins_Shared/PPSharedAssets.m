@@ -72,7 +72,7 @@
         
         // Fish
         sFishAtlas = [SKTextureAtlas atlasNamed:@"fish"];
-        sFishTexture = [sFishAtlas textureNamed:@"fish_background"];
+        sFishTexture = [sFishAtlas textureNamed:@"fish"];
         
         // Icebergs
         sIcebergAtlas = [SKTextureAtlas atlasNamed:@"icebergs"];

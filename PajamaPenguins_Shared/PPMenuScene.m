@@ -33,8 +33,8 @@ typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerBackground = 0,
     SceneLayerClouds,
     SceneLayerSnow,
-    SceneLayerWater,
     SceneLayerForeground,
+    SceneLayerWater,
     SceneLayerFish,
     SceneLayerMenu = 10,
 };
@@ -121,7 +121,7 @@ CGFloat const kAnimationMoveDistance = 10;
     
     //Water Surface
     self.waterSurface = [self waterNode];
-    [self.foregroundNode addChild:self.waterSurface];
+    [self addChild:self.waterSurface];
 }
 
 - (void)createMenu {
