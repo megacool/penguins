@@ -54,8 +54,10 @@ typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerFadeOut = 1000,
 };
 
-//Spacing Constants
+//Button Constants
 CGFloat kButtonPadding = 10.0;
+CGFloat kButtonIdleWidth = 80.0;
+CGFloat kButtonSelectedWidth = 70.0;
 
 //Physics Constants
 static const uint32_t playerCategory   = 0x1 << 0;
@@ -404,10 +406,11 @@ CGFloat const kParallaxMinSpeed = -20.0;
 #pragma mark - Menu Button
 - (PPButtonNode*)menuButton {
     PPButtonNode *menuButton = [PPButtonNode buttonWithTexture:[PPSharedAssets sharedButtonHome]
-                                                      idleSize:CGSizeMake(80, 80)
-                                                  selectedSize:CGSizeMake(70, 70)];
+                                                      idleSize:CGSizeMake(kButtonIdleWidth, kButtonIdleWidth)
+                                                  selectedSize:CGSizeMake(kButtonSelectedWidth, kButtonSelectedWidth)];
+    
     [menuButton setTouchUpInsideTarget:self selector:@selector(menuButtonTouched)];
-    [menuButton setPosition:CGPointMake(-self.size.width/5, -self.size.height/7)];
+    [menuButton setPosition:CGPointMake(-kButtonIdleWidth, -self.size.height/7)];
     [menuButton setZPosition:SceneLayerButtons];
     return menuButton;
 }
@@ -420,11 +423,11 @@ CGFloat const kParallaxMinSpeed = -20.0;
 #pragma mark - Retry Button
 - (PPButtonNode*)retryButton {
     PPButtonNode *retryButton = [PPButtonNode buttonWithTexture:[PPSharedAssets sharedButtonPlay]
-                                                      idleSize:CGSizeMake(80, 80)
-                                                  selectedSize:CGSizeMake(70, 70)];
+                                                       idleSize:CGSizeMake(kButtonIdleWidth, kButtonIdleWidth)
+                                                   selectedSize:CGSizeMake(kButtonSelectedWidth, kButtonSelectedWidth)];
     
     [retryButton setTouchUpInsideTarget:self selector:@selector(retryButtonTouched)];
-    [retryButton setPosition:CGPointMake(self.size.width/5, -self.size.height/7)];
+    [retryButton setPosition:CGPointMake(kButtonIdleWidth, -self.size.height/7)];
     [retryButton setZPosition:SceneLayerButtons];
     return retryButton;
 }
