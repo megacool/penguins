@@ -113,8 +113,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 @property (nonatomic) PPCloudParallaxFast *cloudFast;
 
 // Coin spawn points
-@property (nonatomic) SKNode *coinSpawnTop;
-@property (nonatomic) SKNode *coinSpawnBottom;
+@property (nonatomic) SKNode *coinSpawnPosition;
 
 // Node containers
 @property (nonatomic) SKNode *worldNode;
@@ -223,14 +222,10 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self.splashUpEmitter setParticleColor:self.waterSurface.color];
     
     //Coin spawn points
-    self.coinSpawnTop = [SKNode new];
-    [self.coinSpawnTop setPosition:CGPointMake(self.size.width * 2, self.size.height/4)];
-    [self.worldNode addChild:self.coinSpawnTop];
+    self.coinSpawnPosition = [SKNode new];
+    [self.coinSpawnPosition setPosition:CGPointMake(self.size.width * 2, self.size.height/4)];
+    [self.worldNode addChild:self.coinSpawnPosition];
 
-    self.coinSpawnBottom = [SKNode new];
-    [self.coinSpawnBottom setPosition:CGPointMake(self.size.width * 2, -self.size.height/4)];
-    [self.worldNode addChild:self.coinSpawnBottom];
-    
     //Screen Physics Boundary
     SKSpriteNode *boundary = [SKSpriteNode spriteNodeWithColor:[SKColor clearColor] size:CGSizeMake(self.size.width,self.size.height)];
     boundary.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:boundary.frame];
@@ -352,7 +347,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
         [self spawnFishForever];
         
         // Start coin spawn point movement
-        [self startCoinSpawnPointMovement];
+//        [self startCoinSpawnPointMovement];
     }];
 }
 
@@ -453,52 +448,37 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [topMoveDown setTimingMode:SKActionTimingEaseInEaseOut];
     
     SKAction *topSeq = [SKAction sequence:@[topMoveUp, topMoveDown]];
-    [self.coinSpawnTop runAction:[SKAction repeatActionForever:topSeq]];
-    
-    // Bottom spawn point
-    CGFloat botStartY = -self.size.height/8;
-    CGFloat botEndY = -self.size.height/16 * 7;
-    
-    SKAction *botMoveDown = [SKAction moveToY:botEndY duration:moveSpeed];
-    [botMoveDown setTimingMode:SKActionTimingEaseInEaseOut];
-    
-    SKAction *botMoveUp = [SKAction moveToY:botStartY duration:moveSpeed];
-    [botMoveUp setTimingMode:SKActionTimingEaseInEaseOut];
-    
-    SKAction *botSeq = [SKAction sequence:@[botMoveDown, botMoveUp]];
-    [self.coinSpawnBottom runAction:[SKAction repeatActionForever:botSeq]];
+    [self.coinSpawnPosition runAction:[SKAction repeatActionForever:topSeq]];
 }
 
 - (void)startCoinSpawnIntervals {
-    SKAction *wait = [SKAction waitForDuration:1];
+    SKAction *wait = [SKAction waitForDuration:1.5];
     SKAction *spawnInterval = [SKAction waitForDuration:0.2];
-
-    SKAction *spawnTop = [SKAction runBlock:^{
-        [self spawnCoinAtPosition:self.coinSpawnTop.position];
+    
+    // Get new spawn point
+    SKAction *getSpawnPosition = [SKAction runBlock:^{
+        CGFloat randomHeight = SSKRandomFloatInRange(self.size.height/4, self.size.height);
+        CGPoint newPoint = CGPointMake(self.size.width * 2, randomHeight);
+        [self.coinSpawnPosition setPosition:newPoint];
     }];
     
-    SKAction *spawnBottom = [SKAction runBlock:^{
-        [self spawnCoinAtPosition:self.coinSpawnBottom.position];
+    // Spawn Block
+    SKAction *spawn = [SKAction runBlock:^{
+        [self spawnCoinAtPosition:self.coinSpawnPosition.position];
     }];
     
     // Create a sequence with the given count
-    NSMutableArray *spawnActionsTop = [NSMutableArray new];
+    NSMutableArray *spawnActions = [NSMutableArray new];
     for (int i = 0; i < 5; i++) {
-        [spawnActionsTop addObject:spawnTop];
-        [spawnActionsTop addObject:spawnInterval];
-    }
-
-    NSMutableArray *spawnActionsBot = [NSMutableArray new];
-    for (int i = 0; i < 5; i++) {
-        [spawnActionsBot addObject:spawnBottom];
-        [spawnActionsBot addObject:spawnInterval];
+        [spawnActions addObject:spawn];
+        [spawnActions addObject:spawnInterval];
     }
     
-    SKAction *topSeq = [SKAction sequence:spawnActionsTop];
-    SKAction *botSeq = [SKAction sequence:spawnActionsBot];
-    SKAction *seq = [SKAction sequence:@[topSeq,wait,botSeq,wait]];
     
-    [self runAction:[SKAction repeatActionForever:seq] withKey:kCoinSpawnKey];
+    SKAction *spawnSequence = [SKAction sequence:spawnActions];
+    SKAction *spawnIntervals = [SKAction sequence:@[getSpawnPosition, spawnSequence, wait]];
+    
+    [self runAction:[SKAction repeatActionForever:spawnIntervals] withKey:kCoinSpawnKey];
 }
 
 - (void)stopCoinSpawn {
