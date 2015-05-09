@@ -14,8 +14,8 @@
     SKTexture *texture = [self textureForIcebergType:icebergType];
     self = [super initWithTexture:texture];
     if (self) {
-//        self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.size.width/2 - self.size.width/8];
-        self.physicsBody = [SKPhysicsBody bodyWithTexture:texture size:self.size];
+        self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.size.width/2 - self.size.width/8];
+        //        self.physicsBody = [SKPhysicsBody bodyWithTexture:texture size:self.size]; // Doesnt work any more after iOS 8 :(
         self.physicsBody.affectedByGravity = NO;
         self.physicsBody.dynamic = NO;
     }

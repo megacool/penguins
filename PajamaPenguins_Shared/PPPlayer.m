@@ -9,7 +9,7 @@
 #import "PPPlayer.h"
 #import "SSKGraphicsUtils.h"
 
-#define kAcceleration 50.0
+#define kAcceleration 60.0
 
 CGFloat const kIdleFrames = 2;
 CGFloat const kSwimFrames = 4;
