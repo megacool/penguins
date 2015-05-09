@@ -82,7 +82,7 @@ CGFloat const kWorldScaleCap  = 0.55;
 
 CGFloat const kPlayerUpperVelocityLimit      = 800.0;
 CGFloat const kPlayerLowerAirVelocityLimit   = -800.0;
-CGFloat const kPlayerLowerWaterVelocityLimit = -650.0;
+CGFloat const kPlayerLowerWaterVelocityLimit = -550.0;
 
 //Name Constants
 NSString * const kPixelFontName = @"Fipps-Regular";
