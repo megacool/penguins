@@ -76,9 +76,13 @@ CGFloat const kMinSplashStrength      = 5;
 CGFloat const kMaxBreathTimer = 6.0;
 CGFloat const kWorldScaleCap  = 0.55;
 
-CGFloat const kPlayerUpperVelocityLimit      = 700.0;
-CGFloat const kPlayerLowerAirVelocityLimit   = -700.0;
-CGFloat const kPlayerLowerWaterVelocityLimit = -550.0;
+//CGFloat const kPlayerUpperVelocityLimit      = 700.0;
+//CGFloat const kPlayerLowerAirVelocityLimit   = -700.0;
+//CGFloat const kPlayerLowerWaterVelocityLimit = -550.0;
+
+CGFloat const kPlayerUpperVelocityLimit      = 800.0;
+CGFloat const kPlayerLowerAirVelocityLimit   = -800.0;
+CGFloat const kPlayerLowerWaterVelocityLimit = -650.0;
 
 //Name Constants
 NSString * const kPixelFontName = @"Fipps-Regular";
@@ -438,8 +442,8 @@ CGFloat const kParallaxMinSpeed = -20.0;
     CGFloat moveSpeed = 4;
     
     // Top spawn point
-    CGFloat topStartY = self.size.height/4;
-    CGFloat topEndY = self.size.height;
+    CGFloat topStartY = self.size.height/5;
+    CGFloat topEndY = self.size.height/2;
     
     SKAction *topMoveUp = [SKAction moveToY:topEndY duration:moveSpeed];
     [topMoveUp setTimingMode:SKActionTimingEaseInEaseOut];
@@ -457,7 +461,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     
     // Get new spawn point
     SKAction *getSpawnPosition = [SKAction runBlock:^{
-        CGFloat randomHeight = SSKRandomFloatInRange(self.size.height/4, self.size.height);
+        CGFloat randomHeight = SSKRandomFloatInRange(self.size.height/5, self.size.height/2);
         CGPoint newPoint = CGPointMake(self.size.width * 2, randomHeight);
         [self.coinSpawnPosition setPosition:newPoint];
     }];
