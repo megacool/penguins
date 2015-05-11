@@ -15,16 +15,6 @@
 typedef void (^AssetCompletionHandler)(void);
 + (void)loadSharedAssetsWithCompletion:(AssetCompletionHandler)completion;
 
-// Sky Textures
-+ (SKTexture*)sharedSkyMorning;
-+ (SKTexture*)sharedSkyDay;
-+ (SKTexture*)sharedSkyAfternoon;
-+ (SKTexture*)sharedSkySunset;
-+ (SKTexture*)sharedSkyNight;
-
-// Water Texture
-+ (SKTexture*)sharedWaterTexture;
-    
 // Clouds
 + (SKTextureAtlas*)sharedCloudAtlas;
 

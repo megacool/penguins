@@ -123,38 +123,6 @@ static SKTextureAtlas *sIcebergAtlas = nil;
     return sIcebergAtlas;
 }
 
-// Water
-static SKTexture *sWaterTexture = nil;
-+ (SKTexture*)sharedWaterTexture {
-    return sWaterTexture;
-}
-
-// Skies
-static SKTexture *sSkyMorning = nil;
-+ (SKTexture*)sharedSkyMorning {
-    return sSkyMorning;
-}
-
-static SKTexture *sSkyDay = nil;
-+ (SKTexture*)sharedSkyDay {
-    return sSkyDay;
-}
-
-static SKTexture *sSkyAfternoon = nil;
-+ (SKTexture*)sharedSkyAfternoon {
-    return sSkyAfternoon;
-}
-
-static SKTexture *sSkySunset = nil;
-+ (SKTexture*)sharedSkySunset {
-    return sSkySunset;
-}
-
-static SKTexture *sSkyNight = nil;
-+ (SKTexture*)sharedSkyNight {
-    return sSkyNight;
-}
-
 #pragma mark - Shared Emitters
 static SKEmitterNode *sSnowEmitter = nil;
 + (SKEmitterNode*)sharedSnowEmitter {
