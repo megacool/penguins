@@ -17,10 +17,5 @@ typedef NS_ENUM(NSUInteger, SkyType) {
 };
 
 @interface PPSkySprite : SKSpriteNode
-
-@property (nonatomic) SkyType skyType;
-
-+ (instancetype)skyWithType:(SkyType)skyType;
-
 + (SKColor*)colorForSkyType:(SkyType)skyType;
 @end
