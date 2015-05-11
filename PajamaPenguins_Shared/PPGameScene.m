@@ -103,7 +103,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
 @interface PPGameScene()
 @property (nonatomic) GameState gameState;
 
-@property (nonatomic) PPSkySprite *sky;
 @property (nonatomic) PPWaterSprite *waterSurface;
 
 @property (nonatomic) SKEmitterNode *snowEmitter;
@@ -161,11 +160,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
     //Background color
     [self setBackgroundColor:[PPSkySprite colorForSkyType:[[PPBackgroundManager sharedManager] timeOfDay]]];
-    
-    //Sky
-//    self.sky = [PPSkySprite skyWithType:SkyTypeMorning];
-//    [self.sky setPosition:CGPointMake(-self.size.width/2, -self.size.height/2)];
-//    [self.worldNode addChild:self.sky];
     
     //Parallaxing Nodes
     self.cloudSlow = [[PPCloudParallaxSlow alloc] initWithSize:CGSizeMake(self.size.width*2, self.size.height)];
@@ -904,9 +898,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
     
     // Remove Snow
     [self.snowEmitter removeFromParent];
-    
-    // Remove Sky
-    [self.sky removeFromParent];
 }
 
 #pragma mark - Collisions
