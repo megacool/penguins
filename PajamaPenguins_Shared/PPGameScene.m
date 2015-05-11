@@ -68,7 +68,6 @@ CGFloat const kAirGravityStrength      = -2.75;
 CGFloat const kWaterGravityStrength    = 6;
 CGFloat const kGameOverGravityStrength = -9.8;
 
-CGFloat const kObstacleSplashStrength = 10;
 CGFloat const kMaxSplashStrength      = 20;
 CGFloat const kMinSplashStrength      = 5;
 
@@ -344,8 +343,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
         // Start fish spawn forever
         [self spawnFishForever];
         
-        // Start coin spawn point movement
-//        [self startCoinSpawnPointMovement];
     }];
 }
 
@@ -431,24 +428,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 #pragma mark - Coins
-
-- (void)startCoinSpawnPointMovement {
-    CGFloat moveSpeed = 4;
-    
-    // Top spawn point
-    CGFloat topStartY = self.size.height/5;
-    CGFloat topEndY = self.size.height/2;
-    
-    SKAction *topMoveUp = [SKAction moveToY:topEndY duration:moveSpeed];
-    [topMoveUp setTimingMode:SKActionTimingEaseInEaseOut];
-    
-    SKAction *topMoveDown = [SKAction moveToY:topStartY duration:moveSpeed];
-    [topMoveDown setTimingMode:SKActionTimingEaseInEaseOut];
-    
-    SKAction *topSeq = [SKAction sequence:@[topMoveUp, topMoveDown]];
-    [self.coinSpawnPosition runAction:[SKAction repeatActionForever:topSeq]];
-}
-
 - (void)startCoinSpawnIntervals {
     SKAction *wait = [SKAction waitForDuration:1.5];
     SKAction *spawnInterval = [SKAction waitForDuration:0.2];
@@ -743,9 +722,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 #pragma mark - Icebergs
 - (PPIcebergObstacle*)newIceBerg {
-    // Get a random iceberg type
-//    CGFloat randType = SSKRandomFloatInRange(0, 2);
-    
     // Get a random scale between 0.5 - 1.0
     CGFloat rand = SSKRandomFloatInRange(25, 100);
     CGFloat newScale = (rand/100);
