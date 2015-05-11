@@ -51,7 +51,6 @@ CGFloat const kAnimationMoveDistance = 10;
 @property (nonatomic) SKNode *foregroundNode;
 @property (nonatomic) SKNode *menuNode;
 
-@property (nonatomic) PPSkySprite *sky;
 @property (nonatomic) PPWaterSprite *waterSurface;
 
 @property (nonatomic) PPCloudParallaxSlow *cloudSlow;
@@ -86,11 +85,6 @@ CGFloat const kAnimationMoveDistance = 10;
     [self.backgroundNode setZPosition:SceneLayerBackground];
     [self.backgroundNode setName:@"menuBackground"];
     [self addChild:self.backgroundNode];
-
-    //Sky
-//    self.sky = [PPSkySprite skyWithType:SkyTypeMorning];
-//    [self.sky setPosition:CGPointMake(-self.size.width/2, -self.size.height/2)];
-//    [self.backgroundNode addChild:self.sky];
     
     //Clouds
     self.cloudSlow = [[PPCloudParallaxSlow alloc] initWithSize:self.size];
