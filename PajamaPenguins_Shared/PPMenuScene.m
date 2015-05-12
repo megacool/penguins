@@ -150,9 +150,6 @@ CGFloat const kAnimationMoveDistance = 10;
         SKNode *playButton = [self.menuNode childNodeWithName:@"playButton"];
         [playButton runAction:[SKAction moveDistance:CGVectorMake(0, -kAnimationMoveDistance) fadeInWithDuration:kAnimationFadeTime]];
         
-        SKNode *settingsButton = [self.menuNode childNodeWithName:@"settingsButton"];
-        [settingsButton runAction:[SKAction moveDistance:CGVectorMake(0, -kAnimationMoveDistance) fadeInWithDuration:kAnimationFadeTime]];
-        
         //Title move in
         SKNode *title = [self.menuNode childNodeWithName:@"titleLabel"];
         [title runAction:[SKAction moveDistance:CGVectorMake(0, -kAnimationMoveDistance) fadeInWithDuration:kAnimationFadeTime]];
@@ -306,10 +303,6 @@ CGFloat const kAnimationMoveDistance = 10;
         SKTransition *fade = [SKTransition fadeWithColor:[SKColor whiteColor] duration:1];
         [self.view presentScene:gameScene transition:fade];
     }];
-}
-
-- (void)transitionSettings {
-    NSLog(@"settings pushed");
 }
 
 #pragma mark - Update
