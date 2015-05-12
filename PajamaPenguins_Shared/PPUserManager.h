@@ -11,9 +11,12 @@
 @interface PPUserManager : NSObject
 + (instancetype)sharedManager;
 
-// High Scores
+// Saving
 - (void)saveHighScore:(NSNumber*)score;
+- (void)saveCoins:(NSNumber*)scoins;
+
 - (NSNumber*)getHighScore;
+
 
 // Settings
 

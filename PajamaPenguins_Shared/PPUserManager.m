@@ -9,6 +9,7 @@
 #import "PPUserManager.h"
 
 NSString * const kUserHighScoreKey = @"UserHighScore";
+NSString * const kUserTotalCoinKey = @"UserTotalCoins";
 
 @implementation PPUserManager
 + (instancetype)sharedManager {
@@ -20,7 +21,7 @@ NSString * const kUserHighScoreKey = @"UserHighScore";
     return sharedManager;
 }
 
-#pragma mark - Scores
+#pragma mark - High Score
 - (void)saveHighScore:(NSNumber*)score {
     if (!(score > [self getHighScore])) return;
     
@@ -30,6 +31,19 @@ NSString * const kUserHighScoreKey = @"UserHighScore";
 
 - (NSNumber*)getHighScore {
     return [[NSUserDefaults standardUserDefaults] objectForKey:kUserHighScoreKey];
+}
+
+#pragma mark - Coins
+- (void)saveCoins:(NSNumber*)coins {
+    NSInteger currentTotal = [[PPUserManager sharedManager] getTotalCoins].integerValue;
+    NSInteger newTotal = currentTotal + coins.integerValue;
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:newTotal] forKey:kUserTotalCoinKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSNumber*)getTotalCoins {
+    return [[NSUserDefaults standardUserDefaults] objectForKey:kUserTotalCoinKey];
 }
 
 #pragma mark - Settings
