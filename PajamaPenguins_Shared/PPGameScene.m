@@ -353,6 +353,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self stopCoinSpawn];
     [self stopScoreCounter];
     [self checkIfHighScore];
+    [self saveCoins];
     
     [self stopObstacleSpawnSequence];
     [self stopObstacleMovement];
@@ -490,6 +491,12 @@ CGFloat const kParallaxMinSpeed = -20.0;
     SKAction *scaleUp = [SKAction scaleTo:1.2 duration:0.075];
     SKAction *scaleNormal = [SKAction scaleTo:1 duration:0.075];
     [[self getScoreCoin] runAction:[SKAction sequence:@[scaleUp,scaleNormal]]];
+}
+
+- (void)saveCoins {
+    NSInteger coinCount = [(SSKScoreNode*)[self.hudNode childNodeWithName:@"coinCounter"] count];
+    [[PPUserManager sharedManager] saveCoins:[NSNumber numberWithInteger:coinCount]];
+    NSLog(@"Total coins:%@",[[PPUserManager sharedManager] getTotalCoins]);
 }
 
 #pragma mark - Spawn Coins
@@ -775,7 +782,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 - (void)checkIfHighScore {
-    NSInteger currentScore = [(SSKScoreNode*)[self.hudNode childNodeWithName:@"scoreCounter"] score];
+    NSInteger currentScore = [(SSKScoreNode*)[self.hudNode childNodeWithName:@"scoreCounter"] count];
     NSInteger highScore = [[PPUserManager sharedManager] getHighScore].integerValue;
     
     if (currentScore > highScore) {

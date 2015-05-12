@@ -16,7 +16,7 @@
 - (void)saveCoins:(NSNumber*)scoins;
 
 - (NSNumber*)getHighScore;
-
+- (NSNumber*)getTotalCoins;
 
 // Settings
 

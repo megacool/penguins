@@ -9,7 +9,7 @@
 #import "SSKScoreNode.h"
 
 @interface SSKScoreNode()
-@property (nonatomic, readwrite) NSInteger score;
+@property (nonatomic, readwrite) NSInteger count;
 @end
 
 @implementation SSKScoreNode
@@ -38,21 +38,21 @@
 
 #pragma mark - Counter controls
 - (void)increment {
-    self.score ++;
+    self.count ++;
     [self updateText];
 }
 
 - (void)decrement {
-    self.score --;
+    self.count --;
     [self updateText];
 }
 
 - (void)resetScore {
-    self.score = 0;
+    self.count = 0;
 }
 #pragma mark - Node's text
 - (void)updateText {
-    self.text = [NSString stringWithFormat:@"%lu",self.score];
+    self.text = [NSString stringWithFormat:@"%lu",self.count];
 }
 
 @end
