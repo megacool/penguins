@@ -88,7 +88,7 @@ NSString * const kPixelFontName = @"Fipps-Regular";
 NSString * const kRemoveName = @"removeable";
 
 //Action Constants
-CGFloat const kParallaxMoveSpeed   = 4;
+CGFloat const kParallaxMoveSpeed   = 3.5;
 CGFloat const kMoveAndFadeTime     = 0.2;
 CGFloat const kMoveAndFadeDistance = 20;
 
@@ -431,7 +431,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 #pragma mark - Coins
 - (void)startCoinSpawnIntervals {
     SKAction *wait = [SKAction waitForDuration:1.5];
-    SKAction *spawnInterval = [SKAction waitForDuration:0.2];
+    SKAction *spawnInterval = [SKAction waitForDuration:0.15];
     
     // Get new spawn point
     SKAction *getSpawnPosition = [SKAction runBlock:^{
