@@ -32,7 +32,7 @@
     
     switch (icebergType) {
         case IceBergTypeNormal:
-            texture = [[PPSharedAssets sharedIcebergAtlas] textureNamed:@"iceberg_normal"];
+            texture = [PPSharedAssets sharedIcebergGameTexture];
             break;
             
         case IceBergTypeWide:

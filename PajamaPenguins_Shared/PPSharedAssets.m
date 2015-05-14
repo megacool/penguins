@@ -16,9 +16,6 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSDate *startTime = [NSDate date];
         
-        // Menu Iceberg
-        sIcebergTexture = [SKTexture textureWithImageNamed:@"platform_iceberg"];
-        
         // Buttons
         sButtonAtlas = [SKTextureAtlas atlasNamed:@"buttons"];
         sButtonHome = [sButtonAtlas textureNamed:@"button_home"];
@@ -40,6 +37,8 @@
         
         // Icebergs
         sIcebergAtlas = [SKTextureAtlas atlasNamed:@"icebergs"];
+        sIcebergGameTexture = [sIcebergAtlas textureNamed:@"iceberg_normal"];
+        sIcebergMenuTexture = [sIcebergAtlas textureNamed:@"iceberg_menu"];
         
         // Emitters
         sSnowEmitter = [SKEmitterNode emitterNodeWithFileNamed:@"SnowEmitter"];
@@ -60,12 +59,6 @@
 }
 
 #pragma mark - Shared Textures
-
-// Background Elements
-static SKTexture *sIcebergTexture = nil;
-+ (SKTexture*)sharedIcebergTexture {
-    return sIcebergTexture;
-}
 
 // Clouds
 static SKTextureAtlas *sCloudAtlas = nil;
@@ -121,6 +114,16 @@ static NSArray *sCoinTextures = nil;
 static SKTextureAtlas *sIcebergAtlas = nil;
 + (SKTextureAtlas*)sharedIcebergAtlas {
     return sIcebergAtlas;
+}
+
+static SKTexture *sIcebergMenuTexture = nil;
++ (SKTexture*)sharedIcebergMenuTexture {
+    return sIcebergMenuTexture;
+}
+
+static SKTexture *sIcebergGameTexture = nil;
++ (SKTexture*)sharedIcebergGameTexture {
+    return sIcebergGameTexture;
 }
 
 #pragma mark - Shared Emitters

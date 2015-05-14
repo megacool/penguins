@@ -20,7 +20,8 @@ typedef void (^AssetCompletionHandler)(void);
 
 // Iceberg Textures
 + (SKTextureAtlas*)sharedIcebergAtlas;
-+ (SKTexture*)sharedIcebergTexture; // Menu Iceberg
++ (SKTexture*)sharedIcebergMenuTexture;
++ (SKTexture*)sharedIcebergGameTexture;
 
 // Coin Textures
 + (NSArray*)sharedCoinTextures;

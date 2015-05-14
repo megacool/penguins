@@ -169,8 +169,9 @@ CGFloat const kAnimationMoveDistance = 10;
     return waterNode;
 }
 
-- (SKSpriteNode*)newPlatformIceberg {
-    SKSpriteNode *platform = [SKSpriteNode spriteNodeWithTexture:[PPSharedAssets sharedIcebergTexture]];
+- (PPSprite*)newPlatformIceberg {
+//    PPSprite *platform = [SKSpriteNode spriteNodeWithTexture:[PPSharedAssets sharedIcebergTexture]];
+    PPSprite *platform = [[PPSprite alloc] initWithTexture:[PPSharedAssets sharedIcebergMenuTexture]];
     [platform setName:@"platformIceberg"];
     [platform setAnchorPoint:CGPointMake(0.5, 1)];
     [platform setPosition:CGPointMake(0, kPlatformPadding)];
