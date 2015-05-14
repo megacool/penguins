@@ -170,11 +170,10 @@ CGFloat const kAnimationMoveDistance = 10;
 }
 
 - (PPSprite*)newPlatformIceberg {
-//    PPSprite *platform = [SKSpriteNode spriteNodeWithTexture:[PPSharedAssets sharedIcebergTexture]];
     PPSprite *platform = [[PPSprite alloc] initWithTexture:[PPSharedAssets sharedIcebergMenuTexture]];
     [platform setName:@"platformIceberg"];
     [platform setAnchorPoint:CGPointMake(0.5, 1)];
-    [platform setPosition:CGPointMake(0, kPlatformPadding)];
+    [platform setPosition:CGPointMake(0, platform.size.height/3)];
     return platform;
 }
 
@@ -266,7 +265,7 @@ CGFloat const kAnimationMoveDistance = 10;
 - (PPPlayer*)penguinWithType:(PlayerType)type atlas:(SKTextureAtlas*)atlas {
     PPPlayer *penguin = [PPPlayer playerWithType:type atlas:atlas];
     [penguin setAnchorPoint:CGPointMake(0.5, 0)];
-    [penguin setPosition:CGPointMake(0, kPlatformPadding/2)];
+    [penguin setPosition:CGPointMake(0, kPlatformPadding)];
     [penguin setPlayerState:PlayerStateIdle];
     [penguin setName:@"penguin"];
     return penguin;
