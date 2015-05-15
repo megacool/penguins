@@ -1,7 +1,7 @@
 Pajama Penguins
 ================
 
-A one touch game made about pajamas wearing penguins.  Made using Spritekit.  Currently under active development.
+A one touch game about penguins wearing pajamas.  Made with Spritekit.  Currently under active development.
 
 Update:
 Most of the games features are finished. At this point I'm adding art and sound effects until it's polished enough to ship. Feel free to recommend ideas in the tracker on sound or design direction while I work through the last few hurdles.
