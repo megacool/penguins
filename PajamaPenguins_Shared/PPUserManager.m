@@ -35,10 +35,7 @@ NSString * const kUserTotalCoinKey = @"UserTotalCoins";
 
 #pragma mark - Coins
 - (void)saveCoins:(NSNumber*)coins {
-    NSInteger currentTotal = [[PPUserManager sharedManager] getTotalCoins].integerValue;
-    NSInteger newTotal = currentTotal + coins.integerValue;
-    
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:newTotal] forKey:kUserTotalCoinKey];
+    [[NSUserDefaults standardUserDefaults] setObject:coins forKey:kUserTotalCoinKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

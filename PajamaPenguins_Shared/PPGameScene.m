@@ -243,7 +243,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     NSString *fontName = @"AmericanTypewriter";
     CGFloat fontSize = 12.0;
     
-    SSKScoreNode *scoreCounter = [SSKScoreNode scoreNodeWithFontNamed:fontName fontSize:fontSize fontColor:[SKColor whiteColor]];
+    SSKScoreNode *scoreCounter = [SSKScoreNode scoreNodeWithFontNamed:fontName fontSize:20 fontColor:[SKColor whiteColor]];
     [scoreCounter setName:@"scoreCounter"];
     [scoreCounter setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeLeft];
     [scoreCounter setVerticalAlignmentMode:SKLabelVerticalAlignmentModeTop];
@@ -252,15 +252,15 @@ CGFloat const kParallaxMinSpeed = -20.0;
     
     PPCoinNode *coinNode = [[PPCoinNode alloc] init];
     [coinNode setName:@"scoreCoin"];
-    [coinNode setPosition:CGPointMake(self.size.width/2 - coinNode.size.width/2 - 2, self.size.height/2 - coinNode.size.height/2 - 2)];
+    [coinNode setPosition:CGPointMake(self.size.width/2 - coinNode.size.width, self.size.height/2 - coinNode.size.height/2 - padding)];
     [self.hudNode addChild:coinNode];
-    [coinNode spinAnimation];
     
     SSKScoreNode *coinCounter = [SSKScoreNode scoreNodeWithFontNamed:fontName fontSize:fontSize fontColor:[SKColor whiteColor]];
     [coinCounter setName:@"coinCounter"];
-    [coinCounter setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeRight];
+    [coinCounter setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeCenter];
     [coinCounter setVerticalAlignmentMode:SKLabelVerticalAlignmentModeTop];
-    [coinCounter setPosition:CGPointMake(coinNode.position.x - coinNode.size.width/2 - padding, scoreCounter.position.y)];
+    [coinCounter setPosition:CGPointMake(coinNode.position.x, coinNode.position.y - coinNode.size.height/2 - padding)];
+    [coinCounter setScore:[[PPUserManager sharedManager] getTotalCoins].integerValue];
     [self.hudNode addChild:coinCounter];
 
     SSKProgressBarNode *breathMeter = [[SSKProgressBarNode alloc] initWithFrameColor:[SKColor blackColor] barColor:[SKColor redColor] size:CGSizeMake(self.size.width/2, 12.5) barType:BarTypeHorizontal];
@@ -503,9 +503,11 @@ CGFloat const kParallaxMinSpeed = -20.0;
         
         // Spawn a coin
         PPCoinNode *coin = newCoin.copy;
+        [coin setSize:CGSizeMake(coin.size.width/5 * 4, coin.size.height/5 * 4)];
         [coin setZPosition:SceneLayerCoins];
         [coin setPosition:position];
         [coin setName:kCoinName];
+        [coin spinAnimation];
         [self.worldNode addChild:coin];
         
         // Move coin off screen
