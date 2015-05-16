@@ -484,7 +484,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 - (void)scoreCoinPop {
-    SKAction *scaleUp = [SKAction scaleTo:1.2 duration:0.075];
+    SKAction *scaleUp = [SKAction scaleTo:1.4 duration:0.075];
     SKAction *scaleNormal = [SKAction scaleTo:1 duration:0.075];
     [[self getScoreCoin] runAction:[SKAction sequence:@[scaleUp,scaleNormal]]];
 }
@@ -503,7 +503,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
         
         // Spawn a coin
         PPCoinNode *coin = newCoin.copy;
-        [coin setSize:CGSizeMake(coin.size.width/5 * 4, coin.size.height/5 * 4)];
         [coin setZPosition:SceneLayerCoins];
         [coin setPosition:position];
         [coin setName:kCoinName];

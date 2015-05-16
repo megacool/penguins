@@ -41,7 +41,7 @@ typedef NS_ENUM(NSUInteger, SceneLayer) {
 
 CGFloat const kButtonRadius    = 45.0;
 CGFloat const kSplashStrength  = -2.5;
-CGFloat const kPlatformPadding = 50.0;
+CGFloat const kPlatformPadding = 60.0;
 
 CGFloat const kAnimationFadeTime     = 0.5;
 CGFloat const kAnimationMoveDistance = 10;
@@ -173,7 +173,7 @@ CGFloat const kAnimationMoveDistance = 10;
     PPSprite *platform = [[PPSprite alloc] initWithTexture:[PPSharedAssets sharedIcebergMenuTexture]];
     [platform setName:@"platformIceberg"];
     [platform setAnchorPoint:CGPointMake(0.5, 1)];
-    [platform setPosition:CGPointMake(0, platform.size.height/3)];
+    [platform setPosition:CGPointMake(0, kPlatformPadding)];
     return platform;
 }
 
@@ -265,7 +265,7 @@ CGFloat const kAnimationMoveDistance = 10;
 - (PPPlayer*)penguinWithType:(PlayerType)type atlas:(SKTextureAtlas*)atlas {
     PPPlayer *penguin = [PPPlayer playerWithType:type atlas:atlas];
     [penguin setAnchorPoint:CGPointMake(0.5, 0)];
-    [penguin setPosition:CGPointMake(0, kPlatformPadding)];
+    [penguin setPosition:CGPointMake(0, kPlatformPadding/2)];
     [penguin setPlayerState:PlayerStateIdle];
     [penguin setName:@"penguin"];
     return penguin;
