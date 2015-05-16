@@ -22,7 +22,6 @@
         self.fontColor = fontColor;
         
         [self resetScore];
-        [self updateText];
     }
     
     return self;
@@ -37,6 +36,11 @@
 }
 
 #pragma mark - Counter controls
+- (void)setScore:(NSInteger)newScore {
+    self.count = newScore;
+    [self updateText];
+}
+
 - (void)increment {
     self.count ++;
     [self updateText];
@@ -49,7 +53,9 @@
 
 - (void)resetScore {
     self.count = 0;
+    [self updateText];
 }
+
 #pragma mark - Node's text
 - (void)updateText {
     self.text = [NSString stringWithFormat:@"%lu",self.count];

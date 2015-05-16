@@ -15,6 +15,8 @@
 + (instancetype)scoreNodeWithFontNamed:(NSString*)fontName fontSize:(CGFloat)fontSize fontColor:(SKColor*)fontColor;
 - (instancetype)initWithFontNamed:(NSString*)fontName fontSize:(CGFloat)fontSize fontColor:(SKColor*)fontColor;
 
+- (void)setScore:(NSInteger)newScore;
+
 - (void)increment;
 - (void)decrement;
 - (void)resetScore;

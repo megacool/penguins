@@ -131,10 +131,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
     CGFloat _playerBubbleBirthrate;
 }
 
-- (instancetype)initWithSize:(CGSize)size {
-    return [super initWithSize:size];
-}
-
 - (void)didMoveToView:(SKView *)view {
     [self createNewGame];
     [self testStuff];
