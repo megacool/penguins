@@ -37,6 +37,8 @@
 		EE34346F1AAA52ED0010BE71 /* platform_iceberg.png in Resources */ = {isa = PBXBuildFile; fileRef = EE34346E1AAA52ED0010BE71 /* platform_iceberg.png */; };
 		EE34347B1AABF4180010BE71 /* PPSharedAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = EE34347A1AABF4180010BE71 /* PPSharedAssets.m */; };
 		EE34347C1AABF4180010BE71 /* PPSharedAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = EE34347A1AABF4180010BE71 /* PPSharedAssets.m */; };
+		EE34E63C1B07EB1A00EFDA41 /* SFAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = EE34E63B1B07EB1A00EFDA41 /* SFAudio.m */; };
+		EE34E63D1B07EB1A00EFDA41 /* SFAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = EE34E63B1B07EB1A00EFDA41 /* SFAudio.m */; };
 		EE4BD18A1AD4C379003371FF /* PPWaterSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4BD1891AD4C379003371FF /* PPWaterSprite.m */; };
 		EE514BED1AEAE643000AAF86 /* PPFadingSky.m in Sources */ = {isa = PBXBuildFile; fileRef = EE514BEC1AEAE643000AAF86 /* PPFadingSky.m */; };
 		EE5575EB1A5A108100B87145 /* PPGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5575E91A5A108100B87145 /* PPGameScene.m */; };
@@ -142,6 +144,8 @@
 		EE34346E1AAA52ED0010BE71 /* platform_iceberg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = platform_iceberg.png; sourceTree = "<group>"; };
 		EE3434791AABF4180010BE71 /* PPSharedAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPSharedAssets.h; path = ../PajamaPenguins_Shared/PPSharedAssets.h; sourceTree = "<group>"; };
 		EE34347A1AABF4180010BE71 /* PPSharedAssets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPSharedAssets.m; path = ../PajamaPenguins_Shared/PPSharedAssets.m; sourceTree = "<group>"; };
+		EE34E63A1B07EB1A00EFDA41 /* SFAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFAudio.h; path = SSKLibrary/SSKUtils/SFAudio.h; sourceTree = "<group>"; };
+		EE34E63B1B07EB1A00EFDA41 /* SFAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFAudio.m; path = SSKLibrary/SSKUtils/SFAudio.m; sourceTree = "<group>"; };
 		EE4BD1881AD4C379003371FF /* PPWaterSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPWaterSprite.h; sourceTree = "<group>"; };
 		EE4BD1891AD4C379003371FF /* PPWaterSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPWaterSprite.m; sourceTree = "<group>"; };
 		EE514BEB1AEAE643000AAF86 /* PPFadingSky.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPFadingSky.h; sourceTree = "<group>"; };
@@ -546,6 +550,8 @@
 				EEC6AEA11AE0ACD300FCB267 /* PPUserManager.m */,
 				EE9FD22B1AF890F800DD740E /* PPBackgroundManager.h */,
 				EE9FD22C1AF890F800DD740E /* PPBackgroundManager.m */,
+				EE34E63A1B07EB1A00EFDA41 /* SFAudio.h */,
+				EE34E63B1B07EB1A00EFDA41 /* SFAudio.m */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -720,6 +726,7 @@
 				EE8F0AB11AD7335700CB1CE1 /* PPCloudParallax.m in Sources */,
 				EEB870711AD0C421000D21E6 /* PPSkySprite.m in Sources */,
 				EE16B1881AC7911800B15134 /* SKColor+SFAdditions.m in Sources */,
+				EE34E63C1B07EB1A00EFDA41 /* SFAudio.m in Sources */,
 				41E430A918B09E5200E1427D /* ViewController.m in Sources */,
 				EE6F92FA1A82F39400286DC7 /* SSKiAD.m in Sources */,
 				EE6F92FE1A82F39400286DC7 /* SSKScene.m in Sources */,
@@ -756,6 +763,7 @@
 				EE6F93011A82F39400286DC7 /* SSKGraphicsUtils.m in Sources */,
 				EE168C981A97CEC2005403E6 /* SSKScoreNode.m in Sources */,
 				EED8E5A51A881D79001C8F59 /* PPPlayer.m in Sources */,
+				EE34E63D1B07EB1A00EFDA41 /* SFAudio.m in Sources */,
 				EE6F92FF1A82F39400286DC7 /* SSKScene.m in Sources */,
 				EE5575F01A5A16A700B87145 /* PPGameScene.m in Sources */,
 				41E430DF18B09E8600E1427D /* main.m in Sources */,
