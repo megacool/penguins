@@ -510,7 +510,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
         [self.worldNode addChild:coin];
         
         // Move coin off screen
-        [coin runAction:[SKAction moveToX:-self.size.width/2 - coin.size.width duration:kParallaxMoveSpeed] withKey:kCoinMoveKey completion:^{
+        [coin runAction:[SKAction moveToX:-self.size.width/4 * 3 duration:kParallaxMoveSpeed] withKey:kCoinMoveKey completion:^{
             [coin removeFromParent];
         }];
     }]];
@@ -746,7 +746,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
         SKNode *obstacle = [self newIceBerg];
         [self.worldNode addChild:obstacle];
         [obstacle runAction:[SKAction repeatActionForever:[self floatAction]]];
-        [obstacle runAction:[SKAction moveToX:-self.size.width duration:kParallaxMoveSpeed ] withKey:@"moveObstacle" completion:^{
+        [obstacle runAction:[SKAction moveToX:-self.size.width/4 * 3 duration:kParallaxMoveSpeed ] withKey:@"moveObstacle" completion:^{
             [obstacle removeFromParent];
         }];
     }];
