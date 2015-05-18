@@ -203,6 +203,14 @@ CGFloat const kParallaxMinSpeed = -20.0;
     
     _playerBubbleBirthrate = playerBubbleEmitter.particleBirthRate; //To reset the simulation
     
+    //Players star emitter
+    SKEmitterNode *playerStarEmitter = [PPSharedAssets sharedStarEmitter].copy;
+    [playerStarEmitter setName:@"starEmitter"];
+    [playerStarEmitter setZPosition:self.waterSurface.zPosition + 1];
+    [playerStarEmitter setTargetNode:bubbleTarget];
+    [playerStarEmitter setPosition:player.position];
+    [self.worldNode addChild:playerStarEmitter];
+    
     //Customize Splash emitters
     self.splashDownEmitter = [PPSharedAssets sharedPlayerSplashDownEmitter].copy;
     [self.splashDownEmitter setParticleColorSequence:nil];
@@ -350,6 +358,8 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self stopScoreCounter];
     [self checkIfHighScore];
     [self saveCoins];
+    
+    [self stopStarEmitter];
     
     [self stopObstacleSpawnSequence];
     [self stopObstacleMovement];
@@ -667,6 +677,13 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 #pragma mark - Water Surface
+- (SKAction*)waterSplashAtPosition:(CGPoint)position {
+    return [SKAction runBlock:^{
+        [self.waterSurface splash:position speed:-kMinSplashStrength/2];
+    }];
+}
+
+#pragma mark - Water emitters
 - (void)trackPlayerForSplash {
     CGFloat newPlayerHeight = [self currentPlayer].position.y;
     
@@ -705,10 +722,15 @@ CGFloat const kParallaxMinSpeed = -20.0;
     }
 }
 
-- (SKAction*)waterSplashAtPosition:(CGPoint)position {
-    return [SKAction runBlock:^{
-        [self.waterSurface splash:position speed:-kMinSplashStrength/2];
-    }];
+#pragma mark - Star Emitter
+- (void)updateStarEmitterPosition {
+    SKEmitterNode *starEmitter = (SKEmitterNode*)[self.worldNode childNodeWithName:@"starEmitter"];
+    [starEmitter setPosition:[self currentPlayer].position];
+}
+
+- (void)stopStarEmitter {
+    SKEmitterNode *starEmitter = (SKEmitterNode*)[self.worldNode childNodeWithName:@"starEmitter"];
+    [starEmitter setParticleBirthRate:0];
 }
 
 #pragma mark - Emitters
@@ -920,6 +942,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     if (self.gameState == PreGame || self.gameState == Playing) {
         [self updatePlayer:self.deltaTime];
         [self updateGravity];
+        [self updateStarEmitterPosition];
     }
     
     if (self.gameState == Playing) {

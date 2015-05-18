@@ -45,7 +45,8 @@
         sBubbleEmitter = [SKEmitterNode emitterNodeWithFileNamed:@"BubbleEmitter"];
         sPlayerSplashDownEmitter = [SKEmitterNode emitterNodeWithFileNamed:@"PlayerSplashDownEmitter"];
         sPlayerSplashUpEmitter = [SKEmitterNode emitterNodeWithFileNamed:@"PlayerSplashUpEmitter"];
-
+        sStarEmitter = [SKEmitterNode emitterNodeWithFileNamed:@"starEmitter"];
+        
         NSLog(@"Scene loaded in %f seconds",[[NSDate date] timeIntervalSinceDate:startTime]);
         
         if (!completion) {
@@ -145,6 +146,11 @@ static SKEmitterNode *sPlayerSplashDownEmitter = nil;
 static SKEmitterNode *sPlayerSplashUpEmitter = nil;
 + (SKEmitterNode*)sharedPlayerSplashUpEmitter {
     return sPlayerSplashUpEmitter;
+}
+
+static SKEmitterNode *sStarEmitter = nil;
++ (SKEmitterNode*)sharedStarEmitter {
+    return sStarEmitter;
 }
 
 @end

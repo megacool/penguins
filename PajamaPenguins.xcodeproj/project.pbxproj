@@ -43,7 +43,7 @@
 		EE514BED1AEAE643000AAF86 /* PPFadingSky.m in Sources */ = {isa = PBXBuildFile; fileRef = EE514BEC1AEAE643000AAF86 /* PPFadingSky.m */; };
 		EE5575EB1A5A108100B87145 /* PPGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5575E91A5A108100B87145 /* PPGameScene.m */; };
 		EE5575F01A5A16A700B87145 /* PPGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5575E91A5A108100B87145 /* PPGameScene.m */; };
-		EE5E21D41AC35F0400C9A310 /* EmitterParticle.png in Resources */ = {isa = PBXBuildFile; fileRef = EE5E21D21AC35F0400C9A310 /* EmitterParticle.png */; };
+		EE5E21D41AC35F0400C9A310 /* waterParticle.png in Resources */ = {isa = PBXBuildFile; fileRef = EE5E21D21AC35F0400C9A310 /* waterParticle.png */; };
 		EE6F92F81A82F39400286DC7 /* SSKGameCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6F92E71A82F39400286DC7 /* SSKGameCenter.m */; };
 		EE6F92FA1A82F39400286DC7 /* SSKiAD.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6F92E91A82F39400286DC7 /* SSKiAD.m */; };
 		EE6F92FC1A82F39400286DC7 /* SSKButtonNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6F92EC1A82F39400286DC7 /* SSKButtonNode.m */; };
@@ -54,6 +54,8 @@
 		EE6F93011A82F39400286DC7 /* SSKGraphicsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6F92F31A82F39400286DC7 /* SSKGraphicsUtils.m */; };
 		EE6F93041A82F39400286DC7 /* SSKPhysicsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6F92F71A82F39400286DC7 /* SSKPhysicsUtils.m */; };
 		EE6F93051A82F39400286DC7 /* SSKPhysicsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6F92F71A82F39400286DC7 /* SSKPhysicsUtils.m */; };
+		EE71EE051B0987F600C89D4E /* starEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = EE71EE031B0987F600C89D4E /* starEmitter.sks */; };
+		EE71EE081B09891000C89D4E /* starParticle.png in Resources */ = {isa = PBXBuildFile; fileRef = EE71EE071B09891000C89D4E /* starParticle.png */; };
 		EE8CF09E1ACB87B800BFC4A8 /* SSKWaterSurfaceNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8CF09D1ACB87B800BFC4A8 /* SSKWaterSurfaceNode.m */; };
 		EE8CF0A11ACB885500BFC4A8 /* SKTexture+SFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8CF0A01ACB885500BFC4A8 /* SKTexture+SFAdditions.m */; };
 		EE8ED2261ACB2288007A3F3F /* penguin_black.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EE8ED2251ACB2288007A3F3F /* penguin_black.atlas */; };
@@ -79,8 +81,6 @@
 		EEC6AEA21AE0ACD300FCB267 /* PPUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC6AEA11AE0ACD300FCB267 /* PPUserManager.m */; };
 		EEC9BA261AE89417006A7118 /* buttons.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EEC9BA251AE89417006A7118 /* buttons.atlas */; };
 		EEC9BA491AE9D0B4006A7118 /* PPButtonNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC9BA481AE9D0B4006A7118 /* PPButtonNode.m */; };
-		EEC9DB7C1AA7B2040022CDF1 /* EmitterParticleOld.png in Resources */ = {isa = PBXBuildFile; fileRef = EEC9DB7B1AA7B2040022CDF1 /* EmitterParticleOld.png */; };
-		EEC9DB7D1AA7B2040022CDF1 /* EmitterParticleOld.png in Resources */ = {isa = PBXBuildFile; fileRef = EEC9DB7B1AA7B2040022CDF1 /* EmitterParticleOld.png */; };
 		EEC9DB821AA7B3480022CDF1 /* PlayerSplashDownEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEC9DB811AA7B3480022CDF1 /* PlayerSplashDownEmitter.sks */; };
 		EEC9DB831AA7B3480022CDF1 /* PlayerSplashDownEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEC9DB811AA7B3480022CDF1 /* PlayerSplashDownEmitter.sks */; };
 		EEC9DB861AA7B5510022CDF1 /* SnowEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEC9DB841AA7B5510022CDF1 /* SnowEmitter.sks */; };
@@ -152,7 +152,7 @@
 		EE514BEC1AEAE643000AAF86 /* PPFadingSky.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPFadingSky.m; sourceTree = "<group>"; };
 		EE5575E81A5A108100B87145 /* PPGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPGameScene.h; sourceTree = "<group>"; };
 		EE5575E91A5A108100B87145 /* PPGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPGameScene.m; sourceTree = "<group>"; };
-		EE5E21D21AC35F0400C9A310 /* EmitterParticle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EmitterParticle.png; sourceTree = "<group>"; };
+		EE5E21D21AC35F0400C9A310 /* waterParticle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waterParticle.png; sourceTree = "<group>"; };
 		EE6F92E61A82F39400286DC7 /* SSKGameCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKGameCenter.h; sourceTree = "<group>"; };
 		EE6F92E71A82F39400286DC7 /* SSKGameCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKGameCenter.m; sourceTree = "<group>"; };
 		EE6F92E81A82F39400286DC7 /* SSKiAD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKiAD.h; sourceTree = "<group>"; };
@@ -166,6 +166,8 @@
 		EE6F92F41A82F39400286DC7 /* SSKMathUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKMathUtils.h; sourceTree = "<group>"; };
 		EE6F92F61A82F39400286DC7 /* SSKPhysicsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKPhysicsUtils.h; sourceTree = "<group>"; };
 		EE6F92F71A82F39400286DC7 /* SSKPhysicsUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKPhysicsUtils.m; sourceTree = "<group>"; };
+		EE71EE031B0987F600C89D4E /* starEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = starEmitter.sks; sourceTree = "<group>"; };
+		EE71EE071B09891000C89D4E /* starParticle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starParticle.png; sourceTree = "<group>"; };
 		EE8CF09C1ACB87B800BFC4A8 /* SSKWaterSurfaceNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKWaterSurfaceNode.h; sourceTree = "<group>"; };
 		EE8CF09D1ACB87B800BFC4A8 /* SSKWaterSurfaceNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKWaterSurfaceNode.m; sourceTree = "<group>"; };
 		EE8CF09F1ACB885500BFC4A8 /* SKTexture+SFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKTexture+SFAdditions.h"; sourceTree = "<group>"; };
@@ -198,7 +200,6 @@
 		EEC9BA251AE89417006A7118 /* buttons.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = buttons.atlas; sourceTree = "<group>"; };
 		EEC9BA471AE9D0B4006A7118 /* PPButtonNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPButtonNode.h; sourceTree = "<group>"; };
 		EEC9BA481AE9D0B4006A7118 /* PPButtonNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPButtonNode.m; sourceTree = "<group>"; };
-		EEC9DB7B1AA7B2040022CDF1 /* EmitterParticleOld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EmitterParticleOld.png; sourceTree = "<group>"; };
 		EEC9DB811AA7B3480022CDF1 /* PlayerSplashDownEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = PlayerSplashDownEmitter.sks; path = PajamaPenguins_Shared/PlayerSplashDownEmitter.sks; sourceTree = SOURCE_ROOT; };
 		EEC9DB841AA7B5510022CDF1 /* SnowEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SnowEmitter.sks; sourceTree = "<group>"; };
 		EEC9DB8B1AA7BF5E0022CDF1 /* SSKProgressBarNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKProgressBarNode.h; sourceTree = "<group>"; };
@@ -378,8 +379,8 @@
 		EE3434801AAC180B0010BE71 /* EmitterAssets */ = {
 			isa = PBXGroup;
 			children = (
-				EE5E21D21AC35F0400C9A310 /* EmitterParticle.png */,
-				EEC9DB7B1AA7B2040022CDF1 /* EmitterParticleOld.png */,
+				EE5E21D21AC35F0400C9A310 /* waterParticle.png */,
+				EE71EE071B09891000C89D4E /* starParticle.png */,
 			);
 			name = EmitterAssets;
 			sourceTree = "<group>";
@@ -524,6 +525,7 @@
 				EEAE6FA31AA68B8B00215C7E /* ObstacleSplashEmitter.sks */,
 				EEAE6FA91AA68F9900215C7E /* BubbleEmitter.sks */,
 				EEC9DB841AA7B5510022CDF1 /* SnowEmitter.sks */,
+				EE71EE031B0987F600C89D4E /* starEmitter.sks */,
 				EE3434801AAC180B0010BE71 /* EmitterAssets */,
 			);
 			name = Emitters;
@@ -669,8 +671,8 @@
 				EE168C8E1A97C952005403E6 /* Fipps-Regular.otf in Resources */,
 				EEC9BA261AE89417006A7118 /* buttons.atlas in Resources */,
 				EEAE6FA41AA68B8B00215C7E /* ObstacleSplashEmitter.sks in Resources */,
+				EE71EE081B09891000C89D4E /* starParticle.png in Resources */,
 				EE1FCA101AE311F4006DDC3B /* icebergs.atlas in Resources */,
-				EEC9DB7C1AA7B2040022CDF1 /* EmitterParticleOld.png in Resources */,
 				EEC9DB821AA7B3480022CDF1 /* PlayerSplashDownEmitter.sks in Resources */,
 				EE8ED2261ACB2288007A3F3F /* penguin_black.atlas in Resources */,
 				EE34346F1AAA52ED0010BE71 /* platform_iceberg.png in Resources */,
@@ -681,7 +683,8 @@
 				EEC9DB861AA7B5510022CDF1 /* SnowEmitter.sks in Resources */,
 				EEAE6FAA1AA68F9900215C7E /* BubbleEmitter.sks in Resources */,
 				41E4309A18B09E5200E1427D /* InfoPlist.strings in Resources */,
-				EE5E21D41AC35F0400C9A310 /* EmitterParticle.png in Resources */,
+				EE5E21D41AC35F0400C9A310 /* waterParticle.png in Resources */,
+				EE71EE051B0987F600C89D4E /* starEmitter.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -694,7 +697,6 @@
 				EEAE6F9D1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks in Resources */,
 				41E430DD18B09E8600E1427D /* InfoPlist.strings in Resources */,
 				EEAE6FA51AA68B8B00215C7E /* ObstacleSplashEmitter.sks in Resources */,
-				EEC9DB7D1AA7B2040022CDF1 /* EmitterParticleOld.png in Resources */,
 				EE168C8F1A97C952005403E6 /* Fipps-Regular.otf in Resources */,
 				EEAE6FAB1AA68F9900215C7E /* BubbleEmitter.sks in Resources */,
 				EEC9DB871AA7B5510022CDF1 /* SnowEmitter.sks in Resources */,
