@@ -208,7 +208,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [playerStarEmitter setName:@"starEmitter"];
     [playerStarEmitter setZPosition:self.waterSurface.zPosition + 1];
     [playerStarEmitter setTargetNode:bubbleTarget];
-    [playerStarEmitter setPosition:player.position];
+    [playerStarEmitter setPosition:CGPointMake(player.position.x - player.size.height/2, player.position.y)];
     [self.worldNode addChild:playerStarEmitter];
     
     //Customize Splash emitters
@@ -724,8 +724,9 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 #pragma mark - Star Emitter
 - (void)updateStarEmitterPosition {
+    CGPoint playerPosition = [self currentPlayer].position;
     SKEmitterNode *starEmitter = (SKEmitterNode*)[self.worldNode childNodeWithName:@"starEmitter"];
-    [starEmitter setPosition:[self currentPlayer].position];
+    [starEmitter setPosition:CGPointMake(starEmitter.position.x, playerPosition.y)];
 }
 
 - (void)stopStarEmitter {
