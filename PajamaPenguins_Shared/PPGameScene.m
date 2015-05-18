@@ -536,13 +536,13 @@ CGFloat const kParallaxMinSpeed = -20.0;
 - (void)spawnFishForever {
     if ([self actionForKey:@"fishSpawn"]) return;
     
-    SKAction *wait = [SKAction waitForDuration:0.4];
+    SKAction *wait = [SKAction waitForDuration:1];
     SKAction *move = [SKAction moveToX:-self.size.width/4 * 3 duration:3.5];
     
     SKAction *spawnAndMove = [SKAction runBlock:^{
         
         // Get random y position
-        CGFloat randY = SSKRandomFloatInRange(self.size.height/10, self.size.height/10 * 4);
+        CGFloat randY = SSKRandomFloatInRange(self.size.height/10, self.size.height/2);
 
         // Spawn a new fish
         PPFishNode *fish = [PPFishNode node];

@@ -144,8 +144,8 @@
 		EE34346E1AAA52ED0010BE71 /* platform_iceberg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = platform_iceberg.png; sourceTree = "<group>"; };
 		EE3434791AABF4180010BE71 /* PPSharedAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPSharedAssets.h; path = ../PajamaPenguins_Shared/PPSharedAssets.h; sourceTree = "<group>"; };
 		EE34347A1AABF4180010BE71 /* PPSharedAssets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPSharedAssets.m; path = ../PajamaPenguins_Shared/PPSharedAssets.m; sourceTree = "<group>"; };
-		EE34E63A1B07EB1A00EFDA41 /* SFAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFAudio.h; path = SSKLibrary/SSKUtils/SFAudio.h; sourceTree = "<group>"; };
-		EE34E63B1B07EB1A00EFDA41 /* SFAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFAudio.m; path = SSKLibrary/SSKUtils/SFAudio.m; sourceTree = "<group>"; };
+		EE34E63A1B07EB1A00EFDA41 /* SFAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAudio.h; sourceTree = "<group>"; };
+		EE34E63B1B07EB1A00EFDA41 /* SFAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAudio.m; sourceTree = "<group>"; };
 		EE4BD1881AD4C379003371FF /* PPWaterSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPWaterSprite.h; sourceTree = "<group>"; };
 		EE4BD1891AD4C379003371FF /* PPWaterSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPWaterSprite.m; sourceTree = "<group>"; };
 		EE514BEB1AEAE643000AAF86 /* PPFadingSky.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPFadingSky.h; sourceTree = "<group>"; };
@@ -490,6 +490,8 @@
 		EE6F92F01A82F39400286DC7 /* SSKUtils */ = {
 			isa = PBXGroup;
 			children = (
+				EE34E63A1B07EB1A00EFDA41 /* SFAudio.h */,
+				EE34E63B1B07EB1A00EFDA41 /* SFAudio.m */,
 				EEBA93F01A93FD4F00CBD711 /* TwoDimensionalArray.h */,
 				EEBA93F11A93FD4F00CBD711 /* TwoDimensionalArray.m */,
 				EE6F92F21A82F39400286DC7 /* SSKGraphicsUtils.h */,
@@ -550,8 +552,6 @@
 				EEC6AEA11AE0ACD300FCB267 /* PPUserManager.m */,
 				EE9FD22B1AF890F800DD740E /* PPBackgroundManager.h */,
 				EE9FD22C1AF890F800DD740E /* PPBackgroundManager.m */,
-				EE34E63A1B07EB1A00EFDA41 /* SFAudio.h */,
-				EE34E63B1B07EB1A00EFDA41 /* SFAudio.m */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
