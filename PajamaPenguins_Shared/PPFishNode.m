@@ -25,9 +25,13 @@ NSString * const kFishActionKey = @"fishActionKey";
         CGFloat randomR = SSKRandomFloatInRange(1, 255);
         CGFloat randomG = SSKRandomFloatInRange(1, 255);
         CGFloat randomB = SSKRandomFloatInRange(1, 255);
-        [self setColor:[SKColor colorWithR:randomR g:randomG b:randomB]];
+        
+        // To make the fish have a better random color pallette
+        CGFloat mixedB = randomB + 100 / 2;
+        
+        [self setColor:[SKColor colorWithR:randomR g:randomG b:mixedB]];
     }
-    
+
     return self;
 }
 

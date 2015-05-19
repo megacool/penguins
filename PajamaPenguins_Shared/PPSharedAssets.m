@@ -55,11 +55,11 @@
         [sStarEmitter setParticleBirthRate:50];
         [sStarEmitter setParticleLifetime:2];
         [sStarEmitter setParticlePositionRange:CGVectorMake(0, 10)];
-        [sStarEmitter setEmissionAngle:180];
+        [sStarEmitter setEmissionAngle:SSKDegreesToRadians(180)];
         [sStarEmitter setParticleSpeed:300];
         [sStarEmitter setParticleAlpha:1];
         [sStarEmitter setParticleAlphaRange:0.2];
-        [sStarEmitter setParticleScale:0.1];
+        [sStarEmitter setParticleScale:0.15];
         [sStarEmitter setParticleScaleRange:0.05];
         [sStarEmitter setParticleScaleSpeed:-0.05];
         [sStarEmitter setParticleRotationSpeed:150];
