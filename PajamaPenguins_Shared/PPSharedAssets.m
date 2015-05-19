@@ -45,7 +45,25 @@
         sBubbleEmitter = [SKEmitterNode emitterNodeWithFileNamed:@"BubbleEmitter"];
         sPlayerSplashDownEmitter = [SKEmitterNode emitterNodeWithFileNamed:@"PlayerSplashDownEmitter"];
         sPlayerSplashUpEmitter = [SKEmitterNode emitterNodeWithFileNamed:@"PlayerSplashUpEmitter"];
-        sStarEmitter = [SKEmitterNode emitterNodeWithFileNamed:@"starEmitter"];
+        
+        // Cant change emitter color if created with an sks file
+        //        sStarEmitter = [SKEmitterNode emitterNodeWithFileNamed:@"starEmitter"];
+        
+        sStarEmitter = [[SKEmitterNode alloc] init];
+        [sStarEmitter setParticleTexture:[SKTexture textureWithImageNamed:@"starParticle"]];
+        [sStarEmitter setParticleColor:[UIColor colorWithRed:1.000 green:0.904 blue:0.000 alpha:1.000]];
+        [sStarEmitter setParticleBirthRate:50];
+        [sStarEmitter setParticleLifetime:2];
+        [sStarEmitter setParticlePositionRange:CGVectorMake(0, 10)];
+        [sStarEmitter setEmissionAngle:180];
+        [sStarEmitter setParticleSpeed:300];
+        [sStarEmitter setParticleAlpha:1];
+        [sStarEmitter setParticleAlphaRange:0.2];
+        [sStarEmitter setParticleScale:0.1];
+        [sStarEmitter setParticleScaleRange:0.05];
+        [sStarEmitter setParticleScaleSpeed:-0.05];
+        [sStarEmitter setParticleRotationSpeed:150];
+        [sStarEmitter setParticleColorBlendFactor:1.0];
         
         NSLog(@"Scene loaded in %f seconds",[[NSDate date] timeIntervalSinceDate:startTime]);
         
