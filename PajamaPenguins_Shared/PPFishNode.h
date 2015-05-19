@@ -8,6 +8,8 @@
 
 #import "PPSprite.h"
 
+extern NSString * const kFishName;
+
 @interface PPFishNode : PPSprite
 - (void)swimForever;
 @end

@@ -58,7 +58,7 @@
 
 #pragma mark - Node's text
 - (void)updateText {
-    self.text = [NSString stringWithFormat:@"%lu",self.count];
+    self.text = [NSString stringWithFormat:@"%lu",(long)self.count];
 }
 
 @end

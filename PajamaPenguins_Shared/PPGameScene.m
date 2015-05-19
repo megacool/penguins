@@ -471,7 +471,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     }];
 }
 
-- (void)checksCoinsDidIntersect {
+- (void)checkCoinsDidIntersect {
     [self.worldNode enumerateChildNodesWithName:kCoinName usingBlock:^(SKNode *node, BOOL *stop) {
         PPCoinNode *coin = (PPCoinNode*)node;
         if (CGRectIntersectsRect([self currentPlayer].frame, coin.frame)) {
@@ -573,6 +573,17 @@ CGFloat const kParallaxMinSpeed = -20.0;
     SKAction *spawnSequence = [SKAction sequence:@[wait,spawnAndMove]];
     
     [self runAction:[SKAction repeatActionForever:spawnSequence] withKey:@"fishSpawn"];
+}
+
+- (void)checkFishDidIntersect {
+    [self.worldNode enumerateChildNodesWithName:kFishName usingBlock:^(SKNode *node, BOOL *stop) {
+        PPFishNode *fish = (PPFishNode*)node;
+        if (CGRectIntersectsRect([self currentPlayer].frame, fish.frame)) {
+            [[self currentStarEmitter] setParticleColor:[fish color]];
+            [fish removeFromParent];
+            NSLog(@"INTERSECT!");
+        }
+    }];
 }
 
 #pragma mark - Breath Meter
@@ -732,6 +743,10 @@ CGFloat const kParallaxMinSpeed = -20.0;
 - (void)stopStarEmitter {
     SKEmitterNode *starEmitter = (SKEmitterNode*)[self.worldNode childNodeWithName:@"starEmitter"];
     [starEmitter setParticleBirthRate:0];
+}
+
+- (SKEmitterNode*)currentStarEmitter {
+    return (SKEmitterNode*)[self.worldNode childNodeWithName:@"starEmitter"];
 }
 
 #pragma mark - Emitters
@@ -950,7 +965,8 @@ CGFloat const kParallaxMinSpeed = -20.0;
         [self updateBreathTimer:self.deltaTime];
         [self updateBreathMeter];
         [self checkBreathMeterForGameOver];
-        [self checksCoinsDidIntersect];
+        [self checkCoinsDidIntersect];
+        [self checkFishDidIntersect];
     }
 
     //Background
