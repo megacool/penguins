@@ -587,7 +587,17 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 #pragma mark - Breath Meter
 - (void)updateBreathMeter {
-    [(SSKProgressBarNode*)[self.hudNode childNodeWithName:@"progressBar"] setProgress:_breathTimer/kMaxBreathTimer];
+    CGFloat currentProgress = _breathTimer/kMaxBreathTimer;
+    SSKProgressBarNode *progressBar = (SSKProgressBarNode*)[self.hudNode childNodeWithName:@"progressBar"];
+    
+    [progressBar setProgress:currentProgress];
+    
+    if (currentProgress < 0.30) {
+        [progressBar startFlash];
+    }
+    else {
+        [progressBar stopFlash];
+    }
 }
 
 - (void)checkBreathMeterForGameOver {

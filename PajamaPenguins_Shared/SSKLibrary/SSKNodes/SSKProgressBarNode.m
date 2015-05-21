@@ -9,11 +9,15 @@
 #import "SSKProgressBarNode.h"
 
 @interface SSKProgressBarNode()
+
 @property (nonatomic) SKSpriteNode *barBackground;
 @property (nonatomic) SKSpriteNode *bar;
 @property (nonatomic) SKShapeNode *barFrame;
 
+@property (nonatomic) SKColor *startColor;
+
 @property (nonatomic, readwrite) CGFloat currentProgress;
+
 @end
 
 @implementation SSKProgressBarNode
@@ -26,8 +30,9 @@
     self = [super init];
     
     if (self) {
+        self.startColor = barColor;
         self.barType = barType;
-        self.size = size;
+        _size = size;
         
         self.barBackground = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:size];
         [self addChild:self.barBackground];
@@ -54,12 +59,6 @@
     return [self initWithFrameColor:frameColor barColor:barColor size:size barType:BarTypeHorizontal];
 }
 
-#pragma mark - Variable overrides
-- (void)setSize:(CGSize)size {
-    [self.barBackground setSize:size];
-    [self.bar setSize:size];
-}
-
 #pragma mark - Set Progress
 - (void)setProgress:(CGFloat)progress {
     if (progress >= 0.0 && progress <= 1.0 ) {
@@ -79,19 +78,23 @@
 }
 
 #pragma mark - Bar Actions
-- (void)flash {
+- (void)startFlash {
     if ([self actionForKey:@"flashKey"]) return;
     
-    SKColor *startColor = self.bar.color;
     SKAction *flashOn = [SKAction runBlock:^{
         [self.bar setColor:[SKColor whiteColor]];
     }];
     SKAction *flashOff = [SKAction runBlock:^{
-        [self.bar setColor:startColor];
+        [self.bar setColor:self.startColor];
     }];
-    SKAction *wait = [SKAction waitForDuration:.3];
+    SKAction *wait = [SKAction waitForDuration:.15];
     SKAction *seq = [SKAction sequence:@[flashOn,wait,flashOff,wait]];
     [self runAction:[SKAction repeatActionForever:seq] withKey:@"flashKey"];
+}
+
+- (void)stopFlash {
+    [self removeActionForKey:@"flashKey"];
+    [self.bar setColor:self.startColor];
 }
 
 @end
