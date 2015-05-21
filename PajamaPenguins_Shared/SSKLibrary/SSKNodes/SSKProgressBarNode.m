@@ -18,6 +18,10 @@
 
 @implementation SSKProgressBarNode
 
++ (instancetype)barWithFrameColor:(SKColor*)frameColor barColor:(SKColor*)barColor size:(CGSize)size barType:(BarType)barType {
+    return [[self alloc] initWithFrameColor:frameColor barColor:barColor size:size barType:barType];
+}
+
 - (instancetype)initWithFrameColor:(SKColor*)frameColor barColor:(SKColor*)barColor size:(CGSize)size barType:(BarType)barType {
     self = [super init];
     
@@ -42,8 +46,18 @@
     return self;
 }
 
++ (instancetype)barWithFrameColor:(SKColor*)frameColor barColor:(SKColor*)barColor size:(CGSize)size {
+    return [[self alloc] initWithFrameColor:frameColor barColor:barColor size:size];
+}
+
 - (instancetype)initWithFrameColor:(SKColor*)frameColor barColor:(SKColor*)barColor size:(CGSize)size {
     return [self initWithFrameColor:frameColor barColor:barColor size:size barType:BarTypeHorizontal];
+}
+
+#pragma mark - Variable overrides
+- (void)setSize:(CGSize)size {
+    [self.barBackground setSize:size];
+    [self.bar setSize:size];
 }
 
 #pragma mark - Set Progress
@@ -62,6 +76,22 @@
     } else {
         NSLog(@"Can't set progress outside of 0 - 1.0");
     }
+}
+
+#pragma mark - Bar Actions
+- (void)flash {
+    if ([self actionForKey:@"flashKey"]) return;
+    
+    SKColor *startColor = self.bar.color;
+    SKAction *flashOn = [SKAction runBlock:^{
+        [self.bar setColor:[SKColor whiteColor]];
+    }];
+    SKAction *flashOff = [SKAction runBlock:^{
+        [self.bar setColor:startColor];
+    }];
+    SKAction *wait = [SKAction waitForDuration:.3];
+    SKAction *seq = [SKAction sequence:@[flashOn,wait,flashOff,wait]];
+    [self runAction:[SKAction repeatActionForever:seq] withKey:@"flashKey"];
 }
 
 @end

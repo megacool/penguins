@@ -15,12 +15,18 @@ typedef NS_ENUM(NSUInteger, BarType) {
 
 @interface SSKProgressBarNode : SKNode
 
++ (instancetype)barWithFrameColor:(SKColor*)frameColor barColor:(SKColor*)barColor size:(CGSize)size barType:(BarType)barType;
 - (instancetype)initWithFrameColor:(SKColor*)frameColor barColor:(SKColor*)barColor size:(CGSize)size barType:(BarType)barType;
+
++ (instancetype)barWithFrameColor:(SKColor*)frameColor barColor:(SKColor*)barColor size:(CGSize)size;
 - (instancetype)initWithFrameColor:(SKColor*)frameColor barColor:(SKColor*)barColor size:(CGSize)size;
+
 - (void)setProgress:(CGFloat)progress;
+- (void)flash;
 
 @property (nonatomic) BarType barType;
 @property (nonatomic) CGSize size;
+
 @property (nonatomic, readonly) CGFloat currentProgress;
 
 @end

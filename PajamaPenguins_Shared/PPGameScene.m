@@ -581,7 +581,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
         if (CGRectIntersectsRect([self currentPlayer].frame, fish.frame)) {
             [[self currentStarEmitter] setParticleColor:[fish color]];
             [fish removeFromParent];
-            NSLog(@"INTERSECT!");
         }
     }];
 }
