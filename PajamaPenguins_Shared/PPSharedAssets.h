@@ -45,5 +45,6 @@ typedef void (^AssetCompletionHandler)(void);
 + (SKEmitterNode*)sharedPlayerSplashDownEmitter;
 + (SKEmitterNode*)sharedPlayerSplashUpEmitter;
 + (SKEmitterNode*)sharedStarEmitter;
++ (SKEmitterNode*)sharedStarExplosionEmitter;
 
 @end

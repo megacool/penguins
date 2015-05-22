@@ -45,6 +45,7 @@
         sBubbleEmitter = [SKEmitterNode emitterNodeWithFileNamed:@"BubbleEmitter"];
         sPlayerSplashDownEmitter = [SKEmitterNode emitterNodeWithFileNamed:@"PlayerSplashDownEmitter"];
         sPlayerSplashUpEmitter = [SKEmitterNode emitterNodeWithFileNamed:@"PlayerSplashUpEmitter"];
+        sStarExplosionEmitter = [SKEmitterNode emitterNodeWithFileNamed:@"StarExplosion"];
         
         // Cant change emitter color if created with an sks file
         //        sStarEmitter = [SKEmitterNode emitterNodeWithFileNamed:@"starEmitter"];
@@ -64,6 +65,7 @@
         [sStarEmitter setParticleScaleSpeed:-0.05];
         [sStarEmitter setParticleRotationSpeed:150];
         [sStarEmitter setParticleColorBlendFactor:1.0];
+        
         
         NSLog(@"Scene loaded in %f seconds",[[NSDate date] timeIntervalSinceDate:startTime]);
         
@@ -169,6 +171,11 @@ static SKEmitterNode *sPlayerSplashUpEmitter = nil;
 static SKEmitterNode *sStarEmitter = nil;
 + (SKEmitterNode*)sharedStarEmitter {
     return sStarEmitter;
+}
+
+static SKEmitterNode *sStarExplosionEmitter = nil;
++ (SKEmitterNode*)sharedStarExplosionEmitter {
+    return sStarExplosionEmitter;
 }
 
 @end

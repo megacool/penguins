@@ -147,18 +147,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self createWorldLayer];
     [self startGameAnimations];
 }
-#pragma mark - Gestures
-- (void)addGestureRecognizers {
-    UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
-    [gestureRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
-    [self.view addGestureRecognizer:gestureRecognizer];
-}
-
-- (void)handleSwipe:(UISwipeGestureRecognizer*)swipe {
-    if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
-        NSLog(@"swipe right");
-    }
-}
 
 #pragma mark - World Layer
 - (void)createWorldLayer {
@@ -226,12 +214,12 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self.worldNode addChild:playerStarEmitter];
     
     //Customize Splash emitters
-    self.splashDownEmitter = [PPSharedAssets sharedPlayerSplashDownEmitter].copy;
+    self.splashDownEmitter = [PPSharedAssets sharedPlayerSplashDownEmitter];
     [self.splashDownEmitter setParticleColorSequence:nil];
     [self.splashDownEmitter setParticleColorBlendFactor:1.0];
     [self.splashDownEmitter setParticleColor:self.waterSurface.color];
     
-    self.splashUpEmitter = [PPSharedAssets sharedPlayerSplashUpEmitter].copy;
+    self.splashUpEmitter = [PPSharedAssets sharedPlayerSplashUpEmitter];
     [self.splashUpEmitter setParticleColorSequence:nil];
     [self.splashUpEmitter setParticleColorBlendFactor:1.0];
     [self.splashUpEmitter setParticleColor:self.waterSurface.color];
@@ -946,7 +934,23 @@ CGFloat const kParallaxMinSpeed = -20.0;
     }
 }
 
-#pragma mark - Input
+#pragma mark - Gestures
+- (void)addGestureRecognizers {
+    UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+    [gestureRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
+    [self.view addGestureRecognizer:gestureRecognizer];
+}
+
+- (void)handleSwipe:(UISwipeGestureRecognizer*)swipe {
+    // Make sure swipe occurs during game
+    if (!self.gameState == PreGame && !self.gameState == Playing) return;
+    
+    if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
+        [self runOneShotEmitter:[PPSharedAssets sharedStarExplosionEmitter] location:[self currentPlayer].position];
+    }
+}
+
+#pragma mark - Touch Input
 - (void)interactionBeganAtPosition:(CGPoint)position {
     if (self.gameState == PreGame) {
         [self gameStart];

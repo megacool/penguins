@@ -54,7 +54,7 @@
 		EE6F93011A82F39400286DC7 /* SSKGraphicsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6F92F31A82F39400286DC7 /* SSKGraphicsUtils.m */; };
 		EE6F93041A82F39400286DC7 /* SSKPhysicsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6F92F71A82F39400286DC7 /* SSKPhysicsUtils.m */; };
 		EE6F93051A82F39400286DC7 /* SSKPhysicsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6F92F71A82F39400286DC7 /* SSKPhysicsUtils.m */; };
-		EE71EE051B0987F600C89D4E /* starEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = EE71EE031B0987F600C89D4E /* starEmitter.sks */; };
+		EE71EE051B0987F600C89D4E /* StarEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = EE71EE031B0987F600C89D4E /* StarEmitter.sks */; };
 		EE71EE081B09891000C89D4E /* starParticle.png in Resources */ = {isa = PBXBuildFile; fileRef = EE71EE071B09891000C89D4E /* starParticle.png */; };
 		EE8CF09E1ACB87B800BFC4A8 /* SSKWaterSurfaceNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8CF09D1ACB87B800BFC4A8 /* SSKWaterSurfaceNode.m */; };
 		EE8CF0A11ACB885500BFC4A8 /* SKTexture+SFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8CF0A01ACB885500BFC4A8 /* SKTexture+SFAdditions.m */; };
@@ -78,6 +78,8 @@
 		EEBA93D01A8C1FED00CBD711 /* SSKCameraNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBA93CE1A8C1FED00CBD711 /* SSKCameraNode.m */; };
 		EEBA93F21A93FD4F00CBD711 /* TwoDimensionalArray.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBA93F11A93FD4F00CBD711 /* TwoDimensionalArray.m */; };
 		EEBA93F31A93FD4F00CBD711 /* TwoDimensionalArray.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBA93F11A93FD4F00CBD711 /* TwoDimensionalArray.m */; };
+		EEC225491B0FE0300098010C /* StarExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEC225471B0FE0300098010C /* StarExplosion.sks */; };
+		EEC2254A1B0FE0300098010C /* StarExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEC225471B0FE0300098010C /* StarExplosion.sks */; };
 		EEC6AEA21AE0ACD300FCB267 /* PPUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC6AEA11AE0ACD300FCB267 /* PPUserManager.m */; };
 		EEC9BA261AE89417006A7118 /* buttons.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EEC9BA251AE89417006A7118 /* buttons.atlas */; };
 		EEC9BA491AE9D0B4006A7118 /* PPButtonNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC9BA481AE9D0B4006A7118 /* PPButtonNode.m */; };
@@ -166,7 +168,7 @@
 		EE6F92F41A82F39400286DC7 /* SSKMathUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKMathUtils.h; sourceTree = "<group>"; };
 		EE6F92F61A82F39400286DC7 /* SSKPhysicsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKPhysicsUtils.h; sourceTree = "<group>"; };
 		EE6F92F71A82F39400286DC7 /* SSKPhysicsUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKPhysicsUtils.m; sourceTree = "<group>"; };
-		EE71EE031B0987F600C89D4E /* starEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = starEmitter.sks; sourceTree = "<group>"; };
+		EE71EE031B0987F600C89D4E /* StarEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StarEmitter.sks; sourceTree = "<group>"; };
 		EE71EE071B09891000C89D4E /* starParticle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starParticle.png; sourceTree = "<group>"; };
 		EE8CF09C1ACB87B800BFC4A8 /* SSKWaterSurfaceNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKWaterSurfaceNode.h; sourceTree = "<group>"; };
 		EE8CF09D1ACB87B800BFC4A8 /* SSKWaterSurfaceNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKWaterSurfaceNode.m; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 		EEBA93CE1A8C1FED00CBD711 /* SSKCameraNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKCameraNode.m; sourceTree = "<group>"; };
 		EEBA93F01A93FD4F00CBD711 /* TwoDimensionalArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoDimensionalArray.h; sourceTree = "<group>"; };
 		EEBA93F11A93FD4F00CBD711 /* TwoDimensionalArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoDimensionalArray.m; sourceTree = "<group>"; };
+		EEC225471B0FE0300098010C /* StarExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StarExplosion.sks; sourceTree = "<group>"; };
 		EEC6AEA01AE0ACD300FCB267 /* PPUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPUserManager.h; sourceTree = "<group>"; };
 		EEC6AEA11AE0ACD300FCB267 /* PPUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPUserManager.m; sourceTree = "<group>"; };
 		EEC9BA251AE89417006A7118 /* buttons.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = buttons.atlas; sourceTree = "<group>"; };
@@ -525,7 +528,8 @@
 				EEAE6FA31AA68B8B00215C7E /* ObstacleSplashEmitter.sks */,
 				EEAE6FA91AA68F9900215C7E /* BubbleEmitter.sks */,
 				EEC9DB841AA7B5510022CDF1 /* SnowEmitter.sks */,
-				EE71EE031B0987F600C89D4E /* starEmitter.sks */,
+				EE71EE031B0987F600C89D4E /* StarEmitter.sks */,
+				EEC225471B0FE0300098010C /* StarExplosion.sks */,
 				EE3434801AAC180B0010BE71 /* EmitterAssets */,
 			);
 			name = Emitters;
@@ -678,13 +682,14 @@
 				EE34346F1AAA52ED0010BE71 /* platform_iceberg.png in Resources */,
 				EED9305A1AF038DD00C5C972 /* fish.atlas in Resources */,
 				EED56A5C1AF1AB9D001C56EF /* coins.atlas in Resources */,
+				EEC225491B0FE0300098010C /* StarExplosion.sks in Resources */,
 				41E430B018B09E5200E1427D /* Images.xcassets in Resources */,
 				EEAF97671ACDFCCD007D0DC2 /* clouds.atlas in Resources */,
 				EEC9DB861AA7B5510022CDF1 /* SnowEmitter.sks in Resources */,
 				EEAE6FAA1AA68F9900215C7E /* BubbleEmitter.sks in Resources */,
 				41E4309A18B09E5200E1427D /* InfoPlist.strings in Resources */,
 				EE5E21D41AC35F0400C9A310 /* waterParticle.png in Resources */,
-				EE71EE051B0987F600C89D4E /* starEmitter.sks in Resources */,
+				EE71EE051B0987F600C89D4E /* StarEmitter.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -694,6 +699,7 @@
 			files = (
 				EEC9DB831AA7B3480022CDF1 /* PlayerSplashDownEmitter.sks in Resources */,
 				41E430EF18B09E8600E1427D /* Images.xcassets in Resources */,
+				EEC2254A1B0FE0300098010C /* StarExplosion.sks in Resources */,
 				EEAE6F9D1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks in Resources */,
 				41E430DD18B09E8600E1427D /* InfoPlist.strings in Resources */,
 				EEAE6FA51AA68B8B00215C7E /* ObstacleSplashEmitter.sks in Resources */,
