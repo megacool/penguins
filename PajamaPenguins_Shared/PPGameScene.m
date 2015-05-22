@@ -339,10 +339,9 @@ CGFloat const kParallaxMinSpeed = -20.0;
 - (void)startGameAnimations {
     [self runAction:[SKAction waitForDuration:.5] completion:^{
         
-        SKAction *splashLeft = [self waterSplashAtPosition:CGPointMake(-self.size.width/2, 0)];
         SKAction *splashRight = [self waterSplashAtPosition:CGPointMake(self.size.width/2, 0)];
         SKAction *wait = [SKAction waitForDuration:.5];
-        [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[splashLeft,wait,splashRight,wait]]]];
+        [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[splashRight,wait]]]];
         
         // Start fish spawn forever
         [self spawnFishForever];
