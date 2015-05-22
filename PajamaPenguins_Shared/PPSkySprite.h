@@ -10,7 +10,7 @@
 
 typedef NS_ENUM(NSUInteger, SkyType) {
     SkyTypeMorning = 0,
-    SkyTypeDay,
+//    SkyTypeDay = 0,
     SkyTypeAfternoon,
     SkyTypeSunset,
     SkyTypeNight,

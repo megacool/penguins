@@ -23,9 +23,9 @@
             skyColor = [SKColor skyMorning];
             break;
             
-        case SkyTypeDay:
-            skyColor = [SKColor skyDay];
-            break;
+//        case SkyTypeDay:
+//            skyColor = [SKColor skyDay];
+//            break;
             
         case SkyTypeAfternoon:
             skyColor = [SKColor skyAfternoon];

@@ -10,7 +10,7 @@
 
 typedef NS_ENUM(NSUInteger, WaterType) {
     WaterTypeMorning = 0,
-    WaterTypeDay,
+//    WaterTypeDay,
     WaterTypeAfternoon,
     WaterTypeSunset,
     WaterTypeNight,

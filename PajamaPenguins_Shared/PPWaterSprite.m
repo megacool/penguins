@@ -35,10 +35,10 @@
             theColor = [SKColor waterMorning];
             break;
         }
-        case WaterTypeDay: {
-            theColor = [SKColor waterDay];
-            break;
-        }
+//        case WaterTypeDay: {
+//            theColor = [SKColor waterDay];
+//            break;
+//        }
         case WaterTypeAfternoon: {
             theColor = [SKColor waterAfternoon];
             break;

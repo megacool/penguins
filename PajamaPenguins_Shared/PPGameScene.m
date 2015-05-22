@@ -169,11 +169,14 @@ CGFloat const kParallaxMinSpeed = -20.0;
     
     //Snow Emitter
     self.snowEmitter = [PPSharedAssets sharedSnowEmitter].copy;
+    [self.snowEmitter setParticleBirthRate:SSKRandomFloatInRange(0, 300)];
     [self.snowEmitter setZPosition:SceneLayerSnow];
     [self.snowEmitter setPosition:CGPointMake(self.size.width/2, self.size.height/2)];
     [self.snowEmitter setName:@"snowEmitter"];
     [self addChild:self.snowEmitter];
 
+    NSLog(@"%fl",self.snowEmitter.particleBirthRate);
+    
     //Water Surface
     CGPoint surfaceStart = CGPointMake(-self.size.width/2, 0);
     CGPoint surfaceEnd = CGPointMake(self.size.width/kWorldScaleCap, 0);

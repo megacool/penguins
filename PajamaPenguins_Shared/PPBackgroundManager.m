@@ -26,7 +26,7 @@
 
 - (void)incrementDay {
     self.timeOfDay++;
-    if (self.timeOfDay > 4) {
+    if (self.timeOfDay > 3) {
         self.timeOfDay = 0;
     }
 }
