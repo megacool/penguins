@@ -132,11 +132,23 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 - (void)didMoveToView:(SKView *)view {
+    [self addGestureRecognizers];
     [self createNewGame];
     [self testStuff];
 }
 
 - (void)testStuff {
+}
+
+
+- (void)createNewGame {
+    self.gameState = PreGame;
+    
+    [self createWorldLayer];
+    [self startGameAnimations];
+}
+#pragma mark - Gestures
+- (void)addGestureRecognizers {
     UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
     [gestureRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
     [self.view addGestureRecognizer:gestureRecognizer];
@@ -146,17 +158,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
     if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
         NSLog(@"swipe right");
     }
-    else if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
-        NSLog(@"swipe left");
-    }
-    
-}
-
-- (void)createNewGame {
-    self.gameState = PreGame;
-    
-    [self createWorldLayer];
-    [self startGameAnimations];
 }
 
 #pragma mark - World Layer
@@ -956,12 +957,14 @@ CGFloat const kParallaxMinSpeed = -20.0;
             [[self currentPlayer] setPlayerShouldDive:YES];
         }
     }
-    NSLog(@"touch");
 }
 
 - (void)interactionEndedAtPosition:(CGPoint)position {
     [[self currentPlayer] setPlayerShouldDive:NO];
-    NSLog(@"touch end");
+}
+
+- (void)interactionCancelledAtPosition:(CGPoint)position {
+    [[self currentPlayer] setPlayerShouldDive:NO];
 }
 
 #pragma mark - Scene Transfer
