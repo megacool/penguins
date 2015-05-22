@@ -28,6 +28,7 @@ typedef void (^AssetCompletionHandler)(void);
 - (void)interactionBeganAtPosition:(CGPoint)position;
 - (void)interactionMovedAtPosition:(CGPoint)position;
 - (void)interactionEndedAtPosition:(CGPoint)position;
+- (void)interactionCancelledAtPosition:(CGPoint)position;
 
 // Keyboard input
 #if !TARGET_OS_IPHONE

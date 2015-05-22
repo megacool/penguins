@@ -137,6 +137,19 @@ CGFloat const kParallaxMinSpeed = -20.0;
 }
 
 - (void)testStuff {
+    UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+    [gestureRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
+    [self.view addGestureRecognizer:gestureRecognizer];
+}
+
+- (void)handleSwipe:(UISwipeGestureRecognizer*)swipe {
+    if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
+        NSLog(@"swipe right");
+    }
+    else if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
+        NSLog(@"swipe left");
+    }
+    
 }
 
 - (void)createNewGame {
@@ -345,7 +358,6 @@ CGFloat const kParallaxMinSpeed = -20.0;
         
         // Start fish spawn forever
         [self spawnFishForever];
-        
     }];
 }
 
@@ -944,10 +956,12 @@ CGFloat const kParallaxMinSpeed = -20.0;
             [[self currentPlayer] setPlayerShouldDive:YES];
         }
     }
+    NSLog(@"touch");
 }
 
 - (void)interactionEndedAtPosition:(CGPoint)position {
     [[self currentPlayer] setPlayerShouldDive:NO];
+    NSLog(@"touch end");
 }
 
 #pragma mark - Scene Transfer

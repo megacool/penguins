@@ -60,6 +60,12 @@
     [self interactionEndedAtPosition:position];
 }
 
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    CGPoint position = [touch locationInNode:self];
+    [self interactionCancelledAtPosition:position];
+}
+
 #else
 
 #pragma mark - Mac mouse click interaction
@@ -102,6 +108,10 @@
 }
 
 - (void)interactionEndedAtPosition:(CGPoint)position {
+    /* Overridden by subclasses */
+}
+
+- (void)interactionCancelledAtPosition:(CGPoint)position {
     /* Overridden by subclasses */
 }
 
