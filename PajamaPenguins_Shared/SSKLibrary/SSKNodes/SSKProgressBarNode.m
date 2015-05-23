@@ -14,7 +14,8 @@
 @property (nonatomic) SKSpriteNode *bar;
 @property (nonatomic) SKShapeNode *barFrame;
 
-@property (nonatomic) SKColor *startColor;
+@property (nonatomic) SKColor *startBarColor;
+@property (nonatomic) SKColor *startBackgroundBarColor;
 
 @property (nonatomic, readwrite) CGFloat currentProgress;
 
@@ -30,11 +31,12 @@
     self = [super init];
     
     if (self) {
-        self.startColor = barColor;
+        self.startBarColor = barColor;
+        self.startBackgroundBarColor = [SKColor blackColor];
         self.barType = barType;
         _size = size;
         
-        self.barBackground = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:size];
+        self.barBackground = [SKSpriteNode spriteNodeWithColor:self.startBackgroundBarColor size:size];
         [self addChild:self.barBackground];
         
         self.bar = [SKSpriteNode spriteNodeWithColor:barColor size:size];
@@ -85,7 +87,7 @@
         [self.bar setColor:[SKColor whiteColor]];
     }];
     SKAction *flashOff = [SKAction runBlock:^{
-        [self.bar setColor:self.startColor];
+        [self.bar setColor:self.startBarColor];
     }];
     SKAction *wait = [SKAction waitForDuration:.15];
     SKAction *seq = [SKAction sequence:@[flashOn,wait,flashOff,wait]];
@@ -94,7 +96,7 @@
 
 - (void)stopFlash {
     [self removeActionForKey:@"flashKey"];
-    [self.bar setColor:self.startColor];
+    [self.bar setColor:self.startBarColor];
 }
 
 @end

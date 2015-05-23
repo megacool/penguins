@@ -22,12 +22,13 @@ typedef NS_ENUM(NSUInteger, BarType) {
 - (instancetype)initWithFrameColor:(SKColor*)frameColor barColor:(SKColor*)barColor size:(CGSize)size;
 
 - (void)setProgress:(CGFloat)progress;
+
 - (void)startFlash;
 - (void)stopFlash;
 
 @property (nonatomic) BarType barType;
-@property (nonatomic, readonly) CGSize size;
 
+@property (nonatomic, readonly) CGSize size;
 @property (nonatomic, readonly) CGFloat currentProgress;
 
 @end

@@ -55,8 +55,8 @@ typedef NS_ENUM(NSUInteger, SceneLayer) {
 };
 
 //Button Constants
-CGFloat kButtonPadding = 10.0;
-CGFloat kButtonIdleWidth = 80.0;
+CGFloat kButtonPadding       = 10.0;
+CGFloat kButtonIdleWidth     = 80.0;
 CGFloat kButtonSelectedWidth = 70.0;
 
 //Physics Constants
@@ -85,19 +85,20 @@ CGFloat const kPlayerLowerWaterVelocityLimit = -500.0;
 
 //Name Constants
 NSString * const kPixelFontName = @"Fipps-Regular";
-NSString * const kRemoveName = @"removeable";
+NSString * const kRemoveName    = @"removeable";
+NSString * const kObstacleName  = @"obstacle";
+NSString * const kCoinName      = @"coinName";
 
 //Action Constants
-CGFloat const kParallaxMoveSpeed   = 3.5;
-CGFloat const kMoveAndFadeTime     = 0.2;
-CGFloat const kMoveAndFadeDistance = 20;
+CGFloat const kParallaxNormalMoveSpeed = 3.5;
+CGFloat const kParallaxBoostMoveSpeed  = 1.5;
+CGFloat const kMoveAndFadeTime         = 0.2;
+CGFloat const kMoveAndFadeDistance     = 20;
 
-NSString * const kCoinSpawnKey = @"coinSpawnKey";
-NSString * const kCoinMoveKey = @"coinMoveKey";
-NSString * const kCoinName = @"coinName";
-
-//Parallax Constants
-CGFloat const kParallaxMinSpeed = -20.0;
+//Action Keys
+NSString * const kCoinSpawnKey    = @"coinSpawnKey";
+NSString * const kCoinMoveKey     = @"coinMoveKey";
+NSString * const kObstacleMoveKey = @"obstacleMoveKey";
 
 @interface PPGameScene()
 @property (nonatomic) GameState gameState;
@@ -126,9 +127,12 @@ CGFloat const kParallaxMinSpeed = -20.0;
 @implementation PPGameScene {
     NSTimeInterval _lastUpdateTime;
     CGFloat _lastPlayerHeight;
+
     CGFloat _breathTimer;
     
     CGFloat _playerBubbleBirthrate;
+    
+    CGFloat _currentObstacleMoveSpeed;
 }
 
 - (void)didMoveToView:(SKView *)view {
@@ -174,15 +178,15 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [self.snowEmitter setPosition:CGPointMake(self.size.width/2, self.size.height/2)];
     [self.snowEmitter setName:@"snowEmitter"];
     [self addChild:self.snowEmitter];
-
-    NSLog(@"%fl",self.snowEmitter.particleBirthRate);
     
     //Water Surface
     CGPoint surfaceStart = CGPointMake(-self.size.width/2, 0);
     CGPoint surfaceEnd = CGPointMake(self.size.width/kWorldScaleCap, 0);
     
-    self.waterSurface = [PPWaterSprite surfaceWithStartPoint:surfaceStart endPoint:surfaceEnd
-                                                       depth:self.size.height/2 waterType:[[PPBackgroundManager sharedManager] timeOfDay]];
+    self.waterSurface = [PPWaterSprite surfaceWithStartPoint:surfaceStart
+                                                    endPoint:surfaceEnd
+                                                       depth:self.size.height/2
+                                                   waterType:[[PPBackgroundManager sharedManager] timeOfDay]];
     [self.waterSurface setName:@"water"];
     [self.waterSurface setZPosition:SceneLayerWater];
     [self.worldNode addChild:self.waterSurface];
@@ -240,6 +244,9 @@ CGFloat const kParallaxMinSpeed = -20.0;
     [boundary.physicsBody setCategoryBitMask:edgeCategory];
     [boundary setName:kRemoveName];
     [self addChild:boundary];
+    
+    //Setting the initial obstacle move speed
+    _currentObstacleMoveSpeed = kParallaxNormalMoveSpeed;
 }
 
 #pragma mark - HUD layer
@@ -523,7 +530,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
         [self.worldNode addChild:coin];
         
         // Move coin off screen
-        [coin runAction:[SKAction moveToX:-self.size.width/4 * 3 duration:kParallaxMoveSpeed] withKey:kCoinMoveKey completion:^{
+        [coin runAction:[SKAction moveToX:-self.size.width/4 * 3 duration:_currentObstacleMoveSpeed] withKey:kCoinMoveKey completion:^{
             [coin removeFromParent];
         }];
     }]];
@@ -781,7 +788,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
     CGFloat newScale = (rand/100);
     
     PPIcebergObstacle *obstacle = [PPIcebergObstacle icebergWithType:IceBergTypeNormal];
-    [obstacle setName:@"obstacle"];
+    [obstacle setName:kObstacleName];
     [obstacle setScale:newScale];
     [obstacle setPosition:CGPointMake(self.size.width * 2, obstacle.size.height / 10)];
     [obstacle setZPosition:SceneLayerIcebergs];
@@ -796,7 +803,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
         SKNode *obstacle = [self newIceBerg];
         [self.worldNode addChild:obstacle];
         [obstacle runAction:[SKAction repeatActionForever:[self floatAction]]];
-        [obstacle runAction:[SKAction moveToX:-self.size.width/4 * 3 duration:kParallaxMoveSpeed ] withKey:@"moveObstacle" completion:^{
+        [obstacle runAction:[SKAction moveToX:-self.size.width/4 * 3 duration:_currentObstacleMoveSpeed] withKey:kObstacleMoveKey completion:^{
             [obstacle removeFromParent];
         }];
     }];
@@ -810,7 +817,7 @@ CGFloat const kParallaxMinSpeed = -20.0;
 
 - (void)stopObstacleMovement {
     [self.worldNode enumerateChildNodesWithName:@"obstacle" usingBlock:^(SKNode *node, BOOL *stop) {
-        [node removeActionForKey:@"moveObstacle"];
+        [node removeActionForKey:kObstacleMoveKey];
     }];
 }
 
@@ -937,6 +944,45 @@ CGFloat const kParallaxMinSpeed = -20.0;
     }
 }
 
+#pragma mark - Boost
+- (void)boostActionGroup {
+    if ([self actionForKey:@"boostKey"]) return;
+    
+    SKAction *boostDuration = [SKAction waitForDuration:2.0];
+    SKAction *sequence = [SKAction sequence:@[[self boostSpeedUp], boostDuration, [self boostSpeedDown]]];
+    [self runAction:sequence withKey:@"boostKey"];
+}
+
+- (void)setObstacleSpeed:(CGFloat)speed {
+    [self.worldNode enumerateChildNodesWithName:kObstacleName usingBlock:^(SKNode *node, BOOL *stop) {
+        SKAction *moveAction = [node actionForKey:kObstacleMoveKey];
+        [moveAction setDuration:speed];
+    }];
+}
+
+- (void)setNodeSpeed:(CGFloat)speed withNodeName:(NSString*)nodeName withActionName:(NSString*)actionName {
+    [self.worldNode enumerateChildNodesWithName:nodeName usingBlock:^(SKNode *node, BOOL *stop) {
+        SKAction *moveAction = [node actionForKey:actionName];
+        [moveAction setSpeed:speed];
+    }];
+}
+
+- (SKAction*)boostSpeedUp {
+    return [SKAction runBlock:^{
+        _currentObstacleMoveSpeed = kParallaxNormalMoveSpeed * 2;
+        [self setNodeSpeed:2 withNodeName:kCoinName withActionName:kCoinMoveKey];
+        [self setNodeSpeed:2 withNodeName:kObstacleName withActionName:kObstacleMoveKey];
+    }];
+}
+
+- (SKAction*)boostSpeedDown {
+    return [SKAction runBlock:^{
+        _currentObstacleMoveSpeed = kParallaxNormalMoveSpeed;
+        [self setNodeSpeed:1 withNodeName:kCoinName withActionName:kCoinMoveKey];
+        [self setNodeSpeed:1 withNodeName:kObstacleName withActionName:kObstacleMoveKey];
+    }];
+}
+
 #pragma mark - Gestures
 - (void)addGestureRecognizers {
     UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
@@ -949,7 +995,10 @@ CGFloat const kParallaxMinSpeed = -20.0;
     if (!self.gameState == PreGame && !self.gameState == Playing) return;
     
     if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
-        [self runOneShotEmitter:[PPSharedAssets sharedStarExplosionEmitter] location:[self currentPlayer].position];
+        if (_currentObstacleMoveSpeed == kParallaxNormalMoveSpeed) {
+            [self boostActionGroup];
+            [self runOneShotEmitter:[PPSharedAssets sharedStarExplosionEmitter] location:[self currentPlayer].position];
+        }
     }
 }
 
