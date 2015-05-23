@@ -806,6 +806,8 @@ NSString * const kObstacleMoveKey = @"obstacleMoveKey";
         [obstacle runAction:[SKAction moveToX:-self.size.width/4 * 3 duration:_currentObstacleMoveSpeed] withKey:kObstacleMoveKey completion:^{
             [obstacle removeFromParent];
         }];
+        NSLog(@"%fl",[obstacle actionForKey:kObstacleMoveKey].speed);
+        NSLog(@"%fl",[obstacle actionForKey:kObstacleMoveKey].duration);
     }];
     SKAction *sequence = [SKAction sequence:@[wait,spawnFloatMove]];
     [self runAction:[SKAction repeatActionForever:sequence] withKey:@"gamePlaying"];
@@ -951,13 +953,6 @@ NSString * const kObstacleMoveKey = @"obstacleMoveKey";
     SKAction *boostDuration = [SKAction waitForDuration:2.0];
     SKAction *sequence = [SKAction sequence:@[[self boostSpeedUp], boostDuration, [self boostSpeedDown]]];
     [self runAction:sequence withKey:@"boostKey"];
-}
-
-- (void)setObstacleSpeed:(CGFloat)speed {
-    [self.worldNode enumerateChildNodesWithName:kObstacleName usingBlock:^(SKNode *node, BOOL *stop) {
-        SKAction *moveAction = [node actionForKey:kObstacleMoveKey];
-        [moveAction setDuration:speed];
-    }];
 }
 
 - (void)setNodeSpeed:(CGFloat)speed withNodeName:(NSString*)nodeName withActionName:(NSString*)actionName {
