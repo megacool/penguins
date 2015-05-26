@@ -54,6 +54,11 @@ typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerFadeOut = 1000,
 };
 
+typedef NS_ENUM(NSUInteger, ParallaxMultiplier) {
+    ParallaxMultiplierNormal = 1,
+    ParallaxMultiplierBoost = 2,
+};
+
 //Button Constants
 CGFloat kButtonPadding       = 10.0;
 CGFloat kButtonIdleWidth     = 80.0;
@@ -131,6 +136,8 @@ NSString * const kObstacleMoveKey = @"obstacleMoveKey";
     CGFloat _breathTimer;
     
     CGFloat _playerBubbleBirthrate;
+    
+    NSUInteger _currentParallaxMultiplier;
 }
 
 - (void)didMoveToView:(SKView *)view {
@@ -242,6 +249,9 @@ NSString * const kObstacleMoveKey = @"obstacleMoveKey";
     [boundary.physicsBody setCategoryBitMask:edgeCategory];
     [boundary setName:kRemoveName];
     [self addChild:boundary];
+    
+    //Set initial boost muliplier
+    _currentParallaxMultiplier = 1;
 }
 
 #pragma mark - HUD layer
@@ -945,8 +955,9 @@ NSString * const kObstacleMoveKey = @"obstacleMoveKey";
 - (void)boostActionGroup {
     if ([self actionForKey:@"boostKey"]) return;
     
-    SKAction *boostDuration = [SKAction waitForDuration:2.0];
-    SKAction *sequence = [SKAction sequence:@[[self boostSpeedUp], boostDuration, [self boostSpeedDown]]];
+    SKAction *sequence = [SKAction sequence:@[[self adjustBoostSpeed:ParallaxMultiplierBoost],
+                                              [SKAction waitForDuration:2.0],
+                                              [self adjustBoostSpeed:ParallaxMultiplierNormal]]];
     [self runAction:sequence withKey:@"boostKey"];
 }
 
@@ -957,17 +968,11 @@ NSString * const kObstacleMoveKey = @"obstacleMoveKey";
     }];
 }
 
-- (SKAction*)boostSpeedUp {
+- (SKAction*)adjustBoostSpeed:(NSUInteger)speed {
     return [SKAction runBlock:^{
-        [self setNodeSpeed:2 withNodeName:kCoinName withActionName:kCoinMoveKey];
-        [self setNodeSpeed:2 withNodeName:kObstacleName withActionName:kObstacleMoveKey];
-    }];
-}
-
-- (SKAction*)boostSpeedDown {
-    return [SKAction runBlock:^{
-        [self setNodeSpeed:1 withNodeName:kCoinName withActionName:kCoinMoveKey];
-        [self setNodeSpeed:1 withNodeName:kObstacleName withActionName:kObstacleMoveKey];
+        _currentParallaxMultiplier = speed;
+        [self setNodeSpeed:speed withNodeName:kCoinName withActionName:kCoinMoveKey];
+        [self setNodeSpeed:speed withNodeName:kObstacleName withActionName:kObstacleMoveKey];
     }];
 }
 
@@ -983,7 +988,7 @@ NSString * const kObstacleMoveKey = @"obstacleMoveKey";
     if (!self.gameState == PreGame && !self.gameState == Playing) return;
     
     if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
-        if () {
+        if (_currentParallaxMultiplier == 1) {
             [self boostActionGroup];
             [self runOneShotEmitter:[PPSharedAssets sharedStarExplosionEmitter] location:[self currentPlayer].position];
         }
