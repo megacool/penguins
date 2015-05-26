@@ -131,8 +131,6 @@ NSString * const kObstacleMoveKey = @"obstacleMoveKey";
     CGFloat _breathTimer;
     
     CGFloat _playerBubbleBirthrate;
-    
-    CGFloat _currentObstacleMoveSpeed;
 }
 
 - (void)didMoveToView:(SKView *)view {
@@ -244,9 +242,6 @@ NSString * const kObstacleMoveKey = @"obstacleMoveKey";
     [boundary.physicsBody setCategoryBitMask:edgeCategory];
     [boundary setName:kRemoveName];
     [self addChild:boundary];
-    
-    //Setting the initial obstacle move speed
-    _currentObstacleMoveSpeed = kParallaxNormalMoveSpeed;
 }
 
 #pragma mark - HUD layer
@@ -530,7 +525,7 @@ NSString * const kObstacleMoveKey = @"obstacleMoveKey";
         [self.worldNode addChild:coin];
         
         // Move coin off screen
-        [coin runAction:[SKAction moveToX:-self.size.width/4 * 3 duration:_currentObstacleMoveSpeed] withKey:kCoinMoveKey completion:^{
+        [coin runAction:[SKAction moveToX:-self.size.width/4 * 3 duration:kParallaxNormalMoveSpeed] withKey:kCoinMoveKey completion:^{
             [coin removeFromParent];
         }];
     }]];
@@ -803,7 +798,7 @@ NSString * const kObstacleMoveKey = @"obstacleMoveKey";
         SKNode *obstacle = [self newIceBerg];
         [self.worldNode addChild:obstacle];
         [obstacle runAction:[SKAction repeatActionForever:[self floatAction]]];
-        [obstacle runAction:[SKAction moveToX:-self.size.width/4 * 3 duration:_currentObstacleMoveSpeed] withKey:kObstacleMoveKey completion:^{
+        [obstacle runAction:[SKAction moveToX:-self.size.width/4 * 3 duration:kParallaxNormalMoveSpeed] withKey:kObstacleMoveKey completion:^{
             [obstacle removeFromParent];
         }];
         NSLog(@"%fl",[obstacle actionForKey:kObstacleMoveKey].speed);
@@ -964,7 +959,6 @@ NSString * const kObstacleMoveKey = @"obstacleMoveKey";
 
 - (SKAction*)boostSpeedUp {
     return [SKAction runBlock:^{
-        _currentObstacleMoveSpeed = kParallaxNormalMoveSpeed * 2;
         [self setNodeSpeed:2 withNodeName:kCoinName withActionName:kCoinMoveKey];
         [self setNodeSpeed:2 withNodeName:kObstacleName withActionName:kObstacleMoveKey];
     }];
@@ -972,7 +966,6 @@ NSString * const kObstacleMoveKey = @"obstacleMoveKey";
 
 - (SKAction*)boostSpeedDown {
     return [SKAction runBlock:^{
-        _currentObstacleMoveSpeed = kParallaxNormalMoveSpeed;
         [self setNodeSpeed:1 withNodeName:kCoinName withActionName:kCoinMoveKey];
         [self setNodeSpeed:1 withNodeName:kObstacleName withActionName:kObstacleMoveKey];
     }];
@@ -990,7 +983,7 @@ NSString * const kObstacleMoveKey = @"obstacleMoveKey";
     if (!self.gameState == PreGame && !self.gameState == Playing) return;
     
     if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
-        if (_currentObstacleMoveSpeed == kParallaxNormalMoveSpeed) {
+        if () {
             [self boostActionGroup];
             [self runOneShotEmitter:[PPSharedAssets sharedStarExplosionEmitter] location:[self currentPlayer].position];
         }
