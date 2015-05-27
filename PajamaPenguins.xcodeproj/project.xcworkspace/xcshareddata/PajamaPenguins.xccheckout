@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>A90D2BD9-2F69-44E9-8D82-30DFED8E760B</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>PajamaPenguins</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>D442E2A2520DC10B293F308976F7AE9EA296664E</key>
 		<string>https://github.com/skyefreeman/PajamaPenguins.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>PajamaPenguins.xcodeproj/project.xcworkspace</string>
+	<string>PajamaPenguins.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>D442E2A2520DC10B293F308976F7AE9EA296664E</key>
