@@ -104,6 +104,7 @@ CGFloat const kMoveAndFadeDistance     = 20;
 NSString * const kCoinSpawnKey    = @"coinSpawnKey";
 NSString * const kCoinMoveKey     = @"coinMoveKey";
 NSString * const kObstacleMoveKey = @"obstacleMoveKey";
+NSString * const kFishMoveKey = @"fishMoveKey";
 
 @interface PPGameScene()
 @property (nonatomic) GameState gameState;
@@ -580,7 +581,7 @@ NSString * const kObstacleMoveKey = @"obstacleMoveKey";
         [fish swimForever];
         
         // Move fish across scene then remove
-        [fish runAction:move completion:^{
+        [fish runAction:move withKey:kFishMoveKey completion:^{
             [fish removeFromParent];
         }];
     }];
@@ -955,9 +956,11 @@ NSString * const kObstacleMoveKey = @"obstacleMoveKey";
 - (void)boostActionGroup {
     if ([self actionForKey:@"boostKey"]) return;
     
-    SKAction *sequence = [SKAction sequence:@[[self adjustBoostSpeed:ParallaxMultiplierBoost],
-                                              [SKAction waitForDuration:2.0],
-                                              [self adjustBoostSpeed:ParallaxMultiplierNormal]]];
+    SKAction *startBoost = [self adjustBoostSpeed:ParallaxMultiplierBoost];
+    SKAction *wait = [SKAction waitForDuration:2.0];
+    SKAction *endBoost = [self adjustBoostSpeed:ParallaxMultiplierNormal];
+    SKAction *sequence = [SKAction sequence:@[startBoost,wait,endBoost]];
+    
     [self runAction:sequence withKey:@"boostKey"];
 }
 
@@ -973,6 +976,7 @@ NSString * const kObstacleMoveKey = @"obstacleMoveKey";
         _currentParallaxMultiplier = speed;
         [self setNodeSpeed:speed withNodeName:kCoinName withActionName:kCoinMoveKey];
         [self setNodeSpeed:speed withNodeName:kObstacleName withActionName:kObstacleMoveKey];
+        [self setNodeSpeed:speed withNodeName:kFishName withActionName:kFishMoveKey];
     }];
 }
 
