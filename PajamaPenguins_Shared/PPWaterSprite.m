@@ -31,6 +31,11 @@
 - (SKColor*)colorForWaterType:(WaterType)waterType {
     SKColor *theColor;
     switch (waterType) {
+        case WaterTypeAfternoon: {
+            theColor = [SKColor waterAfternoon];
+            break;
+        }
+            
         case WaterTypeMorning: {
             theColor = [SKColor waterMorning];
             break;
@@ -39,10 +44,7 @@
 //            theColor = [SKColor waterDay];
 //            break;
 //        }
-        case WaterTypeAfternoon: {
-            theColor = [SKColor waterAfternoon];
-            break;
-        }
+            
         case WaterTypeSunset: {
             theColor = [SKColor waterSunset];
             break;

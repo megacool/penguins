@@ -9,9 +9,9 @@
 #import "SSKWaterSurfaceNode.h"
 
 typedef NS_ENUM(NSUInteger, WaterType) {
-    WaterTypeMorning = 0,
+    WaterTypeAfternoon = 0,
+    WaterTypeMorning,
 //    WaterTypeDay,
-    WaterTypeAfternoon,
     WaterTypeSunset,
     WaterTypeNight,
 };

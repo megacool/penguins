@@ -19,9 +19,6 @@
     SKColor *skyColor;
     
     switch (skyType) {
-        case SkyTypeMorning:
-            skyColor = [SKColor skyMorning];
-            break;
             
 //        case SkyTypeDay:
 //            skyColor = [SKColor skyDay];
@@ -29,6 +26,10 @@
             
         case SkyTypeAfternoon:
             skyColor = [SKColor skyAfternoon];
+            break;
+            
+        case SkyTypeMorning:
+            skyColor = [SKColor skyMorning];
             break;
             
         case SkyTypeSunset:

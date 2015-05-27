@@ -9,9 +9,9 @@
 #import <SpriteKit/SpriteKit.h>
 
 typedef NS_ENUM(NSUInteger, SkyType) {
-    SkyTypeMorning = 0,
+    SkyTypeAfternoon = 0,
+    SkyTypeMorning,
 //    SkyTypeDay = 0,
-    SkyTypeAfternoon,
     SkyTypeSunset,
     SkyTypeNight,
 };
