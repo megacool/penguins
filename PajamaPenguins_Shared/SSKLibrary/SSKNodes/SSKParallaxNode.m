@@ -27,7 +27,7 @@ NSString * const kParallaxNode = @"parallaxNode";
     if (self) {
         self.moveSpeed = moveSpeed;
         self.moveState = MoveStateMoving;
-        
+        self.moveSpeedMultiplier = 1;
         
         self.allAttachedNodes = [NSMutableArray new];
         
@@ -65,7 +65,8 @@ NSString * const kParallaxNode = @"parallaxNode";
 #pragma mark - Update
 - (void)update:(NSTimeInterval)dt {
     if (self.moveState == MoveStateMoving) {
-        CGPoint amountToMove = CGPointMake(self.moveSpeed.x * dt, self.moveSpeed.y * dt);
+        CGPoint amountToMove = CGPointMake(self.moveSpeed.x * dt * self.moveSpeedMultiplier, self.moveSpeed.y * dt * self.moveSpeedMultiplier);
+        NSLog(@"%fl, %fl",amountToMove.x,amountToMove.y);
         [self enumerateChildNodesWithName:kParallaxNode usingBlock:^(SKNode *node, BOOL *stop) {
             node.position = CGPointMake(node.position.x + amountToMove.x, node.position.y + amountToMove.y);
             if (node.position.x <= -self.size.width) {

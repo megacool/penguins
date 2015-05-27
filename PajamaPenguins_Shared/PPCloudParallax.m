@@ -15,6 +15,7 @@
     return [super init];
 }
 
+#pragma mark - Update
 - (void)update:(NSTimeInterval)dt {
     [self.parallaxLayer update:dt];
 }

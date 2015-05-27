@@ -15,6 +15,7 @@ typedef NS_ENUM(NSInteger, MoveState) {
 
 @interface SSKParallaxNode : SKSpriteNode
 
+@property (nonatomic) CGFloat moveSpeedMultiplier; // Default = 1
 @property (nonatomic) CGPoint moveSpeed;
 @property (nonatomic) MoveState moveState;
 

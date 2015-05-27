@@ -974,9 +974,15 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 - (SKAction*)adjustBoostSpeed:(NSUInteger)speed {
     return [SKAction runBlock:^{
         _currentParallaxMultiplier = speed;
+        
+        // Spawning nodes
         [self setNodeSpeed:speed withNodeName:kCoinName withActionName:kCoinMoveKey];
         [self setNodeSpeed:speed withNodeName:kObstacleName withActionName:kObstacleMoveKey];
         [self setNodeSpeed:speed withNodeName:kFishName withActionName:kFishMoveKey];
+        
+        // Parallax Nodes
+        self.cloudFast.parallaxLayer.moveSpeedMultiplier = speed;
+        self.cloudSlow.parallaxLayer.moveSpeedMultiplier = speed;
     }];
 }
 
