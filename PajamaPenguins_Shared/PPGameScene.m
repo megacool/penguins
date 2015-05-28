@@ -56,7 +56,7 @@ typedef NS_ENUM(NSUInteger, SceneLayer) {
 
 typedef NS_ENUM(NSUInteger, ParallaxMultiplier) {
     ParallaxMultiplierNormal = 1,
-    ParallaxMultiplierBoost = 2,
+    ParallaxMultiplierBoost = 3,
 };
 
 //Button Constants
@@ -85,8 +85,8 @@ CGFloat const kWorldScaleCap  = 0.55;
 //CGFloat const kPlayerLowerWaterVelocityLimit = -550.0;
 
 CGFloat const kPlayerUpperVelocityLimit      = 825.0;
-CGFloat const kPlayerLowerAirVelocityLimit   = -800.0;
-CGFloat const kPlayerLowerWaterVelocityLimit = -500.0;
+CGFloat const kPlayerLowerAirVelocityLimit   = -1000.0;
+CGFloat const kPlayerLowerWaterVelocityLimit = -600.0;
 
 //Name Constants
 NSString * const kPixelFontName = @"Fipps-Regular";
@@ -957,7 +957,9 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     SKAction *startBoost = [self adjustBoostSpeed:ParallaxMultiplierBoost];
     SKAction *wait = [SKAction waitForDuration:2.0];
     SKAction *endBoost = [self adjustBoostSpeed:ParallaxMultiplierNormal];
-    SKAction *sequence = [SKAction sequence:@[startBoost,wait,endBoost]];
+    SKAction *toggleSnow = [self toggleSnowAccelleration];
+    SKAction *sequence = [SKAction sequence:@[startBoost,toggleSnow,wait,endBoost,toggleSnow]];
+    
     
     [self runAction:sequence withKey:@"boostKey"];
 }
@@ -981,6 +983,22 @@ NSString * const kFishMoveKey = @"fishMoveKey";
         // Parallax Nodes
         self.cloudFast.parallaxLayer.moveSpeedMultiplier = speed;
         self.cloudSlow.parallaxLayer.moveSpeedMultiplier = speed;
+    }];
+}
+
+#pragma mark - Snow 
+- (SKAction*)toggleSnowAccelleration {
+    CGFloat newAcceleration;
+    
+    if (self.snowEmitter.xAcceleration == -10) {
+        newAcceleration = -100;
+    } else {
+        newAcceleration = -10;
+    }
+    
+    return [SKAction runBlock:^{
+        self.snowEmitter.xAcceleration = newAcceleration;
+        NSLog(@"%fl",self.snowEmitter.xAcceleration);
     }];
 }
 

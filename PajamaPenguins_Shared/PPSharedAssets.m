@@ -66,7 +66,7 @@
         [sStarEmitter setParticleRotationSpeed:150];
         [sStarEmitter setParticleColorBlendFactor:1.0];
         
-        
+
         NSLog(@"Scene loaded in %f seconds",[[NSDate date] timeIntervalSinceDate:startTime]);
         
         if (!completion) {
