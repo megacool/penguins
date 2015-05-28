@@ -400,7 +400,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [fadeNode setAlpha:0];
     [self addChild:fadeNode];
     
-    [fadeNode runAction:[SKAction fadeInWithDuration:1] completion:^{
+    [fadeNode runAction:[SKAction fadeInWithDuration:.5] completion:^{
         [self.worldNode removeFromParent];
         [self.hudNode removeFromParent];
         [self.gameOverNode removeFromParent];
@@ -408,8 +408,8 @@ NSString * const kFishMoveKey = @"fishMoveKey";
         
         [self createNewGame];
         
-        [self runAction:[SKAction waitForDuration:.5] completion:^{
-            [fadeNode runAction:[SKAction fadeOutWithDuration:1] completion:^{
+        [self runAction:[SKAction waitForDuration:.25] completion:^{
+            [fadeNode runAction:[SKAction fadeOutWithDuration:.5] completion:^{
                 [fadeNode removeFromParent];
             }];
         }];
@@ -955,11 +955,11 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     if ([self actionForKey:@"boostKey"]) return;
     
     SKAction *startBoost = [self adjustBoostSpeed:ParallaxMultiplierBoost];
-    SKAction *wait = [SKAction waitForDuration:2.0];
+    SKAction *wait = [SKAction waitForDuration:3.0];
     SKAction *endBoost = [self adjustBoostSpeed:ParallaxMultiplierNormal];
-    SKAction *snowNormal = [self snowAccelerationNormal];
-    SKAction *snowBoost = [self snowAccelerationBoost];
-    SKAction *sequence = [SKAction sequence:@[startBoost,snowBoost,wait,endBoost,snowNormal]];
+    SKAction *snowAccelDown = [self snowAccelerationNormal];
+    SKAction *snowAccelUp = [self snowAccelerationBoost];
+    SKAction *sequence = [SKAction sequence:@[startBoost,snowAccelUp,wait,endBoost,snowAccelDown]];
     
     [self runAction:sequence withKey:@"boostKey"];
 }
@@ -995,7 +995,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 
 - (SKAction*)snowAccelerationBoost {
     return [SKAction runBlock:^{
-        self.snowEmitter.xAcceleration = -250;
+        self.snowEmitter.xAcceleration = -300;
     }];
 }
 
