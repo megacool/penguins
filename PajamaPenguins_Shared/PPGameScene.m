@@ -812,8 +812,6 @@ NSString * const kFishMoveKey = @"fishMoveKey";
         [obstacle runAction:[SKAction moveToX:-self.size.width/4 * 3 duration:kParallaxNormalMoveSpeed] withKey:kObstacleMoveKey completion:^{
             [obstacle removeFromParent];
         }];
-        NSLog(@"%fl",[obstacle actionForKey:kObstacleMoveKey].speed);
-        NSLog(@"%fl",[obstacle actionForKey:kObstacleMoveKey].duration);
     }];
     SKAction *sequence = [SKAction sequence:@[wait,spawnFloatMove]];
     [self runAction:[SKAction repeatActionForever:sequence] withKey:@"gamePlaying"];
