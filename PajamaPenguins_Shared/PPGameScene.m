@@ -957,9 +957,9 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     SKAction *startBoost = [self adjustBoostSpeed:ParallaxMultiplierBoost];
     SKAction *wait = [SKAction waitForDuration:2.0];
     SKAction *endBoost = [self adjustBoostSpeed:ParallaxMultiplierNormal];
-    SKAction *toggleSnow = [self toggleSnowAccelleration];
-    SKAction *sequence = [SKAction sequence:@[startBoost,toggleSnow,wait,endBoost,toggleSnow]];
-    
+    SKAction *snowNormal = [self snowAccelerationNormal];
+    SKAction *snowBoost = [self snowAccelerationBoost];
+    SKAction *sequence = [SKAction sequence:@[startBoost,snowBoost,wait,endBoost,snowNormal]];
     
     [self runAction:sequence withKey:@"boostKey"];
 }
@@ -987,18 +987,15 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 }
 
 #pragma mark - Snow 
-- (SKAction*)toggleSnowAccelleration {
-    CGFloat newAcceleration;
-    
-    if (self.snowEmitter.xAcceleration == -10) {
-        newAcceleration = -100;
-    } else {
-        newAcceleration = -10;
-    }
-    
+- (SKAction*)snowAccelerationNormal {
     return [SKAction runBlock:^{
-        self.snowEmitter.xAcceleration = newAcceleration;
-        NSLog(@"%fl",self.snowEmitter.xAcceleration);
+        self.snowEmitter.xAcceleration = -10;
+    }];
+}
+
+- (SKAction*)snowAccelerationBoost {
+    return [SKAction runBlock:^{
+        self.snowEmitter.xAcceleration = -250;
     }];
 }
 
