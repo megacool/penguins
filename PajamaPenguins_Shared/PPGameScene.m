@@ -289,9 +289,9 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [coinCounter setScore:[[PPUserManager sharedManager] getTotalCoins].integerValue];
     [self.hudNode addChild:coinCounter];
 
-    SSKProgressBarNode *breathMeter = [[SSKProgressBarNode alloc] initWithFrameColor:[SKColor blackColor] barColor:[SKColor redColor] size:CGSizeMake(self.size.width/2, 12.5) barType:BarTypeHorizontal];
+    SSKProgressBarNode *breathMeter = [[SSKProgressBarNode alloc] initWithFrameColor:[SKColor blackColor] barColor:[SKColor redColor] size:CGSizeMake(10, 50) barType:BarTypeVertical];
     [breathMeter setName:@"progressBar"];
-    [breathMeter setPosition:CGPointMake(0, self.size.height/2 - breathMeter.size.height/2 - padding)];
+    [breathMeter setPosition:CGPointMake(-self.size.width/2 + breathMeter.size.width/2 + padding, self.size.height/2 - breathMeter.size.height/2 - padding)];
     [self.hudNode addChild:breathMeter];
 }
 
