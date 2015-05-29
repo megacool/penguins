@@ -266,6 +266,12 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     
     CGFloat padding = 5.0;
     
+
+    SSKProgressBarNode *breathMeter = [[SSKProgressBarNode alloc] initWithFrameColor:[SKColor blackColor] barColor:[SKColor redColor] size:CGSizeMake(10, 50) barType:BarTypeVertical];
+    [breathMeter setName:@"progressBar"];
+    [breathMeter setPosition:CGPointMake(-self.size.width/2 + breathMeter.size.width/2 + padding, self.size.height/2 - breathMeter.size.height/2 - padding)];
+    [self.hudNode addChild:breathMeter];
+    
     NSString *fontName = @"AmericanTypewriter";
     CGFloat fontSize = 12.0;
     
@@ -273,7 +279,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [scoreCounter setName:@"scoreCounter"];
     [scoreCounter setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeLeft];
     [scoreCounter setVerticalAlignmentMode:SKLabelVerticalAlignmentModeTop];
-    [scoreCounter setPosition:CGPointMake(-self.size.width/2 + padding, self.size.height/2 - padding)];
+    [scoreCounter setPosition:CGPointMake(breathMeter.position.x + breathMeter.size.width/2 + padding, self.size.height/2 - padding)];
     [self.hudNode addChild:scoreCounter];
     
     PPCoinNode *coinNode = [[PPCoinNode alloc] init];
@@ -289,10 +295,6 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [coinCounter setScore:[[PPUserManager sharedManager] getTotalCoins].integerValue];
     [self.hudNode addChild:coinCounter];
 
-    SSKProgressBarNode *breathMeter = [[SSKProgressBarNode alloc] initWithFrameColor:[SKColor blackColor] barColor:[SKColor redColor] size:CGSizeMake(10, 50) barType:BarTypeVertical];
-    [breathMeter setName:@"progressBar"];
-    [breathMeter setPosition:CGPointMake(-self.size.width/2 + breathMeter.size.width/2 + padding, self.size.height/2 - breathMeter.size.height/2 - padding)];
-    [self.hudNode addChild:breathMeter];
 }
 
 - (void)hudLayerFadeInAnimation {
