@@ -34,6 +34,7 @@
 		EE1FCA101AE311F4006DDC3B /* icebergs.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EE1FCA0F1AE311F4006DDC3B /* icebergs.atlas */; };
 		EE2C0F371A5A01CD00B33834 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41E430A118B09E5200E1427D /* Main_iPhone.storyboard */; };
 		EE2C0F381A5A01D200B33834 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41E430A418B09E5200E1427D /* Main_iPad.storyboard */; };
+		EE32AB541B181A8E004D1D15 /* PPBoostMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = EE32AB531B181A8E004D1D15 /* PPBoostMeter.m */; };
 		EE34346F1AAA52ED0010BE71 /* platform_iceberg.png in Resources */ = {isa = PBXBuildFile; fileRef = EE34346E1AAA52ED0010BE71 /* platform_iceberg.png */; };
 		EE34347B1AABF4180010BE71 /* PPSharedAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = EE34347A1AABF4180010BE71 /* PPSharedAssets.m */; };
 		EE34347C1AABF4180010BE71 /* PPSharedAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = EE34347A1AABF4180010BE71 /* PPSharedAssets.m */; };
@@ -143,6 +144,8 @@
 		EE168CDD1A994DFE005403E6 /* PPIcebergObstacle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPIcebergObstacle.m; sourceTree = "<group>"; };
 		EE16B1871AC7911800B15134 /* SKColor+SFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKColor+SFAdditions.m"; sourceTree = "<group>"; };
 		EE1FCA0F1AE311F4006DDC3B /* icebergs.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = icebergs.atlas; sourceTree = "<group>"; };
+		EE32AB521B181A8E004D1D15 /* PPBoostMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPBoostMeter.h; sourceTree = "<group>"; };
+		EE32AB531B181A8E004D1D15 /* PPBoostMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPBoostMeter.m; sourceTree = "<group>"; };
 		EE34346E1AAA52ED0010BE71 /* platform_iceberg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = platform_iceberg.png; sourceTree = "<group>"; };
 		EE3434791AABF4180010BE71 /* PPSharedAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPSharedAssets.h; path = ../PajamaPenguins_Shared/PPSharedAssets.h; sourceTree = "<group>"; };
 		EE34347A1AABF4180010BE71 /* PPSharedAssets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPSharedAssets.m; path = ../PajamaPenguins_Shared/PPSharedAssets.m; sourceTree = "<group>"; };
@@ -581,6 +584,8 @@
 				EED930561AF035C600C5C972 /* PPFishNode.m */,
 				EED56A581AF1A697001C56EF /* PPCoinNode.h */,
 				EED56A591AF1A698001C56EF /* PPCoinNode.m */,
+				EE32AB521B181A8E004D1D15 /* PPBoostMeter.h */,
+				EE32AB531B181A8E004D1D15 /* PPBoostMeter.m */,
 			);
 			name = SpriteNodes;
 			sourceTree = "<group>";
@@ -719,6 +724,7 @@
 			files = (
 				EEFA234D1A9D3B5E0003B009 /* SSKParallaxNode.m in Sources */,
 				EE8CF0A11ACB885500BFC4A8 /* SKTexture+SFAdditions.m in Sources */,
+				EE32AB541B181A8E004D1D15 /* PPBoostMeter.m in Sources */,
 				EEC6AEA21AE0ACD300FCB267 /* PPUserManager.m in Sources */,
 				EE6F93001A82F39400286DC7 /* SSKGraphicsUtils.m in Sources */,
 				EE0F00781AB534B40067CD38 /* SSKUtils.m in Sources */,
