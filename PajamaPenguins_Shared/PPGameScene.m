@@ -267,14 +267,14 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     
     CGFloat padding = 5.0;
     
-    PPBoostMeter *boostMeter = [[PPBoostMeter alloc] initWithSize:CGSizeMake(10, 50)];
-    [boostMeter setName:@"boostMeter"];
-    [boostMeter setPosition:CGPointMake(-self.size.width/2 + boostMeter.size.width/2 + padding, self.size.height/2 - boostMeter.size.height/2 - padding)];
-    [self.hudNode addChild:boostMeter];
+//    PPBoostMeter *boostMeter = [[PPBoostMeter alloc] initWithSize:CGSizeMake(10, 50)];
+//    [boostMeter setName:@"boostMeter"];
+//    [boostMeter setPosition:CGPointMake(-self.size.width/2 + boostMeter.size.width/2 + padding, self.size.height/2 - boostMeter.size.height/2 - padding)];
+//    [self.hudNode addChild:boostMeter];
 
     SSKProgressBarNode *breathMeter = [[SSKProgressBarNode alloc] initWithFrameColor:[SKColor blackColor] barColor:[SKColor redColor] size:CGSizeMake(10, 50) barType:BarTypeVertical];
-//    [breathMeter setName:@"progressBar"];
-//    [breathMeter setPosition:CGPointMake(-self.size.width/2 + breathMeter.size.width/2 + padding, self.size.height/2 - breathMeter.size.height/2 - padding)];
+    [breathMeter setName:@"progressBar"];
+    [breathMeter setPosition:CGPointMake(-self.size.width/2 + breathMeter.size.width/2 + padding, self.size.height/2 - breathMeter.size.height/2 - padding)];
     [self.hudNode addChild:breathMeter];
     
     NSString *fontName = @"AmericanTypewriter";

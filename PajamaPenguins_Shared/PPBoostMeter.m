@@ -18,4 +18,9 @@
     return self;
 }
 
+#pragma mark - Segment Decrease
+- (void)animateToProgress:(CGFloat)progress {
+    [self setProgress:progress];
+}
+
 @end
