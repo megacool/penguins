@@ -138,6 +138,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     CGFloat _breathTimer;
     
     CGFloat _playerBubbleBirthrate;
+    CGFloat _playerStarBirthrate;
     
     NSUInteger _currentParallaxMultiplier;
 }
@@ -226,6 +227,9 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [playerStarEmitter setTargetNode:bubbleTarget];
     [playerStarEmitter setPosition:CGPointMake(player.position.x - player.size.height/2, player.position.y)];
     [self.worldNode addChild:playerStarEmitter];
+    
+    _playerStarBirthrate = playerStarEmitter.particleBirthRate; // To reset the simulation
+    [playerStarEmitter setParticleBirthRate:0]; // Start the emitter only during boost
     
     //Customize Splash emitters
     self.splashDownEmitter = [PPSharedAssets sharedPlayerSplashDownEmitter];
@@ -772,6 +776,20 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [starEmitter setPosition:CGPointMake(starEmitter.position.x, playerPosition.y)];
 }
 
+- (SKAction*)setStarEmitterBirthrate:(CGFloat)birthrate {
+    return [SKAction runBlock:^{
+        SKEmitterNode *starEmitter = [self currentStarEmitter];
+        [starEmitter resetSimulation];
+        [starEmitter setParticleBirthRate:birthrate];
+    }];
+}
+
+- (SKAction*)stopStarEmitterAction {
+    return [SKAction runBlock:^{
+        [self stopStarEmitter];
+    }];
+}
+
 - (void)stopStarEmitter {
     SKEmitterNode *starEmitter = (SKEmitterNode*)[self.worldNode childNodeWithName:@"starEmitter"];
     [starEmitter setParticleBirthRate:0];
@@ -966,7 +984,10 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     SKAction *endBoost = [self adjustBoostSpeed:ParallaxMultiplierNormal];
     SKAction *snowAccelDown = [self snowAccelerationNormal];
     SKAction *snowAccelUp = [self snowAccelerationBoost];
-    SKAction *sequence = [SKAction sequence:@[startBoost,snowAccelUp,wait,endBoost,snowAccelDown]];
+    SKAction *starEmitterOn = [self setStarEmitterBirthrate:_playerStarBirthrate];
+    SKAction *starEmitterOff = [self stopStarEmitterAction];
+    
+    SKAction *sequence = [SKAction sequence:@[startBoost,snowAccelUp,starEmitterOn,wait,endBoost,snowAccelDown,starEmitterOff]];
     
     [self runAction:sequence withKey:@"boostKey"];
 }
