@@ -154,9 +154,18 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [boostMeter setZPosition:50];
     [self addChild:boostMeter];
     
-    [self runAction:[SKAction waitForDuration:2] completion:^{
+    [self runAction:[SKAction waitForDuration:1] completion:^{
         [boostMeter animateToProgress:0.5];
     }];
+    
+    [self runAction:[SKAction waitForDuration:5] completion:^{
+        [boostMeter animateToProgress:0.75];
+    }];
+
+    [self runAction:[SKAction waitForDuration:10] completion:^{
+        [boostMeter animateToProgress:0.0];
+    }];
+
 }
 
 

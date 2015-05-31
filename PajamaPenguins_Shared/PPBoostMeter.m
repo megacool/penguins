@@ -20,16 +20,16 @@
 
 #pragma mark - Segment Decrease
 - (void)animateToProgress:(CGFloat)newProgress {
+    [self removeActionForKey:@"barAnimating"];
+    
     CGFloat currentProgress = self.currentProgress;
     CGFloat difference = (currentProgress - newProgress) * -1;
-    NSLog(@"Difference between progresses: %fl",difference);
-    
-    CGFloat animationTime = difference * 2; // 1.0 == 2 seconds, 0.5 = 1 second etc...
+
+    CGFloat animationTime = fabs(difference * 2); // 1.0 == 2 seconds, 0.5 = 1 second etc...
     CGFloat intervals = fabs(difference/0.01);
     
     NSMutableArray *actions = [NSMutableArray new];
     for (int i = 0; i < intervals; i++) {
-        NSLog(@"intervals: %fl",intervals);
         
         // Adjust current progress by 1 percent per interval
         if (currentProgress > newProgress) {
@@ -38,19 +38,17 @@
             currentProgress = currentProgress + 0.01;
         }
         
-        NSLog(@"New prog: %fl",currentProgress);
-        SKAction *block = [SKAction runBlock:^{
-            [self setProgress:currentProgress];
-        }];
+        // Set new progress from interval
+        SKAction *block = [self setProgressAction:currentProgress];
         
         // Wait a segment of the animation time
         SKAction *wait = [SKAction waitForDuration:animationTime/intervals];
         
-        [actions addObject:block];
         [actions addObject:wait];
+        [actions addObject:block];
     }
     
-    [self runAction:[SKAction sequence:actions]];
+    [self runAction:[SKAction sequence:actions] withKey:@"barAnimating"];
 }
 
 @end

@@ -65,20 +65,25 @@
 #pragma mark - Set Progress
 - (void)setProgress:(CGFloat)progress {
     if (progress >= 0.0 && progress <= 1.0 ) {
-
         if (self.barType == BarTypeHorizontal) {
             [self.bar setXScale:progress];
         }
         
         if (self.barType == BarTypeVertical) {
             [self.bar setYScale:progress];
-            NSLog(@"y scale: %fl",progress);
         }
         
         self.currentProgress = progress;
     } else {
         NSLog(@"Can't set progress outside of 0 - 1.0");
     }
+}
+
+- (SKAction*)setProgressAction:(CGFloat)progress {
+    return [SKAction runBlock:^{
+        NSLog(@"called after");
+        [self setProgress:progress];
+    }];
 }
 
 #pragma mark - Bar Actions
