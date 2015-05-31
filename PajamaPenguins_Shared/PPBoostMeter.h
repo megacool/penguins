@@ -11,5 +11,5 @@
 @interface PPBoostMeter : SSKProgressBarNode
 - (instancetype)initWithSize:(CGSize)size;
 
-- (void)animateToProgress:(CGFloat)progress;
+- (void)animateToProgress:(CGFloat)newProgress;
 @end

@@ -34,6 +34,7 @@
         self.startBarColor = barColor;
         self.startBackgroundBarColor = [SKColor blackColor];
         self.barType = barType;
+        self.currentProgress = 1.0;
         _size = size;
         
         self.barBackground = [SKSpriteNode spriteNodeWithColor:self.startBackgroundBarColor size:size];
@@ -71,6 +72,7 @@
         
         if (self.barType == BarTypeVertical) {
             [self.bar setYScale:progress];
+            NSLog(@"y scale: %fl",progress);
         }
         
         self.currentProgress = progress;

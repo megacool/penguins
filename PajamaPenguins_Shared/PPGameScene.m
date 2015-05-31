@@ -150,6 +150,13 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 }
 
 - (void)testStuff {
+    PPBoostMeter *boostMeter = [[PPBoostMeter alloc] initWithSize:CGSizeMake(10, 50)];
+    [boostMeter setZPosition:50];
+    [self addChild:boostMeter];
+    
+    [self runAction:[SKAction waitForDuration:2] completion:^{
+        [boostMeter animateToProgress:0.5];
+    }];
 }
 
 
@@ -335,7 +342,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     NSString *currentScoreString = [(SSKScoreNode*)[self.hudNode childNodeWithName:@"scoreCounter"] text];
     
     // Score label
-    SKLabelNode *scoreLabel = [self createNewLabelWithText:[NSString stringWithFormat:@"%@ meters.",currentScoreString] withFontSize:30];
+    SKLabelNode *scoreLabel = [self createNewLabelWithText:[NSString stringWithFormat:@"%@",currentScoreString] withFontSize:30];
     [scoreLabel setPosition:CGPointMake(gameOverLabel.position.x, gameOverLabel.position.y - 50)];
     [self.gameOverNode addChild:scoreLabel];
     
