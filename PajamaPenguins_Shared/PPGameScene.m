@@ -606,7 +606,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [self.worldNode enumerateChildNodesWithName:kFishName usingBlock:^(SKNode *node, BOOL *stop) {
         PPFishNode *fish = (PPFishNode*)node;
         if (CGRectIntersectsRect([self currentPlayer].frame, fish.frame)) {
-            [[self currentStarEmitter] setParticleColor:[fish color]];
+//            [[self currentStarEmitter] setParticleColor:[fish color]];
             [fish removeFromParent];
         }
     }];
