@@ -933,9 +933,8 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 
 #pragma mark - Boost
 - (void)boostActionGroup {
-    NSLog(@"%fl",[self currentBoostMeter].currentProgress);
     if ([self actionForKey:@"boostKey"]) return;
-    if ([self currentBoostMeter].currentProgress < 0.5) return;
+    if ([self currentBoostMeter].currentProgress < 0.49f) return;
     
     SKAction *startBoost = [self adjustBoostSpeed:ParallaxMultiplierBoost];
     SKAction *wait = [SKAction waitForDuration:3.0];
