@@ -81,7 +81,6 @@
 
 - (SKAction*)setProgressAction:(CGFloat)progress {
     return [SKAction runBlock:^{
-        NSLog(@"called after");
         [self setProgress:progress];
     }];
 }

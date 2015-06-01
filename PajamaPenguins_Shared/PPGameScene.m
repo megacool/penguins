@@ -150,24 +150,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 }
 
 - (void)testStuff {
-    PPBoostMeter *boostMeter = [[PPBoostMeter alloc] initWithSize:CGSizeMake(10, 50)];
-    [boostMeter setZPosition:50];
-    [self addChild:boostMeter];
-    
-    [self runAction:[SKAction waitForDuration:1] completion:^{
-        [boostMeter animateToProgress:0.5];
-    }];
-    
-    [self runAction:[SKAction waitForDuration:5] completion:^{
-        [boostMeter animateToProgress:0.75];
-    }];
-
-    [self runAction:[SKAction waitForDuration:10] completion:^{
-        [boostMeter animateToProgress:0.0];
-    }];
-
 }
-
 
 - (void)createNewGame {
     self.gameState = PreGame;

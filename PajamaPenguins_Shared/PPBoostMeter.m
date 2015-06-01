@@ -13,8 +13,8 @@
 - (instancetype)initWithSize:(CGSize)size {
     self = [super initWithFrameColor:[SKColor blackColor] barColor:[SKColor redColor] size:size barType:BarTypeVertical];
     if (self) {
-        
     }
+    
     return self;
 }
 
