@@ -596,7 +596,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [self.worldNode enumerateChildNodesWithName:kFishName usingBlock:^(SKNode *node, BOOL *stop) {
         PPFishNode *fish = (PPFishNode*)node;
         if (CGRectIntersectsRect([self currentPlayer].frame, fish.frame)) {
-//            [[self currentStarEmitter] setParticleColor:[fish color]];
+            [self adjustBoostMeter:0.10];
             [fish removeFromParent];
         }
     }];
@@ -944,7 +944,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     SKAction *starExplosion = [self runStarExplosion];
     SKAction *starEmitterOn = [self setStarEmitterBirthrate:_playerStarBirthrate];
     SKAction *starEmitterOff = [self stopStarEmitterAction];
-    SKAction *adjustBoostMeter = [self adjustBoostMeter:-0.5];
+    SKAction *adjustBoostMeter = [self adjustBoostMeterAction:-0.5];
     
     SKAction *sequence = [SKAction sequence:@[starExplosion,startBoost,snowAccelUp,starEmitterOn,adjustBoostMeter,wait,endBoost,snowAccelDown,starEmitterOff]];
     
@@ -974,10 +974,14 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 }
 
 #pragma mark - Boost meter
-- (SKAction*)adjustBoostMeter:(CGFloat)amount {
+- (void)adjustBoostMeter:(CGFloat)amount {
+    PPBoostMeter *meter = [self currentBoostMeter];
+    [meter animateToProgress:(meter.currentProgress + amount)];
+}
+
+- (SKAction*)adjustBoostMeterAction:(CGFloat)amount {
     return [SKAction runBlock:^{
-        PPBoostMeter *meter = [self currentBoostMeter];
-        [meter animateToProgress:(meter.currentProgress + amount)];
+        [self adjustBoostMeter:amount];
     }];
 }
 
