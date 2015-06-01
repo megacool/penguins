@@ -749,6 +749,12 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     return (SKEmitterNode*)[self.worldNode childNodeWithName:@"starEmitter"];
 }
 
+- (SKAction*)runStarExplosion {
+    return [SKAction runBlock:^{
+        [self runOneShotEmitter:[PPSharedAssets sharedStarExplosionEmitter] location:[self currentPlayer].position];
+    }];
+}
+
 #pragma mark - Emitters
 - (void)runOneShotEmitter:(SKEmitterNode*)emitter location:(CGPoint)location {
     SKEmitterNode *splashEmitter = emitter.copy;
@@ -927,6 +933,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 
 #pragma mark - Boost
 - (void)boostActionGroup {
+    NSLog(@"%fl",[self currentBoostMeter].currentProgress);
     if ([self actionForKey:@"boostKey"]) return;
     if ([self currentBoostMeter].currentProgress < 0.5) return;
     
@@ -935,11 +942,12 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     SKAction *endBoost = [self adjustBoostSpeed:ParallaxMultiplierNormal];
     SKAction *snowAccelDown = [self snowAccelerationNormal];
     SKAction *snowAccelUp = [self snowAccelerationBoost];
+    SKAction *starExplosion = [self runStarExplosion];
     SKAction *starEmitterOn = [self setStarEmitterBirthrate:_playerStarBirthrate];
     SKAction *starEmitterOff = [self stopStarEmitterAction];
     SKAction *adjustBoostMeter = [self adjustBoostMeter:-0.5];
     
-    SKAction *sequence = [SKAction sequence:@[startBoost,snowAccelUp,starEmitterOn,adjustBoostMeter,wait,endBoost,snowAccelDown,starEmitterOff]];
+    SKAction *sequence = [SKAction sequence:@[starExplosion,startBoost,snowAccelUp,starEmitterOn,adjustBoostMeter,wait,endBoost,snowAccelDown,starEmitterOff]];
     
     [self runAction:sequence withKey:@"boostKey"];
 }
@@ -975,7 +983,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 }
 
 - (PPBoostMeter*)currentBoostMeter {
-    return (PPBoostMeter*)[self.worldNode childNodeWithName:@"boostMeter"];
+    return (PPBoostMeter*)[self.hudNode childNodeWithName:@"boostMeter"];
 }
 
 #pragma mark - Snow 
@@ -1005,7 +1013,6 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
         if (_currentParallaxMultiplier == 1) {
             [self boostActionGroup];
-            [self runOneShotEmitter:[PPSharedAssets sharedStarExplosionEmitter] location:[self currentPlayer].position];
         }
     }
 }
