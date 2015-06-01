@@ -270,15 +270,10 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     
     CGFloat padding = 5.0;
     
-//    PPBoostMeter *boostMeter = [[PPBoostMeter alloc] initWithSize:CGSizeMake(10, 50)];
-//    [boostMeter setName:@"boostMeter"];
-//    [boostMeter setPosition:CGPointMake(-self.size.width/2 + boostMeter.size.width/2 + padding, self.size.height/2 - boostMeter.size.height/2 - padding)];
-//    [self.hudNode addChild:boostMeter];
-
-    SSKProgressBarNode *breathMeter = [[SSKProgressBarNode alloc] initWithFrameColor:[SKColor blackColor] barColor:[SKColor redColor] size:CGSizeMake(10, 50) barType:BarTypeVertical];
-    [breathMeter setName:@"progressBar"];
-    [breathMeter setPosition:CGPointMake(-self.size.width/2 + breathMeter.size.width/2 + padding, self.size.height/2 - breathMeter.size.height/2 - padding)];
-    [self.hudNode addChild:breathMeter];
+    PPBoostMeter *boostMeter = [[PPBoostMeter alloc] initWithSize:CGSizeMake(10, 50)];
+    [boostMeter setName:@"boostMeter"];
+    [boostMeter setPosition:CGPointMake(-self.size.width/2 + boostMeter.size.width/2 + padding, self.size.height/2 - boostMeter.size.height/2 - padding)];
+    [self.hudNode addChild:boostMeter];
     
     NSString *fontName = @"AmericanTypewriter";
     CGFloat fontSize = 12.0;
@@ -287,7 +282,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [scoreCounter setName:@"scoreCounter"];
     [scoreCounter setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeLeft];
     [scoreCounter setVerticalAlignmentMode:SKLabelVerticalAlignmentModeTop];
-    [scoreCounter setPosition:CGPointMake(breathMeter.position.x + breathMeter.size.width/2 + padding, self.size.height/2 - padding)];
+    [scoreCounter setPosition:CGPointMake(boostMeter.position.x + boostMeter.size.width/2 + padding, self.size.height/2 - padding)];
     [self.hudNode addChild:scoreCounter];
     
     PPCoinNode *coinNode = [[PPCoinNode alloc] init];
@@ -353,7 +348,6 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 
     [self runAction:[SKAction fadeOutWithDuration:.5] onNode:[self childNodeWithName:@"menu"]];
     
-    [self resetBreathTimer];
     [self createHudLayer];
     [self hudLayerFadeInAnimation];
     
@@ -609,46 +603,6 @@ NSString * const kFishMoveKey = @"fishMoveKey";
             [fish removeFromParent];
         }
     }];
-}
-
-#pragma mark - Breath Meter
-- (void)updateBreathMeter {
-    CGFloat currentProgress = _breathTimer/kMaxBreathTimer;
-    SSKProgressBarNode *progressBar = (SSKProgressBarNode*)[self.hudNode childNodeWithName:@"progressBar"];
-    
-    [progressBar setProgress:currentProgress];
-    
-    if (currentProgress < 0.30) {
-        [progressBar startFlash];
-    }
-    else {
-        [progressBar stopFlash];
-    }
-}
-
-- (void)checkBreathMeterForGameOver {
-    if ([(SSKProgressBarNode*)[self.hudNode childNodeWithName:@"progressBar"] currentProgress] == 0.0) {
-        [self gameEnd];
-    }
-}
-
-- (void)resetBreathTimer {
-    _breathTimer = kMaxBreathTimer;
-}
-
-- (void)updateBreathTimer:(NSTimeInterval)dt {
-    if ([self currentPlayer].position.y < [self.worldNode childNodeWithName:@"water"].position.y) {
-        _breathTimer -= dt;
-    } else {
-        _breathTimer += dt;
-    }
-    
-    if (_breathTimer < 0.0) {
-        _breathTimer = 0.0;
-    }
-    else if (_breathTimer > kMaxBreathTimer) {
-        _breathTimer = kMaxBreathTimer;
-    }
 }
 
 #pragma mark - Penguin Types
@@ -1086,9 +1040,6 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     }
     
     if (self.gameState == Playing) {
-        [self updateBreathTimer:self.deltaTime];
-        [self updateBreathMeter];
-        [self checkBreathMeterForGameOver];
         [self checkCoinsDidIntersect];
         [self checkFishDidIntersect];
     }
