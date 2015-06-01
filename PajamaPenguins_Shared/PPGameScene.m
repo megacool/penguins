@@ -78,7 +78,6 @@ CGFloat const kMaxSplashStrength      = 20;
 CGFloat const kMinSplashStrength      = 5;
 
 //Clamped Constants
-CGFloat const kMaxBreathTimer = 6.0;
 CGFloat const kWorldScaleCap  = 0.55;
 
 //CGFloat const kPlayerUpperVelocityLimit      = 700.0;
@@ -135,8 +134,6 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     NSTimeInterval _lastUpdateTime;
     CGFloat _lastPlayerHeight;
 
-    CGFloat _breathTimer;
-    
     CGFloat _playerBubbleBirthrate;
     CGFloat _playerStarBirthrate;
     
@@ -931,6 +928,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 #pragma mark - Boost
 - (void)boostActionGroup {
     if ([self actionForKey:@"boostKey"]) return;
+    if ([self currentBoostMeter].currentProgress < 0.5) return;
     
     SKAction *startBoost = [self adjustBoostSpeed:ParallaxMultiplierBoost];
     SKAction *wait = [SKAction waitForDuration:3.0];
@@ -939,8 +937,9 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     SKAction *snowAccelUp = [self snowAccelerationBoost];
     SKAction *starEmitterOn = [self setStarEmitterBirthrate:_playerStarBirthrate];
     SKAction *starEmitterOff = [self stopStarEmitterAction];
+    SKAction *adjustBoostMeter = [self adjustBoostMeter:-0.5];
     
-    SKAction *sequence = [SKAction sequence:@[startBoost,snowAccelUp,starEmitterOn,wait,endBoost,snowAccelDown,starEmitterOff]];
+    SKAction *sequence = [SKAction sequence:@[startBoost,snowAccelUp,starEmitterOn,adjustBoostMeter,wait,endBoost,snowAccelDown,starEmitterOff]];
     
     [self runAction:sequence withKey:@"boostKey"];
 }
@@ -965,6 +964,18 @@ NSString * const kFishMoveKey = @"fishMoveKey";
         self.cloudFast.parallaxLayer.moveSpeedMultiplier = speed;
         self.cloudSlow.parallaxLayer.moveSpeedMultiplier = speed;
     }];
+}
+
+#pragma mark - Boost meter
+- (SKAction*)adjustBoostMeter:(CGFloat)amount {
+    return [SKAction runBlock:^{
+        PPBoostMeter *meter = [self currentBoostMeter];
+        [meter animateToProgress:(meter.currentProgress + amount)];
+    }];
+}
+
+- (PPBoostMeter*)currentBoostMeter {
+    return (PPBoostMeter*)[self.worldNode childNodeWithName:@"boostMeter"];
 }
 
 #pragma mark - Snow 
