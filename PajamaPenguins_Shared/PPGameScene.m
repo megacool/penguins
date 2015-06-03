@@ -330,6 +330,11 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [scoreLabel setPosition:CGPointMake(gameOverLabel.position.x, gameOverLabel.position.y - 50)];
     [self.gameOverNode addChild:scoreLabel];
     
+    // Coins Label
+    SSKScoreNode *coinsNode = (SSKScoreNode*)[self.hudNode childNodeWithName:@"coinCounter"];
+    
+    SKLabelNode *coinsLabel = [self createNewLabelWithText:[NSString stringWithFormat:@"%lu",coinsNode.count] withFontSize:30];
+    
     // Buttons
     [self.gameOverNode addChild:[self menuButton]];
     [self.gameOverNode addChild:[self retryButton]];
