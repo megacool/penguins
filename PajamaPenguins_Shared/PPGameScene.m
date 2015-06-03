@@ -331,9 +331,10 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [self.gameOverNode addChild:scoreLabel];
     
     // Coins Label
-    SSKScoreNode *coinsNode = (SSKScoreNode*)[self.hudNode childNodeWithName:@"coinCounter"];
-    
-    SKLabelNode *coinsLabel = [self createNewLabelWithText:[NSString stringWithFormat:@"%lu",coinsNode.count] withFontSize:30];
+    NSUInteger totalCoinsCount = [(SSKScoreNode*)[self.hudNode childNodeWithName:@"coinCounter"] count];
+    SKLabelNode *coinsLabel = [self createNewLabelWithText:[NSString stringWithFormat:@"%lu", totalCoinsCount] withFontSize:30];
+    [scoreLabel setPosition:CGPointMake(gameOverLabel.position.x, scoreLabel.position.y - 50)];
+    [self.gameOverNode addChild:coinsLabel];
     
     // Buttons
     [self.gameOverNode addChild:[self menuButton]];
