@@ -23,4 +23,6 @@
 + (SKColor*)skySunset;
 + (SKColor*)skyNight;
 
++ (SKColor*)darkRed;
+
 @end

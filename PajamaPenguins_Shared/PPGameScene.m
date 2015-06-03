@@ -316,9 +316,12 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [self.gameOverNode setPosition:CGPointMake(-kMoveAndFadeDistance, 0)];
     [self addChild:self.gameOverNode];
     
+    // Game over label color
+    SKColor *darkred = [SKColor colorWithR:150 g:5 b:5];
+    
     // Game over text label
     SKLabelNode *gameOverLabel = [self createNewLabelWithText:@"Game Over" withFontSize:40];
-    [gameOverLabel setFontColor:[SKColor colorWithR:150 g:5 b:5]];
+    [gameOverLabel setFontColor:darkred];
     [gameOverLabel setPosition:CGPointMake(0, self.size.height/3)];
     [self.gameOverNode addChild:gameOverLabel];
     
@@ -326,14 +329,14 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     NSString *currentScoreString = [(SSKScoreNode*)[self.hudNode childNodeWithName:@"scoreCounter"] text];
     
     // Score label
-    SKLabelNode *scoreLabel = [self createNewLabelWithText:[NSString stringWithFormat:@"%@",currentScoreString] withFontSize:30];
+    SKLabelNode *scoreLabel = [self createNewLabelWithText:[NSString stringWithFormat:@"Score: %@",currentScoreString] withFontSize:30];
     [scoreLabel setPosition:CGPointMake(gameOverLabel.position.x, gameOverLabel.position.y - 50)];
     [self.gameOverNode addChild:scoreLabel];
     
     // Coins Label
     NSUInteger totalCoinsCount = [(SSKScoreNode*)[self.hudNode childNodeWithName:@"coinCounter"] count];
-    SKLabelNode *coinsLabel = [self createNewLabelWithText:[NSString stringWithFormat:@"%lu", totalCoinsCount] withFontSize:30];
-    [scoreLabel setPosition:CGPointMake(gameOverLabel.position.x, scoreLabel.position.y - 50)];
+    SKLabelNode *coinsLabel = [self createNewLabelWithText:[NSString stringWithFormat:@"Coins: %lu", totalCoinsCount] withFontSize:30];
+    [coinsLabel setPosition:CGPointMake(gameOverLabel.position.x, scoreLabel.position.y - 75)];
     [self.gameOverNode addChild:coinsLabel];
     
     // Buttons

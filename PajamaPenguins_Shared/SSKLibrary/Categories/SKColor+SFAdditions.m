@@ -53,5 +53,8 @@
     return [SKColor colorWithR:55 g:58 b:175];
 };
 
++ (SKColor*)darkRed {
+    return [SKColor colorWithR:150 g:5 b:5];
+}
 
 @end
