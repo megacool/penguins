@@ -468,6 +468,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     SKAction *getSpawnPosition = [SKAction runBlock:^{
         CGFloat randomHeight = SSKRandomFloatInRange(self.size.height/5, self.size.height/2);
         CGPoint newPoint = CGPointMake(self.size.width * 2, randomHeight);
+        NSLog(@"%fl",randomHeight);
         [self.coinSpawnPosition setPosition:newPoint];
     }];
     
@@ -604,7 +605,9 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [self.worldNode enumerateChildNodesWithName:kFishName usingBlock:^(SKNode *node, BOOL *stop) {
         PPFishNode *fish = (PPFishNode*)node;
         if (CGRectIntersectsRect([self currentPlayer].frame, fish.frame)) {
-            [self adjustBoostMeter:0.10];
+            if ([self currentBoostMeter].currentProgress < 1.0) {
+                [self adjustBoostMeter:0.10];
+            }
             [fish removeFromParent];
         }
     }];
