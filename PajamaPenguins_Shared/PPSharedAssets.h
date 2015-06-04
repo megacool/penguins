@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <SpriteKit/SpriteKit.h>
+#import "SFAudio.h"
 
 @interface PPSharedAssets : NSObject
 
@@ -46,5 +47,8 @@ typedef void (^AssetCompletionHandler)(void);
 + (SKEmitterNode*)sharedPlayerSplashUpEmitter;
 + (SKEmitterNode*)sharedStarEmitter;
 + (SKEmitterNode*)sharedStarExplosionEmitter;
+
+// Audio
++ (SFAudio*)sharedSplashSFX;
 
 @end

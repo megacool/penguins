@@ -11,6 +11,7 @@
 #import "SKColor+SFAdditions.h"
 #import "SKTexture+SFAdditions.h"
 
+
 @implementation PPSharedAssets
 + (void)loadSharedAssetsWithCompletion:(AssetCompletionHandler)completion {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -66,7 +67,9 @@
         [sStarEmitter setParticleRotationSpeed:150];
         [sStarEmitter setParticleColorBlendFactor:1.0];
         
-
+        // Audio
+        sSplashSFX = [[SFAudio alloc] initWithFileNamed:@"splash.m4a"];
+        
         NSLog(@"Scene loaded in %f seconds",[[NSDate date] timeIntervalSinceDate:startTime]);
         
         if (!completion) {
@@ -145,6 +148,12 @@ static SKTexture *sIcebergMenuTexture = nil;
 static SKTexture *sIcebergGameTexture = nil;
 + (SKTexture*)sharedIcebergGameTexture {
     return sIcebergGameTexture;
+}
+
+#pragma mark - Audio
+static SFAudio *sSplashSFX = nil;
++ (SFAudio*)sharedSplashSFX {
+    return sSplashSFX;
 }
 
 #pragma mark - Shared Emitters

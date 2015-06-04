@@ -697,6 +697,8 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     
     //Cross surface from bottom
     if (_lastPlayerHeight < 0 && newPlayerHeight > 0) {
+        
+        // Splash Emitter
         CGFloat splashRatio = [self currentPlayer].physicsBody.velocity.dy / kPlayerUpperVelocityLimit;
         CGFloat splashStrength = kMaxSplashStrength * splashRatio;
         
@@ -704,9 +706,15 @@ NSString * const kFishMoveKey = @"fishMoveKey";
         [self runOneShotEmitter:self.splashUpEmitter location:[self currentPlayer].position];
         
         _lastPlayerHeight = newPlayerHeight;
+        
+        // Audio
+        [[PPSharedAssets sharedSplashSFX] startSound];
     }
+    
     //Cross surface from top
     else if (_lastPlayerHeight > 0 && newPlayerHeight < 0) {
+        
+        // Splash Emitter
         CGFloat splashRatio = [self currentPlayer].physicsBody.velocity.dy / kPlayerLowerAirVelocityLimit;
         CGFloat splashStrength = kMaxSplashStrength * splashRatio;
         
@@ -714,6 +722,9 @@ NSString * const kFishMoveKey = @"fishMoveKey";
         [self runOneShotEmitter:self.splashDownEmitter location:[self currentPlayer].position];
         
         _lastPlayerHeight = newPlayerHeight;
+        
+        // Audio
+        [[PPSharedAssets sharedSplashSFX] startSound];
     }
 }
 
