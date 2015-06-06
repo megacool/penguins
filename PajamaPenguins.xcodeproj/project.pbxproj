@@ -96,6 +96,7 @@
 		EEC9DB981AA93F900022CDF1 /* PPMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC9DB961AA93F900022CDF1 /* PPMenuScene.m */; };
 		EECC66901AA14B28004CB609 /* SSKDynamicColorNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC668F1AA14B28004CB609 /* SSKDynamicColorNode.m */; };
 		EECC66911AA14B28004CB609 /* SSKDynamicColorNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC668F1AA14B28004CB609 /* SSKDynamicColorNode.m */; };
+		EED254D51B23A06B003EDE35 /* SKAction+SFSpecialEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = EED254D41B23A06B003EDE35 /* SKAction+SFSpecialEffects.m */; };
 		EED56A5A1AF1A698001C56EF /* PPCoinNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EED56A591AF1A698001C56EF /* PPCoinNode.m */; };
 		EED56A5C1AF1AB9D001C56EF /* coins.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EED56A5B1AF1AB9D001C56EF /* coins.atlas */; };
 		EED8E5A41A881D79001C8F59 /* PPPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8E5A31A881D79001C8F59 /* PPPlayer.m */; };
@@ -217,6 +218,8 @@
 		EEC9DB961AA93F900022CDF1 /* PPMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPMenuScene.m; sourceTree = "<group>"; };
 		EECC668E1AA14B28004CB609 /* SSKDynamicColorNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKDynamicColorNode.h; sourceTree = "<group>"; };
 		EECC668F1AA14B28004CB609 /* SSKDynamicColorNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKDynamicColorNode.m; sourceTree = "<group>"; };
+		EED254D31B23A06B003EDE35 /* SKAction+SFSpecialEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKAction+SFSpecialEffects.h"; sourceTree = "<group>"; };
+		EED254D41B23A06B003EDE35 /* SKAction+SFSpecialEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKAction+SFSpecialEffects.m"; sourceTree = "<group>"; };
 		EED56A581AF1A697001C56EF /* PPCoinNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCoinNode.h; sourceTree = "<group>"; };
 		EED56A591AF1A698001C56EF /* PPCoinNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCoinNode.m; sourceTree = "<group>"; };
 		EED56A5B1AF1AB9D001C56EF /* coins.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = coins.atlas; sourceTree = "<group>"; };
@@ -373,6 +376,8 @@
 				EE8ED2281ACB2815007A3F3F /* UIDevice+SFAdditions.m */,
 				EE8CF09F1ACB885500BFC4A8 /* SKTexture+SFAdditions.h */,
 				EE8CF0A01ACB885500BFC4A8 /* SKTexture+SFAdditions.m */,
+				EED254D31B23A06B003EDE35 /* SKAction+SFSpecialEffects.h */,
+				EED254D41B23A06B003EDE35 /* SKAction+SFSpecialEffects.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -747,6 +752,7 @@
 				EE5575EB1A5A108100B87145 /* PPGameScene.m in Sources */,
 				EEC9DB8D1AA7BF5E0022CDF1 /* SSKProgressBarNode.m in Sources */,
 				EEC9BA491AE9D0B4006A7118 /* PPButtonNode.m in Sources */,
+				EED254D51B23A06B003EDE35 /* SKAction+SFSpecialEffects.m in Sources */,
 				EE8F0AB71AD73A7600CB1CE1 /* PPCloudParallaxFast.m in Sources */,
 				EEBA93CF1A8C1FED00CBD711 /* SSKCameraNode.m in Sources */,
 				EE6F92FC1A82F39400286DC7 /* SSKButtonNode.m in Sources */,

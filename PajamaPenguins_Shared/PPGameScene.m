@@ -21,6 +21,7 @@
 #import "PPFadingSky.h"
 #import "PPUserManager.h"
 
+#import "SKAction+SFSpecialEffects.h"
 #import "SKColor+SFAdditions.h"
 #import "SSKUtils.h"
 
@@ -148,6 +149,8 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 }
 
 - (void)testStuff {
+    SKAction *shake = [SKAction shakeWithDuration:3.0 amplitude:CGPointMake(100, 100)];
+    [self.worldNode runAction:shake];
 }
 
 - (void)createNewGame {
@@ -295,7 +298,6 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [coinCounter setPosition:CGPointMake(coinNode.position.x, coinNode.position.y - coinNode.size.height/2 - padding)];
     [coinCounter setScore:[[PPUserManager sharedManager] getTotalCoins].integerValue];
     [self.hudNode addChild:coinCounter];
-
 }
 
 - (void)hudLayerFadeInAnimation {
