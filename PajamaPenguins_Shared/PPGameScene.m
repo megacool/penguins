@@ -99,6 +99,7 @@ CGFloat const kParallaxNormalMoveSpeed = 3.5;
 CGFloat const kParallaxBoostMoveSpeed  = 1.5;
 CGFloat const kMoveAndFadeTime         = 0.2;
 CGFloat const kMoveAndFadeDistance     = 20;
+CGFloat const kMoveAndFadeLongDistance     = 50;
 
 //Action Keys
 NSString * const kCoinSpawnKey    = @"coinSpawnKey";
@@ -313,7 +314,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [self.gameOverNode setZPosition:SceneLayerGameOver];
     [self.gameOverNode setName:@"gameOver"];
     [self.gameOverNode setAlpha:0];
-    [self.gameOverNode setPosition:CGPointMake(-kMoveAndFadeDistance, 0)];
+    [self.gameOverNode setPosition:CGPointMake(-kMoveAndFadeLongDistance, 0)];
     [self addChild:self.gameOverNode];
     
     // Game over text label
@@ -344,7 +345,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 }
 
 - (void)gameOverFadeInAnimation {
-    [self.gameOverNode runAction:[SKAction moveDistance:CGVectorMake(kMoveAndFadeDistance, 0) fadeInWithDuration:kMoveAndFadeTime]];
+    [self.gameOverNode runAction:[SKAction moveDistance:CGVectorMake(kMoveAndFadeLongDistance, 0) fadeInWithDuration:kMoveAndFadeTime]];
 }
 
 #pragma mark - GameState Playing
