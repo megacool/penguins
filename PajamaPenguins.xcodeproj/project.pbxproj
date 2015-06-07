@@ -45,6 +45,7 @@
 		EE5575EB1A5A108100B87145 /* PPGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5575E91A5A108100B87145 /* PPGameScene.m */; };
 		EE5575F01A5A16A700B87145 /* PPGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5575E91A5A108100B87145 /* PPGameScene.m */; };
 		EE5E21D41AC35F0400C9A310 /* waterParticle.png in Resources */ = {isa = PBXBuildFile; fileRef = EE5E21D21AC35F0400C9A310 /* waterParticle.png */; };
+		EE6718A31B249D43006D84D0 /* PPCircleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6718A21B249D43006D84D0 /* PPCircleNode.m */; };
 		EE6F92F81A82F39400286DC7 /* SSKGameCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6F92E71A82F39400286DC7 /* SSKGameCenter.m */; };
 		EE6F92FA1A82F39400286DC7 /* SSKiAD.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6F92E91A82F39400286DC7 /* SSKiAD.m */; };
 		EE6F92FC1A82F39400286DC7 /* SSKButtonNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6F92EC1A82F39400286DC7 /* SSKButtonNode.m */; };
@@ -161,6 +162,8 @@
 		EE5575E81A5A108100B87145 /* PPGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPGameScene.h; sourceTree = "<group>"; };
 		EE5575E91A5A108100B87145 /* PPGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPGameScene.m; sourceTree = "<group>"; };
 		EE5E21D21AC35F0400C9A310 /* waterParticle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waterParticle.png; sourceTree = "<group>"; };
+		EE6718A11B249D42006D84D0 /* PPCircleNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCircleNode.h; sourceTree = "<group>"; };
+		EE6718A21B249D43006D84D0 /* PPCircleNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCircleNode.m; sourceTree = "<group>"; };
 		EE6F92E61A82F39400286DC7 /* SSKGameCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKGameCenter.h; sourceTree = "<group>"; };
 		EE6F92E71A82F39400286DC7 /* SSKGameCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKGameCenter.m; sourceTree = "<group>"; };
 		EE6F92E81A82F39400286DC7 /* SSKiAD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKiAD.h; sourceTree = "<group>"; };
@@ -603,6 +606,8 @@
 				EED56A591AF1A698001C56EF /* PPCoinNode.m */,
 				EE32AB521B181A8E004D1D15 /* PPBoostMeter.h */,
 				EE32AB531B181A8E004D1D15 /* PPBoostMeter.m */,
+				EE6718A11B249D42006D84D0 /* PPCircleNode.h */,
+				EE6718A21B249D43006D84D0 /* PPCircleNode.m */,
 			);
 			name = SpriteNodes;
 			sourceTree = "<group>";
@@ -752,6 +757,7 @@
 				EE5575EB1A5A108100B87145 /* PPGameScene.m in Sources */,
 				EEC9DB8D1AA7BF5E0022CDF1 /* SSKProgressBarNode.m in Sources */,
 				EEC9BA491AE9D0B4006A7118 /* PPButtonNode.m in Sources */,
+				EE6718A31B249D43006D84D0 /* PPCircleNode.m in Sources */,
 				EED254D51B23A06B003EDE35 /* SKAction+SFSpecialEffects.m in Sources */,
 				EE8F0AB71AD73A7600CB1CE1 /* PPCloudParallaxFast.m in Sources */,
 				EEBA93CF1A8C1FED00CBD711 /* SSKCameraNode.m in Sources */,

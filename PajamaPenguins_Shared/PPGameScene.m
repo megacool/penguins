@@ -9,6 +9,7 @@
 #import "PPBackgroundManager.h"
 #import "PPSharedAssets.h"
 #import "PPPlayer.h"
+#import "PPCircleNode.h"
 #import "PPCoinNode.h"
 #import "PPFishNode.h"
 #import "PPBoostMeter.h"
@@ -609,6 +610,13 @@ NSString * const kFishMoveKey = @"fishMoveKey";
             if ([self currentBoostMeter].currentProgress < 1.0) {
                 [self adjustBoostMeter:0.10];
             }
+            
+            PPCircleNode *popCircle = [PPCircleNode shapeNodeWithCircleOfRadius:[self currentPlayer].size.width/4];
+            [popCircle setFillColor:fish.color];
+            [[self currentPlayer] addChild:popCircle];
+            
+            [popCircle expandAndFade];
+            
             [fish removeFromParent];
         }
     }];
