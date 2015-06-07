@@ -964,7 +964,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 #pragma mark - Collisions
 - (void)resolveCollisionFromFirstBody:(SKPhysicsBody *)firstBody secondBody:(SKPhysicsBody *)secondBody {
     if (self.gameState == Playing) {
-        [self.worldNode runAction:[SKAction shakeWithDuration:.1 amplitude:CGPointMake(4, 4)]];
+        [self.worldNode runAction:[SKAction shakeWithDuration:.1 amplitude:CGPointMake(10, 10)]];
         [self gameEnd];
     }
 }
