@@ -23,6 +23,7 @@
         [actions addObject:shake];
         [actions addObject:reverseShake];
     }
+    
     return [SKAction sequence:actions];
 }
 

@@ -149,8 +149,6 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 }
 
 - (void)testStuff {
-    SKAction *shake = [SKAction shakeWithDuration:3.0 amplitude:CGPointMake(100, 100)];
-    [self.worldNode runAction:shake];
 }
 
 - (void)createNewGame {
@@ -952,6 +950,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 #pragma mark - Collisions
 - (void)resolveCollisionFromFirstBody:(SKPhysicsBody *)firstBody secondBody:(SKPhysicsBody *)secondBody {
     if (self.gameState == Playing) {
+        [self.worldNode runAction:[SKAction shakeWithDuration:.1 amplitude:CGPointMake(4, 4)]];
         [self gameEnd];
     }
 }
