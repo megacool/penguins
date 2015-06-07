@@ -507,6 +507,8 @@ NSString * const kFishMoveKey = @"fishMoveKey";
             [coin setPosition:[self.worldNode convertPoint:[[self currentPlayer] position] toNode:self]];
             [self.hudNode addChild:coin];
             
+            [self popCircleOnNode:[self currentPlayer] color:[SKColor colorWithRed:0.935 green:0.744 blue:0.042 alpha:1.000]];
+            
             [coin runAction:[SKAction moveTo:[self getScoreCoin].position duration:0.3] completion:^{
                 [self scoreCoinPop];
                 [coin removeFromParent];
@@ -611,15 +613,19 @@ NSString * const kFishMoveKey = @"fishMoveKey";
                 [self adjustBoostMeter:0.10];
             }
             
-            PPCircleNode *popCircle = [PPCircleNode shapeNodeWithCircleOfRadius:[self currentPlayer].size.width/4];
-            [popCircle setFillColor:fish.color];
-            [[self currentPlayer] addChild:popCircle];
-            
-            [popCircle expandAndFade];
+            [self popCircleOnNode:[self currentPlayer] color:fish.color];
             
             [fish removeFromParent];
         }
     }];
+}
+
+#pragma mark - Circle Pop Animation
+- (void)popCircleOnNode:(SKSpriteNode*)node color:(SKColor*)color {
+    PPCircleNode *circle = [PPCircleNode shapeNodeWithCircleOfRadius:node.size.width/4];
+    [circle setFillColor:color];
+    [node addChild:circle];
+    [circle expandAndFade];
 }
 
 #pragma mark - Penguin Types
