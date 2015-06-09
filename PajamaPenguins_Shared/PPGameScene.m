@@ -140,6 +140,8 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     CGFloat _playerBubbleBirthrate;
     CGFloat _playerStarBirthrate;
     
+    BOOL _gamePaused;
+    
     NSUInteger _currentParallaxMultiplier;
 }
 
@@ -269,6 +271,11 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [self addChild:self.hudNode];
     
     CGFloat padding = 5.0;
+
+    SSKButtonNode *pauseButton = [SSKButtonNode buttonWithCircleOfRadius:10 idleFillColor:[SKColor whiteColor] selectedFillColor:[SKColor grayColor]];
+    [pauseButton setPosition:CGPointMake(self.size.width/2 - pauseButton.size.width/2 - padding, -self.size.height/2 + pauseButton.size.height/2 + padding)];
+    [pauseButton setTouchUpInsideTarget:self selector:@selector(pauseButtonTouched)];
+    [self.hudNode addChild:pauseButton];
     
     PPBoostMeter *boostMeter = [[PPBoostMeter alloc] initWithSize:CGSizeMake(10, 50)];
     [boostMeter setName:@"boostMeter"];
@@ -459,6 +466,23 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 - (void)retryButtonTouched {
     [self resetGame];
     [[PPBackgroundManager sharedManager] incrementDay];
+}
+
+#pragma mark - Pause Button
+- (void)pauseButtonTouched {
+    if (_gamePaused) {
+        _gamePaused = NO;
+        [self setPause:NO onAllChildrenOfNode:self.worldNode];
+    } else {
+        _gamePaused = YES;
+        [self setPause:YES onAllChildrenOfNode:self.worldNode];
+    }
+}
+
+- (void)setPause:(BOOL)shouldPause onAllChildrenOfNode:(SKNode*)node {
+    for (SKNode *child in node.children) {
+        child.paused = shouldPause;
+    }
 }
 
 #pragma mark - Coins
