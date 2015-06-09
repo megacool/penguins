@@ -484,15 +484,18 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 
 #pragma mark - Pausing
 - (void)pauseGame:(BOOL)shouldPause {
+    // Pause all actions on world node
     [self setPause:shouldPause onAllChildrenOfNode:self.worldNode];
+    
+    // Pause individual nodes
     [self.snowEmitter setPaused:shouldPause];
     [self setPauseOnAllParallaxNodes:shouldPause];
     
-    if (shouldPause) {
-        [self.physicsWorld setSpeed:0];
-    } else {
-        [self.physicsWorld setSpeed:1];
-    }
+    // Pause individual actions
+    [self setPauseOnSpawnActions:shouldPause];
+    
+    // Pausing physics simulation
+    [self setPauseOnPhysicsSimulation:shouldPause];
 }
 
 - (void)setPause:(BOOL)shouldPause onAllChildrenOfNode:(SKNode*)node {
@@ -508,6 +511,28 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     } else {
         [self.cloudFast.parallaxLayer setMoveSpeedMultiplier:_currentParallaxMultiplier];
         [self.cloudSlow.parallaxLayer setMoveSpeedMultiplier:_currentParallaxMultiplier];
+    }
+}
+
+- (void)setPauseOnPhysicsSimulation:(BOOL)shouldPause {
+    if (shouldPause) {
+        [self.physicsWorld setSpeed:0];
+    } else {
+        [self.physicsWorld setSpeed:1];
+    }
+}
+
+- (void)setPauseOnSpawnActions:(BOOL)shouldPause {
+    if (shouldPause) {
+        [[self actionForKey:@"fishSpawn"] setSpeed:0];
+        [[self actionForKey:@"gamePlaying"] setSpeed:0];
+        [[self actionForKey:@"scoreKey"] setSpeed:0];
+        [[self actionForKey:kCoinSpawnKey] setSpeed:0];
+    } else {
+        [[self actionForKey:@"fishSpawn"] setSpeed:1];
+        [[self actionForKey:@"gamePlaying"] setSpeed:1];
+        [[self actionForKey:@"scoreKey"] setSpeed:1];
+        [[self actionForKey:kCoinSpawnKey] setSpeed:1];
     }
 }
 
@@ -1142,7 +1167,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 - (void)update:(NSTimeInterval)currentTime {
     [super update:currentTime];
     
-    if (self.gameState == PreGame || self.gameState == Playing) {
+    if (self.gameState == PreGame || self.gameState == Playing || !_gamePaused) {
         [self updatePlayer:self.deltaTime];
         [self updateGravity];
         [self updateStarEmitterPosition];
