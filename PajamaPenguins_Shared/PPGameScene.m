@@ -472,16 +472,42 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 - (void)pauseButtonTouched {
     if (_gamePaused) {
         _gamePaused = NO;
+        [self pauseGame:NO];
         [self setPause:NO onAllChildrenOfNode:self.worldNode];
     } else {
         _gamePaused = YES;
+        [self pauseGame:YES];
         [self setPause:YES onAllChildrenOfNode:self.worldNode];
+    }
+}
+
+
+#pragma mark - Pausing
+- (void)pauseGame:(BOOL)shouldPause {
+    [self setPause:shouldPause onAllChildrenOfNode:self.worldNode];
+    [self.snowEmitter setPaused:shouldPause];
+    [self setPauseOnAllParallaxNodes:shouldPause];
+    
+    if (shouldPause) {
+        [self.physicsWorld setSpeed:0];
+    } else {
+        [self.physicsWorld setSpeed:1];
     }
 }
 
 - (void)setPause:(BOOL)shouldPause onAllChildrenOfNode:(SKNode*)node {
     for (SKNode *child in node.children) {
         child.paused = shouldPause;
+    }
+}
+
+- (void)setPauseOnAllParallaxNodes:(BOOL)shouldPause {
+    if (shouldPause) {
+        [self.cloudFast.parallaxLayer setMoveSpeedMultiplier:0];
+        [self.cloudSlow.parallaxLayer setMoveSpeedMultiplier:0];
+    } else {
+        [self.cloudFast.parallaxLayer setMoveSpeedMultiplier:_currentParallaxMultiplier];
+        [self.cloudSlow.parallaxLayer setMoveSpeedMultiplier:_currentParallaxMultiplier];
     }
 }
 
@@ -747,7 +773,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
         _lastPlayerHeight = newPlayerHeight;
         
         // Audio
-        [[PPSharedAssets sharedSplashSFX] startSound];
+//        [[PPSharedAssets sharedSplashSFX] startSound];
     }
     
     //Cross surface from top
@@ -763,7 +789,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
         _lastPlayerHeight = newPlayerHeight;
         
         // Audio
-        [[PPSharedAssets sharedSplashSFX] startSound];
+//        [[PPSharedAssets sharedSplashSFX] startSound];
     }
 }
 
