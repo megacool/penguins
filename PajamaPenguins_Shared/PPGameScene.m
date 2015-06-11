@@ -51,6 +51,7 @@ typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerBubbles,
     SceneLayerPlayer,
     SceneLayerCoins,
+    SceneLayerPause,
     SceneLayerHUD,
     SceneLayerGameOver,
     SceneLayerButtons,
@@ -115,6 +116,8 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 @property (nonatomic) PPWaterSprite *waterSurface;
 
 @property (nonatomic) SKEmitterNode *snowEmitter;
+
+@property (nonatomic) SKSpriteNode *pauseNode;
 
 // Custom Emitters
 @property (nonatomic) SKEmitterNode *splashDownEmitter;
@@ -470,6 +473,11 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 
 #pragma mark - Pause Button
 - (void)pauseButtonTouched {
+    [self toggleGamePause];
+}
+
+#pragma mark - Pausing
+- (void)toggleGamePause {
     if (_gamePaused) {
         _gamePaused = NO;
         [self pauseGame:NO];
@@ -479,7 +487,6 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     }
 }
 
-#pragma mark - Pausing
 - (void)pauseGame:(BOOL)shouldPause {
     // Pause all actions on world node
     [self setPause:shouldPause onAllChildrenOfNode:self.worldNode];
@@ -491,9 +498,11 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     // Pause individual actions
     [self setPauseOnSpawnActions:shouldPause];
     
-    
     // Pausing physics simulation
     [self setPauseOnPhysicsSimulation:shouldPause];
+    
+    // Adding the pause layer
+    [self togglePauseLayer:shouldPause];
 }
 
 - (void)setPause:(BOOL)shouldPause onAllChildrenOfNode:(SKNode*)node {
@@ -534,6 +543,29 @@ NSString * const kFishMoveKey = @"fishMoveKey";
         [[self actionForKey:@"scoreKey"] setSpeed:1];
         [[self actionForKey:kCoinSpawnKey] setSpeed:1];
     }
+}
+
+- (void)togglePauseLayer:(BOOL)shouldPause {
+    if (shouldPause) {
+        self.pauseNode = [self createPauseLayer];
+        [self addChild:self.pauseNode];
+    } else {
+        [self.pauseNode removeFromParent];
+    }
+}
+
+#pragma mark - Pause Layer
+- (SKSpriteNode*)createPauseLayer {
+    SKSpriteNode *dimSprite = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:self.size];
+    [dimSprite setAlpha:0.5];
+    [dimSprite setZPosition:SceneLayerPause];
+    
+    SKLabelNode *pauseLabel = [SKLabelNode labelNodeWithText:@"Paused"];
+    [pauseLabel setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeCenter];
+    [pauseLabel setColor:[SKColor whiteColor]];
+    [dimSprite addChild:pauseLabel];
+    
+    return dimSprite;
 }
 
 #pragma mark - Coins
@@ -1148,6 +1180,10 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 
 - (void)interactionEndedAtPosition:(CGPoint)position {
     [[self currentPlayer] setPlayerShouldDive:NO];
+    
+    if (_gamePaused) {
+        [self toggleGamePause];
+    }
 }
 
 - (void)interactionCancelledAtPosition:(CGPoint)position {
