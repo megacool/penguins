@@ -1167,7 +1167,9 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 - (void)update:(NSTimeInterval)currentTime {
     [super update:currentTime];
     
-    if (self.gameState == PreGame || self.gameState == Playing || !_gamePaused) {
+    if (self.gameState == PreGame || self.gameState == Playing) {
+        if (_gamePaused) return;
+
         [self updatePlayer:self.deltaTime];
         [self updateGravity];
         [self updateStarEmitterPosition];
