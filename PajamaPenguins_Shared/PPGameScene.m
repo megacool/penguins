@@ -377,7 +377,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
         
         SKAction *splashRight = [self waterSplashAtPosition:CGPointMake(self.size.width/2, 0)];
         SKAction *wait = [SKAction waitForDuration:.5];
-        [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[splashRight,wait]]]];
+        [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[splashRight,wait]]] withKey:@"idleSplashKey"];
         
         // Start fish spawn forever
         [self spawnFishForever];
@@ -473,14 +473,11 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     if (_gamePaused) {
         _gamePaused = NO;
         [self pauseGame:NO];
-        [self setPause:NO onAllChildrenOfNode:self.worldNode];
     } else {
         _gamePaused = YES;
         [self pauseGame:YES];
-        [self setPause:YES onAllChildrenOfNode:self.worldNode];
     }
 }
-
 
 #pragma mark - Pausing
 - (void)pauseGame:(BOOL)shouldPause {
@@ -493,6 +490,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     
     // Pause individual actions
     [self setPauseOnSpawnActions:shouldPause];
+    
     
     // Pausing physics simulation
     [self setPauseOnPhysicsSimulation:shouldPause];
@@ -524,11 +522,13 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 
 - (void)setPauseOnSpawnActions:(BOOL)shouldPause {
     if (shouldPause) {
+        [[self actionForKey:@"idleSpawnKey"] setSpeed:0];
         [[self actionForKey:@"fishSpawn"] setSpeed:0];
         [[self actionForKey:@"gamePlaying"] setSpeed:0];
         [[self actionForKey:@"scoreKey"] setSpeed:0];
         [[self actionForKey:kCoinSpawnKey] setSpeed:0];
     } else {
+        [[self actionForKey:@"idleSpawnKey"] setSpeed:1];
         [[self actionForKey:@"fishSpawn"] setSpeed:1];
         [[self actionForKey:@"gamePlaying"] setSpeed:1];
         [[self actionForKey:@"scoreKey"] setSpeed:1];
