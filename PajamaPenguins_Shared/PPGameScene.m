@@ -1139,7 +1139,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
         [self gameStart];
     }
     
-    if (self.gameState == Playing) {
+    if (self.gameState == Playing && !_gamePaused) {
         if (self.worldNode.xScale >= kWorldScaleCap) {
             [[self currentPlayer] setPlayerShouldDive:YES];
         }
