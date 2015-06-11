@@ -76,7 +76,7 @@ CGFloat const kAirGravityStrength      = -2.75;
 CGFloat const kWaterGravityStrength    = 6;
 CGFloat const kGameOverGravityStrength = -9.8;
 
-CGFloat const kMaxSplashStrength      = 20;
+CGFloat const kMaxSplashStrength      = 40;
 CGFloat const kMinSplashStrength      = 5;
 
 //Clamped Constants
