@@ -57,4 +57,8 @@
     return [SKColor colorWithR:150 g:5 b:5];
 }
 
++ (SKColor*)boostMeterColor {
+    return [SKColor colorWithRed:1.000 green:0.745 blue:0.040 alpha:1.000];
+}
+
 @end

@@ -7,11 +7,12 @@
 //
 
 #import "PPBoostMeter.h"
+#import "SKColor+SFAdditions.h"
 
 @implementation PPBoostMeter
 
 - (instancetype)initWithSize:(CGSize)size {
-    self = [super initWithFrameColor:[SKColor whiteColor] barColor:[SKColor redColor] size:size barType:BarTypeVertical];
+    self = [super initWithFrameColor:[SKColor whiteColor] barColor:[SKColor boostMeterColor] size:size barType:BarTypeVertical];
     if (self) {
         self.barBackground.color = [SKColor whiteColor];
         self.barBackground.alpha = 0.65;

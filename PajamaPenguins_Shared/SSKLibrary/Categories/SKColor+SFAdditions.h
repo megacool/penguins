@@ -25,4 +25,6 @@
 
 + (SKColor*)darkRed;
 
++ (SKColor*)boostMeterColor;
+
 @end
