@@ -1157,6 +1157,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 - (void)handleSwipe:(UISwipeGestureRecognizer*)swipe {
     // Make sure swipe occurs during game
     if (!self.gameState == PreGame && !self.gameState == Playing) return;
+    if (_gamePaused) return;
     
     if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
         if (_currentParallaxMultiplier == 1) {

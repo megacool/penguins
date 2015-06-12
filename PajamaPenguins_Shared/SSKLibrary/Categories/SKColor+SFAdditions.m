@@ -58,7 +58,7 @@
 }
 
 + (SKColor*)boostMeterColor {
-    return [SKColor colorWithRed:1.000 green:0.745 blue:0.040 alpha:1.000];
+    return [UIColor colorWithRed:1.000 green:0.401 blue:0.205 alpha:1.000];
 }
 
 @end
