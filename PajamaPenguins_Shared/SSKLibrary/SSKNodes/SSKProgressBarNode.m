@@ -10,9 +10,6 @@
 
 @interface SSKProgressBarNode()
 
-@property (nonatomic) SKSpriteNode *barBackground;
-@property (nonatomic) SKSpriteNode *bar;
-@property (nonatomic) SKShapeNode *barFrame;
 
 @property (nonatomic) SKColor *startBarColor;
 @property (nonatomic) SKColor *startBackgroundBarColor;

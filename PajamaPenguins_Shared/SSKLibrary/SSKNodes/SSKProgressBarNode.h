@@ -32,4 +32,8 @@ typedef NS_ENUM(NSUInteger, BarType) {
 @property (nonatomic, readonly) CGSize size;
 @property (nonatomic, readonly) CGFloat currentProgress;
 
+@property (nonatomic) SKSpriteNode *bar;
+@property (nonatomic) SKShapeNode *barFrame;
+@property (nonatomic) SKSpriteNode *barBackground;
+
 @end

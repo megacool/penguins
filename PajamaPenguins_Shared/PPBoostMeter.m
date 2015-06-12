@@ -11,8 +11,10 @@
 @implementation PPBoostMeter
 
 - (instancetype)initWithSize:(CGSize)size {
-    self = [super initWithFrameColor:[SKColor blackColor] barColor:[SKColor redColor] size:size barType:BarTypeVertical];
+    self = [super initWithFrameColor:[SKColor whiteColor] barColor:[SKColor redColor] size:size barType:BarTypeVertical];
     if (self) {
+        self.barBackground.color = [SKColor whiteColor];
+        self.barBackground.alpha = 0.65;
     }
     
     return self;
