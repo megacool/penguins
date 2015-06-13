@@ -903,7 +903,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 - (void)runOneShotEmitter:(SKEmitterNode*)emitter location:(CGPoint)location {
     SKEmitterNode *splashEmitter = emitter.copy;
     [splashEmitter setPosition:location];
-    [splashEmitter setZPosition:SceneLayerWater];
+    [splashEmitter setZPosition:SceneLayerWater - 1];
     [self.worldNode addChild:splashEmitter];
     [SSKGraphicsUtils runOneShotActionWithEmitter:splashEmitter duration:0.15];
 }
