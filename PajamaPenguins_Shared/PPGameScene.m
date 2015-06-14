@@ -893,9 +893,9 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     return (SKEmitterNode*)[self.worldNode childNodeWithName:@"starEmitter"];
 }
 
-- (SKAction*)runStarExplosion {
+- (SKAction*)runStarExplosionAtPosition:(CGPoint)position {
     return [SKAction runBlock:^{
-        [self runOneShotEmitter:[PPSharedAssets sharedStarExplosionEmitter] location:[self currentPlayer].position];
+        [self runOneShotEmitter:[PPSharedAssets sharedStarExplosionEmitter] location:position];
     }];
 }
 
@@ -970,22 +970,29 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     NSInteger currentScore = [(SSKScoreNode*)[self.hudNode childNodeWithName:@"scoreCounter"] count];
     NSInteger highScore = [[PPUserManager sharedManager] getHighScore].integerValue;
     
+    [self highScoreAnimation];
     if (currentScore > highScore) {
         [[PPUserManager sharedManager] saveHighScore:[NSNumber numberWithInteger:currentScore]];
-        [self isNewHighScore];
     }
 }
 
-- (void)isNewHighScore {
-    SKLabelNode *highScoreLabel = [self createNewLabelWithText:@"Highscore!" withFontSize:20];
-    [highScoreLabel setZRotation:SSKDegreesToRadians(35.0)];
-    [highScoreLabel setFontColor:[SKColor redColor]];
+- (void)highScoreAnimation {
+
+    SKLabelNode *highScoreLabel = [self createNewLabelWithText:@"Highscore!" withFontSize:30];
+    [highScoreLabel setFontColor:[SKColor whiteColor]];
     [highScoreLabel setZPosition:SceneLayerGameOver];
-    [highScoreLabel setPosition:CGPointMake(self.size.width/3, self.size.height/3 + 25)];
+    [highScoreLabel setPosition:CGPointMake(0, self.size.height/2 - highScoreLabel.frame.size.height)];
     [highScoreLabel setName:kRemoveName];
+    [highScoreLabel setScale:0];
     [self addChild:highScoreLabel];
     
-    [self runColorChangeOnLabel:highScoreLabel interval:.35];
+    SKAction *wait = [SKAction waitForDuration:.5];
+    SKAction *grow = [SKAction scaleTo:1.5 duration:.4];
+    grow.timingMode = SKActionTimingEaseIn;
+    SKAction *explosion = [self runStarExplosionAtPosition:highScoreLabel.position];
+    SKAction *shrink = [SKAction scaleTo:1 duration:.2];
+    shrink.timingMode = SKActionTimingEaseIn;
+    [highScoreLabel runAction:[SKAction sequence:@[wait,grow,explosion,shrink]]];
 }
 
 #pragma mark - World Gravity
@@ -1086,7 +1093,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     SKAction *endBoost = [self adjustBoostSpeed:ParallaxMultiplierNormal];
     SKAction *snowAccelDown = [self snowAccelerationNormal];
     SKAction *snowAccelUp = [self snowAccelerationBoost];
-    SKAction *starExplosion = [self runStarExplosion];
+    SKAction *starExplosion = [self runStarExplosionAtPosition:[self currentPlayer].position];
     SKAction *starEmitterOn = [self setStarEmitterBirthrate:_playerStarBirthrate];
     SKAction *starEmitterOff = [self stopStarEmitterAction];
     SKAction *adjustBoostMeter = [self adjustBoostMeterAction:-0.5];
