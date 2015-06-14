@@ -903,7 +903,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 - (void)runOneShotEmitter:(SKEmitterNode*)emitter location:(CGPoint)location {
     SKEmitterNode *splashEmitter = emitter.copy;
     [splashEmitter setPosition:location];
-    [splashEmitter setZPosition:SceneLayerWater - 1];
+    [splashEmitter setZPosition:SceneLayerWater + 1];
     [self.worldNode addChild:splashEmitter];
     [SSKGraphicsUtils runOneShotActionWithEmitter:splashEmitter duration:0.15];
 }
@@ -970,9 +970,9 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     NSInteger currentScore = [(SSKScoreNode*)[self.hudNode childNodeWithName:@"scoreCounter"] count];
     NSInteger highScore = [[PPUserManager sharedManager] getHighScore].integerValue;
     
+    [self highScoreAnimation];
     if (currentScore > highScore) {
         [[PPUserManager sharedManager] saveHighScore:[NSNumber numberWithInteger:currentScore]];
-        [self highScoreAnimation];
     }
 }
 
@@ -992,9 +992,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     SKAction *shrink = [SKAction scaleTo:1 duration:.2];
   
     SKAction *idleGrow = [SKAction scaleTo:1.2 duration:.2];
-    idleGrow.timingMode = SKActionTimingEaseInEaseOut;
-    SKAction *idleShrink = [idleGrow reversedAction];
-    SKAction *pulsate = [SKAction repeatActionForever:[SKAction sequence:@[idleGrow,idleShrink]]];
+    SKAction *pulsate = [SKAction repeatActionForever:[SKAction sequence:@[idleGrow,shrink]]];
     
     [highScoreLabel runAction:[SKAction sequence:@[wait,explosion,grow,shrink]] completion:^{
         [highScoreLabel runAction:pulsate];
