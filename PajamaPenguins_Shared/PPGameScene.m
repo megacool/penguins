@@ -970,9 +970,9 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     NSInteger currentScore = [(SSKScoreNode*)[self.hudNode childNodeWithName:@"scoreCounter"] count];
     NSInteger highScore = [[PPUserManager sharedManager] getHighScore].integerValue;
     
-    [self highScoreAnimation];
     if (currentScore > highScore) {
         [[PPUserManager sharedManager] saveHighScore:[NSNumber numberWithInteger:currentScore]];
+        [self highScoreAnimation];
     }
 }
 
@@ -986,13 +986,19 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [highScoreLabel setScale:0];
     [self addChild:highScoreLabel];
     
-    SKAction *wait = [SKAction waitForDuration:.5];
+    SKAction *wait = [SKAction waitForDuration:.4];
     SKAction *grow = [SKAction scaleTo:1.5 duration:.4];
-    grow.timingMode = SKActionTimingEaseIn;
     SKAction *explosion = [self runStarExplosionAtPosition:highScoreLabel.position];
     SKAction *shrink = [SKAction scaleTo:1 duration:.2];
-    shrink.timingMode = SKActionTimingEaseIn;
-    [highScoreLabel runAction:[SKAction sequence:@[wait,grow,explosion,shrink]]];
+  
+    SKAction *idleGrow = [SKAction scaleTo:1.2 duration:.2];
+    idleGrow.timingMode = SKActionTimingEaseInEaseOut;
+    SKAction *idleShrink = [idleGrow reversedAction];
+    SKAction *pulsate = [SKAction repeatActionForever:[SKAction sequence:@[idleGrow,idleShrink]]];
+    
+    [highScoreLabel runAction:[SKAction sequence:@[wait,explosion,grow,shrink]] completion:^{
+        [highScoreLabel runAction:pulsate];
+    }];
 }
 
 #pragma mark - World Gravity
