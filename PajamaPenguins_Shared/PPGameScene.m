@@ -992,9 +992,10 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     SKAction *explosion = [self runStarExplosionAtPosition:highScoreLabel.position];
     SKAction *shrink = [SKAction scaleTo:1 duration:.2];
   
-    SKAction *idleGrow = [SKAction scaleTo:1.2 duration:.2];
+    SKAction *idleGrow = [SKAction scaleTo:1.2 duration:.4];
     [idleGrow setTimingMode:SKActionTimingEaseInEaseOut];
-    SKAction *pulsate = [SKAction repeatActionForever:[SKAction sequence:@[idleGrow,shrink]]];
+    SKAction *idleShrink = [SKAction scaleTo:1 duration:.4];
+    SKAction *pulsate = [SKAction repeatActionForever:[SKAction sequence:@[idleGrow,idleShrink]]];
     
     [highScoreLabel runAction:[SKAction sequence:@[wait,explosion,grow,shrink]] completion:^{
         [highScoreLabel runAction:pulsate];
