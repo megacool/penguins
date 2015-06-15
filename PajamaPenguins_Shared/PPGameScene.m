@@ -970,9 +970,9 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     NSInteger currentScore = [(SSKScoreNode*)[self.hudNode childNodeWithName:@"scoreCounter"] count];
     NSInteger highScore = [[PPUserManager sharedManager] getHighScore].integerValue;
     
-    [self highScoreAnimation];
     if (currentScore > highScore) {
         [[PPUserManager sharedManager] saveHighScore:[NSNumber numberWithInteger:currentScore]];
+        [self highScoreAnimation];
     }
 }
 
@@ -988,10 +988,12 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     
     SKAction *wait = [SKAction waitForDuration:.4];
     SKAction *grow = [SKAction scaleTo:1.5 duration:.4];
+    [grow setTimingMode:SKActionTimingEaseInEaseOut];
     SKAction *explosion = [self runStarExplosionAtPosition:highScoreLabel.position];
     SKAction *shrink = [SKAction scaleTo:1 duration:.2];
   
     SKAction *idleGrow = [SKAction scaleTo:1.2 duration:.2];
+    [idleGrow setTimingMode:SKActionTimingEaseInEaseOut];
     SKAction *pulsate = [SKAction repeatActionForever:[SKAction sequence:@[idleGrow,shrink]]];
     
     [highScoreLabel runAction:[SKAction sequence:@[wait,explosion,grow,shrink]] completion:^{
