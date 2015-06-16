@@ -31,10 +31,10 @@ NSString * const kFishActionKey = @"fishActionKey";
 - (void)swimForever {
     if ([self actionForKey:kFishActionKey]) return;
     
-    CGFloat rotateTime = .2;
-    CGFloat moveTime = .4;
-    CGFloat rotateDegrees = 20.0;
-    CGFloat moveDistance = 30.0;
+    CGFloat rotateTime = .15;
+    CGFloat moveTime = .25;
+    CGFloat rotateDegrees = 15.0;
+    CGFloat moveDistance = 20.0;
     
     SKAction *rotateLeft = [SKAction rotateByAngle:SSKDegreesToRadians(-rotateDegrees) duration:rotateTime];
     SKAction *rotateRight = [rotateLeft reversedAction];
@@ -43,7 +43,6 @@ NSString * const kFishActionKey = @"fishActionKey";
     SKAction *rotateRightFast = [rotateLeftFast reversedAction];
     
     SKAction *moveUp = [SKAction moveByX:0 y:moveDistance duration:moveTime];
-    [moveUp setTimingMode:SKActionTimingEaseInEaseOut];
     SKAction *moveDown = [moveUp reversedAction];
     
     SKAction *swimDownGroup;
