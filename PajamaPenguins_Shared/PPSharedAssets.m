@@ -35,6 +35,10 @@
         // Fish
         sFishAtlas = [SKTextureAtlas atlasNamed:@"fish"];
         sFishTexture = [sFishAtlas textureNamed:@"fish"];
+        sFishBlueTexture = [sFishAtlas textureNamed:@"fish_blue"];
+        sFishGreenTexture = [sFishAtlas textureNamed:@"fish_green"];
+        sFishMaroonTexture = [sFishAtlas textureNamed:@"fish_maroon"];
+        sFishRedTexture = [sFishAtlas textureNamed:@"fish_red"];
         
         // Icebergs
         sIcebergAtlas = [SKTextureAtlas atlasNamed:@"icebergs"];
@@ -115,6 +119,26 @@ static SKTextureAtlas *sFishAtlas = nil;
 static SKTexture *sFishTexture = nil;
 + (SKTexture*)sharedFishTexture {
     return sFishTexture;
+}
+
+static SKTexture *sFishBlueTexture = nil;
++ (SKTexture*)sharedFishBlueTexture {
+    return sFishBlueTexture;
+}
+
+static SKTexture *sFishGreenTexture = nil;
++ (SKTexture*)sharedFishGreenTexture {
+    return sFishGreenTexture;
+}
+
+static SKTexture *sFishMaroonTexture = nil;
++ (SKTexture*)sharedFishMaroonTexture {
+    return sFishMaroonTexture;
+}
+
+static SKTexture *sFishRedTexture = nil;
++ (SKTexture*)sharedFishRedTexture {
+    return sFishRedTexture;
 }
 
 // Penguins

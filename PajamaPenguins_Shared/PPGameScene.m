@@ -172,7 +172,8 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [self addChild:self.worldNode];
 
     //Background color
-    [self setBackgroundColor:[PPSkySprite colorForSkyType:[[PPBackgroundManager sharedManager] timeOfDay]]];
+    NSUInteger timeOfDay = [[PPBackgroundManager sharedManager] timeOfDay];
+    [self setBackgroundColor:[PPSkySprite colorForSkyType:timeOfDay]];
     
     //Parallaxing Nodes
     self.cloudSlow = [[PPCloudParallaxSlow alloc] initWithSize:CGSizeMake(self.size.width*2, self.size.height)];
@@ -692,7 +693,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
         CGFloat randY = SSKRandomFloatInRange(self.size.height/10, self.size.height/2);
 
         // Spawn a new fish
-        PPFishNode *fish = [PPFishNode node];
+        PPFishNode *fish = [[PPFishNode alloc] initWithType:SSKRandomFloatInRange(0, 4)];
         [fish setPosition:CGPointMake(self.size.width*2, -randY)];
         [fish setSize:CGSizeMake(fish.size.width/3, fish.size.height/3)];
         [fish setZPosition:SceneLayerFish];

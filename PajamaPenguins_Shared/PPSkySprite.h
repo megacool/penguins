@@ -11,7 +11,6 @@
 typedef NS_ENUM(NSUInteger, SkyType) {
     SkyTypeAfternoon = 0,
     SkyTypeMorning,
-//    SkyTypeDay = 0,
     SkyTypeSunset,
     SkyTypeNight,
 };

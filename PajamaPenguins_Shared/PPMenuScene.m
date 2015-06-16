@@ -79,7 +79,8 @@ CGFloat const kAnimationMoveDistance = 10;
 
 #pragma mark - Scene Construction
 - (void)createSceneBackground {
-    self.backgroundColor = [PPSkySprite colorForSkyType:[[PPBackgroundManager sharedManager] timeOfDay]];
+    NSUInteger timeOfDay = [[PPBackgroundManager sharedManager] timeOfDay];
+    self.backgroundColor = [PPSkySprite colorForSkyType:timeOfDay];
     
     self.backgroundNode = [SKNode node];
     [self.backgroundNode setZPosition:SceneLayerBackground];
@@ -245,7 +246,7 @@ CGFloat const kAnimationMoveDistance = 10;
 }
 
 - (PPFishNode*)newFish {
-    PPFishNode *fish = [PPFishNode node];
+    PPFishNode *fish = [[PPFishNode alloc] initWithType:SSKRandomFloatInRange(0, 4)];
     [fish setSize:CGSizeMake(fish.size.width/2, fish.size.height/2)];
     [fish setZPosition:SceneLayerFish];
     return fish;

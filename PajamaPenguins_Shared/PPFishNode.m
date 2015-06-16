@@ -16,20 +16,12 @@ NSString * const kFishActionKey = @"fishActionKey";
 
 @implementation PPFishNode
 
-- (instancetype)init {
-    self = [super initWithTexture:[PPSharedAssets sharedFishTexture]];
+- (instancetype)initWithType:(FishType)fishType {
+    self = [super initWithTexture:[self textureForType:fishType]];
 
     if (self) {
+        self.fishType = fishType;
         self.name = kFishName;
-        self.colorBlendFactor = 1.0;
-        CGFloat randomR = SSKRandomFloatInRange(1, 255);
-        CGFloat randomG = SSKRandomFloatInRange(1, 255);
-        CGFloat randomB = SSKRandomFloatInRange(1, 255);
-        
-        // To make the fish have a better random color pallette
-        CGFloat mixedB = randomB + 200 / 2;
-        
-        [self setColor:[SKColor colorWithR:randomR g:randomG b:mixedB]];
     }
 
     return self;
@@ -69,6 +61,27 @@ NSString * const kFishActionKey = @"fishActionKey";
     }
     
     [self runAction:swimForeverSequence withKey:kFishActionKey];
+}
+
+#pragma mark - Setter Override
+- (void)setFishType:(FishType)fishType {
+    [self setTexture:[self textureForType:fishType]];
+}
+
+#pragma mark - Fish Type
+- (SKTexture*)textureForType:(FishType)fishType {
+    if (fishType == FishTypeBlue) {
+        return [PPSharedAssets sharedFishBlueTexture];
+    }
+    else if (fishType == FishTypeGreen) {
+        return [PPSharedAssets sharedFishGreenTexture];
+    }
+    else if (fishType == FishTypeMaroon) {
+        return [PPSharedAssets sharedFishMaroonTexture];
+    }
+    else {
+        return [PPSharedAssets sharedFishRedTexture];
+    }
 }
 
 @end

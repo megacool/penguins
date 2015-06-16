@@ -8,8 +8,20 @@
 
 #import "PPSprite.h"
 
+typedef NS_ENUM(NSInteger, FishType) {
+    FishTypeRed,
+    FishTypeGreen,
+    FishTypeBlue,
+    FishTypeMaroon,
+};
+
 extern NSString * const kFishName;
 
 @interface PPFishNode : PPSprite
+
+@property (nonatomic) FishType fishType;
+
+- (instancetype)initWithType:(FishType)fishType;
 - (void)swimForever;
+
 @end

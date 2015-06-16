@@ -20,10 +20,6 @@
     
     switch (skyType) {
             
-//        case SkyTypeDay:
-//            skyColor = [SKColor skyDay];
-//            break;
-            
         case SkyTypeAfternoon:
             skyColor = [SKColor skyAfternoon];
             break;

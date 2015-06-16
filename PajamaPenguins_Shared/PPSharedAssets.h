@@ -39,6 +39,10 @@ typedef void (^AssetCompletionHandler)(void);
 // Fish Textures
 + (SKTextureAtlas*)sharedFishAtlas;
 + (SKTexture*)sharedFishTexture;
++ (SKTexture*)sharedFishBlueTexture;
++ (SKTexture*)sharedFishGreenTexture;
++ (SKTexture*)sharedFishMaroonTexture;
++ (SKTexture*)sharedFishRedTexture;
 
 // Emitters
 + (SKEmitterNode*)sharedSnowEmitter;
