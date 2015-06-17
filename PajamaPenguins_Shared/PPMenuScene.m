@@ -34,8 +34,8 @@ typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerClouds,
     SceneLayerSnow,
     SceneLayerForeground,
-    SceneLayerWater,
     SceneLayerFish,
+    SceneLayerWater,
     SceneLayerMenu = 10,
 };
 
@@ -57,6 +57,8 @@ CGFloat const kAnimationMoveDistance = 10;
 @property (nonatomic) PPCloudParallaxFast *cloudFast;
 
 @property (nonatomic) SKEmitterNode *splashEmitter;
+
+@property (nonatomic) PPPlayer *playerNode;
 @end
 
 @implementation PPMenuScene
@@ -116,6 +118,8 @@ CGFloat const kAnimationMoveDistance = 10;
 //    
 //    [platformNode addChild:[self newPlatformIceberg]];
 //    [platformNode addChild:[self blackPenguin]];
+    self.playerNode = [self blackPenguin];
+    [self.foregroundNode addChild:self.playerNode];
     
     //Water Surface
     self.waterSurface = [self waterNode];
@@ -284,7 +288,7 @@ CGFloat const kAnimationMoveDistance = 10;
 - (PPPlayer*)penguinWithType:(PlayerType)type atlas:(SKTextureAtlas*)atlas {
     PPPlayer *penguin = [PPPlayer playerWithType:type atlas:atlas];
     [penguin setAnchorPoint:CGPointMake(0.5, 0)];
-    [penguin setPosition:CGPointMake(0, kPlatformPadding/2)];
+    [penguin setPosition:CGPointMake(0, -self.size.height/3 - penguin.size.height/2)];
     [penguin setPlayerState:PlayerStateIdle];
     [penguin setName:@"penguin"];
     return penguin;

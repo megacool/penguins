@@ -11,13 +11,13 @@
 
 #define kAcceleration 60.0
 
-CGFloat const kIdleFrames = 2;
+CGFloat const kIdleFrames = 7;
 CGFloat const kSwimFrames = 4;
 CGFloat const kFlyFrames = 2;
 CGFloat const kDiveFrames = 1;
 
 CGFloat const kAnimationSpeed = 0.05;
-CGFloat const kIdleAnimationSpeed = 0.25;
+CGFloat const kIdleAnimationSpeed = 0.075;
 
 @interface PPPlayer()
 @property (nonatomic) CGFloat currentAccelleration;

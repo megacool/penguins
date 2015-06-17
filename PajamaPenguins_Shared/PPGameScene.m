@@ -166,7 +166,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 
 #pragma mark - World Layer
 - (void)createWorldLayer {
-    
+
     self.worldNode = [SSKCameraNode node];
     [self.worldNode setName:@"world"];
     [self addChild:self.worldNode];
