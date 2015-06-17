@@ -83,6 +83,8 @@
  */
 @property (nonatomic, readonly) CGFloat jointWidth;
 @property (nonatomic, readonly) SKColor *color;
+@property (nonatomic) CGPoint startPoint;
+@property (nonatomic) CGPoint endPoint;
 
 @end
 

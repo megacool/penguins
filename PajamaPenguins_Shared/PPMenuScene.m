@@ -308,6 +308,18 @@ CGFloat const kAnimationMoveDistance = 10;
     }];
 }
 
+#pragma mark - Touches
+- (void)interactionBeganAtPosition:(CGPoint)position {
+    
+    // Splash if touch is close to/in water
+    CGPoint surfaceHeight = self.waterSurface.startPoint;
+    CGFloat distanceFromSurface = position.y - surfaceHeight.y;
+    
+    if (distanceFromSurface <= 35) {
+        [self.waterSurface splash:position speed:-20];
+    }
+}
+
 #pragma mark - Update
 - (void)update:(NSTimeInterval)currentTime {
     [super update:currentTime];

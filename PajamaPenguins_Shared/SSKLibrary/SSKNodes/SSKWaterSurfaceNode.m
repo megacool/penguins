@@ -59,12 +59,15 @@ CGFloat const kDefaultJointWidth = 10.0;
     self = [super init];
     if (self) {
         self.spread = kDefaultSpread;
+        self.startPoint = startPoint;
+        self.endPoint = endPoint;
         
         if (jointWidth) {
             self.jointWidth = jointWidth;
         }
         
-        self.waterJoints = [self createSurfacePointsWithStart:startPoint end:endPoint];
+        
+        self.waterJoints = [self createSurfacePointsWithStart:self.startPoint end:self.endPoint];
         _waterPath = [self pathFromJoints:self.waterJoints];
         
         self.waterSurface = [SKShapeNode shapeNodeWithPath:_waterPath];
