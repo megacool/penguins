@@ -56,6 +56,7 @@ CGFloat const kAnimationMoveDistance = 10;
 @property (nonatomic) PPCloudParallaxSlow *cloudSlow;
 @property (nonatomic) PPCloudParallaxFast *cloudFast;
 
+@property (nonatomic) SKEmitterNode *splashEmitter;
 @end
 
 @implementation PPMenuScene
@@ -119,6 +120,12 @@ CGFloat const kAnimationMoveDistance = 10;
     //Water Surface
     self.waterSurface = [self waterNode];
     [self addChild:self.waterSurface];
+    
+    // Water Splash Emitter
+    self.splashEmitter = [PPSharedAssets sharedPlayerSplashDownEmitter];
+    [self.splashEmitter setParticleColorSequence:nil];
+    [self.splashEmitter setParticleColorBlendFactor:1.0];
+    [self.splashEmitter setParticleColor:self.waterSurface.color];
 }
 
 - (void)createMenu {
@@ -254,6 +261,15 @@ CGFloat const kAnimationMoveDistance = 10;
     return fish;
 }
 
+#pragma mark - Emitter
+- (void)runOneShotEmitter:(SKEmitterNode*)emitter location:(CGPoint)location {
+    SKEmitterNode *splashEmitter = emitter.copy;
+    [splashEmitter setPosition:location];
+    [splashEmitter setZPosition:SceneLayerWater + 1];
+    [self.foregroundNode addChild:splashEmitter];
+    [SSKGraphicsUtils runOneShotActionWithEmitter:splashEmitter duration:0.05];
+}
+
 #pragma mark - Buttons
 - (PPButtonNode*)playButton {
     PPButtonNode *playButton = [PPButtonNode buttonWithTexture:[PPSharedAssets sharedButtonPlay]];
@@ -312,11 +328,12 @@ CGFloat const kAnimationMoveDistance = 10;
 - (void)interactionBeganAtPosition:(CGPoint)position {
     
     // Splash if touch is close to/in water
-    CGPoint surfaceHeight = self.waterSurface.startPoint;
-    CGFloat distanceFromSurface = position.y - surfaceHeight.y;
+    CGFloat surfaceHeight = self.waterSurface.startPoint.y;
+    CGFloat distanceFromSurface = position.y - surfaceHeight;
     
     if (distanceFromSurface <= 35) {
-        [self.waterSurface splash:position speed:-20];
+        [self.waterSurface splash:position speed:-10];
+        [self runOneShotEmitter:self.splashEmitter location:CGPointMake(position.x, surfaceHeight - 5)];
     }
 }
 
