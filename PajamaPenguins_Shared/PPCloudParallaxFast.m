@@ -30,7 +30,6 @@
         
         PPSprite *cloudTallFour = cloudTallOne.copy;
         [cloudTallFour setPosition:CGPointMake(-size.width/8, size.height/4 * 3)];
-
         
         self.parallaxLayer = [SSKParallaxNode nodeWithSize:size attachedNodes:@[cloudTallOne,cloudTallTwo,cloudTallThree,cloudTallFour] moveSpeed:CGPointMake(-22.5, 0)];
         self.parallaxLayer.zPosition = 0;

@@ -212,7 +212,7 @@ CGFloat const kAnimationMoveDistance = 10;
     SKAction *spawnAndMove = [SKAction runBlock:^{
 
         // Get random y position
-        CGFloat randY = SSKRandomFloatInRange(self.size.height/8, self.size.height/8 * 3);
+        CGFloat randY = SSKRandomFloatInRange(self.size.height/2, self.size.height/2.5);
         
         // Get random side (left or right)
         CGFloat randLeftRight = SSKRandomFloatInRange(1, 3);
