@@ -21,15 +21,12 @@
         
         PPSprite *cloudWideOne = [PPSprite spriteNodeWithTexture:cloudTexture];
         [cloudWideOne setAlpha:0.25];
-        [cloudWideOne setPosition:CGPointMake(-size.width/5, size.height/6)];
+        [cloudWideOne setPosition:CGPointMake(-size.width/5, size.height/5)];
         
         PPSprite *cloudWideTwo = cloudWideOne.copy;
-        [cloudWideTwo setPosition:CGPointMake(size.width/3, size.height/8)];
-
-        PPSprite *cloudWideThree = cloudWideOne.copy;
-        [cloudWideThree setPosition:CGPointMake(size.width/4, size.height/4)];
+        [cloudWideTwo setPosition:CGPointMake(size.width/4, size.height/10)];
         
-        self.parallaxLayer = [SSKParallaxNode nodeWithSize:size attachedNodes:@[cloudWideOne,cloudWideTwo,cloudWideThree] moveSpeed:CGPointMake(-7.5,0)];
+        self.parallaxLayer = [SSKParallaxNode nodeWithSize:size attachedNodes:@[cloudWideOne,cloudWideTwo] moveSpeed:CGPointMake(-7.5,0)];
         self.parallaxLayer.zPosition = 0 ;
         [self addChild:self.parallaxLayer];
     }

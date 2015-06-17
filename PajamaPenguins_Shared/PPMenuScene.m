@@ -89,10 +89,12 @@ CGFloat const kAnimationMoveDistance = 10;
     
     //Clouds
     self.cloudSlow = [[PPCloudParallaxSlow alloc] initWithSize:self.size];
+    [self.cloudSlow setPosition:CGPointMake(0, -self.size.height/4)];
     [self.cloudSlow setZPosition:2];
     [self.backgroundNode addChild:self.cloudSlow];
     
     self.cloudFast = [[PPCloudParallaxFast alloc] initWithSize:self.size];
+    [self.cloudFast setPosition:CGPointMake(0, -self.size.height/4)];
     [self.cloudFast setZPosition:2];
     [self.backgroundNode addChild:self.cloudFast];
     
