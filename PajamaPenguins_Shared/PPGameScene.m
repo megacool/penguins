@@ -193,12 +193,12 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [self addChild:self.snowEmitter];
     
     //Water Surface
-    CGPoint surfaceStart = CGPointMake(-self.size.width/2, 0);
+    CGPoint surfaceStart = CGPointMake(-self.size.width/2 - 1, 0);
     CGPoint surfaceEnd = CGPointMake(self.size.width/kWorldScaleCap, 0);
     
     self.waterSurface = [PPWaterSprite surfaceWithStartPoint:surfaceStart
                                                     endPoint:surfaceEnd
-                                                       depth:self.size.height/2
+                                                       depth:self.size.height/2 + 1
                                                    waterType:[[PPBackgroundManager sharedManager] timeOfDay]];
     [self.waterSurface setName:@"water"];
     [self.waterSurface setZPosition:SceneLayerWater];
