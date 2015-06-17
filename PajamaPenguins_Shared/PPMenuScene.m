@@ -156,9 +156,8 @@ CGFloat const kAnimationMoveDistance = 10;
     //Pause to prevent frame skip
     [self runAction:[SKAction waitForDuration:0.8] completion:^{
         
-        //Iceberg float
-        SKNode *platform = [self.foregroundNode childNodeWithName:@"platform"];
-        [platform runAction:[SKAction repeatActionForever:[self floatAction]]];
+        //Player float
+        [self.playerNode runAction:[SKAction repeatActionForever:[self floatAction:self.playerNode.size.height/4]]];
         
         //Buttons move in
         SKNode *playButton = [self.menuNode childNodeWithName:@"playButton"];
@@ -288,7 +287,7 @@ CGFloat const kAnimationMoveDistance = 10;
 - (PPPlayer*)penguinWithType:(PlayerType)type atlas:(SKTextureAtlas*)atlas {
     PPPlayer *penguin = [PPPlayer playerWithType:type atlas:atlas];
     [penguin setAnchorPoint:CGPointMake(0.5, 0)];
-    [penguin setPosition:CGPointMake(0, -self.size.height/3 - penguin.size.height/2)];
+    [penguin setPosition:CGPointMake(0, -self.size.height/3 - penguin.size.height/4 * 3)];
     [penguin setPlayerState:PlayerStateIdle];
     [penguin setName:@"penguin"];
     return penguin;
@@ -306,8 +305,8 @@ CGFloat const kAnimationMoveDistance = 10;
 }
 
 #pragma mark - Actions
-- (SKAction*)floatAction {
-    SKAction *up = [SKAction moveByX:0 y:20 duration:3];
+- (SKAction*)floatAction:(CGFloat)distance {
+    SKAction *up = [SKAction moveByX:0 y:distance duration:1];
     [up setTimingMode:SKActionTimingEaseInEaseOut];
     SKAction *down = [up reversedAction];
     return [SKAction sequence:@[up,down]];

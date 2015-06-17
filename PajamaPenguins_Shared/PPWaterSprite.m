@@ -22,7 +22,7 @@
         [self setSplashDamping:.05];
         [self setSplashTension:.005];
         
-        [self setAlpha:.75];
+        [self setAlpha:.60];
     }
     return self;
 }
