@@ -186,7 +186,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     
     //Snow Emitter
     self.snowEmitter = [PPSharedAssets sharedSnowEmitter].copy;
-    [self.snowEmitter setParticleBirthRate:SSKRandomFloatInRange(0, 300)];
+    [self.snowEmitter setParticleBirthRate:SSKRandomFloatInRange(0, 100)];
     [self.snowEmitter setZPosition:SceneLayerSnow];
     [self.snowEmitter setPosition:CGPointMake(self.size.width/2, self.size.height/2)];
     [self.snowEmitter setName:@"snowEmitter"];
