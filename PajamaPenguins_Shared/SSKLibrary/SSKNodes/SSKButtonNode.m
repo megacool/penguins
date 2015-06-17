@@ -404,7 +404,7 @@
 }
 @end
 
-@implementation SKLabelNode (SFAdditions)
+@implementation SKLabelNode (SSKButtonNode)
 + (SKLabelNode*)centeredLabelWithText:(NSString*)text {
     SKLabelNode *label = [SKLabelNode labelNodeWithText:text];
     [SKLabelNode centerLabel:label];
@@ -423,7 +423,7 @@
 }
 @end
 
-@implementation SKShapeNode (SFAdditions)
+@implementation SKShapeNode (SSKButtonNode)
 + (SKShapeNode*)shapeNodeWithCircleOfRadius:(CGFloat)radius fillColor:(SKColor*)fillColor {
     SKShapeNode *circle = [SKShapeNode shapeNodeWithCircleOfRadius:radius];
     [circle setFillColor:fillColor];

@@ -77,7 +77,7 @@ CGFloat const kAirGravityStrength      = -2.75;
 CGFloat const kWaterGravityStrength    = 6;
 CGFloat const kGameOverGravityStrength = -9.8;
 
-CGFloat const kMaxSplashStrength      = 40;
+CGFloat const kMaxSplashStrength      = 50;
 CGFloat const kMinSplashStrength      = 5;
 
 //Clamped Constants
@@ -102,7 +102,7 @@ CGFloat const kParallaxNormalMoveSpeed = 3.5;
 CGFloat const kParallaxBoostMoveSpeed  = 1.5;
 CGFloat const kMoveAndFadeTime         = 0.2;
 CGFloat const kMoveAndFadeDistance     = 20;
-CGFloat const kMoveAndFadeLongDistance     = 50;
+CGFloat const kMoveAndFadeLongDistance = 50;
 
 //Action Keys
 NSString * const kCoinSpawnKey    = @"coinSpawnKey";

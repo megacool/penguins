@@ -107,12 +107,12 @@ CGFloat const kAnimationMoveDistance = 10;
     [self addChild:self.foregroundNode];
     
     //Iceberg group
-    SKNode *platformNode = [SKNode new];
-    [platformNode setName:@"platform"];
-    [self.foregroundNode addChild:platformNode];
-    
-    [platformNode addChild:[self newPlatformIceberg]];
-    [platformNode addChild:[self blackPenguin]];
+//    SKNode *platformNode = [SKNode new];
+//    [platformNode setName:@"platform"];
+//    [self.foregroundNode addChild:platformNode];
+//    
+//    [platformNode addChild:[self newPlatformIceberg]];
+//    [platformNode addChild:[self blackPenguin]];
     
     //Water Surface
     self.waterSurface = [self waterNode];
@@ -160,11 +160,11 @@ CGFloat const kAnimationMoveDistance = 10;
 #pragma mark - Nodes
 - (PPWaterSprite*)waterNode {
     CGFloat surfacePadding = 5;
-    CGPoint surfaceStart = CGPointMake(-self.size.width/2 - surfacePadding, 0);
-    CGPoint surfaceEnd = CGPointMake(self.size.width/2 + surfacePadding, 0);
+    CGPoint surfaceStart = CGPointMake(-self.size.width/2 - surfacePadding, -self.size.height/3);
+    CGPoint surfaceEnd = CGPointMake(self.size.width/2 + surfacePadding, -self.size.height/3);
     
     PPWaterSprite *waterNode = [PPWaterSprite surfaceWithStartPoint:surfaceStart endPoint:surfaceEnd
-                                                              depth:self.size.height/2 waterType:[[PPBackgroundManager sharedManager] timeOfDay]];
+                                                              depth:self.size.height/6 waterType:[[PPBackgroundManager sharedManager] timeOfDay]];
     [waterNode setName:@"waterSurface"];
     [waterNode setZPosition:SceneLayerWater];
     return waterNode;

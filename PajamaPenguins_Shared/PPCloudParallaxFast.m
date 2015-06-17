@@ -18,14 +18,17 @@
     if (self) {
         SKTexture *cloudTexture = [[PPSharedAssets sharedCloudAtlas] textureNamed:@"cloud_00"];
         
-        PPSprite *cloudTallHigh = [PPSprite spriteNodeWithTexture:cloudTexture];
-        [cloudTallHigh setAlpha:0.4];
-        [cloudTallHigh setPosition:CGPointMake(-size.width/3, size.height/2)];
+        PPSprite *cloudTallOne = [PPSprite spriteNodeWithTexture:cloudTexture];
+        [cloudTallOne setAlpha:0.4];
+        [cloudTallOne setPosition:CGPointMake(size.width/3, size.height/2)];
         
-        PPSprite *cloudTallLow = cloudTallHigh.copy;
-        [cloudTallLow setPosition:CGPointMake(size.width/4, size.height/4)];
+        PPSprite *cloudTallTwo = cloudTallOne.copy;
+        [cloudTallTwo setPosition:CGPointMake(-size.width/4, size.height/4)];
+
+        PPSprite *cloudTallThree = cloudTallOne.copy;
+        [cloudTallThree setPosition:CGPointMake(-size.width/2, size.height)];
         
-        self.parallaxLayer = [SSKParallaxNode nodeWithSize:size attachedNodes:@[cloudTallHigh,cloudTallLow] moveSpeed:CGPointMake(-15, 0)];
+        self.parallaxLayer = [SSKParallaxNode nodeWithSize:size attachedNodes:@[cloudTallOne,cloudTallTwo] moveSpeed:CGPointMake(-15, 0)];
         self.parallaxLayer.zPosition = 0;
         [self addChild:self.parallaxLayer];
     }

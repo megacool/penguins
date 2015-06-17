@@ -70,11 +70,11 @@
 
 @end
 
-@interface SKLabelNode (SFAdditions)
+@interface SKLabelNode (SSKButtonNode)
 + (SKLabelNode*)centeredLabelWithText:(NSString*)text;
 + (SKLabelNode*)centeredLabelWithLabel:(SKLabelNode*)label;
 @end
 
-@interface SKShapeNode (SFAdditions)
+@interface SKShapeNode (SSKButtonNode)
 + (SKShapeNode*)shapeNodeWithCircleOfRadius:(CGFloat)radius fillColor:(SKColor*)fillColor;
 @end
