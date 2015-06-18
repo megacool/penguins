@@ -304,6 +304,25 @@ CGFloat const kAnimationMoveDistance = 10;
     }];
 }
 
+- (void)movePlayerToPosition:(CGPoint)position {
+    [self.playerNode removeActionForKey:@"moving"];
+    
+    CGFloat speed = 100;
+
+    // Get a constant speed
+    CGFloat distance = position.x - self.playerNode.position.x;
+    CGFloat duration = fabs(distance/speed);
+    
+    // Start swim animation
+    self.playerNode.playerState = PlayerStateSwim;
+    
+    SKAction *move = [SKAction moveToX:position.x duration:duration];
+    [move setTimingMode:SKActionTimingEaseInEaseOut];
+    [self.playerNode runAction:move withKey:@"moving" completion:^{
+        self.playerNode.playerState = PlayerStateIdle;
+    }];
+}
+
 #pragma mark - Actions
 - (SKAction*)floatAction:(CGFloat)distance {
     SKAction *up = [SKAction moveByX:0 y:distance duration:1];
@@ -330,14 +349,19 @@ CGFloat const kAnimationMoveDistance = 10;
 #pragma mark - Touches
 - (void)interactionBeganAtPosition:(CGPoint)position {
     
-    // Splash if touch is close to/in water
+    // Check if touch is near water surface
     CGFloat surfaceHeight = self.waterSurface.startPoint.y;
     CGFloat distanceFromSurface = position.y - surfaceHeight;
     
     if (distanceFromSurface <= 35) {
+        // Splash
         [self.waterSurface splash:position speed:-10];
         [self runOneShotEmitter:self.splashEmitter location:CGPointMake(position.x, surfaceHeight - 5)];
+        
+        // Move player
+        [self movePlayerToPosition:position];
     }
+    
 }
 
 #pragma mark - Update
