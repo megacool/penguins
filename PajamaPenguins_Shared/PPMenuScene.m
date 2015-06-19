@@ -316,10 +316,20 @@ CGFloat const kAnimationMoveDistance = 10;
     // Start swim animation
     self.playerNode.playerState = PlayerStateSwim;
     
+    // Get the right player orientation
+    if (position.x < self.playerNode.position.x) {
+        self.playerNode.xScale = -1;
+        self.playerNode.zRotation = SSKDegreesToRadians(-50);
+    } else {
+        self.playerNode.xScale = 1;
+        self.playerNode.zRotation = SSKDegreesToRadians(50);
+    }
+    
     SKAction *move = [SKAction moveToX:position.x duration:duration];
     [move setTimingMode:SKActionTimingEaseInEaseOut];
     [self.playerNode runAction:move withKey:@"moving" completion:^{
         self.playerNode.playerState = PlayerStateIdle;
+        self.playerNode.zRotation = 0;
     }];
 }
 
