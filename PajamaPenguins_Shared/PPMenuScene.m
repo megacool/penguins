@@ -61,7 +61,9 @@ CGFloat const kAnimationMoveDistance = 10;
 @property (nonatomic) PPPlayer *playerNode;
 @end
 
-@implementation PPMenuScene
+@implementation PPMenuScene {
+    CGPoint _playerStartPosition;
+}
 
 - (instancetype)initWithSize:(CGSize)size {
     return [super initWithSize:size];
@@ -121,6 +123,8 @@ CGFloat const kAnimationMoveDistance = 10;
     self.playerNode = [self blackPenguin];
     [self.foregroundNode addChild:self.playerNode];
     
+    _playerStartPosition = self.playerNode.position;
+    
     //Water Surface
     self.waterSurface = [self waterNode];
     [self addChild:self.waterSurface];
@@ -157,7 +161,7 @@ CGFloat const kAnimationMoveDistance = 10;
     [self runAction:[SKAction waitForDuration:0.8] completion:^{
         
         //Player float
-        [self.playerNode runAction:[SKAction repeatActionForever:[self floatAction:self.playerNode.size.height/4]]];
+        [self playerFloatForever];
         
         //Buttons move in
         SKNode *playButton = [self.menuNode childNodeWithName:@"playButton"];
@@ -287,7 +291,7 @@ CGFloat const kAnimationMoveDistance = 10;
 - (PPPlayer*)penguinWithType:(PlayerType)type atlas:(SKTextureAtlas*)atlas {
     PPPlayer *penguin = [PPPlayer playerWithType:type atlas:atlas];
     [penguin setAnchorPoint:CGPointMake(0.5, 0)];
-    [penguin setPosition:CGPointMake(0, -self.size.height/3 - penguin.size.height/4 * 3)];
+    [penguin setPosition:CGPointMake(0, -self.size.height/3 - penguin.size.height/10 * 5.5)];
     [penguin setPlayerState:PlayerStateIdle];
     [penguin setName:@"penguin"];
     return penguin;
@@ -307,30 +311,65 @@ CGFloat const kAnimationMoveDistance = 10;
 - (void)movePlayerToPosition:(CGPoint)position {
     [self.playerNode removeActionForKey:@"moving"];
     
-    CGFloat speed = 100;
+    CGFloat speed = 150;
 
     // Get a constant speed
     CGFloat distance = position.x - self.playerNode.position.x;
     CGFloat duration = fabs(distance/speed);
     
-    // Start swim animation
-    self.playerNode.playerState = PlayerStateSwim;
+
+    CGFloat rotateSpeed = 0.2;
+    CGFloat rotation;
     
-    // Get the right player orientation
+    // Get the right player orientation and rotation
     if (position.x < self.playerNode.position.x) {
         self.playerNode.xScale = -1;
-        self.playerNode.zRotation = SSKDegreesToRadians(-50);
+        rotation = -50;
     } else {
         self.playerNode.xScale = 1;
-        self.playerNode.zRotation = SSKDegreesToRadians(50);
+        rotation = 50;
     }
+    
+    // Create the move and rotate actions
+    SKAction *moveToSurface = [SKAction moveToY:-self.size.height/3 - self.playerNode.size.height/4 duration:rotateSpeed];
+    [moveToSurface setTimingMode:SKActionTimingEaseInEaseOut];
+    
+    SKAction *rotate = [SKAction rotateToAngle:SSKDegreesToRadians(rotation) duration:rotateSpeed];
     
     SKAction *move = [SKAction moveToX:position.x duration:duration];
     [move setTimingMode:SKActionTimingEaseInEaseOut];
-    [self.playerNode runAction:move withKey:@"moving" completion:^{
-        self.playerNode.playerState = PlayerStateIdle;
-        self.playerNode.zRotation = 0;
+    
+    // Make them a group
+    SKAction *group = [SKAction group:@[moveToSurface,rotate,move]];
+
+    // Start swim animation
+    self.playerNode.playerState = PlayerStateSwim;
+    
+    // Stop floating
+    [self.playerNode removeActionForKey:@"float"];
+    
+    // Swim to location
+    [self.playerNode runAction:group withKey:@"moving" completion:^{
+
+        // Rotate to normal
+        [self.playerNode runAction:[SKAction rotateToAngle:0 duration:rotateSpeed] completion:^{
+            self.playerNode.playerState = PlayerStateIdle;
+            
+            // Move player back to start height
+            SKAction *moveToNormalHeight = [SKAction moveToY:_playerStartPosition.y duration:0.5];
+            [moveToNormalHeight setTimingMode:SKActionTimingEaseInEaseOut];
+            [self.playerNode runAction:moveToNormalHeight completion:^{
+
+                // resume the float action
+                [self playerFloatForever];
+            }];
+        }];
     }];
+}
+
+- (void)playerFloatForever {
+    [self.playerNode removeActionForKey:@"float"];
+    [self.playerNode runAction:[SKAction repeatActionForever:[self floatAction:self.playerNode.size.height/4]] withKey:@"float"];
 }
 
 #pragma mark - Actions
