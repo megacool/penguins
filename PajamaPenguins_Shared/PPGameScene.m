@@ -51,6 +51,7 @@ typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerPlayer,
     SceneLayerWater,
     SceneLayerCoins,
+    SceneLayerPopCircle,
     SceneLayerPause,
     SceneLayerHUD,
     SceneLayerGameOver,
@@ -571,14 +572,14 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 
 #pragma mark - Coins
 - (void)startCoinSpawnIntervals {
+    CGFloat coinCount = 1;
     SKAction *wait = [SKAction waitForDuration:1.5];
     SKAction *spawnInterval = [SKAction waitForDuration:0.15];
     
     // Get new spawn point
     SKAction *getSpawnPosition = [SKAction runBlock:^{
-        CGFloat randomHeight = SSKRandomFloatInRange(self.size.height/5, self.size.height/2);
+        CGFloat randomHeight = SSKRandomFloatInRange(self.size.height/5, self.size.height);
         CGPoint newPoint = CGPointMake(self.size.width * 2, randomHeight);
-        NSLog(@"%fl",randomHeight);
         [self.coinSpawnPosition setPosition:newPoint];
     }];
     
@@ -589,7 +590,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     
     // Create a sequence with the given count
     NSMutableArray *spawnActions = [NSMutableArray new];
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < coinCount; i++) {
         [spawnActions addObject:spawn];
         [spawnActions addObject:spawnInterval];
     }
@@ -731,6 +732,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 #pragma mark - Circle Pop Animation
 - (void)popCircleOnNode:(SKSpriteNode*)node color:(SKColor*)color {
     PPCircleNode *circle = [PPCircleNode shapeNodeWithCircleOfRadius:node.size.width/4];
+    [circle setZPosition:SceneLayerPopCircle];
     [circle setFillColor:color];
     [node addChild:circle];
     [circle expandAndFade];
