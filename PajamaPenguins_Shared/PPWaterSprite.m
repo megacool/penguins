@@ -37,7 +37,8 @@
         }
             
         case WaterTypeMorning: {
-            theColor = [SKColor waterMorning];
+//            theColor = [SKColor waterMorning];
+            theColor = [SKColor waterAfternoon];
             break;
         }
 //        case WaterTypeDay: {
@@ -46,7 +47,8 @@
 //        }
             
         case WaterTypeSunset: {
-            theColor = [SKColor waterSunset];
+//            theColor = [SKColor waterSunset];
+            theColor = [SKColor waterAfternoon];
             break;
         }
         case WaterTypeNight: {
