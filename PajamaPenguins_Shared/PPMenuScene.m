@@ -309,14 +309,14 @@ CGFloat const kAnimationMoveDistance = 10;
 }
 
 - (void)movePlayerToPosition:(CGPoint)position {
-    [self.playerNode removeActionForKey:@"moving"];
+    if ([self.playerNode actionForKey:@"moving"] || [self.playerNode actionForKey:@"rotating"]) return;
+//    [self.playerNode removeActionForKey:@"moving"];
     
     CGFloat speed = 150;
 
     // Get a constant speed
     CGFloat distance = position.x - self.playerNode.position.x;
     CGFloat duration = fabs(distance/speed);
-    
 
     CGFloat rotateSpeed = 0.2;
     CGFloat rotation;
@@ -324,14 +324,14 @@ CGFloat const kAnimationMoveDistance = 10;
     // Get the right player orientation and rotation
     if (position.x < self.playerNode.position.x) {
         self.playerNode.xScale = -1;
-        rotation = -50;
+        rotation = -40;
     } else {
         self.playerNode.xScale = 1;
-        rotation = 50;
+        rotation = 40;
     }
     
     // Create the move and rotate actions
-    SKAction *moveToSurface = [SKAction moveToY:-self.size.height/3 - self.playerNode.size.height/4 duration:rotateSpeed];
+    SKAction *moveToSurface = [SKAction moveToY:-self.size.height/3 - self.playerNode.size.height/3 duration:rotateSpeed];
     [moveToSurface setTimingMode:SKActionTimingEaseInEaseOut];
     
     SKAction *rotate = [SKAction rotateToAngle:SSKDegreesToRadians(rotation) duration:rotateSpeed];
@@ -352,7 +352,7 @@ CGFloat const kAnimationMoveDistance = 10;
     [self.playerNode runAction:group withKey:@"moving" completion:^{
 
         // Rotate to normal
-        [self.playerNode runAction:[SKAction rotateToAngle:0 duration:rotateSpeed] completion:^{
+        [self.playerNode runAction:[SKAction rotateToAngle:0 duration:rotateSpeed/2] withKey:@"rotating" completion:^{
             self.playerNode.playerState = PlayerStateIdle;
             
             // Move player back to start height
@@ -383,6 +383,12 @@ CGFloat const kAnimationMoveDistance = 10;
 - (SKAction*)waterSplashAtPosition:(CGPoint)position {
     return [SKAction runBlock:^{
         [self.waterSurface splash:position speed:kSplashStrength];
+    }];
+}
+
+- (SKAction*)waterEmitterAtPosition:(CGPoint)position {
+    return [SKAction runBlock:^{
+        [self runOneShotEmitter:self.splashEmitter location:position];
     }];
 }
 
