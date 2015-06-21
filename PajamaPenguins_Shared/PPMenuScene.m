@@ -309,8 +309,12 @@ CGFloat const kAnimationMoveDistance = 10;
 }
 
 - (void)movePlayerToPosition:(CGPoint)position {
-    if ([self.playerNode actionForKey:@"moving"] || [self.playerNode actionForKey:@"rotating"]) return;
-//    [self.playerNode removeActionForKey:@"moving"];
+    if ([self.playerNode actionForKey:@"moving"] ||
+        [self.playerNode actionForKey:@"rotating"] ||
+        [self.playerNode actionForKey:@"normalizing"])
+    {
+        return;
+    }
     
     CGFloat speed = 150;
 
@@ -358,7 +362,7 @@ CGFloat const kAnimationMoveDistance = 10;
             // Move player back to start height
             SKAction *moveToNormalHeight = [SKAction moveToY:_playerStartPosition.y duration:0.5];
             [moveToNormalHeight setTimingMode:SKActionTimingEaseInEaseOut];
-            [self.playerNode runAction:moveToNormalHeight completion:^{
+            [self.playerNode runAction:moveToNormalHeight withKey:@"normalizing" completion:^{
 
                 // resume the float action
                 [self playerFloatForever];
