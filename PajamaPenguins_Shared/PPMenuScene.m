@@ -281,7 +281,7 @@ CGFloat const kAnimationMoveDistance = 10;
     return playButton;
 }
 
-#pragma mark - Penguins Types
+#pragma mark - Player
 - (PPPlayer*)penguinWithType:(PlayerType)type atlas:(SKTextureAtlas*)atlas {
     PPPlayer *penguin = [PPPlayer playerWithType:type atlas:atlas];
     [penguin setAnchorPoint:CGPointMake(0.5, 0)];
@@ -293,75 +293,6 @@ CGFloat const kAnimationMoveDistance = 10;
 
 - (PPPlayer*)blackPenguin {
     return [self penguinWithType:PlayerTypeBlack atlas:[PPSharedAssets sharedPenguinBlackTextures]];
-}
-
-- (void)updateAllPenguins:(NSTimeInterval)dt {
-    [self enumerateChildNodesWithName:@"//penguin" usingBlock:^(SKNode *node, BOOL *stop) {
-        PPPlayer *penguin = (PPPlayer*)node;
-        [penguin update:dt];
-    }];
-}
-
-- (void)movePlayerToPosition:(CGPoint)position {
-    if ([self.playerNode actionForKey:@"rotating"] ||
-        [self.playerNode actionForKey:@"normalizing"])
-    {
-        return;
-    }
-    
-    CGFloat speed = 150;
-
-    // Get a constant speed
-    CGFloat distance = position.x - self.playerNode.position.x;
-    CGFloat duration = fabs(distance/speed);
-
-    CGFloat rotateSpeed = 0.2;
-    CGFloat rotation;
-    
-    // Get the right player orientation and rotation
-    if (position.x < self.playerNode.position.x) {
-        self.playerNode.xScale = -1;
-        rotation = -40;
-    } else {
-        self.playerNode.xScale = 1;
-        rotation = 40;
-    }
-    
-    // Create the move and rotate actions
-    SKAction *moveToSurface = [SKAction moveToY:-self.size.height/3 - self.playerNode.size.height/3 duration:rotateSpeed];
-    [moveToSurface setTimingMode:SKActionTimingEaseInEaseOut];
-    
-    SKAction *rotate = [SKAction rotateToAngle:SSKDegreesToRadians(rotation) duration:rotateSpeed];
-    
-    SKAction *move = [SKAction moveToX:position.x duration:duration];
-    [move setTimingMode:SKActionTimingEaseInEaseOut];
-    
-    // Make them a group
-    SKAction *group = [SKAction group:@[moveToSurface,rotate,move]];
-
-    // Start swim animation
-    self.playerNode.playerState = PlayerStateSwim;
-    
-    // Stop floating
-    [self.playerNode removeActionForKey:@"float"];
-    
-    // Swim to location
-    [self.playerNode runAction:group withKey:@"moving" completion:^{
-
-        // Rotate to normal
-        [self.playerNode runAction:[SKAction rotateToAngle:0 duration:rotateSpeed/2] withKey:@"rotating" completion:^{
-            self.playerNode.playerState = PlayerStateIdle;
-            
-            // Move player back to start height
-            SKAction *moveToNormalHeight = [SKAction moveToY:_playerStartPosition.y duration:0.5];
-            [moveToNormalHeight setTimingMode:SKActionTimingEaseInEaseOut];
-            [self.playerNode runAction:moveToNormalHeight withKey:@"normalizing" completion:^{
-
-                // resume the float action
-                [self playerFloatForever];
-            }];
-        }];
-    }];
 }
 
 - (void)playerFloatForever {
@@ -432,6 +363,7 @@ CGFloat const kAnimationMoveDistance = 10;
 - (void)interactionBeganAtPosition:(CGPoint)position {
     
     // Check if touch is near water surface
+    
     CGFloat surfaceHeight = self.waterSurface.startPoint.y;
     CGFloat distanceFromSurface = position.y - surfaceHeight;
     
@@ -448,7 +380,7 @@ CGFloat const kAnimationMoveDistance = 10;
     [super update:currentTime];
     
     [self.waterSurface update:self.deltaTime];
-    [self updateAllPenguins:self.deltaTime];
+    [self.playerNode update:self.deltaTime];
 
     [self.cloudSlow update:self.deltaTime];
     [self.cloudFast update:self.deltaTime];
