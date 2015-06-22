@@ -62,7 +62,8 @@ CGFloat const kAnimationMoveDistance = 10;
 @end
 
 @implementation PPMenuScene {
-    CGPoint _playerStartPosition;
+    CGFloat _playerSurfaceHeight;
+    CGFloat _playerUnderSurfaceHeight;
 }
 
 - (instancetype)initWithSize:(CGSize)size {
@@ -116,7 +117,8 @@ CGFloat const kAnimationMoveDistance = 10;
     self.playerNode = [self blackPenguin];
     [self.foregroundNode addChild:self.playerNode];
     
-    _playerStartPosition = self.playerNode.position;
+    _playerSurfaceHeight = -self.size.height/3 - self.playerNode.size.height/2;
+    _playerUnderSurfaceHeight = -self.size.height/2 + self.playerNode.size.height/2;
     
     //Water Surface
     self.waterSurface = [self waterNode];
@@ -285,7 +287,7 @@ CGFloat const kAnimationMoveDistance = 10;
 - (PPPlayer*)penguinWithType:(PlayerType)type atlas:(SKTextureAtlas*)atlas {
     PPPlayer *penguin = [PPPlayer playerWithType:type atlas:atlas];
     [penguin setAnchorPoint:CGPointMake(0.5, 0)];
-    [penguin setPosition:CGPointMake(-self.size.width/2 - penguin.size.width/2, -self.size.height/3 - penguin.size.height/10 * 5.5)];
+    [penguin setPosition:CGPointMake(-self.size.width/2 - penguin.size.width, -self.size.height/3 - penguin.size.height/10 * 5.5)];
     [penguin setPlayerState:PlayerStateIdle];
     [penguin setName:@"penguin"];
     return penguin;
@@ -295,10 +297,6 @@ CGFloat const kAnimationMoveDistance = 10;
     return [self penguinWithType:PlayerTypeBlack atlas:[PPSharedAssets sharedPenguinBlackTextures]];
 }
 
-- (void)playerFloatForever {
-    [self.playerNode removeActionForKey:@"float"];
-    [self.playerNode runAction:[SKAction repeatActionForever:[self floatAction:self.playerNode.size.height/4]] withKey:@"float"];
-}
 
 - (void)playerSwimAnimationLoop {
     if (!self.playerNode || [self.playerNode actionForKey:@"swimmingForever"]) return;
@@ -306,28 +304,61 @@ CGFloat const kAnimationMoveDistance = 10;
     CGFloat playerWidth = self.playerNode.size.width;
     CGFloat swimDuration = 4;
     
-    SKAction *swimRight = [SKAction moveToX:self.size.width/2 + playerWidth/2 duration:swimDuration];
-    SKAction *swimLeft = [SKAction moveToX:-self.size.width/2 - playerWidth/2 duration:swimDuration];
+    SKAction *swimRight = [SKAction moveToX:self.size.width/2 + playerWidth duration:swimDuration];
+    SKAction *swimLeft = [SKAction moveToX:-self.size.width/2 - playerWidth duration:swimDuration];
     
     SKAction *flipLeft = [self flipPlayerLeft];
     SKAction *flipRight = [self flipPlayerRight];
 
+    SKAction *setPlayerStateSwim = [self setPlayerAnimationState:PlayerStateSwim];
+    SKAction *setPlayerStateIdle = [self setPlayerAnimationState:PlayerStateIdle];
+    
+    CGFloat leftX = -self.size.width/2 - self.playerNode.size.width;
+    CGFloat rightX = self.size.width/2 + self.playerNode.size.width;
+
+    SKAction *playerPositionUnderSurfaceLeft = [self setPlayerPosition:CGPointMake(leftX, _playerUnderSurfaceHeight)];
+    SKAction *playerPositionUnderSurfaceRight = [self setPlayerPosition:CGPointMake(rightX, _playerUnderSurfaceHeight)];
+    
+    SKAction *playerPositionSurfaceLeft = [self setPlayerPosition:CGPointMake(leftX, _playerSurfaceHeight)];
+    SKAction *playerPositionSurfaceRight = [self setPlayerPosition:CGPointMake(rightX, _playerSurfaceHeight)];
+    
     SKAction *pause = [SKAction waitForDuration:2];
     
-    SKAction *sequence = [SKAction sequence:@[flipRight,swimRight,pause,flipLeft,swimLeft,pause]];
+    SKAction *sequence = [SKAction sequence:@[pause,flipRight,playerPositionSurfaceLeft,setPlayerStateSwim,swimRight,pause,// top swim right
+                                              flipLeft,playerPositionUnderSurfaceRight,setPlayerStateIdle,swimLeft,pause, // bottom swim left
+                                              flipRight,playerPositionUnderSurfaceLeft,swimRight,pause, // bottom swim right
+                                              flipLeft,playerPositionSurfaceRight,setPlayerStateSwim,swimLeft]]; // top swim left
     [self.playerNode runAction:[SKAction repeatActionForever:sequence] withKey:@"swimmingForever"];
 }
 
+#pragma mark - Player Actions
 - (SKAction*)flipPlayerLeft {
     return [SKAction runBlock:^{
-        self.playerNode.zRotation = SSKDegreesToRadians(-40);
+        self.playerNode.zRotation = SSKDegreesToRadians(-50);
     }];
 }
 
 - (SKAction*)flipPlayerRight {
     return [SKAction runBlock:^{
-        self.playerNode.zRotation = SSKDegreesToRadians(40);
+        self.playerNode.zRotation = SSKDegreesToRadians(50);
     }];
+}
+
+- (SKAction*)setPlayerAnimationState:(PlayerState)playerState {
+    return [SKAction runBlock:^{
+        [self.playerNode setPlayerState:playerState];
+    }];
+}
+
+- (SKAction*)setPlayerPosition:(CGPoint)position {
+    return [SKAction runBlock:^{
+        self.playerNode.position = position;
+    }];
+}
+
+- (void)playerFloatForever {
+    if ([self.playerNode actionForKey:@"floating"]) return;
+    [self.playerNode runAction:[SKAction repeatActionForever:[self floatAction:self.playerNode.size.height/4]] withKey:@"floating"];
 }
 
 #pragma mark - Actions
