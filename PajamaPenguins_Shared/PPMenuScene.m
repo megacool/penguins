@@ -297,7 +297,6 @@ CGFloat const kAnimationMoveDistance = 10;
     return [self penguinWithType:PlayerTypeBlack atlas:[PPSharedAssets sharedPenguinBlackTextures]];
 }
 
-
 - (void)playerSwimAnimationLoop {
     if (!self.playerNode || [self.playerNode actionForKey:@"swimmingForever"]) return;
     

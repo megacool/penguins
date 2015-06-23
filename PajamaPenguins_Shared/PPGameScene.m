@@ -104,6 +104,7 @@ CGFloat const kParallaxBoostMoveSpeed  = 1.5;
 CGFloat const kMoveAndFadeTime         = 0.2;
 CGFloat const kMoveAndFadeDistance     = 20;
 CGFloat const kMoveAndFadeLongDistance = 50;
+CGFloat const kObstacleSpawnInterval   = 1.0;
 
 //Action Keys
 NSString * const kCoinSpawnKey    = @"coinSpawnKey";
@@ -907,6 +908,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     SKEmitterNode *splashEmitter = emitter.copy;
     [splashEmitter setPosition:location];
     [splashEmitter setZPosition:SceneLayerWater + 1];
+    [splashEmitter setAlpha:0.6];
     [self.worldNode addChild:splashEmitter];
     [SSKGraphicsUtils runOneShotActionWithEmitter:splashEmitter duration:0.15];
 }
@@ -932,7 +934,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 
 #pragma mark - Obstacle Spawn Sequence
 - (void)startObstacleSpawnSequence {
-    SKAction *wait = [SKAction waitForDuration:1.5];
+    SKAction *wait = [SKAction waitForDuration:kObstacleSpawnInterval];
     SKAction *spawnFloatMove = [SKAction runBlock:^{
         SKNode *obstacle = [self newIceBerg];
         [self.worldNode addChild:obstacle];
