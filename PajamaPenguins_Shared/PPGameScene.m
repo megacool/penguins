@@ -75,7 +75,7 @@ static const uint32_t obstacleCategory = 0x1 << 1;
 static const uint32_t edgeCategory     = 0x1 << 2;
 
 CGFloat const kAirGravityStrength      = -2.75;
-CGFloat const kWaterGravityStrength    = 6;
+CGFloat const kWaterGravityStrength    = 10;
 CGFloat const kGameOverGravityStrength = -9.8;
 
 CGFloat const kMaxSplashStrength      = 50;
@@ -84,11 +84,7 @@ CGFloat const kMinSplashStrength      = 5;
 //Clamped Constants
 CGFloat const kWorldScaleCap  = 0.55;
 
-//CGFloat const kPlayerUpperVelocityLimit      = 700.0;
-//CGFloat const kPlayerLowerAirVelocityLimit   = -700.0;
-//CGFloat const kPlayerLowerWaterVelocityLimit = -550.0;
-
-CGFloat const kPlayerUpperVelocityLimit      = 825.0;
+CGFloat const kPlayerUpperVelocityLimit      = 8005.0;
 CGFloat const kPlayerLowerAirVelocityLimit   = -1000.0;
 CGFloat const kPlayerLowerWaterVelocityLimit = -600.0;
 
@@ -100,11 +96,11 @@ NSString * const kCoinName      = @"coinName";
 
 //Action Constants
 CGFloat const kParallaxNormalMoveSpeed = 3.5;
-CGFloat const kParallaxBoostMoveSpeed  = 1.5;
+CGFloat const kParallaxBoostMoveSpeed  = 1.75;
 CGFloat const kMoveAndFadeTime         = 0.2;
 CGFloat const kMoveAndFadeDistance     = 20;
 CGFloat const kMoveAndFadeLongDistance = 50;
-CGFloat const kObstacleSpawnInterval   = 1.0;
+CGFloat const kObstacleSpawnInterval   = 1.20;
 
 //Action Keys
 NSString * const kCoinSpawnKey    = @"coinSpawnKey";
@@ -574,7 +570,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 #pragma mark - Coins
 - (void)startCoinSpawnIntervals {
     CGFloat coinCount = 1;
-    SKAction *wait = [SKAction waitForDuration:1.5];
+    SKAction *wait = [SKAction waitForDuration:kObstacleSpawnInterval/2];
     SKAction *spawnInterval = [SKAction waitForDuration:0.15];
     
     // Get new spawn point
@@ -808,6 +804,12 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     else {
         [[self currentPlayer] setPlayerState:PlayerStateFly];
     }
+}
+
+- (SKAction*)setPlayerShouldFly:(BOOL)shouldFly {
+    return [SKAction runBlock:^{
+        [[self currentPlayer] setPlayerShouldFly:shouldFly];
+    }];
 }
 
 #pragma mark - Water Surface
@@ -1100,6 +1102,8 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     if ([self actionForKey:@"boostKey"]) return;
     if ([self currentBoostMeter].currentProgress < 0.49f) return;
     
+    SKAction *playerFly = [self setPlayerShouldFly:YES];
+    SKAction *playerStopFly = [self setPlayerShouldFly:NO];
     SKAction *startBoost = [self adjustBoostSpeed:ParallaxMultiplierBoost];
     SKAction *wait = [SKAction waitForDuration:3.0];
     SKAction *endBoost = [self adjustBoostSpeed:ParallaxMultiplierNormal];
@@ -1110,16 +1114,10 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     SKAction *starEmitterOff = [self stopStarEmitterAction];
     SKAction *adjustBoostMeter = [self adjustBoostMeterAction:-0.5];
     
-    SKAction *sequence = [SKAction sequence:@[starExplosion,startBoost,snowAccelUp,starEmitterOn,adjustBoostMeter,wait,endBoost,snowAccelDown,starEmitterOff]];
+    SKAction *sequence = [SKAction sequence:@[starExplosion,startBoost,playerFly,snowAccelUp,starEmitterOn,adjustBoostMeter,wait,
+                                              endBoost,playerStopFly,snowAccelDown,starEmitterOff]];
     
     [self runAction:sequence withKey:@"boostKey"];
-}
-
-- (void)setNodeSpeed:(CGFloat)speed withNodeName:(NSString*)nodeName withActionName:(NSString*)actionName {
-    [self.worldNode enumerateChildNodesWithName:nodeName usingBlock:^(SKNode *node, BOOL *stop) {
-        SKAction *moveAction = [node actionForKey:actionName];
-        [moveAction setSpeed:speed];
-    }];
 }
 
 - (SKAction*)adjustBoostSpeed:(NSUInteger)speed {
@@ -1134,6 +1132,13 @@ NSString * const kFishMoveKey = @"fishMoveKey";
         // Parallax Nodes
         self.cloudFast.parallaxLayer.moveSpeedMultiplier = speed;
         self.cloudSlow.parallaxLayer.moveSpeedMultiplier = speed;
+    }];
+}
+
+- (void)setNodeSpeed:(CGFloat)speed withNodeName:(NSString*)nodeName withActionName:(NSString*)actionName {
+    [self.worldNode enumerateChildNodesWithName:nodeName usingBlock:^(SKNode *node, BOOL *stop) {
+        SKAction *moveAction = [node actionForKey:actionName];
+        [moveAction setSpeed:speed];
     }];
 }
 
