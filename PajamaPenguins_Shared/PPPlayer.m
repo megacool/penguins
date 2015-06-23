@@ -87,22 +87,21 @@ CGFloat const kIdleAnimationSpeed = 0.075;
 #pragma mark - Update
 - (void)update:(NSTimeInterval)dt {
     
-    // Boost flying
-    if (_playerShouldFly) {
-        [self setPosition:CGPointMake(self.position.x, self.position.y)];
-        return;
-    }
-    
     //Rotation
     if (self.playerShouldRotate) {
         [self setPlayerRotation:dt];
+    }
+    
+    // Boost flying
+    if (_playerShouldFly) {
+//        [self setPosition:CGPointMake(self.position.x, self.position.y)];
+//        return;
     }
 
     //Diving Physics
     if (_playerShouldDive) {
         [self.physicsBody setVelocity:CGVectorMake(0, self.physicsBody.velocity.dy - kAcceleration)];
     }
-
     
     //Animation
     switch (self.playerState) {
