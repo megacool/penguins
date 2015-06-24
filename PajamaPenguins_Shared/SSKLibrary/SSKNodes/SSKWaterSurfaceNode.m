@@ -219,7 +219,7 @@ CGFloat const kDefaultJointWidth = 10.0;
     
     NSMutableArray *leftDeltas = [self arrayWithCapacity:self.waterJoints.count];
     NSMutableArray *rightDeltas = [self arrayWithCapacity:self.waterJoints.count];
-    NSUInteger iterations = 1;
+    NSUInteger iterations = 2;
     
     for (int j = 0; j < iterations; j ++) {
         for (int i = 0; i < self.waterJoints.count; i++) {

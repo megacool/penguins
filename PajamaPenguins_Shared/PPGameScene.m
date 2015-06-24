@@ -75,11 +75,14 @@ static const uint32_t obstacleCategory = 0x1 << 1;
 static const uint32_t edgeCategory     = 0x1 << 2;
 
 CGFloat const kAirGravityStrength      = -2.75;
-CGFloat const kWaterGravityStrength    = 10;
+CGFloat const kWaterGravityStrength    = 9;
 CGFloat const kGameOverGravityStrength = -9.8;
 
 CGFloat const kMaxSplashStrength      = 50;
 CGFloat const kMinSplashStrength      = 5;
+
+CGFloat const kSplashUpStrength = 20;
+CGFloat const kSplashDownStrength = -35;
 
 //Clamped Constants
 CGFloat const kWorldScaleCap  = 0.55;
@@ -819,10 +822,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     
     //Cross surface from bottom
     if (_lastPlayerHeight < 0 && newPlayerHeight > 0) {
-        
-        // Splash Emitter
-        CGFloat splashRatio = [self currentPlayer].physicsBody.velocity.dy / kPlayerUpperVelocityLimit;
-        CGFloat splashStrength = kMaxSplashStrength * splashRatio;
+        CGFloat splashStrength = kSplashUpStrength;
         
         [self.waterSurface splash:[self currentPlayer].position speed:splashStrength];
         [self runOneShotEmitter:self.splashUpEmitter location:[self currentPlayer].position];
@@ -835,12 +835,9 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     
     //Cross surface from top
     else if (_lastPlayerHeight > 0 && newPlayerHeight < 0) {
+        CGFloat splashStrength = kSplashDownStrength;
         
-        // Splash Emitter
-        CGFloat splashRatio = [self currentPlayer].physicsBody.velocity.dy / kPlayerLowerAirVelocityLimit;
-        CGFloat splashStrength = kMaxSplashStrength * splashRatio;
-        
-        [self.waterSurface splash:[self currentPlayer].position speed:-splashStrength];
+        [self.waterSurface splash:[self currentPlayer].position speed:splashStrength];
         [self runOneShotEmitter:self.splashDownEmitter location:[self currentPlayer].position];
         
         _lastPlayerHeight = newPlayerHeight;
