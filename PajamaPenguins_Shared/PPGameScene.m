@@ -806,12 +806,6 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     }
 }
 
-- (SKAction*)setPlayerShouldFly:(BOOL)shouldFly {
-    return [SKAction runBlock:^{
-        [[self currentPlayer] setPlayerShouldFly:shouldFly];
-    }];
-}
-
 #pragma mark - Water Surface
 - (SKAction*)waterSplashAtPosition:(CGPoint)position {
     return [SKAction runBlock:^{
@@ -1102,8 +1096,6 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     if ([self actionForKey:@"boostKey"]) return;
     if ([self currentBoostMeter].currentProgress < 0.49f) return;
     
-    SKAction *playerFly = [self setPlayerShouldFly:YES];
-    SKAction *playerStopFly = [self setPlayerShouldFly:NO];
     SKAction *startBoost = [self adjustBoostSpeed:ParallaxMultiplierBoost];
     SKAction *wait = [SKAction waitForDuration:3.0];
     SKAction *endBoost = [self adjustBoostSpeed:ParallaxMultiplierNormal];
@@ -1114,8 +1106,8 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     SKAction *starEmitterOff = [self stopStarEmitterAction];
     SKAction *adjustBoostMeter = [self adjustBoostMeterAction:-0.5];
     
-    SKAction *sequence = [SKAction sequence:@[starExplosion,startBoost,playerFly,snowAccelUp,starEmitterOn,adjustBoostMeter,wait,
-                                              endBoost,playerStopFly,snowAccelDown,starEmitterOff]];
+    SKAction *sequence = [SKAction sequence:@[starExplosion,startBoost,snowAccelUp,starEmitterOn,adjustBoostMeter,wait,
+                                              endBoost,snowAccelDown,starEmitterOff]];
     
     [self runAction:sequence withKey:@"boostKey"];
 }
