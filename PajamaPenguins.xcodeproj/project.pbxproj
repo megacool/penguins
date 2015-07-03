@@ -48,6 +48,8 @@
 		EE5D8B651B47403E00A61B70 /* coin_sfx.wav in Resources */ = {isa = PBXBuildFile; fileRef = EE5D8B631B47403E00A61B70 /* coin_sfx.wav */; };
 		EE5D8B6A1B47455600A61B70 /* fish_sfx.wav in Resources */ = {isa = PBXBuildFile; fileRef = EE5D8B691B47455600A61B70 /* fish_sfx.wav */; };
 		EE5D8B6B1B47455600A61B70 /* fish_sfx.wav in Resources */ = {isa = PBXBuildFile; fileRef = EE5D8B691B47455600A61B70 /* fish_sfx.wav */; };
+		EE5D8B701B47492D00A61B70 /* powerup_sfx.wav in Resources */ = {isa = PBXBuildFile; fileRef = EE5D8B6F1B47492D00A61B70 /* powerup_sfx.wav */; };
+		EE5D8B711B47492D00A61B70 /* powerup_sfx.wav in Resources */ = {isa = PBXBuildFile; fileRef = EE5D8B6F1B47492D00A61B70 /* powerup_sfx.wav */; };
 		EE5E21D41AC35F0400C9A310 /* waterParticle.png in Resources */ = {isa = PBXBuildFile; fileRef = EE5E21D21AC35F0400C9A310 /* waterParticle.png */; };
 		EE6718A31B249D43006D84D0 /* PPCircleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6718A21B249D43006D84D0 /* PPCircleNode.m */; };
 		EE6F92F81A82F39400286DC7 /* SSKGameCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6F92E71A82F39400286DC7 /* SSKGameCenter.m */; };
@@ -165,6 +167,7 @@
 		EE5575E91A5A108100B87145 /* PPGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPGameScene.m; sourceTree = "<group>"; };
 		EE5D8B631B47403E00A61B70 /* coin_sfx.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin_sfx.wav; sourceTree = "<group>"; };
 		EE5D8B691B47455600A61B70 /* fish_sfx.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = fish_sfx.wav; sourceTree = "<group>"; };
+		EE5D8B6F1B47492D00A61B70 /* powerup_sfx.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerup_sfx.wav; sourceTree = "<group>"; };
 		EE5E21D21AC35F0400C9A310 /* waterParticle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waterParticle.png; sourceTree = "<group>"; };
 		EE6718A11B249D42006D84D0 /* PPCircleNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCircleNode.h; sourceTree = "<group>"; };
 		EE6718A21B249D43006D84D0 /* PPCircleNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCircleNode.m; sourceTree = "<group>"; };
@@ -541,6 +544,7 @@
 		EEA27FDB1B2001D8007E7DC1 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				EE5D8B6F1B47492D00A61B70 /* powerup_sfx.wav */,
 				EE5D8B691B47455600A61B70 /* fish_sfx.wav */,
 				EE5D8B631B47403E00A61B70 /* coin_sfx.wav */,
 			);
@@ -721,6 +725,7 @@
 				EEC9DB861AA7B5510022CDF1 /* SnowEmitter.sks in Resources */,
 				EEAE6FAA1AA68F9900215C7E /* BubbleEmitter.sks in Resources */,
 				41E4309A18B09E5200E1427D /* InfoPlist.strings in Resources */,
+				EE5D8B701B47492D00A61B70 /* powerup_sfx.wav in Resources */,
 				EE5E21D41AC35F0400C9A310 /* waterParticle.png in Resources */,
 				EE71EE051B0987F600C89D4E /* StarEmitter.sks in Resources */,
 			);
@@ -740,6 +745,7 @@
 				EEAE6FA51AA68B8B00215C7E /* ObstacleSplashEmitter.sks in Resources */,
 				EE168C8F1A97C952005403E6 /* Fipps-Regular.otf in Resources */,
 				EEAE6FAB1AA68F9900215C7E /* BubbleEmitter.sks in Resources */,
+				EE5D8B711B47492D00A61B70 /* powerup_sfx.wav in Resources */,
 				EEC9DB871AA7B5510022CDF1 /* SnowEmitter.sks in Resources */,
 				41E430E518B09E8600E1427D /* MainMenu.xib in Resources */,
 			);

@@ -74,6 +74,7 @@
         // Audio
         sCoinSFX = [SKAction playSoundFileNamed:@"coin_sfx.wav" waitForCompletion:NO];
         sFishSFX = [SKAction playSoundFileNamed:@"fish_sfx.wav" waitForCompletion:NO];
+        sPowerupSFX = [SKAction playSoundFileNamed:@"powerup_sfx.wav" waitForCompletion:NO];
 //        sSplashSFX = [[SFAudio alloc] initWithFileNamed:@"splash.m4a"];
         
         NSLog(@"Scene loaded in %f seconds",[[NSDate date] timeIntervalSinceDate:startTime]);
@@ -190,6 +191,11 @@ static SKAction *sCoinSFX = nil;
 static SKAction *sFishSFX = nil;
 + (SKAction*)sharedFishSFX {
     return sFishSFX;
+}
+
+static SKAction *sPowerupSFX = nil;
++ (SKAction*)sharedPowerupSFX {
+    return sPowerupSFX;
 }
 
 #pragma mark - Shared Emitters

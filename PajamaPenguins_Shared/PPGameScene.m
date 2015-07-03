@@ -1096,6 +1096,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     if ([self currentBoostMeter].currentProgress < 0.49f) return;
     
     SKAction *startBoost = [self adjustBoostSpeed:ParallaxMultiplierBoost];
+//    SKAction *boostSound = [PPSharedAssets sharedPowerupSFX];
     SKAction *wait = [SKAction waitForDuration:3.0];
     SKAction *endBoost = [self adjustBoostSpeed:ParallaxMultiplierNormal];
     SKAction *snowAccelDown = [self snowAccelerationNormal];
