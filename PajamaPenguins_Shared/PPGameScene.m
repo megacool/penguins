@@ -46,10 +46,10 @@ typedef NS_ENUM(NSUInteger, SceneLayer) {
     SceneLayerClouds,
     SceneLayerSnow,
     SceneLayerIcebergs,
-    SceneLayerFish,
-    SceneLayerBubbles,
     SceneLayerPlayer,
     SceneLayerWater,
+    SceneLayerFish,
+    SceneLayerBubbles,
     SceneLayerCoins,
     SceneLayerPopCircle,
     SceneLayerPause,
@@ -81,13 +81,13 @@ CGFloat const kGameOverGravityStrength = -9.8;
 CGFloat const kMaxSplashStrength      = 50;
 CGFloat const kMinSplashStrength      = 5;
 
-CGFloat const kSplashUpStrength = 20;
+CGFloat const kSplashUpStrength   = 20;
 CGFloat const kSplashDownStrength = -35;
 
 //Clamped Constants
 CGFloat const kWorldScaleCap  = 0.55;
 
-CGFloat const kPlayerUpperVelocityLimit      = 8005.0;
+CGFloat const kPlayerUpperVelocityLimit      = 650.0;
 CGFloat const kPlayerLowerAirVelocityLimit   = -1000.0;
 CGFloat const kPlayerLowerWaterVelocityLimit = -600.0;
 
@@ -199,8 +199,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     
     self.waterSurface = [PPWaterSprite surfaceWithStartPoint:surfaceStart
                                                     endPoint:surfaceEnd
-                                                       depth:self.size.height/2 + 1
-                                                   waterType:[[PPBackgroundManager sharedManager] timeOfDay]];
+                                                       depth:self.size.height/2 + 1];
     [self.waterSurface setName:@"water"];
     [self.waterSurface setZPosition:SceneLayerWater];
     [self.worldNode addChild:self.waterSurface];
@@ -347,7 +346,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     
     // Coins Label
     NSUInteger totalCoinsCount = [(SSKScoreNode*)[self.hudNode childNodeWithName:@"coinCounter"] count];
-    SKLabelNode *coinsLabel = [self createNewLabelWithText:[NSString stringWithFormat:@"Coins: %lu", totalCoinsCount] withFontSize:30];
+    SKLabelNode *coinsLabel = [self createNewLabelWithText:[NSString stringWithFormat:@"Coins: %lu", (unsigned long)totalCoinsCount] withFontSize:30];
     [coinsLabel setFontColor:[SKColor darkRed]];
     [coinsLabel setPosition:CGPointMake(gameOverLabel.position.x, gameOverLabel.position.y - 100)];
     [self.gameOverNode addChild:coinsLabel];

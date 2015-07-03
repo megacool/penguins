@@ -71,7 +71,7 @@ CGFloat const kDefaultJointWidth = 10.0;
         _waterPath = [self pathFromJoints:self.waterJoints];
         
         self.waterSurface = [SKShapeNode shapeNodeWithPath:_waterPath];
-        [self.waterSurface setStrokeColor:[UIColor whiteColor]];
+        [self.waterSurface setStrokeColor:[UIColor clearColor]];
         [self addChild:self.waterSurface];
         
         if (depth > 0) {
