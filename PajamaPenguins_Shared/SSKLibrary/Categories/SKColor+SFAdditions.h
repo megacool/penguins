@@ -11,16 +11,8 @@
 @interface SKColor (SFAdditions)
 + (SKColor*)colorWithR:(int)r g:(int)g b:(int)b;
 
-+ (SKColor*)waterMorning;
-+ (SKColor*)waterDay;
-+ (SKColor*)waterAfternoon;
-+ (SKColor*)waterSunset;
-+ (SKColor*)waterNight;
-
-+ (SKColor*)skyMorning;
++ (SKColor*)water;
 + (SKColor*)skyDay;
-+ (SKColor*)skyAfternoon;
-+ (SKColor*)skySunset;
 + (SKColor*)skyNight;
 
 + (SKColor*)darkRed;

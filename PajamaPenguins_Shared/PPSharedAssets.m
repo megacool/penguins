@@ -72,7 +72,9 @@
         [sStarEmitter setParticleColorBlendFactor:1.0];
         
         // Audio
-        sSplashSFX = [[SFAudio alloc] initWithFileNamed:@"splash.m4a"];
+        sCoinSFX = [SKAction playSoundFileNamed:@"coin_sfx.wav" waitForCompletion:NO];
+        sFishSFX = [SKAction playSoundFileNamed:@"fish_sfx.wav" waitForCompletion:NO];
+//        sSplashSFX = [[SFAudio alloc] initWithFileNamed:@"splash.m4a"];
         
         NSLog(@"Scene loaded in %f seconds",[[NSDate date] timeIntervalSinceDate:startTime]);
         
@@ -178,6 +180,16 @@ static SKTexture *sIcebergGameTexture = nil;
 static SFAudio *sSplashSFX = nil;
 + (SFAudio*)sharedSplashSFX {
     return sSplashSFX;
+}
+
+static SKAction *sCoinSFX = nil;
++ (SKAction*)sharedCoinSFX {
+    return sCoinSFX;
+}
+
+static SKAction *sFishSFX = nil;
++ (SKAction*)sharedFishSFX {
+    return sFishSFX;
 }
 
 #pragma mark - Shared Emitters

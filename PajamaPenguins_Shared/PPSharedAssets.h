@@ -54,5 +54,7 @@ typedef void (^AssetCompletionHandler)(void);
 
 // Audio
 + (SFAudio*)sharedSplashSFX;
++ (SKAction*)sharedCoinSFX;
++ (SKAction*)sharedFishSFX;
 
 @end

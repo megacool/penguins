@@ -44,6 +44,10 @@
 		EE514BED1AEAE643000AAF86 /* PPFadingSky.m in Sources */ = {isa = PBXBuildFile; fileRef = EE514BEC1AEAE643000AAF86 /* PPFadingSky.m */; };
 		EE5575EB1A5A108100B87145 /* PPGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5575E91A5A108100B87145 /* PPGameScene.m */; };
 		EE5575F01A5A16A700B87145 /* PPGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5575E91A5A108100B87145 /* PPGameScene.m */; };
+		EE5D8B641B47403E00A61B70 /* coin_sfx.wav in Resources */ = {isa = PBXBuildFile; fileRef = EE5D8B631B47403E00A61B70 /* coin_sfx.wav */; };
+		EE5D8B651B47403E00A61B70 /* coin_sfx.wav in Resources */ = {isa = PBXBuildFile; fileRef = EE5D8B631B47403E00A61B70 /* coin_sfx.wav */; };
+		EE5D8B6A1B47455600A61B70 /* fish_sfx.wav in Resources */ = {isa = PBXBuildFile; fileRef = EE5D8B691B47455600A61B70 /* fish_sfx.wav */; };
+		EE5D8B6B1B47455600A61B70 /* fish_sfx.wav in Resources */ = {isa = PBXBuildFile; fileRef = EE5D8B691B47455600A61B70 /* fish_sfx.wav */; };
 		EE5E21D41AC35F0400C9A310 /* waterParticle.png in Resources */ = {isa = PBXBuildFile; fileRef = EE5E21D21AC35F0400C9A310 /* waterParticle.png */; };
 		EE6718A31B249D43006D84D0 /* PPCircleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6718A21B249D43006D84D0 /* PPCircleNode.m */; };
 		EE6F92F81A82F39400286DC7 /* SSKGameCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6F92E71A82F39400286DC7 /* SSKGameCenter.m */; };
@@ -68,8 +72,6 @@
 		EE8F0AB71AD73A7600CB1CE1 /* PPCloudParallaxFast.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8F0AB61AD73A7600CB1CE1 /* PPCloudParallaxFast.m */; };
 		EE9FD22D1AF890F800DD740E /* PPBackgroundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9FD22C1AF890F800DD740E /* PPBackgroundManager.m */; };
 		EE9FD22E1AF890F800DD740E /* PPBackgroundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9FD22C1AF890F800DD740E /* PPBackgroundManager.m */; };
-		EEA27FDD1B2001EE007E7DC1 /* splash.m4a in Resources */ = {isa = PBXBuildFile; fileRef = EEA27FDC1B2001EE007E7DC1 /* splash.m4a */; };
-		EEA27FDE1B2001EE007E7DC1 /* splash.m4a in Resources */ = {isa = PBXBuildFile; fileRef = EEA27FDC1B2001EE007E7DC1 /* splash.m4a */; };
 		EEAE6F9C1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEAE6F9A1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks */; };
 		EEAE6F9D1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEAE6F9A1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks */; };
 		EEAE6FA41AA68B8B00215C7E /* ObstacleSplashEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEAE6FA31AA68B8B00215C7E /* ObstacleSplashEmitter.sks */; };
@@ -161,6 +163,8 @@
 		EE514BEC1AEAE643000AAF86 /* PPFadingSky.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPFadingSky.m; sourceTree = "<group>"; };
 		EE5575E81A5A108100B87145 /* PPGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPGameScene.h; sourceTree = "<group>"; };
 		EE5575E91A5A108100B87145 /* PPGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPGameScene.m; sourceTree = "<group>"; };
+		EE5D8B631B47403E00A61B70 /* coin_sfx.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin_sfx.wav; sourceTree = "<group>"; };
+		EE5D8B691B47455600A61B70 /* fish_sfx.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = fish_sfx.wav; sourceTree = "<group>"; };
 		EE5E21D21AC35F0400C9A310 /* waterParticle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waterParticle.png; sourceTree = "<group>"; };
 		EE6718A11B249D42006D84D0 /* PPCircleNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCircleNode.h; sourceTree = "<group>"; };
 		EE6718A21B249D43006D84D0 /* PPCircleNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCircleNode.m; sourceTree = "<group>"; };
@@ -196,7 +200,6 @@
 		EE8F0AB61AD73A7600CB1CE1 /* PPCloudParallaxFast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCloudParallaxFast.m; sourceTree = "<group>"; };
 		EE9FD22B1AF890F800DD740E /* PPBackgroundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPBackgroundManager.h; sourceTree = "<group>"; };
 		EE9FD22C1AF890F800DD740E /* PPBackgroundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPBackgroundManager.m; sourceTree = "<group>"; };
-		EEA27FDC1B2001EE007E7DC1 /* splash.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = splash.m4a; sourceTree = "<group>"; };
 		EEAE6F9A1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = PlayerSplashUpEmitter.sks; path = ../PajamaPenguins_Shared/PlayerSplashUpEmitter.sks; sourceTree = "<group>"; };
 		EEAE6FA31AA68B8B00215C7E /* ObstacleSplashEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = ObstacleSplashEmitter.sks; path = ../PajamaPenguins_Shared/ObstacleSplashEmitter.sks; sourceTree = "<group>"; };
 		EEAE6FA91AA68F9900215C7E /* BubbleEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = BubbleEmitter.sks; path = PajamaPenguins_Shared/BubbleEmitter.sks; sourceTree = SOURCE_ROOT; };
@@ -538,9 +541,10 @@
 		EEA27FDB1B2001D8007E7DC1 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				EEA27FDC1B2001EE007E7DC1 /* splash.m4a */,
+				EE5D8B691B47455600A61B70 /* fish_sfx.wav */,
+				EE5D8B631B47403E00A61B70 /* coin_sfx.wav */,
 			);
-			name = Audio;
+			path = Audio;
 			sourceTree = "<group>";
 		};
 		EEAE6FA61AA68EC300215C7E /* Emitters */ = {
@@ -701,12 +705,14 @@
 				EEAE6F9C1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks in Resources */,
 				EE168C8E1A97C952005403E6 /* Fipps-Regular.otf in Resources */,
 				EEC9BA261AE89417006A7118 /* buttons.atlas in Resources */,
+				EE5D8B6A1B47455600A61B70 /* fish_sfx.wav in Resources */,
 				EEAE6FA41AA68B8B00215C7E /* ObstacleSplashEmitter.sks in Resources */,
 				EE71EE081B09891000C89D4E /* starParticle.png in Resources */,
 				EE1FCA101AE311F4006DDC3B /* icebergs.atlas in Resources */,
 				EEC9DB821AA7B3480022CDF1 /* PlayerSplashDownEmitter.sks in Resources */,
 				EE8ED2261ACB2288007A3F3F /* penguin_black.atlas in Resources */,
 				EE34346F1AAA52ED0010BE71 /* platform_iceberg.png in Resources */,
+				EE5D8B641B47403E00A61B70 /* coin_sfx.wav in Resources */,
 				EED9305A1AF038DD00C5C972 /* fish.atlas in Resources */,
 				EED56A5C1AF1AB9D001C56EF /* coins.atlas in Resources */,
 				EEC225491B0FE0300098010C /* StarExplosion.sks in Resources */,
@@ -715,7 +721,6 @@
 				EEC9DB861AA7B5510022CDF1 /* SnowEmitter.sks in Resources */,
 				EEAE6FAA1AA68F9900215C7E /* BubbleEmitter.sks in Resources */,
 				41E4309A18B09E5200E1427D /* InfoPlist.strings in Resources */,
-				EEA27FDD1B2001EE007E7DC1 /* splash.m4a in Resources */,
 				EE5E21D41AC35F0400C9A310 /* waterParticle.png in Resources */,
 				EE71EE051B0987F600C89D4E /* StarEmitter.sks in Resources */,
 			);
@@ -725,15 +730,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE5D8B651B47403E00A61B70 /* coin_sfx.wav in Resources */,
 				EEC9DB831AA7B3480022CDF1 /* PlayerSplashDownEmitter.sks in Resources */,
 				41E430EF18B09E8600E1427D /* Images.xcassets in Resources */,
 				EEC2254A1B0FE0300098010C /* StarExplosion.sks in Resources */,
 				EEAE6F9D1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks in Resources */,
 				41E430DD18B09E8600E1427D /* InfoPlist.strings in Resources */,
+				EE5D8B6B1B47455600A61B70 /* fish_sfx.wav in Resources */,
 				EEAE6FA51AA68B8B00215C7E /* ObstacleSplashEmitter.sks in Resources */,
 				EE168C8F1A97C952005403E6 /* Fipps-Regular.otf in Resources */,
 				EEAE6FAB1AA68F9900215C7E /* BubbleEmitter.sks in Resources */,
-				EEA27FDE1B2001EE007E7DC1 /* splash.m4a in Resources */,
 				EEC9DB871AA7B5510022CDF1 /* SnowEmitter.sks in Resources */,
 				41E430E518B09E8600E1427D /* MainMenu.xib in Resources */,
 			);

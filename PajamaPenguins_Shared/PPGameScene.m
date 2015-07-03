@@ -135,6 +135,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 @property (nonatomic) SKNode *worldNode;
 @property (nonatomic) SKNode *hudNode;
 @property (nonatomic) SKNode *gameOverNode;
+
 @end
 
 @implementation PPGameScene {
@@ -615,6 +616,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
             [coin setPosition:[self.worldNode convertPoint:[[self currentPlayer] position] toNode:self]];
             [self.hudNode addChild:coin];
             
+            [self runAction:[PPSharedAssets sharedCoinSFX]];
             [self popCircleOnNode:[self currentPlayer] color:[SKColor colorWithRed:0.935 green:0.744 blue:0.042 alpha:1.000]];
             
             [coin runAction:[SKAction moveTo:[self getScoreCoin].position duration:0.3] completion:^{
@@ -721,6 +723,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
                 [self adjustBoostMeter:0.10];
             }
             
+            [self runAction:[PPSharedAssets sharedFishSFX]];
             [self popCircleOnNode:[self currentPlayer] color:fish.color];
             
             [fish removeFromParent];

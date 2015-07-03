@@ -81,22 +81,6 @@ CGFloat const kAnimationMoveDistance = 10;
 }
 
 - (void)testStuff {
-
-    SKSpriteNode *nightSky = [SKSpriteNode spriteNodeWithColor:[SKColor colorWithRed:0.166 green:0.241 blue:0.410 alpha:1.000] size:self.size];
-    [nightSky setAlpha:0];
-    [self addChild:nightSky];
-    [nightSky runAction:[SKAction fadeInWithDuration:10] completion:^{
-        [nightSky runAction:[SKAction fadeOutWithDuration:10]];
-    }];
-    
-    
-//    SSKColorNode *sky = [SSKColorNode nodeWithRed:110 green:200 blue:253 size:self.size];
-//    [self addChild:sky];
-//    
-//    [sky crossFadeToRed:55 green:58 blue:175 duration:10 completion:^{
-//        [sky crossFadeToRed:110 green:200 blue:253 duration:10 completion:^{
-//        }];
-//    }];
 }
 
 #pragma mark - Scene Construction

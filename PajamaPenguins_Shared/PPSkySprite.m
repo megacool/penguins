@@ -19,27 +19,18 @@
     SKColor *skyColor;
     
     switch (skyType) {
-            
-        case SkyTypeAfternoon:
-            skyColor = [SKColor skyAfternoon];
+        case SkyTypeDay: {
+            skyColor = [SKColor skyDay];
             break;
-            
-        case SkyTypeMorning:
-            skyColor = [SKColor skyMorning];
-            break;
-            
-        case SkyTypeSunset:
-            skyColor = [SKColor skySunset];
-            break;
-            
-        case SkyTypeNight:
+        }
+        case SkyTypeNight: {
             skyColor = [SKColor skyNight];
             break;
-            
-        default:
+        }
+        default: {
             break;
+        }
     }
-    
     return skyColor;
 }
 

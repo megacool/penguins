@@ -16,7 +16,7 @@
 }
 
 - (instancetype)initWithStartPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint depth:(CGFloat)depth  {
-    self = [super initWithStartPoint:startPoint endPoint:endPoint depth:depth color:[SKColor waterAfternoon]];
+    self = [super initWithStartPoint:startPoint endPoint:endPoint depth:depth color:[SKColor water]];
     if (self) {
         [self setSplashDamping:.05];
         [self setSplashTension:.005];
