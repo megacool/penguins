@@ -17,7 +17,7 @@
     [Megacool startWithAppConfig:@"pajama.8yXXNXRUSjDTUVQ9ajUC"];
     //[[Megacool sharedMegacool] setFrameRate:5];
     //[[Megacool sharedMegacool] setMaxFrames:25];
-    //[[Megacool sharedMegacool] setLastFrameDelay:2];
+    [[Megacool sharedMegacool] setLastFrameDelay:1.5];
     //[[Megacool sharedMegacool] setPlaybackFrameRate:25];
     //[[Megacool sharedMegacool] setSharingText:@"Try to beat my score!"];
     
