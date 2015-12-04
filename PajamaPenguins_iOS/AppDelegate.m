@@ -24,9 +24,14 @@
     return YES;
 }
 
+//iOS 8+ deep link handler
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(nonnull NSDictionary<NSString *,id> *)options{
-    // pass the url to the handle deep link call
-    
+    [Megacool handleDeepLink:url];
+    return YES;
+}
+
+//iOS 7 deep link handler
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
     [Megacool handleDeepLink:url];
     return YES;
 }
@@ -34,7 +39,7 @@
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
     return [Megacool continueUserActivity:userActivity];
 }
-							
+
 - (void)applicationWillResignActive:(UIApplication *)application {
 }
 
