@@ -777,11 +777,11 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 
 #pragma mark - Circle Pop Animation
 - (void)popCircleOnNode:(SKSpriteNode*)node color:(SKColor*)color {
-    //PPCircleNode *circle = [PPCircleNode shapeNodeWithCircleOfRadius:node.size.width/4];
-    //[circle setZPosition:SceneLayerPopCircle];
-    //[circle setFillColor:color];
-    //[node addChild:circle];
-    //[circle expandAndFade];
+    PPCircleNode *circle = [PPCircleNode shapeNodeWithCircleOfRadius:node.size.width/4];
+    [circle setZPosition:SceneLayerPopCircle];
+    [circle setFillColor:color];
+    [node addChild:circle];
+    [circle expandAndFade];
 }
 
 #pragma mark - Penguin Types
