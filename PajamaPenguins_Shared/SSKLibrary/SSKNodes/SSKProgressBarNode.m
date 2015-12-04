@@ -42,10 +42,10 @@
         [self.bar setPosition:CGPointMake(-size.width/2, -size.height/2)];
         [self addChild:self.bar];
         
-        self.barFrame = [SKShapeNode shapeNodeWithRect:CGRectMake(-size.width/2, -size.height/2, size.width, size.height)];
-        [self.barFrame setStrokeColor:frameColor];
-        [self.barFrame setLineWidth:2];
-        [self addChild:self.barFrame];
+        //self.barFrame = [SKShapeNode shapeNodeWithRect:CGRectMake(-size.width/2, -size.height/2, size.width, size.height)];
+        //[self.barFrame setStrokeColor:frameColor];
+        //[self.barFrame setLineWidth:2];
+        //[self addChild:self.barFrame];
     }
     
     return self;

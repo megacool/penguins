@@ -30,6 +30,7 @@ typedef void (^AssetCompletionHandler)(void);
 
 // Button Textures
 + (SKTextureAtlas*)sharedButtonAtlas;
++ (SKTexture*)sharedButtonPause;
 + (SKTexture*)sharedButtonHome;
 + (SKTexture*)sharedButtonPlay;
 

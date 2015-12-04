@@ -7,4 +7,7 @@
 #import "SSKScene.h"
 
 @interface PPGameScene : SSKScene
+
+@property (nonatomic) UIViewController *viewController;
+
 @end

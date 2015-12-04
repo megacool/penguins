@@ -9,4 +9,7 @@
 #import "SSKScene.h"
 
 @interface PPMenuScene : SSKScene
+
+@property (nonatomic) UIViewController *viewController;
+
 @end

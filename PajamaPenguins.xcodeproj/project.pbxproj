@@ -22,6 +22,13 @@
 		41E430E518B09E8600E1427D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41E430E418B09E8600E1427D /* MainMenu.xib */; };
 		41E430EA18B09E8600E1427D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 41E430E918B09E8600E1427D /* AppDelegate.m */; };
 		41E430EF18B09E8600E1427D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E430EE18B09E8600E1427D /* Images.xcassets */; };
+		5A3C03D41C0BF2F600E8F49B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A3C03D31C0BF2F600E8F49B /* AVFoundation.framework */; };
+		5A3C03D61C0BF30300E8F49B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A3C03D51C0BF30300E8F49B /* CoreMedia.framework */; };
+		5A3C03D81C0BF30F00E8F49B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A3C03D71C0BF30F00E8F49B /* CoreVideo.framework */; };
+		5A3C03DA1C0BF32200E8F49B /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A3C03D91C0BF32200E8F49B /* ImageIO.framework */; };
+		5A3C03DC1C0BF32E00E8F49B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A3C03DB1C0BF32E00E8F49B /* MobileCoreServices.framework */; };
+		5A3C03DE1C0BF33900E8F49B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A3C03DD1C0BF33900E8F49B /* QuartzCore.framework */; };
+		5AF5A04D1C114D11004DDB58 /* Megacool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AF5A04C1C114D11004DDB58 /* Megacool.framework */; };
 		EE0F00781AB534B40067CD38 /* SSKUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0F00771AB534B40067CD38 /* SSKUtils.m */; };
 		EE0F00791AB534B40067CD38 /* SSKUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0F00771AB534B40067CD38 /* SSKUtils.m */; };
 		EE168C8E1A97C952005403E6 /* Fipps-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE168C8D1A97C952005403E6 /* Fipps-Regular.otf */; };
@@ -142,6 +149,14 @@
 		41E430E918B09E8600E1427D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		41E430EB18B09E8600E1427D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		41E430EE18B09E8600E1427D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		5A3C03D31C0BF2F600E8F49B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		5A3C03D51C0BF30300E8F49B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		5A3C03D71C0BF30F00E8F49B /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		5A3C03D91C0BF32200E8F49B /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		5A3C03DB1C0BF32E00E8F49B /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		5A3C03DD1C0BF33900E8F49B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		5A3C03E11C0BFBF200E8F49B /* PajamaPenguins_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PajamaPenguins_iOS.entitlements; sourceTree = "<group>"; };
+		5AF5A04C1C114D11004DDB58 /* Megacool.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Megacool.framework; sourceTree = "<group>"; };
 		EE0F00761AB534B40067CD38 /* SSKUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKUtils.h; sourceTree = "<group>"; };
 		EE0F00771AB534B40067CD38 /* SSKUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKUtils.m; sourceTree = "<group>"; };
 		EE168C811A96A51D005403E6 /* SKColor+SFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKColor+SFAdditions.h"; sourceTree = "<group>"; };
@@ -250,10 +265,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A3C03DE1C0BF33900E8F49B /* QuartzCore.framework in Frameworks */,
+				5A3C03DC1C0BF32E00E8F49B /* MobileCoreServices.framework in Frameworks */,
+				5A3C03DA1C0BF32200E8F49B /* ImageIO.framework in Frameworks */,
+				41E4308E18B09E5200E1427D /* Foundation.framework in Frameworks */,
+				5A3C03D81C0BF30F00E8F49B /* CoreVideo.framework in Frameworks */,
+				5AF5A04D1C114D11004DDB58 /* Megacool.framework in Frameworks */,
+				5A3C03D61C0BF30300E8F49B /* CoreMedia.framework in Frameworks */,
+				5A3C03D41C0BF2F600E8F49B /* AVFoundation.framework in Frameworks */,
 				41E4309018B09E5200E1427D /* CoreGraphics.framework in Frameworks */,
 				41E4309218B09E5200E1427D /* UIKit.framework in Frameworks */,
 				41E4309418B09E5200E1427D /* SpriteKit.framework in Frameworks */,
-				41E4308E18B09E5200E1427D /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +293,7 @@
 		41E4308118B09E5200E1427D = {
 			isa = PBXGroup;
 			children = (
+				5A3C03E11C0BFBF200E8F49B /* PajamaPenguins_iOS.entitlements */,
 				41E4310818B09ED200E1427D /* Shared */,
 				41E4309518B09E5200E1427D /* iOS */,
 				41E430D818B09E8600E1427D /* OS X */,
@@ -291,6 +314,13 @@
 		41E4308C18B09E5200E1427D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5AF5A04C1C114D11004DDB58 /* Megacool.framework */,
+				5A3C03DD1C0BF33900E8F49B /* QuartzCore.framework */,
+				5A3C03DB1C0BF32E00E8F49B /* MobileCoreServices.framework */,
+				5A3C03D91C0BF32200E8F49B /* ImageIO.framework */,
+				5A3C03D71C0BF30F00E8F49B /* CoreVideo.framework */,
+				5A3C03D51C0BF30300E8F49B /* CoreMedia.framework */,
+				5A3C03D31C0BF2F600E8F49B /* AVFoundation.framework */,
 				41E4308D18B09E5200E1427D /* Foundation.framework */,
 				41E4308F18B09E5200E1427D /* CoreGraphics.framework */,
 				41E4309118B09E5200E1427D /* UIKit.framework */,
@@ -672,11 +702,16 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SSK;
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Skye Freeman";
 				TargetAttributes = {
 					41E4308918B09E5200E1427D = {
-						DevelopmentTeam = DNM8FCEPB5;
+						DevelopmentTeam = 2TP647XZJ2;
+						SystemCapabilities = {
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -889,6 +924,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -948,12 +984,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = PajamaPenguins_iOS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PajamaPenguins_iOS/PajamaPenguins-Prefix.pch";
 				INFOPLIST_FILE = "PajamaPenguins_iOS/PajamaPenguins-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.megacool.pajamapenguins;
 				PRODUCT_NAME = PajamaPenguins_iOS;
+				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -963,12 +1009,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = PajamaPenguins_iOS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PajamaPenguins_iOS/PajamaPenguins-Prefix.pch";
 				INFOPLIST_FILE = "PajamaPenguins_iOS/PajamaPenguins-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.megacool.pajamapenguins;
 				PRODUCT_NAME = PajamaPenguins_iOS;
+				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -992,6 +1048,7 @@
 				INFOPLIST_FILE = "PajamaPenguins_Mac/PajamaPenguinsMac-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.SkyeFreeman.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = PajamaPenguins_Mac;
 				SDKROOT = macosx;
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
@@ -1014,6 +1071,7 @@
 				GCC_PREFIX_HEADER = "PajamaPenguins_Mac/PajamaPenguinsMac-Prefix.pch";
 				INFOPLIST_FILE = "PajamaPenguins_Mac/PajamaPenguinsMac-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.SkyeFreeman.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = PajamaPenguins_Mac;
 				SDKROOT = macosx;
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;

@@ -192,10 +192,10 @@ CGFloat const kAnimationMoveDistance = 10;
 
 - (SKLabelNode*)newTitleLabel {
     SKLabelNode *label = [SKLabelNode labelNodeWithFontNamed:@"AmericanTypewriter"];
-    [label setText:@"Pajama Penguins"];
+    [label setText:@"Megacool Penguins"];
     [label setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeCenter];
     [label setVerticalAlignmentMode:SKLabelVerticalAlignmentModeCenter];
-    [label setFontSize:35];
+    [label setFontSize:33];
     [label setFontColor:[SKColor whiteColor]];
     [label setPosition:CGPointMake(0, (self.size.height/8 * 3) + kAnimationMoveDistance)];
     [label setName:@"titleLabel"];
@@ -383,7 +383,8 @@ CGFloat const kAnimationMoveDistance = 10;
 #pragma mark - Transitioning scenes
 - (void)transitionGameScene {
     [PPGameScene loadSceneAssetsWithCompletionHandler:^{
-        SKScene *gameScene = [PPGameScene sceneWithSize:self.size];
+        PPGameScene *gameScene = [PPGameScene sceneWithSize:self.size];
+        gameScene.viewController = self.viewController;
         SKTransition *fade = [SKTransition fadeWithColor:[SKColor whiteColor] duration:1];
         [self.view presentScene:gameScene transition:fade];
     }];

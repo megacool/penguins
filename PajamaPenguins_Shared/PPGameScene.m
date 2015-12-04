@@ -35,6 +35,8 @@
 #import "SSKScoreNode.h"
 #import "SSKGraphicsUtils.h"
 
+#import <Megacool/Megacool.h>
+
 typedef enum {
     PreGame,
     Playing,
@@ -136,6 +138,9 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 @property (nonatomic) SKNode *hudNode;
 @property (nonatomic) SKNode *gameOverNode;
 
+// GIF Preview
+@property (nonatomic) UIImageView *gifImageView;
+
 @end
 
 @implementation PPGameScene {
@@ -146,6 +151,8 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     CGFloat _playerStarBirthrate;
     
     BOOL _gamePaused;
+    
+    BOOL addedToSubview;
     
     NSUInteger _currentParallaxMultiplier;
 }
@@ -277,7 +284,9 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     
     CGFloat padding = 5.0;
 
-    SSKButtonNode *pauseButton = [SSKButtonNode buttonWithCircleOfRadius:10 idleFillColor:[SKColor whiteColor] selectedFillColor:[SKColor grayColor]];
+    SSKButtonNode *pauseButton = [SSKButtonNode buttonWithTexture:[PPSharedAssets sharedButtonPause]
+                                                      idleSize:CGSizeMake(kButtonIdleWidth/2, kButtonIdleWidth/2)
+                                                  selectedSize:CGSizeMake(kButtonSelectedWidth/2, kButtonSelectedWidth/2)];
     [pauseButton setPosition:CGPointMake(self.size.width/2 - pauseButton.size.width/2 - padding, -self.size.height/2 + pauseButton.size.height/2 + padding)];
     [pauseButton setTouchUpInsideTarget:self selector:@selector(pauseButtonTouched)];
     [self.hudNode addChild:pauseButton];
@@ -355,10 +364,28 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     // Buttons
     [self.gameOverNode addChild:[self menuButton]];
     [self.gameOverNode addChild:[self retryButton]];
+    
+    //Render Preview of GIF
+    int screenCenter = self.view.bounds.size.width/2;
+    int previewCenter = self.view.bounds.size.width/8;
+    
+
+    self.gifImageView = [[Megacool sharedMegacool] renderPreviewOfGifWithFrame:CGRectMake(screenCenter-previewCenter,
+                                                                                               self.view.bounds.size.height*0.7,
+                                                                                               self.view.bounds.size.width/4,
+                                                                                               self.view.bounds.size.height/4)];
+    self.gifImageView.layer.borderColor = [[UIColor whiteColor] CGColor];
+    self.gifImageView.layer.borderWidth = 1;
+    
+    [self.view addSubview:self.gifImageView];
+    
+    [self.gifImageView startAnimating];
 }
+
 
 - (void)gameOverFadeInAnimation {
     [self.gameOverNode runAction:[SKAction moveDistance:CGVectorMake(kMoveAndFadeLongDistance, 0) fadeInWithDuration:kMoveAndFadeTime]];
+        
 }
 
 #pragma mark - GameState Playing
@@ -375,6 +402,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     [self startCoinSpawnIntervals];
     
     [self startScoreCounter];
+    
 }
 
 - (void)startGameAnimations {
@@ -415,6 +443,15 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 
     [self createGameOverLayer];
     [self gameOverFadeInAnimation];
+    
+    //Stop Recording
+    [NSTimer scheduledTimerWithTimeInterval:0.4f target:self selector:@selector(stopRecording:) userInfo:nil repeats:NO];
+    
+}
+
+- (void)stopRecording:(NSTimer *)timer {
+    
+    [[Megacool sharedMegacool] stopRecording];
 }
 
 - (void)resetGame {
@@ -452,7 +489,8 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 }
 
 - (void)menuButtonTouched {
-    [self loadMenuScene];
+    [[Megacool sharedMegacool] openShareModalIn:self.viewController];
+
     [[PPBackgroundManager sharedManager] incrementDay];
 }
 
@@ -471,6 +509,12 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 - (void)retryButtonTouched {
     [self resetGame];
     [[PPBackgroundManager sharedManager] incrementDay];
+    
+    // Hide GIF Rendering View
+    if(self.gifImageView != nil){
+        [self.gifImageView removeFromSuperview];
+        self.gifImageView = nil;
+    }
 }
 
 #pragma mark - Pause Button
@@ -733,11 +777,11 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 
 #pragma mark - Circle Pop Animation
 - (void)popCircleOnNode:(SKSpriteNode*)node color:(SKColor*)color {
-    PPCircleNode *circle = [PPCircleNode shapeNodeWithCircleOfRadius:node.size.width/4];
-    [circle setZPosition:SceneLayerPopCircle];
-    [circle setFillColor:color];
-    [node addChild:circle];
-    [circle expandAndFade];
+    //PPCircleNode *circle = [PPCircleNode shapeNodeWithCircleOfRadius:node.size.width/4];
+    //[circle setZPosition:SceneLayerPopCircle];
+    //[circle setFillColor:color];
+    //[node addChild:circle];
+    //[circle expandAndFade];
 }
 
 #pragma mark - Penguin Types
@@ -970,6 +1014,11 @@ NSString * const kFishMoveKey = @"fishMoveKey";
     NSInteger currentScore = [(SSKScoreNode*)[self.hudNode childNodeWithName:@"scoreCounter"] count];
     NSInteger highScore = [[PPUserManager sharedManager] getHighScore].integerValue;
     
+    //Add Custom Sharing Text WITH Current Score
+    NSString *customText = [NSString stringWithFormat:@"Try to beat my #megacool score: %li",(long)currentScore];
+    [[Megacool sharedMegacool] setSharingText:customText];
+
+    
     if (currentScore > highScore) {
         [[PPUserManager sharedManager] saveHighScore:[NSNumber numberWithInteger:currentScore]];
         [self highScoreAnimation];
@@ -1186,6 +1235,7 @@ NSString * const kFishMoveKey = @"fishMoveKey";
 - (void)interactionBeganAtPosition:(CGPoint)position {
     if (self.gameState == PreGame) {
         [self gameStart];
+        [[Megacool sharedMegacool] startRecording:self.view];
     }
     
     if (self.gameState == Playing && !_gamePaused) {

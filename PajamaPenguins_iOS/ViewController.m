@@ -31,13 +31,15 @@
             NSLog(@"Loading Complete.");
             
             // Present Scene
-            SKScene *scene = [PPMenuScene sceneWithSize:skView.bounds.size];
+            PPMenuScene *scene = [PPMenuScene sceneWithSize:skView.bounds.size];
             scene.scaleMode = SKSceneScaleModeAspectFill;
+            scene.viewController = self;
             [skView presentScene:scene transition:[SKTransition moveInWithDirection:SKTransitionDirectionRight duration:1]];
             
             // Remove loading icon
             [self.activityIndicator stopAnimating];
             [self.activityIndicator removeFromSuperview];
+            
         }];
     }
     
