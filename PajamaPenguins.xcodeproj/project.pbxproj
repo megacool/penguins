@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2157F58F1D78AC7D00CB3A03 /* Megacool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2157F58E1D78AC7D00CB3A03 /* Megacool.framework */; };
+		21B0EDE11D78E5FB00AAF16E /* cat.gif in Resources */ = {isa = PBXBuildFile; fileRef = 21B0EDE01D78E5FB00AAF16E /* cat.gif */; };
+		21B0EDE31D7902E900AAF16E /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B0EDE21D7902E900AAF16E /* SafariServices.framework */; };
 		41E4308E18B09E5200E1427D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41E4308D18B09E5200E1427D /* Foundation.framework */; };
 		41E4309018B09E5200E1427D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41E4308F18B09E5200E1427D /* CoreGraphics.framework */; };
 		41E4309218B09E5200E1427D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41E4309118B09E5200E1427D /* UIKit.framework */; };
@@ -28,7 +31,6 @@
 		5A3C03DA1C0BF32200E8F49B /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A3C03D91C0BF32200E8F49B /* ImageIO.framework */; };
 		5A3C03DC1C0BF32E00E8F49B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A3C03DB1C0BF32E00E8F49B /* MobileCoreServices.framework */; };
 		5A3C03DE1C0BF33900E8F49B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A3C03DD1C0BF33900E8F49B /* QuartzCore.framework */; };
-		5AF5A04D1C114D11004DDB58 /* Megacool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AF5A04C1C114D11004DDB58 /* Megacool.framework */; };
 		EE0F00781AB534B40067CD38 /* SSKUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0F00771AB534B40067CD38 /* SSKUtils.m */; };
 		EE0F00791AB534B40067CD38 /* SSKUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0F00771AB534B40067CD38 /* SSKUtils.m */; };
 		EE168C8E1A97C952005403E6 /* Fipps-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE168C8D1A97C952005403E6 /* Fipps-Regular.otf */; };
@@ -124,6 +126,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2157F58E1D78AC7D00CB3A03 /* Megacool.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Megacool.framework; sourceTree = "<group>"; };
+		21B0EDE01D78E5FB00AAF16E /* cat.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = cat.gif; sourceTree = "<group>"; };
+		21B0EDE21D7902E900AAF16E /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		41E4308A18B09E5200E1427D /* PajamaPenguins_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PajamaPenguins_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E4308D18B09E5200E1427D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		41E4308F18B09E5200E1427D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -156,7 +161,6 @@
 		5A3C03DB1C0BF32E00E8F49B /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		5A3C03DD1C0BF33900E8F49B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5A3C03E11C0BFBF200E8F49B /* PajamaPenguins_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PajamaPenguins_iOS.entitlements; sourceTree = "<group>"; };
-		5AF5A04C1C114D11004DDB58 /* Megacool.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Megacool.framework; sourceTree = "<group>"; };
 		EE0F00761AB534B40067CD38 /* SSKUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKUtils.h; sourceTree = "<group>"; };
 		EE0F00771AB534B40067CD38 /* SSKUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKUtils.m; sourceTree = "<group>"; };
 		EE168C811A96A51D005403E6 /* SKColor+SFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKColor+SFAdditions.h"; sourceTree = "<group>"; };
@@ -265,12 +269,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21B0EDE31D7902E900AAF16E /* SafariServices.framework in Frameworks */,
 				5A3C03DE1C0BF33900E8F49B /* QuartzCore.framework in Frameworks */,
 				5A3C03DC1C0BF32E00E8F49B /* MobileCoreServices.framework in Frameworks */,
 				5A3C03DA1C0BF32200E8F49B /* ImageIO.framework in Frameworks */,
 				41E4308E18B09E5200E1427D /* Foundation.framework in Frameworks */,
 				5A3C03D81C0BF30F00E8F49B /* CoreVideo.framework in Frameworks */,
-				5AF5A04D1C114D11004DDB58 /* Megacool.framework in Frameworks */,
+				2157F58F1D78AC7D00CB3A03 /* Megacool.framework in Frameworks */,
 				5A3C03D61C0BF30300E8F49B /* CoreMedia.framework in Frameworks */,
 				5A3C03D41C0BF2F600E8F49B /* AVFoundation.framework in Frameworks */,
 				41E4309018B09E5200E1427D /* CoreGraphics.framework in Frameworks */,
@@ -314,7 +319,8 @@
 		41E4308C18B09E5200E1427D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5AF5A04C1C114D11004DDB58 /* Megacool.framework */,
+				21B0EDE21D7902E900AAF16E /* SafariServices.framework */,
+				2157F58E1D78AC7D00CB3A03 /* Megacool.framework */,
 				5A3C03DD1C0BF33900E8F49B /* QuartzCore.framework */,
 				5A3C03DB1C0BF32E00E8F49B /* MobileCoreServices.framework */,
 				5A3C03D91C0BF32200E8F49B /* ImageIO.framework */,
@@ -452,6 +458,7 @@
 		EE5575ED1A5A10B600B87145 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				21B0EDE01D78E5FB00AAF16E /* cat.gif */,
 				EE3434791AABF4180010BE71 /* PPSharedAssets.h */,
 				EE34347A1AABF4180010BE71 /* PPSharedAssets.m */,
 				EED56A5B1AF1AB9D001C56EF /* coins.atlas */,
@@ -741,6 +748,7 @@
 			files = (
 				EE2C0F381A5A01D200B33834 /* Main_iPad.storyboard in Resources */,
 				EE2C0F371A5A01CD00B33834 /* Main_iPhone.storyboard in Resources */,
+				21B0EDE11D78E5FB00AAF16E /* cat.gif in Resources */,
 				EEAE6F9C1AA67A9C00215C7E /* PlayerSplashUpEmitter.sks in Resources */,
 				EE168C8E1A97C952005403E6 /* Fipps-Regular.otf in Resources */,
 				EEC9BA261AE89417006A7118 /* buttons.atlas in Resources */,

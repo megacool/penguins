@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Skye Freeman. All rights reserved.
 //
 
+#import "SFAudio.h"
 #import <Foundation/Foundation.h>
 #import <SpriteKit/SpriteKit.h>
-#import "SFAudio.h"
 
 @interface PPSharedAssets : NSObject
 
@@ -17,46 +17,48 @@ typedef void (^AssetCompletionHandler)(void);
 + (void)loadSharedAssetsWithCompletion:(AssetCompletionHandler)completion;
 
 // Clouds
-+ (SKTextureAtlas*)sharedCloudAtlas;
++ (SKTextureAtlas *)sharedCloudAtlas;
 
 // Iceberg Textures
-+ (SKTextureAtlas*)sharedIcebergAtlas;
-+ (SKTexture*)sharedIcebergMenuTexture;
-+ (SKTexture*)sharedIcebergGameTexture;
++ (SKTextureAtlas *)sharedIcebergAtlas;
++ (SKTexture *)sharedIcebergMenuTexture;
++ (SKTexture *)sharedIcebergGameTexture;
 
 // Coin Textures
-+ (NSArray*)sharedCoinTextures;
-+ (SKTextureAtlas*)sharedCoinAtlas;
++ (NSArray *)sharedCoinTextures;
++ (SKTextureAtlas *)sharedCoinAtlas;
 
 // Button Textures
-+ (SKTextureAtlas*)sharedButtonAtlas;
-+ (SKTexture*)sharedButtonPause;
-+ (SKTexture*)sharedButtonHome;
-+ (SKTexture*)sharedButtonPlay;
++ (SKTextureAtlas *)sharedButtonAtlas;
++ (SKTexture *)sharedButtonPause;
++ (SKTexture *)sharedButtonHome;
++ (SKTexture *)sharedButtonPlay;
++ (SKTexture *)sharedButtonInvite;
++ (SKTexture *)sharedButtonReset;
 
 // Penguins Textures
-+ (SKTextureAtlas*)sharedPenguinBlackTextures;
++ (SKTextureAtlas *)sharedPenguinBlackTextures;
 
 // Fish Textures
-+ (SKTextureAtlas*)sharedFishAtlas;
-+ (SKTexture*)sharedFishTexture;
-+ (SKTexture*)sharedFishBlueTexture;
-+ (SKTexture*)sharedFishGreenTexture;
-+ (SKTexture*)sharedFishMaroonTexture;
-+ (SKTexture*)sharedFishRedTexture;
++ (SKTextureAtlas *)sharedFishAtlas;
++ (SKTexture *)sharedFishTexture;
++ (SKTexture *)sharedFishBlueTexture;
++ (SKTexture *)sharedFishGreenTexture;
++ (SKTexture *)sharedFishMaroonTexture;
++ (SKTexture *)sharedFishRedTexture;
 
 // Emitters
-+ (SKEmitterNode*)sharedSnowEmitter;
-+ (SKEmitterNode*)sharedBubbleEmitter;
-+ (SKEmitterNode*)sharedPlayerSplashDownEmitter;
-+ (SKEmitterNode*)sharedPlayerSplashUpEmitter;
-+ (SKEmitterNode*)sharedStarEmitter;
-+ (SKEmitterNode*)sharedStarExplosionEmitter;
++ (SKEmitterNode *)sharedSnowEmitter;
++ (SKEmitterNode *)sharedBubbleEmitter;
++ (SKEmitterNode *)sharedPlayerSplashDownEmitter;
++ (SKEmitterNode *)sharedPlayerSplashUpEmitter;
++ (SKEmitterNode *)sharedStarEmitter;
++ (SKEmitterNode *)sharedStarExplosionEmitter;
 
 // Audio
-+ (SFAudio*)sharedSplashSFX;
-+ (SKAction*)sharedCoinSFX;
-+ (SKAction*)sharedFishSFX;
-+ (SKAction*)sharedPowerupSFX;
++ (SFAudio *)sharedSplashSFX;
++ (SKAction *)sharedCoinSFX;
++ (SKAction *)sharedFishSFX;
++ (SKAction *)sharedPowerupSFX;
 
 @end
