@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2157F58F1D78AC7D00CB3A03 /* Megacool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2157F58E1D78AC7D00CB3A03 /* Megacool.framework */; };
+		21397D041DB96409001D268B /* libMegacool.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21397CFF1DB96400001D268B /* libMegacool.a */; };
+		21397D071DB965B1001D268B /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 21397D061DB965B1001D268B /* libz.1.2.5.tbd */; };
 		21B0EDE11D78E5FB00AAF16E /* cat.gif in Resources */ = {isa = PBXBuildFile; fileRef = 21B0EDE01D78E5FB00AAF16E /* cat.gif */; };
 		21B0EDE31D7902E900AAF16E /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B0EDE21D7902E900AAF16E /* SafariServices.framework */; };
 		41E4308E18B09E5200E1427D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41E4308D18B09E5200E1427D /* Foundation.framework */; };
@@ -125,8 +126,33 @@
 		EEFA234E1A9D3B5E0003B009 /* SSKParallaxNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EEFA234C1A9D3B5E0003B009 /* SSKParallaxNode.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		21397CFE1DB96400001D268B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21397CF61DB96400001D268B /* Megacool.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 218D027E1BDFFBE900EEB4FE;
+			remoteInfo = Megacool;
+		};
+		21397D001DB96400001D268B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21397CF61DB96400001D268B /* Megacool.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 838C29B91C99DD690050C0C6;
+			remoteInfo = MegacoolTests;
+		};
+		21397D021DB96400001D268B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21397CF61DB96400001D268B /* Megacool.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 21397A621D64EB0E00E02EAE;
+			remoteInfo = "Megacool-Unity";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		2157F58E1D78AC7D00CB3A03 /* Megacool.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Megacool.framework; sourceTree = "<group>"; };
+		21397CF61DB96400001D268B /* Megacool.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Megacool.xcodeproj; path = "../../megacool-ios-sdk/Megacool/Megacool.xcodeproj"; sourceTree = "<group>"; };
+		21397D061DB965B1001D268B /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
 		21B0EDE01D78E5FB00AAF16E /* cat.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = cat.gif; sourceTree = "<group>"; };
 		21B0EDE21D7902E900AAF16E /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		41E4308A18B09E5200E1427D /* PajamaPenguins_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PajamaPenguins_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -269,13 +295,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21397D071DB965B1001D268B /* libz.1.2.5.tbd in Frameworks */,
+				21397D041DB96409001D268B /* libMegacool.a in Frameworks */,
 				21B0EDE31D7902E900AAF16E /* SafariServices.framework in Frameworks */,
 				5A3C03DE1C0BF33900E8F49B /* QuartzCore.framework in Frameworks */,
 				5A3C03DC1C0BF32E00E8F49B /* MobileCoreServices.framework in Frameworks */,
 				5A3C03DA1C0BF32200E8F49B /* ImageIO.framework in Frameworks */,
 				41E4308E18B09E5200E1427D /* Foundation.framework in Frameworks */,
 				5A3C03D81C0BF30F00E8F49B /* CoreVideo.framework in Frameworks */,
-				2157F58F1D78AC7D00CB3A03 /* Megacool.framework in Frameworks */,
 				5A3C03D61C0BF30300E8F49B /* CoreMedia.framework in Frameworks */,
 				5A3C03D41C0BF2F600E8F49B /* AVFoundation.framework in Frameworks */,
 				41E4309018B09E5200E1427D /* CoreGraphics.framework in Frameworks */,
@@ -295,6 +322,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		21397CF71DB96400001D268B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				21397CFF1DB96400001D268B /* libMegacool.a */,
+				21397D011DB96400001D268B /* MegacoolTests.xctest */,
+				21397D031DB96400001D268B /* libMegacool-Unity.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		41E4308118B09E5200E1427D = {
 			isa = PBXGroup;
 			children = (
@@ -319,8 +356,8 @@
 		41E4308C18B09E5200E1427D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				21397D061DB965B1001D268B /* libz.1.2.5.tbd */,
 				21B0EDE21D7902E900AAF16E /* SafariServices.framework */,
-				2157F58E1D78AC7D00CB3A03 /* Megacool.framework */,
 				5A3C03DD1C0BF33900E8F49B /* QuartzCore.framework */,
 				5A3C03DB1C0BF32E00E8F49B /* MobileCoreServices.framework */,
 				5A3C03D91C0BF32200E8F49B /* ImageIO.framework */,
@@ -338,6 +375,7 @@
 		41E4309518B09E5200E1427D /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				21397CF61DB96400001D268B /* Megacool.xcodeproj */,
 				41E430A718B09E5200E1427D /* ViewController.h */,
 				41E430A818B09E5200E1427D /* ViewController.m */,
 				41E4309E18B09E5200E1427D /* AppDelegate.h */,
@@ -733,6 +771,12 @@
 			mainGroup = 41E4308118B09E5200E1427D;
 			productRefGroup = 41E4308B18B09E5200E1427D /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 21397CF71DB96400001D268B /* Products */;
+					ProjectRef = 21397CF61DB96400001D268B /* Megacool.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				41E4308918B09E5200E1427D /* PajamaPenguins */,
@@ -740,6 +784,30 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		21397CFF1DB96400001D268B /* libMegacool.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMegacool.a;
+			remoteRef = 21397CFE1DB96400001D268B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		21397D011DB96400001D268B /* MegacoolTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = MegacoolTests.xctest;
+			remoteRef = 21397D001DB96400001D268B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		21397D031DB96400001D268B /* libMegacool-Unity.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libMegacool-Unity.a";
+			remoteRef = 21397D021DB96400001D268B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		41E4308818B09E5200E1427D /* Resources */ = {

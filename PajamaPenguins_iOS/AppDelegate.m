@@ -17,7 +17,7 @@
   [PPBackgroundManager sharedManager];
 
   [Megacool
-      startWithAppConfig:@"pajama.8yXXNXRUSjDTUVQ9ajUC"
+      startWithAppConfig:@"q1ZCkVCyUipIzErMTVTSUYIoUrKqhrOULCojIvwigkKDs1xCQsMCLROzQp2BKkEGKSXn6+Wmpicm5+fn6EHMKEjNSy8FOkSpthYA"
          andEventHandler:^(NSArray<MCLEvent *> *events) {
 
            for (MCLEvent *event in events) {
