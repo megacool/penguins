@@ -418,17 +418,23 @@ NSString *const kFishMoveKey = @"fishMoveKey";
 
   // Buttons
   [self.gameOverNode addChild:[self menuButton]];
+  [self.gameOverNode addChild:[self messengerButton]];
+  [self.gameOverNode addChild:[self twitterButton]];
+  [self.gameOverNode addChild:[self messagesButton]];
+  [self.gameOverNode addChild:[self mailButton]];
   [self.gameOverNode addChild:[self retryButton]];
 
   // Render Preview of GIF
   int screenCenter = self.view.bounds.size.width / 2;
   int previewCenter = self.view.bounds.size.width / 8;
 
-  self.gifImageView = [[Megacool sharedMegacool]
-      renderPreviewOfGifWithFrame:CGRectMake(screenCenter - previewCenter,
-                                             self.view.bounds.size.height * 0.7,
-                                             self.view.bounds.size.width / 4,
-                                             self.view.bounds.size.height / 4)];
+  self.gifImageView = [[Megacool sharedMegacool] renderPreviewOfGifWithConfig:@{
+    kMCLConfigPreviewFrameKey :
+        [NSValue valueWithCGRect:CGRectMake(screenCenter - previewCenter,
+                                            self.view.bounds.size.height * 0.5,
+                                            self.view.bounds.size.width / 4,
+                                            self.view.bounds.size.height / 4)]
+  }];
   self.gifImageView.layer.borderColor = [[UIColor whiteColor] CGColor];
   self.gifImageView.layer.borderWidth = 1;
 
@@ -544,22 +550,105 @@ NSString *const kFishMoveKey = @"fishMoveKey";
            }];
 }
 
-#pragma mark - Menu Button
+- (PPButtonNode *)messengerButton {
+  PPButtonNode *button =
+      [PPButtonNode buttonWithTexture:[PPSharedAssets sharedButtonMessenger]
+                             idleSize:CGSizeMake(60, 60)
+                         selectedSize:CGSizeMake(50, 50)];
+
+  [button setTouchUpInsideTarget:self
+                        selector:@selector(messengerButtonTouched)];
+  [button setPosition:CGPointMake(-124, -self.size.height / 3)];
+  [button setZPosition:SceneLayerButtons];
+  return button;
+}
+
+- (PPButtonNode *)twitterButton {
+  PPButtonNode *button =
+      [PPButtonNode buttonWithTexture:[PPSharedAssets sharedButtonTwitter]
+                             idleSize:CGSizeMake(60, 60)
+                         selectedSize:CGSizeMake(50, 50)];
+
+  [button setTouchUpInsideTarget:self selector:@selector(twitterButtonTouched)];
+  [button setPosition:CGPointMake(-62, -self.size.height / 3)];
+  [button setZPosition:SceneLayerButtons];
+  return button;
+}
+
+- (PPButtonNode *)messagesButton {
+  PPButtonNode *button =
+      [PPButtonNode buttonWithTexture:[PPSharedAssets sharedButtonMessages]
+                             idleSize:CGSizeMake(60, 60)
+                         selectedSize:CGSizeMake(50, 50)];
+
+  [button setTouchUpInsideTarget:self
+                        selector:@selector(messagesButtonTouched)];
+  [button setPosition:CGPointMake(0, -self.size.height / 3)];
+  [button setZPosition:SceneLayerButtons];
+  return button;
+}
+
+- (PPButtonNode *)mailButton {
+  PPButtonNode *button =
+      [PPButtonNode buttonWithTexture:[PPSharedAssets sharedButtonMail]
+                             idleSize:CGSizeMake(60, 60)
+                         selectedSize:CGSizeMake(50, 50)];
+
+  [button setTouchUpInsideTarget:self selector:@selector(mailButtonTouched)];
+  [button setPosition:CGPointMake(62, -self.size.height / 3)];
+  [button setZPosition:SceneLayerButtons];
+  return button;
+}
+
 - (PPButtonNode *)menuButton {
-  PPButtonNode *menuButton = [PPButtonNode
-      buttonWithTexture:[PPSharedAssets sharedButtonHome]
-               idleSize:CGSizeMake(kButtonIdleWidth, kButtonIdleWidth)
-           selectedSize:CGSizeMake(kButtonSelectedWidth, kButtonSelectedWidth)];
+  PPButtonNode *menuButton =
+      [PPButtonNode buttonWithTexture:[PPSharedAssets sharedButtonHome]
+                             idleSize:CGSizeMake(60, 60)
+                         selectedSize:CGSizeMake(50, 50)];
 
   [menuButton setTouchUpInsideTarget:self
-                            selector:@selector(menuButtonTouched)];
-  [menuButton
-      setPosition:CGPointMake(-kButtonIdleWidth, -self.size.height / 7)];
+                            selector:@selector(generalButtonTouched)];
+  [menuButton setPosition:CGPointMake(124, -self.size.height / 3)];
   [menuButton setZPosition:SceneLayerButtons];
   return menuButton;
 }
 
-- (void)menuButtonTouched {
+- (void)messengerButtonTouched {
+
+  MCLShare *share = [self createShareObject];
+  [[Megacool sharedMegacool]
+      presentShareToMessengerWithConfig:@{kMCLConfigShareKey : share}];
+}
+
+- (void)twitterButtonTouched {
+
+  MCLShare *share = [self createShareObject];
+  [[Megacool sharedMegacool]
+      presentShareToTwitterWithConfig:@{kMCLConfigShareKey : share}];
+}
+
+- (void)messagesButtonTouched {
+
+  MCLShare *share = [self createShareObject];
+  [[Megacool sharedMegacool]
+      presentShareToMessagesWithConfig:@{kMCLConfigShareKey : share}];
+}
+
+- (void)mailButtonTouched {
+
+  MCLShare *share = [self createShareObject];
+  [[Megacool sharedMegacool]
+      presentShareToMailWithConfig:@{kMCLConfigShareKey : share}];
+}
+
+- (void)generalButtonTouched {
+
+  MCLShare *share = [self createShareObject];
+  [[Megacool sharedMegacool]
+      presentShareWithConfig:@{kMCLConfigShareKey : share}];
+}
+
+- (MCLShare *)createShareObject {
 
   NSString *deviceName = [[UIDevice currentDevice] name];
   NSString *username = [[[[deviceName componentsSeparatedByString:@"'"]
@@ -583,10 +672,9 @@ NSString *const kFishMoveKey = @"fishMoveKey";
 
   [[Megacool sharedMegacool] setSharingText:@"No way you'll beat my score!"];
 
-  [[Megacool sharedMegacool] openShareModalIn:self.viewController
-                                   withConfig:@{kMCLConfigShareKey : share}];
-
   [[PPBackgroundManager sharedManager] incrementDay];
+
+  return share;
 }
 
 #pragma mark - Retry Button
@@ -599,7 +687,7 @@ NSString *const kFishMoveKey = @"fishMoveKey";
   [retryButton setTouchUpInsideTarget:self
                              selector:@selector(retryButtonTouched)];
   [retryButton
-      setPosition:CGPointMake(kButtonIdleWidth, -self.size.height / 7)];
+      setPosition:CGPointMake(kButtonIdleWidth * 1.2, -self.size.height / 7)];
   [retryButton setZPosition:SceneLayerButtons];
   return retryButton;
 }

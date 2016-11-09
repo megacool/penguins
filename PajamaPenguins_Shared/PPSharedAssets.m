@@ -19,6 +19,10 @@
     // Buttons
     sButtonAtlas = [SKTextureAtlas atlasNamed:@"buttons"];
     sButtonHome = [sButtonAtlas textureNamed:@"button_home"];
+    sButtonMessenger = [sButtonAtlas textureNamed:@"button_messenger"];
+    sButtonMail = [sButtonAtlas textureNamed:@"button_mail"];
+    sButtonMessages = [sButtonAtlas textureNamed:@"button_messages"];
+    sButtonTwitter = [sButtonAtlas textureNamed:@"button_twitter"];
     sButtonPlay = [sButtonAtlas textureNamed:@"button_play"];
     sButtonPause = [sButtonAtlas textureNamed:@"button_pause"];
     sButtonInvite = [sButtonAtlas textureNamed:@"button_invite"];
@@ -128,6 +132,26 @@ static SKTexture *sButtonPause = nil;
 static SKTexture *sButtonHome = nil;
 + (SKTexture *)sharedButtonHome {
   return sButtonHome;
+}
+
+static SKTexture *sButtonMessenger = nil;
++ (SKTexture *)sharedButtonMessenger {
+  return sButtonMessenger;
+}
+
+static SKTexture *sButtonMail = nil;
++ (SKTexture *)sharedButtonMail {
+  return sButtonMail;
+}
+
+static SKTexture *sButtonMessages = nil;
++ (SKTexture *)sharedButtonMessages {
+  return sButtonMessages;
+}
+
+static SKTexture *sButtonTwitter = nil;
++ (SKTexture *)sharedButtonTwitter {
+  return sButtonTwitter;
 }
 
 static SKTexture *sButtonPlay = nil;

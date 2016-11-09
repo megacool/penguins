@@ -571,6 +571,10 @@ CGFloat const kAnimationMoveDistance = 10;
 
   NSURL *URL = (NSURL *)notification.object;
 
+  if (!URL) {
+    return;
+  }
+
   NSURLComponents *urlComponents =
       [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
 
